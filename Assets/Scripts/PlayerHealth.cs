@@ -14,7 +14,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         // Auto-find the slider in the scene if it's null
         if (healthSlider == null)
         {
+#if UNITY_2023_1_OR_NEWER
+            healthSlider = FindFirstObjectByType<Slider>();
+#else
             healthSlider = FindObjectOfType<Slider>();
+#endif
             if (healthSlider != null)
                 Debug.Log("HealthSlider auto-assigned: " + healthSlider.name);
             else
@@ -49,6 +53,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0)
             Die();
+    }
+
+    public void Heal(int amount)
+    {
+        if (amount <= 0) return;
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        if (healthSlider != null)
+            healthSlider.value = currentHealth;
+        Debug.Log($"{name} healed {amount}. Current health: {currentHealth}/{maxHealth}");
     }
 
     // Support legacy SendMessage("ApplyDamage", amount) calls from other scripts/animations

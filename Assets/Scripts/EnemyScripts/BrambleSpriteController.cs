@@ -53,6 +53,18 @@ public class BrambleSpriteController : MonoBehaviour
     [Header("Root Motion")]
     public bool useRootMotion = false;
 
+    [Header("Abilities")]
+    public GameObject thornPrefab;
+    public Transform thornSpawnPoint;
+    public int thornDamage = 8;
+    public float thornSpeed = 14f;
+    public float thornLifeTime = 5f;
+
+    public GameObject snareVFXPrefab;
+    public Transform snareVFXAnchor;
+    public float snareSlowMultiplier = 0.5f;
+    public float snareDuration = 2f;
+
     // ── State ──
     public EnemyState currentState = EnemyState.Patrol;
     private bool battleStarted = false;
@@ -458,6 +470,57 @@ public class BrambleSpriteController : MonoBehaviour
             DealDamageToPlayer(comboDamage);
     }
     public void OnAttack2Hit() => OnComboHit();
+
+    public void OnSnareCast()
+    {
+        if (player == null) return;
+
+        PlayerMovement movement = player.GetComponent<PlayerMovement>();
+        if (movement != null)
+            movement.ApplySpeedDebuff(snareSlowMultiplier, snareDuration);
+
+        if (snareVFXPrefab != null && snareVFXAnchor != null)
+        {
+            GameObject vfx = Instantiate(snareVFXPrefab, snareVFXAnchor.position, snareVFXAnchor.rotation);
+            vfx.transform.SetParent(snareVFXAnchor);
+            Destroy(vfx, snareDuration + 0.1f);
+        }
+
+        Debug.Log("[BrambleSprite] Snare applied to player.");
+    }
+
+    public void OnThornToss()
+    {
+        if (thornPrefab == null || thornSpawnPoint == null || player == null)
+            return;
+
+        GameObject thorn = Instantiate(thornPrefab, thornSpawnPoint.position, thornSpawnPoint.rotation);
+        Vector3 direction = player.position - thornSpawnPoint.position;
+
+        Component thornComponent = thorn.GetComponent("ThornProjectile");
+        if (thornComponent != null)
+        {
+            var method = thornComponent.GetType().GetMethod("Launch", new System.Type[] { typeof(Vector3), typeof(int) });
+            if (method != null)
+                method.Invoke(thornComponent, new object[] { direction, thornDamage });
+            else
+                Debug.LogWarning("ThornProjectile component found but Launch(Vector3,int) method is missing.", thorn);
+        }
+        else
+        {
+            Rigidbody rb = thorn.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = direction.normalized * thornSpeed;
+            }
+            else
+            {
+                Debug.LogWarning("Thorn prefab must have either a ThornProjectile component or a Rigidbody.", thorn);
+            }
+        }
+
+        Debug.Log("[BrambleSprite] Thorn Toss launched.");
+    }
 
     private void DealDamageToPlayer(int damage)
     {
