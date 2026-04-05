@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class HomingProjectile : MonoBehaviour
 {
     public float speed = 8f;
@@ -6,12 +7,14 @@ public class HomingProjectile : MonoBehaviour
     public int wordLength = 0;
     private Transform target;
     private bool hasHit = false;
+
     void Start()
     {
         FindNearestEnemy();
         if (target != null)
             Debug.Log("Projectile spawned. Target: " + target.name);
     }
+
     // Called by AttackController to pass dynamic damage
     public void Launch(int incomingDamage, int incomingWordLength = 0)
     {
@@ -25,12 +28,14 @@ public class HomingProjectile : MonoBehaviour
         wordLength = incomingWordLength;
         Debug.Log("Projectile damage set to: " + damage + " | Word length: " + wordLength);
     }
+
     void Update()
     {
         if (target == null || hasHit) return;
         transform.LookAt(target);
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }
+
     void FindNearestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -63,11 +68,19 @@ public class HomingProjectile : MonoBehaviour
         Debug.Log("Projectile hit: " + other.name + " | Damage: " + damage + " | Word length: " + wordLength);
 
         if (enemyController != null)
+        {
+            // EnemyController supports (float damage, int wordLength)
             enemyController.TakeDamage(damage, wordLength);
+        }
         else if (brambleController != null)
-            brambleController.TakeDamage(damage, wordLength);
-        else
+        {
+            // BrambleSpriteController has only TakeDamage(float)
+            brambleController.TakeDamage(damage);
+        }
+        else if (enemyHealth != null)
+        {
             enemyHealth.TakeDamage(damage);
+        }
 
         Destroy(gameObject);
     }

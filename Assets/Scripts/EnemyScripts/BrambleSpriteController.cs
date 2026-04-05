@@ -68,7 +68,7 @@ public class BrambleSpriteController : MonoBehaviour
     // ── State ──
     public EnemyState currentState = EnemyState.Patrol;
     private bool battleStarted = false;
-    private bool isAttacking = false;
+    private bool isAttacking = false; // previously assigned but never used - now actively used to guard transitions
     private bool isBeingHit = false;
     private Coroutine stateCoroutine = null;
     public float leapCooldown = 5f;
@@ -114,7 +114,6 @@ public class BrambleSpriteController : MonoBehaviour
         // Drive blend tree
         animator.SetFloat("Speed", agent != null ? agent.velocity.magnitude / runSpeed : 0f);
 
-        // Rotate toward movement direction
         // Rotate toward movement direction (but NOT while scouting; scouting faces player)
         if (agent != null && agent.velocity.sqrMagnitude > 0.1f &&
             currentState != EnemyState.Scouting)
@@ -159,7 +158,13 @@ public class BrambleSpriteController : MonoBehaviour
         if (currentState == EnemyState.Dead) return;
         if (newState == EnemyState.BeingHit && isBeingHit) return;
 
-        
+        // Prevent interrupting an ongoing attack with other non-critical transitions.
+        if (isAttacking && newState != EnemyState.BeingHit && newState != EnemyState.Dead)
+        {
+            Debug.Log($"[BrambleSprite] Ignoring EnterState({newState}) because isAttacking");
+            return;
+        }
+
         currentState = newState;
         StopAllCoroutines();
         stateCoroutine = null;
@@ -363,6 +368,9 @@ public class BrambleSpriteController : MonoBehaviour
         }
 
         agent.isStopped = false;
+
+        // Clear attack flag now that leap animation finished
+        isAttacking = false;
 
         // After landing → CloseAttack if in range, else charge again
         float distAfterLeap = Vector3.Distance(transform.position, player.position);

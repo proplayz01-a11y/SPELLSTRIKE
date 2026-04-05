@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public enum PotionType
 {
@@ -59,7 +60,7 @@ public class PotionSystem : MonoBehaviour
         if (healthPotions <= 0) return false;
 
         healthPotions = Mathf.Max(0, healthPotions - 1);
-        var playerHealth = FindObjectOfType<PlayerHealth>();
+        PlayerHealth playerHealth = FindAnyObjectOfType<PlayerHealth>();
         if (playerHealth != null)
         {
             int healAmount = Mathf.CeilToInt(playerHealth.maxHealth * 0.3f);
@@ -99,7 +100,7 @@ public class PotionSystem : MonoBehaviour
         if (cleansingPotions <= 0) return false;
 
         cleansingPotions = Mathf.Max(0, cleansingPotions - 1);
-        var tileManager = FindObjectOfType<TileManager>();
+        TileManager tileManager = FindAnyObjectOfType<TileManager>();
         if (tileManager != null)
         {
             tileManager.ResetTileSelection();
@@ -110,5 +111,15 @@ public class PotionSystem : MonoBehaviour
 
         Debug.LogWarning("No TileManager found for Cleansing potion.");
         return false;
+    }
+
+    // Compatibility helper: use FindFirstObjectByType when available, fallback to FindObjectOfType on older Unity
+    private static T FindAnyObjectOfType<T>() where T : UnityEngine.Object
+    {
+#if UNITY_2023_1_OR_NEWER
+        return Object.FindFirstObjectByType<T>();
+#else
+        return Object.FindObjectOfType<T>();
+#endif
     }
 }
