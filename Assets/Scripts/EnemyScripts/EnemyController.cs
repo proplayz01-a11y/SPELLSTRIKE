@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("Stats")]
     public float maxHealth = 100f;
-    private float currentHealth;
+    protected float currentHealth;
     public int attackDamage = 10;
     public int leapDamage = 20;
     public int comboDamage = 15;
@@ -76,9 +76,9 @@ public class EnemyController : MonoBehaviour
     // ─────────────────────────────────────────
     public EnemyState currentState = EnemyState.Patrol;
     private bool battleStarted = false;
-    private bool isAttacking = false;
-    private bool alreadyAttacked = false;
-    private bool leapOnCooldown = false;
+    protected bool isAttacking = false;
+    protected bool alreadyAttacked = false;
+    protected bool leapOnCooldown = false;
     private EnemyState lastLoggedState;
     private string lastLoggedClip;
     private Coroutine stateCoroutine;
@@ -653,7 +653,7 @@ public class EnemyController : MonoBehaviour
     // ─────────────────────────────────────────
     //  HEALTH / DEATH
     // ─────────────────────────────────────────
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage, int wordLength = 0)
     {
         if (currentState == EnemyState.Dead) return;
 
@@ -692,7 +692,7 @@ public class EnemyController : MonoBehaviour
             EnterState(EnemyState.BeingHit);
     }
 
-    private IEnumerator DieRoutine()
+    protected virtual IEnumerator DieRoutine()
     {
         agent.isStopped = true;
         agent.enabled = false;

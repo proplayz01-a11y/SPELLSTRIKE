@@ -198,6 +198,30 @@ public class TileManager : MonoBehaviour
         SetTilePoolPanelGrid();
     }
 
+    public void AddTilesToPool(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            char letter = weightedAlphabet[Random.Range(0, weightedAlphabet.Length)];
+            CreateTileInPool(letter);
+        }
+    }
+
+    public void ResetTileSelection()
+    {
+        foreach (Tile t in selectedTiles)
+        {
+            MoveTile(t, tilePoolPanel);
+        }
+
+        selectedTiles.Clear();
+        wordBarTiles.Clear();
+        SetWordBarPanelGrid();
+
+        if (attackController != null)
+            attackController.CheckWord();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))

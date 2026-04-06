@@ -1,18 +1,22 @@
 using UnityEngine;
+
 public class HomingProjectile : MonoBehaviour
 {
     public float speed = 8f;
     public int damage = 25; // fallback only, gets overridden by Launch()
+    public int wordLength = 0;
     private Transform target;
     private bool hasHit = false;
+
     void Start()
     {
         FindNearestEnemy();
         if (target != null)
             Debug.Log("Projectile spawned. Target: " + target.name);
     }
+
     // Called by AttackController to pass dynamic damage
-    public void Launch(int incomingDamage)
+    public void Launch(int incomingDamage, int incomingWordLength = 0)
     {
         if (incomingDamage <= 0)
         {
@@ -21,14 +25,17 @@ public class HomingProjectile : MonoBehaviour
         }
 
         damage = incomingDamage;
-        Debug.Log("Projectile damage set to: " + damage);
+        wordLength = incomingWordLength;
+        Debug.Log("Projectile damage set to: " + damage + " | Word length: " + wordLength);
     }
+
     void Update()
     {
         if (target == null || hasHit) return;
         transform.LookAt(target);
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }
+
     void FindNearestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -58,14 +65,22 @@ public class HomingProjectile : MonoBehaviour
         if (enemyController == null && brambleController == null && enemyHealth == null) return;
 
         hasHit = true;
-        Debug.Log("Projectile hit: " + other.name + " | Damage: " + damage);
+        Debug.Log("Projectile hit: " + other.name + " | Damage: " + damage + " | Word length: " + wordLength);
 
         if (enemyController != null)
-            enemyController.TakeDamage(damage);
+        {
+            // EnemyController supports (float damage, int wordLength)
+            enemyController.TakeDamage(damage, wordLength);
+        }
         else if (brambleController != null)
+        {
+            // BrambleSpriteController has only TakeDamage(float)
             brambleController.TakeDamage(damage);
-        else
+        }
+        else if (enemyHealth != null)
+        {
             enemyHealth.TakeDamage(damage);
+        }
 
         Destroy(gameObject);
     }

@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float crouchHeight = 1f;
     public float defaultHeight = 2f;
 
+    private float speedModifier = 1f;
+    private float slowTimer = 0f;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController characterController;
 
@@ -22,12 +24,20 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (slowTimer > 0f)
+        {
+            slowTimer -= Time.deltaTime;
+            if (slowTimer <= 0f)
+                speedModifier = 1f;
+        }
+
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical");
-        float curSpeedY = (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal");
+        float effectiveMaxSpeed = (isRunning ? runSpeed : walkSpeed) * speedModifier;
+        float curSpeedX = effectiveMaxSpeed * Input.GetAxis("Vertical");
+        float curSpeedY = effectiveMaxSpeed * Input.GetAxis("Horizontal");
         float movementDirectionY = moveDirection.y;
 
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
@@ -55,5 +65,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    public void ApplySpeedDebuff(float multiplier, float duration)
+    {
+        speedModifier = Mathf.Clamp(multiplier, 0.1f, 1f);
+        slowTimer = Mathf.Max(duration, 0.01f);
+        Debug.Log($"Speed debuff applied: x{speedModifier:F2} for {slowTimer:F1}s");
     }
 }

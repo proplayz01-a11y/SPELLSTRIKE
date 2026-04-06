@@ -14,6 +14,7 @@ public class AttackController : MonoBehaviour
     public GameObject playerProjectile;   // Assign your PlayerProjectile prefab
     public Transform magicSpawnPoint;     // Assign hand spawn point
     private int pendingDamage = 0;
+    private int currentWordLength = 0;
     private string currentAttackTrigger = "BasicAttack";
     private Coroutine attackCoroutine;
 
@@ -69,7 +70,10 @@ public class AttackController : MonoBehaviour
         float multiplier = GetLengthMultiplier(word.Length);
         int finalDamage = Mathf.RoundToInt(baseDamage * multiplier);
 
-        Debug.Log($"Word: {word} | Base: {baseDamage} | Multiplier: {multiplier}x | Final Damage: {finalDamage}");
+        if (PotionSystem.Instance != null)
+            finalDamage = Mathf.RoundToInt(finalDamage * PotionSystem.Instance.GetDamageMultiplier());
+
+        Debug.Log($"Word: {word} | Base: {baseDamage} | Multiplier: {multiplier}x | Potion Multiplier: {PotionSystem.Instance?.GetDamageMultiplier() ?? 1f} | Final Damage: {finalDamage}");
 
         return finalDamage;
     }
@@ -124,6 +128,7 @@ public class AttackController : MonoBehaviour
 
         int finalDamage = CalculateDamage(word);
         pendingDamage = finalDamage;
+        currentWordLength = wordLength;
         Debug.Log($"Word: {word} | Length: {wordLength} | Final Damage: {finalDamage}");
 
         currentAttackTrigger = GetAttackTrigger(wordLength);
@@ -181,7 +186,7 @@ public class AttackController : MonoBehaviour
             }
             else
             {
-                projectileScript.Launch(damageToUse);
+                projectileScript.Launch(damageToUse, currentWordLength);
             }
         }
     }
