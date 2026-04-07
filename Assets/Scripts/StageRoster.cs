@@ -41,7 +41,7 @@ public static class StageRoster
         new StageMetadata
         {
             stageName = "Stage 5: The Final Chapter",
-            enemies = new string[] { "Ember Wyrm", "Void Herald", "Eternal Shade" },
+            enemies = new string[] { "Remnant Knight", "Remnant Captain", "Remnant Colossus" },
             boss = "Master Wizard",
             flavour = "The final duel for SpellStrike itself."
         }
