@@ -50,6 +50,7 @@ public class GameDatabaseManager : MonoBehaviour
     private string saveFilePath;
     private string sqliteDbPath;
     private SqliteDatabase sqliteDatabase;
+    private bool isDirty = false;
 
     private void Awake()
     {
@@ -69,6 +70,34 @@ public class GameDatabaseManager : MonoBehaviour
             InitializeDatabase();
 
         LoadDatabase();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause && isDirty)
+        {
+            SaveDatabase();
+            isDirty = false;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (isDirty)
+        {
+            SaveDatabase();
+            isDirty = false;
+        }
+    }
+
+    // Call this at stage end, game over, or scene transitions
+    public void FlushSave()
+    {
+        if (isDirty)
+        {
+            SaveDatabase();
+            isDirty = false;
+        }
     }
 
     private void InitializeDatabase()
@@ -285,7 +314,7 @@ public class GameDatabaseManager : MonoBehaviour
             valid = valid,
             timestamp = DateTime.UtcNow.ToString("o")
         });
-        SaveDatabase();
+        isDirty = true;
     }
 
     public void SaveStageProgress(int stageIndex, bool completed)
@@ -297,13 +326,13 @@ public class GameDatabaseManager : MonoBehaviour
             completed = completed,
             timestamp = DateTime.UtcNow.ToString("o")
         });
-        SaveDatabase();
+        isDirty = true;
     }
 
     public void SetTutorialCompleted(bool completed)
     {
         Data.tutorialCompleted = completed;
-        SaveDatabase();
+        isDirty = true;
     }
 
     public void AddPotion(PotionType type, int count)
@@ -317,7 +346,7 @@ public class GameDatabaseManager : MonoBehaviour
         {
             entry.count += count;
         }
-        SaveDatabase();
+        isDirty = true;
     }
 
     public int GetPotionCount(PotionType type)
@@ -329,7 +358,7 @@ public class GameDatabaseManager : MonoBehaviour
     public void AddLeaderboardEntry(string record)
     {
         Data.leaderboard.Add(record);
-        SaveDatabase();
+        isDirty = true;
     }
 
     public void ResetDatabase()
@@ -337,5 +366,6 @@ public class GameDatabaseManager : MonoBehaviour
         Data = new GameData();
         InitializeDefaultInventory();
         SaveDatabase();
+        isDirty = false;
     }
 }

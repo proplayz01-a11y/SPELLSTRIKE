@@ -7,11 +7,10 @@ public class TileSpawner : MonoBehaviour
     public GameObject worldTilePrefab;
     public Transform tilePoolPanel;
 
-    [Header("Arena Spawn Range")]
-    public Transform arenaCenter;    // assign the center of your arena
-    public float arenaRangeX = 10f; // how far left/right tiles can spawn
-    public float arenaRangeZ = 10f; // how far forward/back tiles can spawn
-    public float spawnY = 0f;       // ground level
+    [Header("Arena Spawn Area")]
+    public Transform arenaCenter;
+    public float arenaRadius = 10f;
+    public float spawnY = 0f;
 
     private char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
@@ -25,26 +24,31 @@ public class TileSpawner : MonoBehaviour
         SpawnTilesInPool(16);
     }
 
+    public void ConfigureArenaBounds(Transform center, float radius)
+    {
+        if (center != null)
+            arenaCenter = center;
+
+        arenaRadius = Mathf.Max(0.5f, radius);
+    }
+
     private Vector3 GetRandomSpawnPosition()
     {
-        float centerX = arenaCenter != null ? arenaCenter.position.x : 0f;
-        float centerZ = arenaCenter != null ? arenaCenter.position.z : 0f;
+        Vector3 centerPos = arenaCenter != null ? arenaCenter.position : Vector3.zero;
+        Vector2 randomCircle = Random.insideUnitCircle * arenaRadius;
+        Vector3 spawnPos = centerPos + new Vector3(randomCircle.x, 0f, randomCircle.y);
 
-        float randomX = Random.Range(centerX - arenaRangeX, centerX + arenaRangeX);
-        float randomZ = Random.Range(centerZ - arenaRangeZ, centerZ + arenaRangeZ);
-
-        // Raycast downward from high above to hit actual terrain surface
-        Vector3 rayOrigin = new Vector3(randomX, 100f, randomZ);
+        // Raycast downward from above to hit terrain/ground and get final Y.
+        Vector3 rayOrigin = new Vector3(spawnPos.x, 100f, spawnPos.z);
         Ray ray = new Ray(rayOrigin, Vector3.down);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 200f))
         {
-            Debug.Log("Tile spawning on terrain at: " + hit.point);
-            return hit.point; // exact terrain surface position
+            return hit.point;
         }
 
         // fallback if raycast misses
-        return new Vector3(randomX, spawnY, randomZ);
+        return new Vector3(spawnPos.x, spawnY, spawnPos.z);
     }
 
     public void SpawnTiles(int amount)
@@ -89,9 +93,6 @@ public class TileSpawner : MonoBehaviour
     {
         if (arenaCenter == null) return;
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(
-            arenaCenter.position,
-            new Vector3(arenaRangeX * 2, 0.1f, arenaRangeZ * 2)
-        );
+        Gizmos.DrawWireSphere(arenaCenter.position, arenaRadius);
     }
 }

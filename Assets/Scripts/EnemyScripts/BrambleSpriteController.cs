@@ -6,9 +6,11 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class BrambleSpriteController : MonoBehaviour
 {
+    public event System.Action<BrambleSpriteController> OnDeathStarted;
+
     public enum EnemyState
     {
-        Patrol, Scouting, Charging, LeapAttack, CloseAttack, ComboAttack, BeingHit, Dead
+        Scouting, CloseAttack, ComboAttack, BeingHit, Dead
     }
 
     [Header("References")]
@@ -19,28 +21,19 @@ public class BrambleSpriteController : MonoBehaviour
     [Header("Stats")]
     public float maxHealth = 80f;
     private float currentHealth;
-    public int attackDamage = 8;
-    public int leapDamage = 14;
-    public int comboDamage = 10;
+    // attackDamage, leapDamage and comboDamage removed
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
     public float runSpeed = 6f;
 
-    [Header("Patrol")]
-    public float patrolRadius = 10f;
-    public float patrolStopDistance = 1f;
-    private Vector3 spawnPosition;
-    private Vector3 currentPatrolTarget;
-    private bool hasPatrolTarget = false;
-
     [Header("Scouting")]
     public float scoutTime = 6f;
     public float scoutStrafeDistance = 4f;
+    public float scoutFaceTurnSpeed = 1080f;
 
     [Header("Ranges")]
-    public float leapTriggerRange = 6f;   // halfway to player — triggers leap
-    public float closeAttackRange = 2.5f; // triggers CloseAttack after leap lands
+    public float closeAttackRange = 2.5f; // retained for editor tuning if needed by animation timing/radius visuals
 
     [Header("Attack Timing")]
     public float timeBetweenAttacks = 1.5f;
@@ -54,6 +47,10 @@ public class BrambleSpriteController : MonoBehaviour
     public bool useRootMotion = false;
 
     [Header("Abilities")]
+    public string snareAnimationTrigger = "CloseAttack";
+    public string thornTossAnimationTrigger = "ComboAttack";
+    public float snareStunDuration = 2f;
+
     public GameObject thornPrefab;
     public Transform thornSpawnPoint;
     public int thornDamage = 8;
@@ -62,24 +59,22 @@ public class BrambleSpriteController : MonoBehaviour
 
     public GameObject snareVFXPrefab;
     public Transform snareVFXAnchor;
-    public float snareSlowMultiplier = 0.5f;
+    public float snareSlowMultiplier = 0.5f; // optional extra slow after stun
     public float snareDuration = 2f;
 
-    // ── State ──
-    public EnemyState currentState = EnemyState.Patrol;
+    // -- State --
+    public EnemyState currentState = EnemyState.Scouting;
     private bool battleStarted = false;
-    private bool isAttacking = false; // previously assigned but never used - now actively used to guard transitions
+    private bool isAttacking = false;
     private bool isBeingHit = false;
-    private Coroutine stateCoroutine = null;
-    public float leapCooldown = 5f;
-    private bool leapOnCooldown = false;
-
-
-    // ── Debug ──
+    private bool isTransitioning = false; // Prevents EnterState() from being called during state changes
+    private Coroutine stateCoroutine = null;  // Track current coroutine
+    // -- Debug --
     private EnemyState lastLoggedState;
     private string lastLoggedClip;
+    private bool deathEventSent = false;
 
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     private void Awake()
     {
         agent ??= GetComponent<NavMeshAgent>();
@@ -95,14 +90,12 @@ public class BrambleSpriteController : MonoBehaviour
 
     private void Start()
     {
-        spawnPosition = transform.position;
         agent.updateRotation = false;
         agent.updatePosition = !useRootMotion;
         agent.speed = walkSpeed;
         agent.stoppingDistance = 0f;
         agent.autoBraking = true;
         animator.applyRootMotion = useRootMotion;
-        EnterState(EnemyState.Patrol);
     }
 
     private void Update()
@@ -110,6 +103,7 @@ public class BrambleSpriteController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B)) StartBattle();
         if (currentState == EnemyState.Dead) return;
         if (player == null) return;
+        FaceTarget(player.position);
 
         // Drive blend tree
         animator.SetFloat("Speed", agent != null ? agent.velocity.magnitude / runSpeed : 0f);
@@ -147,93 +141,99 @@ public class BrambleSpriteController : MonoBehaviour
     public void StartBattle()
     {
         if (battleStarted) return;
+
         battleStarted = true;
+
         Debug.Log("[BrambleSprite] Battle started!");
+
+        StopAllCoroutines(); // IMPORTANT
+        stateCoroutine = null;
+
+        isAttacking = false;
+        isBeingHit = false;
+        isTransitioning = false;
+
+        currentState = EnemyState.Scouting;
+
         EnterState(EnemyState.Scouting);
     }
 
-    // ── EnterState: StopAllCoroutines guarantees no stacking ──
+    // -- EnterState: StopAllCoroutines guarantees no stacking --
+    // -- EnterState: HARD GUARDS + strict coroutine management --
     private void EnterState(EnemyState newState)
     {
-        if (currentState == EnemyState.Dead) return;
-        if (newState == EnemyState.BeingHit && isBeingHit) return;
+        // Prevent re-entrance and overlapping transitions
+        // === CALLER CONTEXT DEBUG ===
+        var stackTrace = System.Environment.StackTrace;
+        var callerInfo = stackTrace.Split('\n')[1]; // Get immediate caller
+        Debug.Log($"[EnterState] Called from: {callerInfo.Trim()}");
+        Debug.Log($"[EnterState] Transitioning from {currentState} → {newState}");
 
-        // Prevent interrupting an ongoing attack with other non-critical transitions.
-        if (isAttacking && newState != EnemyState.BeingHit && newState != EnemyState.Dead)
-        {
-            Debug.Log($"[BrambleSprite] Ignoring EnterState({newState}) because isAttacking");
-            return;
-        }
-
+        // === ALL GUARDS PASSED - SAFE TO TRANSITION ===
+        isTransitioning = true;
         currentState = newState;
         StopAllCoroutines();
-        stateCoroutine = null;
 
+        // === STOP OLD COROUTINE (only stop if different) ===
+        if (stateCoroutine != null)
+        {
+            Debug.Log($"[EnterState] Stopping previous coroutine for {currentState}");
+            StopCoroutine(stateCoroutine);
+            stateCoroutine = null;
+        }
+
+        Debug.Log($"[EnterState] === TRANSITION COMPLETE: Now in {newState} ===\n");
+
+        // === START NEW STATE COROUTINE ===
         switch (newState)
         {
-            case EnemyState.Patrol:
-                stateCoroutine = StartCoroutine(PatrolRoutine());
-                break;
             case EnemyState.Scouting:
+                Debug.Log("[EnterState] Starting ScoutRoutine");
                 stateCoroutine = StartCoroutine(ScoutRoutine());
                 break;
-            case EnemyState.Charging:
-                stateCoroutine = StartCoroutine(ChargeRoutine());
-                break;
-            case EnemyState.LeapAttack:
-                isAttacking = true;
-                stateCoroutine = StartCoroutine(LeapAttackRoutine());
-                break;
             case EnemyState.CloseAttack:
+                Debug.Log("[EnterState] Starting CloseAttackRoutine");
                 isAttacking = true;
                 stateCoroutine = StartCoroutine(CloseAttackRoutine());
                 break;
             case EnemyState.ComboAttack:
+                Debug.Log("[EnterState] Starting ComboAttackRoutine");
                 isAttacking = true;
                 stateCoroutine = StartCoroutine(ComboAttackRoutine());
                 break;
             case EnemyState.BeingHit:
+                Debug.Log("[EnterState] Starting BeingHitRoutine");
                 isBeingHit = true;
                 stateCoroutine = StartCoroutine(BeingHitRoutine());
                 break;
             case EnemyState.Dead:
+                Debug.Log("[EnterState] Starting DieRoutine");
                 stateCoroutine = StartCoroutine(DieRoutine());
                 break;
         }
+
+        isTransitioning = false;
     }
 
-    // ─────────────────────────────────────────
-    //  PATROL — walk/run randomly before battle
-    // ─────────────────────────────────────────
-    private IEnumerator PatrolRoutine()
-    {
-        agent.speed = walkSpeed;
-        agent.isStopped = false;
-        animator.SetBool("Charging", false);
-        hasPatrolTarget = false;
-
-        while (currentState == EnemyState.Patrol)
-        {
-            if (!hasPatrolTarget || (!agent.pathPending && agent.remainingDistance < patrolStopDistance))
-            {
-                currentPatrolTarget = GetRandomTerrainPoint(spawnPosition, patrolRadius);
-                agent.SetDestination(currentPatrolTarget);
-                hasPatrolTarget = true;
-            }
-            yield return null;
-        }
-    }
-
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     //  SCOUTING — strafe left/right facing player
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     private IEnumerator ScoutRoutine()
     {
         agent.speed = walkSpeed * 0.5f;
         agent.isStopped = false;
         agent.stoppingDistance = 0f;
-        animator.SetBool("Charging", false);
         animator.SetFloat("Speed", 0f);
+
+        // === INITIAL DEBUG ===
+        Debug.Log("[Scout] === ENTERING SCOUT ROUTINE ===");
+        Debug.Log($"[Scout] Agent enabled: {agent.enabled}");
+        Debug.Log($"[Scout] Agent isStopped: {agent.isStopped}");
+        Debug.Log($"[Scout] Agent isOnNavMesh: {agent.isOnNavMesh}");
+        Debug.Log($"[Scout] Agent hasPath: {agent.hasPath}");
+        Debug.Log($"[Scout] Agent velocity: {agent.velocity}");
+        Debug.Log($"[Scout] Agent speed: {agent.speed}");
+        Debug.Log($"[Scout] Agent stoppingDistance: {agent.stoppingDistance}");
 
         float totalScout = remainingScoutTime > 0f ? remainingScoutTime : scoutTime;
         remainingScoutTime = 0f;
@@ -248,226 +248,215 @@ public class BrambleSpriteController : MonoBehaviour
         Debug.Log($"[Scout] Total: {totalScout:F1}s | First: {(startLeft ? "Left" : "Right")} {firstDuration:F1}s | Second: {(startLeft ? "Right" : "Left")} {secondDuration:F1}s");
 
         // First direction
-        animator.SetTrigger(startLeft ? "ScoutLeft" : "ScoutRight");
+        animator.CrossFade(startLeft ? "ScoutLeft" : "ScoutRight", 0.1f);
         float elapsed = 0f;
+        int frameCount = 0;
+        bool hasSetDestinationPhase1 = false;
+        Vector3 destPhase1 = Vector3.zero;
+        
         while (elapsed < firstDuration && currentState == EnemyState.Scouting)
         {
             elapsed += Time.deltaTime;
             scoutTimeRemaining = Mathf.Max(0f, (firstDuration - elapsed) + secondDuration);
-            FaceTarget(player.position);
+            FaceTarget(player.position, scoutFaceTurnSpeed);
             animator.SetFloat("Speed", 0f);
             Vector3 strafeDir = startLeft ? -transform.right : transform.right;
             Vector3 strafeTarget = transform.position + strafeDir * scoutStrafeDistance;
-            if (NavMesh.SamplePosition(strafeTarget, out NavMeshHit hit1, scoutStrafeDistance, NavMesh.AllAreas))
-                agent.SetDestination(hit1.position);
+            
+            // === ONLY SET DESTINATION ONCE ===
+            if (!hasSetDestinationPhase1)
+            {
+                if (NavMesh.SamplePosition(strafeTarget, out NavMeshHit hit1, scoutStrafeDistance, NavMesh.AllAreas))
+                {
+                    destPhase1 = hit1.position;
+                    agent.SetDestination(destPhase1);
+                    hasSetDestinationPhase1 = true;
+                    Debug.Log($"[Scout] FIRST PHASE - Destination SET (only once): {destPhase1}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[Scout] FIRST PHASE - NavMesh.SamplePosition FAILED for target {strafeTarget}");
+                    yield break; // Exit if we can't find a valid destination
+                }
+            }
+            
+            // === PER-FRAME DEBUG (every 30 frames to avoid spam) ===
+            frameCount++;
+            if (frameCount % 30 == 0)
+            {
+                Debug.Log($"[Scout] FIRST PHASE - Frame {frameCount}:");
+                Debug.Log($"  → Current position: {transform.position}");
+                Debug.Log($"  → Distance to destination: {Vector3.Distance(transform.position, destPhase1):F2}");
+                Debug.Log($"  → isStopped: {agent.isStopped}");
+                Debug.Log($"  → hasPath: {agent.hasPath}");
+                Debug.Log($"  → isOnNavMesh: {agent.isOnNavMesh}");
+                Debug.Log($"  → velocity: {agent.velocity.magnitude:F2} m/s");
+                Debug.Log($"  → pathPending: {agent.pathPending}");
+                
+                if (agent.hasPath)
+                {
+                    Debug.Log($"  → remainingDistance: {agent.remainingDistance:F2}");
+                    Debug.Log($"  → pathStatus: {agent.pathStatus}");
+                }
+            }
+            
             yield return null;
         }
         if (currentState != EnemyState.Scouting) yield break;
 
         // Second direction
-        animator.SetTrigger(startLeft ? "ScoutRight" : "ScoutLeft");
+        animator.CrossFade(startLeft ? "ScoutRight" : "ScoutLeft", 0.1f);
         elapsed = 0f;
+        frameCount = 0;
+        bool hasSetDestinationPhase2 = false;
+        Vector3 destPhase2 = Vector3.zero;
+        
         while (elapsed < secondDuration && currentState == EnemyState.Scouting)
         {
             elapsed += Time.deltaTime;
             scoutTimeRemaining = Mathf.Max(0f, secondDuration - elapsed);
-            FaceTarget(player.position);
+            FaceTarget(player.position, scoutFaceTurnSpeed);
             animator.SetFloat("Speed", 0f);
             Vector3 strafeDir = startLeft ? transform.right : -transform.right;
             Vector3 strafeTarget = transform.position + strafeDir * scoutStrafeDistance;
-            if (NavMesh.SamplePosition(strafeTarget, out NavMeshHit hit2, scoutStrafeDistance, NavMesh.AllAreas))
-                agent.SetDestination(hit2.position);
+            
+            // === ONLY SET DESTINATION ONCE ===
+            if (!hasSetDestinationPhase2)
+            {
+                if (NavMesh.SamplePosition(strafeTarget, out NavMeshHit hit2, scoutStrafeDistance, NavMesh.AllAreas))
+                {
+                    destPhase2 = hit2.position;
+                    agent.SetDestination(destPhase2);
+                    hasSetDestinationPhase2 = true;
+                    Debug.Log($"[Scout] SECOND PHASE - Destination SET (only once): {destPhase2}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[Scout] SECOND PHASE - NavMesh.SamplePosition FAILED for target {strafeTarget}");
+                    yield break; // Exit if we can't find a valid destination
+                }
+            }
+            
+            // === PER-FRAME DEBUG (every 30 frames to avoid spam) ===
+            frameCount++;
+            if (frameCount % 30 == 0)
+            {
+                Debug.Log($"[Scout] SECOND PHASE - Frame {frameCount}:");
+                Debug.Log($"  → Current position: {transform.position}");
+                Debug.Log($"  → Distance to destination: {Vector3.Distance(transform.position, destPhase2):F2}");
+                Debug.Log($"  → isStopped: {agent.isStopped}");
+                Debug.Log($"  → hasPath: {agent.hasPath}");
+                Debug.Log($"  → isOnNavMesh: {agent.isOnNavMesh}");
+                Debug.Log($"  → velocity: {agent.velocity.magnitude:F2} m/s");
+                Debug.Log($"  → pathPending: {agent.pathPending}");
+                
+                if (agent.hasPath)
+                {
+                    Debug.Log($"  → remainingDistance: {agent.remainingDistance:F2}");
+                    Debug.Log($"  → pathStatus: {agent.pathStatus}");
+                }
+            }
+            
             yield return null;
         }
         if (currentState != EnemyState.Scouting) yield break;
 
-        EnterState(EnemyState.Charging);
+        EnterState(EnemyState.CloseAttack);
     }
 
-    // ─────────────────────────────────────────
-    //  CHARGING — sprint toward player, leap at halfway
-    // ─────────────────────────────────────────
-    private bool hasLeapedThisCharge = false;
-
-    private IEnumerator ChargeRoutine()
-    {
-        agent.speed = runSpeed;
-        agent.isStopped = false;
-        agent.stoppingDistance = 0f;
-        animator.SetBool("Charging", true);
-        hasLeapedThisCharge = false;
-
-        while (currentState == EnemyState.Charging)
-        {
-            float dist = Vector3.Distance(transform.position, player.position);
-            agent.SetDestination(player.position);
-            FaceTarget(player.position);
-
-            // Only leap once per charge
-            if (!hasLeapedThisCharge && !leapOnCooldown && dist <= leapTriggerRange && dist > closeAttackRange)
-            {
-                hasLeapedThisCharge = true;
-                leapOnCooldown = true;
-                StartCoroutine(LeapCooldownRoutine());
-                EnterState(EnemyState.LeapAttack);
-                yield break; // stop this coroutine safely
-            }
-
-            // Close attack if in range
-            if (dist <= closeAttackRange)
-            {
-                EnterState(EnemyState.CloseAttack);
-                yield break;
-            }
-
-            yield return null;
-        }
-    }
-
-    // ─────────────────────────────────────────
-    //  LEAP ATTACK — lunge toward player, land → CloseAttack
-    // ─────────────────────────────────────────
-
-    private IEnumerator LeapCooldownRoutine()
-    {
-        yield return new WaitForSeconds(leapCooldown);
-        leapOnCooldown = false;
-    }
-
-
-    private IEnumerator LeapAttackRoutine()
-    {
-        agent.isStopped = true;
-        agent.ResetPath();
-        animator.SetBool("Charging", false);
-        animator.SetTrigger("LeapAttack");
-        FaceTarget(player.position);
-        Debug.Log("[BrambleSprite] Animation → LeapAttack");
-
-        Vector3 dirToPlayer = (player.position - transform.position).normalized;
-        dirToPlayer.y = 0f;
-
-        float clipLength = GetClipLength("LeapAttack");
-        float leapDuration = clipLength > 0 ? clipLength : 1.2f;
-        float launchDuration = leapDuration * 0.5f;
-        float leapSpeed = 12f;
-        float elapsed = 0f;
-
-        while (elapsed < leapDuration)
-        {
-            elapsed += Time.deltaTime;
-            if (elapsed < launchDuration)
-            {
-                Vector3 move = dirToPlayer * leapSpeed * Time.deltaTime;
-                if (elapsed < leapDuration * 0.25f) move.y = 8f * Time.deltaTime;
-                else if (elapsed < launchDuration) move.y = -4f * Time.deltaTime;
-                transform.position += move;
-                agent.nextPosition = transform.position;
-            }
-            yield return null;
-        }
-
-        agent.isStopped = false;
-
-        // Clear attack flag now that leap animation finished
-        isAttacking = false;
-
-        // After landing → CloseAttack if in range, else charge again
-        float distAfterLeap = Vector3.Distance(transform.position, player.position);
-        if (distAfterLeap <= closeAttackRange + 1f)
-            EnterState(EnemyState.CloseAttack);
-        else
-            EnterState(EnemyState.Charging);
-    }
-
-    // ─────────────────────────────────────────
-    //  CLOSE ATTACK → always chains into Combo
-    // ─────────────────────────────────────────
+    // -----------------------------------------
+    //  CLOSE ATTACK (Bramble Snare) ? chains into Thorn Toss only when snare lands
+    // -----------------------------------------
     private IEnumerator CloseAttackRoutine()
     {
+        Debug.Log("[BrambleSprite] === ENTERING CLOSE ATTACK ===");
         agent.isStopped = true;
         agent.ResetPath();
-        animator.SetBool("Charging", false);
-        animator.SetTrigger("CloseAttack");
+        animator.CrossFade(snareAnimationTrigger, 0.1f);
         FaceTarget(player.position);
-        Debug.Log("[BrambleSprite] Animation → CloseAttack");
+        Debug.Log("[BrambleSprite] Animation ? Bramble Snare");
 
-        float clipLength = GetClipLength("CloseAttack");
-        yield return new WaitForSeconds(clipLength > 0 ? clipLength : 0.8f);
+        // === WAIT FOR FULL ANIMATION COMPLETION ===
+        yield return WaitForAnimationToComplete(snareAnimationTrigger);
+        Debug.Log("[BrambleSprite] Close Attack animation fully completed. Now transitioning to Combo Attack.");
 
-        // Always chain into ComboAttack
+        isAttacking = false;
         EnterState(EnemyState.ComboAttack);
     }
 
-    // ─────────────────────────────────────────
-    //  COMBO ATTACK → wait cooldown → back to Scouting
-    // ─────────────────────────────────────────
+    // -----------------------------------------
+    //  COMBO ATTACK (Thorn Toss) ? wait cooldown ? back to Scouting
+    // -----------------------------------------
     private IEnumerator ComboAttackRoutine()
     {
-        animator.SetTrigger("ComboAttack");
+        Debug.Log("[BrambleSprite] === ENTERING COMBO ATTACK ===");
+        
+        // Ensure we stay stopped during this attack
+        agent.isStopped = true;
+        agent.ResetPath();
+        
+        animator.CrossFade(thornTossAnimationTrigger, 0.1f);
         FaceTarget(player.position);
-        Debug.Log("[BrambleSprite] Animation → ComboAttack");
+        Debug.Log("[BrambleSprite] Animation ? Thorn Toss");
+        Debug.Log("[BrambleSprite] Animation → Thorn Toss");
 
-        float clipLength = GetClipLength("ComboAttack");
-        yield return new WaitForSeconds(clipLength > 0 ? clipLength : 1.0f);
+        // === WAIT FOR FULL ANIMATION COMPLETION ===
+        Debug.Log("[BrambleSprite] Waiting for ComboAttack animation to complete...");
+        yield return WaitForAnimationToComplete(thornTossAnimationTrigger);
+        Debug.Log("[BrambleSprite] Combo Attack animation fully completed. Now returning to Scouting.");
 
-        // Cooldown — isAttacking stays true, blocks any re-entry
+        // Return to scouting only after animation fully completes
         agent.isStopped = false;
-        yield return new WaitForSeconds(timeBetweenAttacks);
-
         isAttacking = false;
+        Debug.Log("[BrambleSprite] ComboAttack finished. Calling EnterState(Scouting)");
         EnterState(EnemyState.Scouting);
     }
 
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     //  BEING HIT — interrupts everything
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     private IEnumerator BeingHitRoutine()
     {
         isAttacking = false;
         agent.isStopped = true;
         agent.ResetPath();
-        animator.SetBool("Charging", false);
         animator.SetFloat("Speed", 0f);
         animator.SetTrigger("BeingHit");
 
-        float clipLength = GetClipLength("BeingHit");
-        yield return new WaitForSeconds(clipLength > 0 ? clipLength : 0.4f);
+        yield return WaitForAnimationToComplete("BeingHit");
 
         isBeingHit = false;
         agent.isStopped = false;
-        EnterState(battleStarted ? EnemyState.Scouting : EnemyState.Patrol);
+        EnterState(EnemyState.Scouting);
     }
 
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     //  DEATH
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     private IEnumerator DieRoutine()
     {
+        if (!deathEventSent)
+        {
+            deathEventSent = true;
+            OnDeathStarted?.Invoke(this);
+        }
+
         agent.isStopped = true;
         agent.enabled = false;
         animator.SetBool("Dead", true);
-        animator.SetBool("Charging", false);
         Debug.Log($"{name} died.");
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
 
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     //  ANIMATION EVENTS
-    // ─────────────────────────────────────────
-    public void OnLeapHit()
-    {
-        if (player == null) return;
-        if (Vector3.Distance(transform.position, player.position) <= leapTriggerRange + 1f)
-            DealDamageToPlayer(leapDamage);
-    }
-
+    // -----------------------------------------
     public void OnCloseHit()
     {
         if (player == null) return;
         if (Vector3.Distance(transform.position, player.position) <= closeAttackRange + 0.5f)
-            DealDamageToPlayer(attackDamage);
+            DealDamageToPlayer(thornDamage);
     }
     public void OnAttackHit() => OnCloseHit();
 
@@ -475,27 +464,41 @@ public class BrambleSpriteController : MonoBehaviour
     {
         if (player == null) return;
         if (Vector3.Distance(transform.position, player.position) <= closeAttackRange + 0.5f)
-            DealDamageToPlayer(comboDamage);
+            DealDamageToPlayer(thornDamage);
     }
     public void OnAttack2Hit() => OnComboHit();
 
-    public void OnSnareCast()
+   public void OnSnareCast()
+{
+    if (player == null) return;
+
+    PlayerMovement movement = player.GetComponentInParent<PlayerMovement>();
+    if (movement == null)
+        movement = player.GetComponentInChildren<PlayerMovement>();
+
+    if (movement != null)
     {
-        if (player == null) return;
-
-        PlayerMovement movement = player.GetComponent<PlayerMovement>();
-        if (movement != null)
-            movement.ApplySpeedDebuff(snareSlowMultiplier, snareDuration);
-
-        if (snareVFXPrefab != null && snareVFXAnchor != null)
-        {
-            GameObject vfx = Instantiate(snareVFXPrefab, snareVFXAnchor.position, snareVFXAnchor.rotation);
-            vfx.transform.SetParent(snareVFXAnchor);
-            Destroy(vfx, snareDuration + 0.1f);
-        }
-
-        Debug.Log("[BrambleSprite] Snare applied to player.");
+        movement.ApplyStun(snareStunDuration);
+        movement.ApplySpeedDebuff(snareSlowMultiplier, snareDuration);
     }
+
+    if (snareVFXPrefab != null)
+    {
+        Vector3 spawnPos = player.position;
+        spawnPos.y -= 0.9f;
+
+        GameObject vfx = Instantiate(snareVFXPrefab, spawnPos, Quaternion.identity);
+
+        // 🔥 THIS IS THE IMPORTANT PART
+        SnareRoot root = vfx.GetComponent<SnareRoot>();
+        if (root != null)
+        {
+            root.Init(player.position);
+        }
+    }
+
+    Debug.Log("[BrambleSprite] Snare hit executed.");
+}
 
     public void OnThornToss()
     {
@@ -505,14 +508,12 @@ public class BrambleSpriteController : MonoBehaviour
         GameObject thorn = Instantiate(thornPrefab, thornSpawnPoint.position, thornSpawnPoint.rotation);
         Vector3 direction = player.position - thornSpawnPoint.position;
 
-        Component thornComponent = thorn.GetComponent("ThornProjectile");
+        ThornProjectile thornComponent = thorn.GetComponent<ThornProjectile>();
         if (thornComponent != null)
         {
-            var method = thornComponent.GetType().GetMethod("Launch", new System.Type[] { typeof(Vector3), typeof(int) });
-            if (method != null)
-                method.Invoke(thornComponent, new object[] { direction, thornDamage });
-            else
-                Debug.LogWarning("ThornProjectile component found but Launch(Vector3,int) method is missing.", thorn);
+            thornComponent.speed = thornSpeed;
+            thornComponent.lifeTime = thornLifeTime;
+            thornComponent.Launch(direction, thornDamage);
         }
         else
         {
@@ -538,13 +539,13 @@ public class BrambleSpriteController : MonoBehaviour
         Debug.Log($"[BrambleSprite] Dealt {damage} damage to player.");
     }
 
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     //  HEALTH
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     public void TakeDamage(float damage)
     {
         if (currentState == EnemyState.Dead) return;
-        if (!battleStarted) battleStarted = true;
+        if (!battleStarted) return;
 
         float scoutBase = remainingScoutTime > 0f ? remainingScoutTime
             : (currentState == EnemyState.Scouting ? scoutTimeRemaining : scoutTime);
@@ -566,26 +567,42 @@ public class BrambleSpriteController : MonoBehaviour
             EnterState(EnemyState.BeingHit);
     }
 
-    // ─────────────────────────────────────────
+    // -----------------------------------------
     //  HELPERS
-    // ─────────────────────────────────────────
-    private void FaceTarget(Vector3 targetPos)
+    // -----------------------------------------
+    private IEnumerator WaitForAnimationToComplete(string stateName)
     {
-        Vector3 dir = targetPos - transform.position; dir.y = 0f;
-        if (dir.sqrMagnitude > 0.001f)
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(dir.normalized), Time.deltaTime * 10f);
+        if (animator == null) yield break;
+        yield return null;
+        float timeout = 10f;
+        float elapsedTime = 0f;
+        while (elapsedTime < timeout)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.IsName(stateName) && stateInfo.normalizedTime >= 1f)
+            {
+                Debug.Log($"[BrambleSprite] Animation '{stateName}' completed.");
+                yield break;
+            }
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Debug.LogWarning($"[BrambleSprite] Animation '{stateName}' timeout.");
     }
 
-    private Vector3 GetRandomTerrainPoint(Vector3 center, float radius)
+    private void FaceTarget(Vector3 targetPos, float turnSpeedDegreesPerSecond = 720f)
     {
-        Vector2 randomCircle = Random.insideUnitCircle * radius;
-        Vector3 randomPoint = center + new Vector3(randomCircle.x, 0f, randomCircle.y);
-        Ray ray = new Ray(randomPoint + Vector3.up * 50f, Vector3.down);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f)) randomPoint = hit.point;
-        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit navHit, radius, NavMesh.AllAreas))
-            return navHit.position;
-        return center;
+        Vector3 dir = targetPos - transform.position;
+        dir.y = 0f;
+        if (dir.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(dir.normalized);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                Mathf.Max(0f, turnSpeedDegreesPerSecond) * Time.deltaTime
+            );
+        }
     }
 
     private float GetClipLength(string clipName)
@@ -613,10 +630,6 @@ public class BrambleSpriteController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(spawnPosition == Vector3.zero ? transform.position : spawnPosition, patrolRadius);
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, leapTriggerRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, closeAttackRange);
     }

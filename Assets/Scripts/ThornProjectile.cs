@@ -6,6 +6,7 @@ public class ThornProjectile : MonoBehaviour
     public float speed = 14f;
     public int damage = 8;
     public float lifeTime = 5f;
+    public float knockbackForce = 8f;
 
     private Vector3 direction;
     private bool launched;
@@ -39,6 +40,10 @@ public class ThornProjectile : MonoBehaviour
         {
             other.SendMessage("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver);
         }
+
+        var movement = other.GetComponentInParent<PlayerMovement>();
+        if (movement != null)
+            movement.ApplyKnockback(direction, knockbackForce);
 
         Destroy(gameObject);
     }
