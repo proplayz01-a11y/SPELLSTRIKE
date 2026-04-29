@@ -19,13 +19,6 @@ public class TileManager : MonoBehaviour
     public int currentStage = 1; // set this per stage scene
 
     public AttackController attackController;
-
-    // vowels more likely
-    private char[] weightedAlphabet = new char[]
-    {
-    'A','A','E','E','E','I','I','O','O','O','U','U', // vowels x3
-    'B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z'
-    };
     private GridLayoutGroup tilePoolGrid;
     private GridLayoutGroup wordBarGrid;
     public GameObject tileUIPrefab;
@@ -52,30 +45,7 @@ public class TileManager : MonoBehaviour
 
     void PrefillTilePool(int amount, int stage = 1)
     {
-        List<char> lettersToSpawn = new List<char>();
-
-        // Per-stage long word probability
-        float longWordChance;
-        if (stage <= 2) longWordChance = 0.70f;
-        else if (stage <= 4) longWordChance = 0.80f;
-        else longWordChance = 0.85f; // Stage 5
-
-        bool injectLongWord = Random.value < longWordChance;
-        if (injectLongWord)
-        {
-            string longWord = DictionaryManager.Instance.GetRandomLongWord(8, 13);
-            if (!string.IsNullOrEmpty(longWord))
-            {
-                foreach (char c in longWord)
-                    lettersToSpawn.Add(c);
-            }
-        }
-
-        while (lettersToSpawn.Count < amount)
-        {
-            char randomLetter = weightedAlphabet[Random.Range(0, weightedAlphabet.Length)];
-            lettersToSpawn.Add(randomLetter);
-        }
+        List<char> lettersToSpawn = GenerateDictionaryWeightedLetters(amount, stage);
 
         // Shuffle
         for (int i = 0; i < lettersToSpawn.Count; i++)
@@ -200,11 +170,65 @@ public class TileManager : MonoBehaviour
 
     public void AddTilesToPool(int count)
     {
-        for (int i = 0; i < count; i++)
+        List<char> lettersToSpawn = GenerateDictionaryWeightedLetters(count, currentStage);
+        for (int i = 0; i < lettersToSpawn.Count; i++)
         {
-            char letter = weightedAlphabet[Random.Range(0, weightedAlphabet.Length)];
-            CreateTileInPool(letter);
+            CreateTileInPool(lettersToSpawn[i]);
         }
+    }
+
+    private List<char> GenerateDictionaryWeightedLetters(int amount, int stage)
+    {
+        List<char> letters = new List<char>(amount);
+
+        if (DictionaryManager.Instance == null)
+        {
+            Debug.LogError("DictionaryManager is missing. Cannot run dictionary-based tile spawning.");
+            return letters;
+        }
+
+        Vector3 weights = GetStageLengthWeights(stage); // x: short, y: medium, z: long
+
+        while (letters.Count < amount)
+        {
+            float roll = Random.value;
+            string pickedWord;
+
+            if (roll < weights.x)
+                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(3, 5);
+            else if (roll < weights.x + weights.y)
+                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(6, 9);
+            else
+                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(10, int.MaxValue);
+
+            if (string.IsNullOrEmpty(pickedWord))
+            {
+                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(3, 9);
+                if (string.IsNullOrEmpty(pickedWord))
+                    break;
+            }
+
+            foreach (char c in pickedWord)
+            {
+                if (letters.Count >= amount)
+                    break;
+
+                letters.Add(char.ToUpperInvariant(c));
+            }
+        }
+
+        return letters;
+    }
+
+    private Vector3 GetStageLengthWeights(int stage)
+    {
+        if (stage <= 1) return new Vector3(0.70f, 0.20f, 0.10f);
+        if (stage == 2) return new Vector3(0.62f, 0.25f, 0.13f);
+        if (stage == 3) return new Vector3(0.55f, 0.28f, 0.17f);
+        if (stage == 4) return new Vector3(0.48f, 0.31f, 0.21f);
+
+        // Stage 5+: most balanced while keeping short > medium > long.
+        return new Vector3(0.42f, 0.33f, 0.25f);
     }
 
     public void ResetTileSelection()

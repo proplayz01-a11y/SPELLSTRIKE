@@ -68,6 +68,11 @@ public class ArenaTrigger : MonoBehaviour
     {
         if (brambleSprite != null) brambleSprite.SetActive(false);
         if (dialogueCanvas != null) dialogueCanvas.SetActive(false);
+        var renderers = GameObject.Find("level1_REVAMPED").GetComponentsInChildren<Renderer>();
+        Bounds bounds = renderers[0].bounds;
+        foreach (var r in renderers)
+            bounds.Encapsulate(r.bounds);
+        Debug.Log("Size: " + bounds.size + " Center: " + bounds.center);
         if (node2DirectionIndicator != null) node2DirectionIndicator.SetActive(false);
     }
 
