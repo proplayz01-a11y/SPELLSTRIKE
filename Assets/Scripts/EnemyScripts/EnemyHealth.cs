@@ -18,21 +18,40 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void TakeDamage(float damage)
+{
+    currentHealth = Mathf.Max(0f, currentHealth - damage);
+
+    if (healthSlider != null)
+        healthSlider.value = currentHealth;
+
+    Debug.Log($"{name} took {damage} damage. HP: {currentHealth}/{maxHealth}");
+
+    if (currentHealth <= 0f)
     {
-        currentHealth = Mathf.Max(0f, currentHealth - damage);
-
-        if (healthSlider != null)
-            healthSlider.value = currentHealth;
-
-        if (currentHealth <= 0f)
-        {
-            Die();
-        }
+        Die();
+        return;
     }
 
-    void Die()
+    StoneSentinelsController stoneSentinel = GetComponent<StoneSentinelsController>();
+
+    if (stoneSentinel != null)
     {
-        Debug.Log($"{name} died!");
-        Destroy(gameObject);
+        stoneSentinel.TriggerBeingHit();
     }
+}
+
+   private void Die()
+{
+    Debug.Log($"{name} died.");
+
+    StoneSentinelsController stoneSentinel = GetComponent<StoneSentinelsController>();
+
+    if (stoneSentinel != null)
+    {
+        stoneSentinel.TriggerDeath();
+        return;
+    }
+
+    Destroy(gameObject);
+}
 }

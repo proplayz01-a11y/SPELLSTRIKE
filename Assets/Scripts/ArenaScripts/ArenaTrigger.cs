@@ -239,7 +239,12 @@ public class ArenaTrigger : MonoBehaviour
         battleStarted = true;
         if (TileSpawner.Instance != null)
         {
-            TileSpawner.Instance.ConfigureArenaBounds(arenaCenter, arenaRadius);
+            TileSpawner.Instance.ConfigureArenaBounds(
+     arenaCenter,
+     arenaRadius,
+     null,
+     0f
+ );
         }
 
         PlayIntroState(introIdleState);
