@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TileManager : MonoBehaviour
 {
+    private readonly HashSet<char> difficultLetters = new HashSet<char>() { 'Q', 'X', 'Z', 'J', 'K', 'V', 'W', 'Y' };
     [Header("Panels")]
     public Transform tilePoolPanel;
     public Transform wordBarPanel;
@@ -32,6 +33,8 @@ public class TileManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(InitAfterLayout());
+        List<char> testRefill = GenerateRefillLettersFromBudget(11);
+        Debug.Log("Test refill letters: " + string.Join(", ", testRefill));
     }
 
     private IEnumerator InitAfterLayout()
@@ -46,16 +49,7 @@ public class TileManager : MonoBehaviour
     void PrefillTilePool(int amount, int stage = 1)
     {
         List<char> lettersToSpawn = GenerateDictionaryWeightedLetters(amount, stage);
-
-        // Shuffle
-        for (int i = 0; i < lettersToSpawn.Count; i++)
-        {
-            int randIndex = Random.Range(0, lettersToSpawn.Count);
-            char temp = lettersToSpawn[i];
-            lettersToSpawn[i] = lettersToSpawn[randIndex];
-            lettersToSpawn[randIndex] = temp;
-        }
-
+     
         foreach (char letter in lettersToSpawn)
             CreateTileInPool(letter);
     }
@@ -179,45 +173,166 @@ public class TileManager : MonoBehaviour
 
     private List<char> GenerateDictionaryWeightedLetters(int amount, int stage)
     {
-        List<char> letters = new List<char>(amount);
+        List<char> finalLetters = new List<char>(amount);
 
         if (DictionaryManager.Instance == null)
         {
             Debug.LogError("DictionaryManager is missing. Cannot run dictionary-based tile spawning.");
-            return letters;
+            return finalLetters;
         }
 
-        Vector3 weights = GetStageLengthWeights(stage); // x: short, y: medium, z: long
+        int safety = 0;
 
-        while (letters.Count < amount)
+        while (safety < 100)
         {
-            float roll = Random.value;
-            string pickedWord;
-
-            if (roll < weights.x)
-                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(3, 5);
-            else if (roll < weights.x + weights.y)
-                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(6, 9);
-            else
-                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(10, int.MaxValue);
-
-            if (string.IsNullOrEmpty(pickedWord))
+            string mainWord = GetPlayableWordInRange(9, 13);
+            if (string.IsNullOrEmpty(mainWord))
             {
-                pickedWord = DictionaryManager.Instance.GetRandomWordByLengthRange(3, 9);
-                if (string.IsNullOrEmpty(pickedWord))
-                    break;
+                safety++;
+                continue;
             }
 
-            foreach (char c in pickedWord)
+            int remainder = amount - mainWord.Length;
+            if (remainder < 0)
             {
-                if (letters.Count >= amount)
-                    break;
-
-                letters.Add(char.ToUpperInvariant(c));
+                safety++;
+                continue;
             }
+
+            string remainderWord = "";
+
+            if (remainder > 0)
+            {
+                remainderWord = GetPlayableWordInRange(remainder, remainder);
+                if (string.IsNullOrEmpty(remainderWord))
+                {
+                    safety++;
+                    continue;
+                }
+            }
+
+            Debug.Log($"Main word: {mainWord} | Remainder word: {remainderWord}");
+
+            foreach (char c in mainWord)
+            {
+                if (char.IsLetter(c))
+                    finalLetters.Add(char.ToUpperInvariant(c));
+            }
+
+            foreach (char c in remainderWord)
+            {
+                if (char.IsLetter(c) && finalLetters.Count < amount)
+                    finalLetters.Add(char.ToUpperInvariant(c));
+            }
+
+            break;
         }
 
-        return letters;
+
+
+        if (finalLetters.Count < amount)
+        {
+            Debug.LogWarning($"Only generated {finalLetters.Count}/{amount} dictionary-based letters.");
+        }
+
+        for (int i = 0; i < finalLetters.Count; i++)
+        {
+            int randIndex = Random.Range(i, finalLetters.Count);
+            char temp = finalLetters[i];
+            finalLetters[i] = finalLetters[randIndex];
+            finalLetters[randIndex] = temp;
+        }
+
+        return finalLetters;
+    }
+    private string GetPlayableWordInRange(int minLength, int maxLength)
+    {
+        int safety = 0;
+
+        while (safety < 100)
+        {
+            string word = DictionaryManager.Instance.GetRandomWordByLengthRange(minLength, maxLength);
+
+            if (!string.IsNullOrEmpty(word) && IsPlayableWord(word))
+            {
+                return word.ToUpperInvariant();
+            }
+
+            safety++;
+        }
+
+        return "";
+    }
+    private bool IsPlayableWord(string word)
+    {
+        if (string.IsNullOrWhiteSpace(word))
+            return false;
+
+        word = word.ToUpperInvariant();
+
+        if (word.Length < 3)
+            return false;
+
+        int vowelCount = 0;
+        int rareCount = 0;
+        Dictionary<char, int> charCounts = new Dictionary<char, int>();
+
+        foreach (char c in word)
+        {
+            if (!char.IsLetter(c))
+                return false;
+
+            if ("AEIOU".Contains(c))
+                vowelCount++;
+
+            if ("QXZJVWKY".Contains(c))
+                rareCount++;
+
+            if (!charCounts.ContainsKey(c))
+                charCounts[c] = 0;
+
+            charCounts[c]++;
+        }
+
+        float vowelRatio = (float)vowelCount / word.Length;
+
+        // Must have enough vowels
+        if (vowelCount == 0)
+            return false;
+
+        if (word.Length <= 4 && vowelCount < 1)
+            return false;
+
+        if (word.Length >= 5 && vowelCount < 2)
+            return false;
+
+        // Too consonant-heavy
+        if (vowelRatio < 0.30f)
+            return false;
+
+        // Too many ugly letters
+        if (rareCount >= 2)
+            return false;
+
+        // Reject words with any letter repeated too many times
+        foreach (var kvp in charCounts)
+        {
+            if (kvp.Value >= 3)
+                return false;
+        }
+
+        return true;
+    }
+    private string GetLongestPlayableWordFitting(int budget)
+    {
+        for (int length = budget; length >= 3; length--)
+        {
+            string word = GetPlayableWordInRange(length, length);
+            if (!string.IsNullOrEmpty(word))
+                return word;
+        }
+
+        return "";
     }
 
     private Vector3 GetStageLengthWeights(int stage)
@@ -229,6 +344,62 @@ public class TileManager : MonoBehaviour
 
         // Stage 5+: most balanced while keeping short > medium > long.
         return new Vector3(0.42f, 0.33f, 0.25f);
+    }
+
+    private string TakeLettersFromWord(string word, int budget)
+    {
+        if (string.IsNullOrEmpty(word) || budget <= 0)
+            return "";
+
+        int takeCount = Mathf.Min(word.Length, budget);
+        return word.Substring(0, takeCount).ToUpperInvariant();
+    }
+
+    public List<char> GenerateRefillLettersFromBudget(int budget)
+    {
+        List<char> refillLetters = new List<char>();
+
+        if (DictionaryManager.Instance == null)
+        {
+            Debug.LogError("DictionaryManager is missing. Cannot generate refill letters.");
+            return refillLetters;
+        }
+
+        int remaining = budget;
+        string word1 = "";
+        string word2 = "";
+
+        // Word 1
+        word1 = GetLongestPlayableWordFitting(remaining);
+        if (!string.IsNullOrEmpty(word1))
+        {
+            string letters1 = TakeLettersFromWord(word1, remaining);
+            foreach (char c in letters1)
+                refillLetters.Add(c);
+
+            remaining -= letters1.Length;
+        }
+
+        // Word 2
+        if (remaining > 0)
+        {
+            word2 = GetLongestPlayableWordFitting(remaining);
+            if (!string.IsNullOrEmpty(word2))
+            {
+                string letters2 = TakeLettersFromWord(word2, remaining);
+                foreach (char c in letters2)
+                    refillLetters.Add(c);
+
+                remaining -= letters2.Length;
+            }
+        }
+
+        Debug.Log($"[NEXT REFILL] Used Budget: {budget} | Word1: {word1} | Word2: {word2} | Spawned: {string.Join(", ", refillLetters)} | Filled: {budget - remaining}/{budget}");
+
+        if (remaining > 0)
+            Debug.LogWarning($"[REFILL] Underfill: {remaining} slots unfilled.");
+
+        return refillLetters;
     }
 
     public void ResetTileSelection()

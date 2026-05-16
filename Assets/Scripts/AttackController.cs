@@ -48,9 +48,9 @@ public class AttackController : MonoBehaviour
         if (wordLength >= 3 && wordLength <= 5)
             return "BasicAttack";
         else if (wordLength >= 6 && wordLength <= 9)
-            return "MediumAttack";
+            return "BasicAttack";
         else if (wordLength >= 10 && wordLength <= 13)
-            return "StrongAttack";
+            return "BasicAttack";
         else
             return "UltimateAttack";
     }
@@ -111,7 +111,9 @@ public class AttackController : MonoBehaviour
     }
 
     public void ExecuteAttack()
+
     {
+        
         if (tileManager == null || DictionaryManager.Instance == null)
             return;
 
@@ -129,12 +131,12 @@ public class AttackController : MonoBehaviour
         int finalDamage = CalculateDamage(word);
         pendingDamage = finalDamage;
         currentWordLength = wordLength;
-        Debug.Log($"Word: {word} | Length: {wordLength} | Final Damage: {finalDamage}");
 
         currentAttackTrigger = GetAttackTrigger(wordLength);
         Debug.Log("Attack tier: " + currentAttackTrigger);
 
         tileManager.DestroyUsedTiles();
+        List<char> refillLetters = tileManager.GenerateRefillLettersFromBudget(destroyedCount);
 
         if (movementController != null)
             movementController.BeginAttack();
@@ -147,7 +149,10 @@ public class AttackController : MonoBehaviour
         if (attackButton != null)
             attackButton.interactable = false;
 
-        TileSpawner.Instance.SpawnTiles(destroyedCount);
+        if (TileSpawner.Instance != null)
+        {
+            TileSpawner.Instance.SpawnSpecificTiles(refillLetters);
+        }
 
         attackCoroutine = StartCoroutine(EndAttackAfterAnimation());
     }
@@ -155,6 +160,8 @@ public class AttackController : MonoBehaviour
     // Called via Animation Event
     public void ShootMagicProjectile()
     {
+        Debug.Log($"[ShootMagicProjectile] obj={gameObject.name} id={GetInstanceID()} pendingDamage={pendingDamage} wordLength={currentWordLength}");
+        Debug.Log($"[AttackController START] obj={gameObject.name} id={GetInstanceID()} animatorObj={(playerAnimator != null ? playerAnimator.gameObject.name : "NULL")}");
         if (playerProjectile == null || magicSpawnPoint == null)
         {
             Debug.LogWarning("Projectile or spawn point not assigned.");
@@ -168,27 +175,23 @@ public class AttackController : MonoBehaviour
             return;
         }
 
+        if (pendingDamage <= 0)
+        {
+            Debug.LogWarning($"ShootMagicProjectile blocked. pendingDamage = {pendingDamage}, currentWordLength = {currentWordLength}");
+            return;
+        }
+
         GameObject proj = Instantiate(playerProjectile, magicSpawnPoint.position, Quaternion.identity);
         HomingProjectile projectileScript = proj.GetComponent<HomingProjectile>();
+
         if (projectileScript != null)
         {
-            int damageToUse = pendingDamage;
-            if (damageToUse <= 0 && tileManager != null)
-            {
-                string word = tileManager.GetCurrentWord().ToUpper();
-                if (!string.IsNullOrEmpty(word))
-                    damageToUse = CalculateDamage(word);
-            }
-
-            if (damageToUse <= 0)
-            {
-                Debug.LogWarning($"ShootMagicProjectile() has non-positive pendingDamage ({pendingDamage}). Did ExecuteAttack() run?");
-            }
-            else
-            {
-                projectileScript.Launch(damageToUse, currentWordLength);
-            }
+            Debug.Log($"Launching projectile with damage {pendingDamage} and word length {currentWordLength}");
+            projectileScript.Launch(pendingDamage, currentWordLength);
         }
+
+        pendingDamage = 0;
+        currentWordLength = 0;
     }
 
     Transform GetNearestEnemy()

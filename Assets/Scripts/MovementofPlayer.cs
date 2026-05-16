@@ -104,40 +104,18 @@ public class MovementofPlayer : MonoBehaviour
         if (animator == null || isAttacking) return;
 
         float targetSpeed = 0f;
-        //string animState = "Idle";
 
-        //if (movementInput.magnitude > 0.1f)
-        //{
-        //    if (isRunning)
-        //    {
-        //        targetSpeed = 1f;
-        //        animState = "Fast Run";
-        //    }
-        //    else
-        //    {
-        //        targetSpeed = 0.5f;
-        //        //animState = "Walk";
-        //    }
-        //}
+        if (movementInput.magnitude > 0.1f && !disableMovement)
+        {
+            if (isRunning)
+                targetSpeed = 1f;   // matches Fast Run threshold
+            else
+                targetSpeed = 0.5f; // matches Walk threshold
+        }
 
-        // Smooth speed transition
         float currentSpeed = animator.GetFloat("Speed");
         float smoothSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * 10f);
         animator.SetFloat("Speed", smoothSpeed);
-
-        //// Log only when state changes
-        //if (animState != lastAnimState)
-        //{
-        //    Debug.Log($"[Animation] State changed to: {animState} | Speed: {smoothSpeed:F2}");
-        //    lastAnimState = animState;
-        //}
-
-        //// Log speed changes significantly
-        //if (Mathf.Abs(smoothSpeed - lastLoggedSpeed) > 0.1f)
-        //{
-        //    Debug.Log($"[Animation] Speed parameter: {smoothSpeed:F2}");
-        //    lastLoggedSpeed = smoothSpeed;
-        //}
     }
 
     public void BeginAttack()

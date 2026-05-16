@@ -153,5 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9af4fb3d1fab04e83670e77e719d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomingProjectile
-  speed: 25
-  damage: 50
+  speed: 70.1
+  damage: 80
+  wordLength: 0
