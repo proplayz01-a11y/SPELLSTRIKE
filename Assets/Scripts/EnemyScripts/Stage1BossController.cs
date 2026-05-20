@@ -5,6 +5,7 @@ public class Stage1BossController : MonoBehaviour
     [Header("Boss References")]
     public HollowKnightController hollowKnight;
     public BossFragmentPickup bossFragment;
+    public SwordRewardPickup swordReward;
 
     [Header("Arena References")]
     public GameObject bossArenaBoundary;
@@ -12,6 +13,10 @@ public class Stage1BossController : MonoBehaviour
     [Header("State")]
     public bool bossDefeated = false;
     public bool fragmentCollected = false;
+    public bool swordCollected = false;
+
+    [Header("UI References")]
+    public StageCompleteUI stageCompleteUI;
 
     public void OnHollowKnightDefeated()
     {
@@ -29,6 +34,28 @@ public class Stage1BossController : MonoBehaviour
         {
             Debug.LogWarning("[Stage1BossController] Boss fragment reference missing.");
         }
+
+        if (swordReward != null)
+        {
+            swordReward.UnlockSwordPickup();
+        }
+        else
+        {
+            Debug.LogWarning("[Stage1BossController] Sword reward reference missing.");
+        }
+    }
+
+    public void OnSwordRewardCollected()
+    {
+        if (swordCollected) return;
+
+        swordCollected = true;
+
+        Debug.Log("[Stage1BossController] Hollow Knight's Blade obtained manually.");
+        Debug.Log("[Stage1BossController] Passive unlocked: +10% word attack damage starting Stage 2.");
+
+        // Later:
+        // Add item to inventory / passive item list.
     }
 
     public void OnBossFragmentCollected()
@@ -39,18 +66,44 @@ public class Stage1BossController : MonoBehaviour
 
         Debug.Log("[Stage1BossController] Stage 1 boss fragment collected.");
 
-        // Later layers:
-        // - Show Stage 1 Complete panel
-        // - Unlock next stage
-        // - Add sword reward
-        // - Save progress
-        // - Return to Stage Select
+        if (!swordCollected)
+        {
+            GrantSwordRewardAutomatically();
+        }
 
-        // Optional for now: disable arena boundary after collecting the fragment.
         if (bossArenaBoundary != null)
         {
             bossArenaBoundary.SetActive(false);
             Debug.Log("[Stage1BossController] Boss arena boundary disabled.");
         }
+
+        // Later layers:
+        if (stageCompleteUI != null)
+        {
+            stageCompleteUI.ShowStageComplete();
+        }
+        else
+        {
+            Debug.LogWarning("[Stage1BossController] StageCompleteUI reference missing.");
+        }
+        // - Unlock Stage 2
+        // - Save progress
+        // - Return to Stage Select
+    }
+
+    private void GrantSwordRewardAutomatically()
+    {
+        swordCollected = true;
+
+        Debug.Log("[Stage1BossController] Hollow Knight's Blade auto-granted after fragment pickup.");
+        Debug.Log("[Stage1BossController] Passive unlocked: +10% word attack damage starting Stage 2.");
+
+        if (swordReward != null)
+        {
+            swordReward.AutoGrantSwordReward();
+        }
+
+        // Later:
+        // Add item to inventory / passive item list.
     }
 }
