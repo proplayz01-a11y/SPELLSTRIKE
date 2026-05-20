@@ -7,9 +7,12 @@ public class EnemyHealth : MonoBehaviour
     public float currentHealth;
     public Slider healthSlider;
 
-    void Start()
+    private bool isDead = false;
+
+    private void Start()
     {
         currentHealth = maxHealth;
+
         if (healthSlider != null)
         {
             healthSlider.maxValue = maxHealth;
@@ -18,40 +21,71 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void TakeDamage(float damage)
-{
-    currentHealth = Mathf.Max(0f, currentHealth - damage);
-
-    if (healthSlider != null)
-        healthSlider.value = currentHealth;
-
-    Debug.Log($"{name} took {damage} damage. HP: {currentHealth}/{maxHealth}");
-
-    if (currentHealth <= 0f)
     {
-        Die();
-        return;
+        if (isDead) return;
+
+        currentHealth = Mathf.Max(0f, currentHealth - damage);
+
+        if (healthSlider != null)
+            healthSlider.value = currentHealth;
+
+        Debug.Log($"{name} took {damage} damage. HP: {currentHealth}/{maxHealth}");
+
+        if (currentHealth <= 0f)
+        {
+            Die();
+            return;
+        }
+
+        TriggerHitReaction();
     }
 
-    StoneSentinelsController stoneSentinel = GetComponent<StoneSentinelsController>();
-
-    if (stoneSentinel != null)
+    private void TriggerHitReaction()
     {
-        stoneSentinel.TriggerBeingHit();
+        StoneSentinelsController stoneSentinel = GetComponent<StoneSentinelsController>();
+
+        if (stoneSentinel != null)
+        {
+            stoneSentinel.TriggerBeingHit();
+            return;
+        }
+
+        HollowKnightController hollowKnight = GetComponent<HollowKnightController>();
+
+        if (hollowKnight != null)
+        {
+            hollowKnight.TriggerBeingHit();
+            return;
+        }
     }
-}
 
-   private void Die()
-{
-    Debug.Log($"{name} died.");
-
-    StoneSentinelsController stoneSentinel = GetComponent<StoneSentinelsController>();
-
-    if (stoneSentinel != null)
+    private void Die()
     {
-        stoneSentinel.TriggerDeath();
-        return;
-    }
+        if (isDead) return;
 
-    Destroy(gameObject);
-}
+        isDead = true;
+
+        Debug.Log($"{name} died.");
+
+        StoneSentinelsController stoneSentinel = GetComponent<StoneSentinelsController>();
+
+        if (stoneSentinel != null)
+        {
+            stoneSentinel.TriggerDeath();
+            return;
+        }
+
+        HollowKnightController hollowKnight = GetComponent<HollowKnightController>();
+
+        if (hollowKnight != null)
+        {
+            // We will implement this later in the Death layer.
+            // For now, this prevents Hollow Knight from being instantly destroyed
+            // once we add TriggerDeath().
+            hollowKnight.TriggerDeath();
+            return;
+        }
+
+        Destroy(gameObject);
+    }
 }
