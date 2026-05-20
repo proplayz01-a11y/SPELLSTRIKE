@@ -4026,7 +4026,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'REWARDS
 
-    
+
 
     Soul Fragment (Voice)
 
@@ -10407,8 +10407,8 @@ MonoBehaviour:
   player: {fileID: 159900357529877108}
   agent: {fileID: 2079011589}
   animator: {fileID: 2079011592}
-  walkSpeed: 40
-  runSpeed: 97.1
+  walkSpeed: 124.7
+  runSpeed: 300
   runRange: 144.5
   stoppingDistance: 17.68
   rotationSpeed: 44.54

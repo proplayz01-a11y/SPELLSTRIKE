@@ -67,6 +67,8 @@ private Vector3 chargeTargetPosition;
 
     private float swordSlashCooldownTimer = 0f;
 
+    private float speedLogTimer = 2f; // Timer for console logging
+
     private Coroutine recoverCoroutine;
 
     private void Awake()
@@ -89,6 +91,26 @@ private Vector3 chargeTargetPosition;
 
    private void Update()
 {
+    speedLogTimer -= Time.deltaTime;
+    if (speedLogTimer <= 0f)
+    {
+        float currentSpeed = 0f;
+        
+        // Check standard movement speed
+        if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
+        {
+            currentSpeed = agent.velocity.magnitude;
+        }
+
+        // If charging, agent.velocity might be bypassed by agent.Move(), so we show charge speed
+        if (isCharging)
+        {
+            currentSpeed = chargeSpeed;
+        }
+
+        Debug.Log($"[HollowKnight Debug] Current Speed: {currentSpeed:F2}");
+        speedLogTimer = 2f; // Reset the timer
+    }
     if (swordSlashCooldownTimer > 0f)
         swordSlashCooldownTimer -= Time.deltaTime;
 
@@ -221,7 +243,18 @@ if (distanceToPlayer >= chargeMinRange &&
     distanceToPlayer <= chargeMaxRange &&
     chargeCooldownTimer <= 0f)
 {
-    TriggerChargeAttack();
+    float chargeRoll = Random.value;
+
+    if (chargeRoll <= 0.6f)
+    {
+        TriggerChargeAttack();
+        Debug.Log("[HollowKnight] Charge decision: ChargeAttack.");
+    }
+    else
+    {
+        Debug.Log("[HollowKnight] Charge decision: Closing distance instead.");
+    }
+
     return;
 }
 
