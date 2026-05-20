@@ -43,9 +43,22 @@ public class HollowKnightController : MonoBehaviour
     [Header("Hit Reaction")]
     public float hitRecoverTime = 0.5f;
 
+    [Header("Sword Drop")]
+    public Transform swordPivot;
+    public Rigidbody swordRigidbody;
+    public Collider swordPhysicalCollider;
+    public Collider swordHitboxCollider;
+
+    [Header("Stage Boss Controller")]
+    public Stage1BossController stageBossController;    
+
+private bool swordDropped = false;
+
     private bool isBeingHit = false;
 
 private bool isCharging = false;
+
+private bool isDead = false;
 private float chargeCooldownTimer = 0f;
 private Vector3 chargeTargetPosition;
 
@@ -81,6 +94,12 @@ private Vector3 chargeTargetPosition;
 
     if (chargeCooldownTimer > 0f)
         chargeCooldownTimer -= Time.deltaTime;
+
+    if (isDead)
+    {
+    StopMovement();
+    return;
+    }
 
     if (!battleStarted)
     {
@@ -398,14 +417,83 @@ public void OnBeingHitFinished()
 
     public void TriggerDeath()
 {
-    Debug.Log("[HollowKnight] TriggerDeath called. Death layer not implemented yet.");
+    if (isDead) return;
 
+    Debug.Log("[HollowKnight] Death triggered.");
+
+    isDead = true;
     battleStarted = false;
+
+    isAttacking = false;
+    isCharging = false;
+    isRecovering = false;
+    isBeingHit = false;
+
+    if (recoverCoroutine != null)
+    {
+        StopCoroutine(recoverCoroutine);
+        recoverCoroutine = null;
+    }
 
     StopMovement();
 
     if (swordDamage != null)
         swordDamage.DisableDamage();
+
+    if (agent != null && agent.enabled && agent.isOnNavMesh)
+    {
+        agent.isStopped = true;
+        agent.ResetPath();
+        agent.enabled = false;
+    }
+
+    Rigidbody rb = GetComponent<Rigidbody>();
+
+    if (rb != null)
+    {
+        if (!rb.isKinematic)
+        {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        }
+
+    rb.useGravity = false;
+    rb.isKinematic = true;
+    }
+
+    if (animator != null)
+    {
+        animator.ResetTrigger("SwordSlash");
+        animator.ResetTrigger("ChargeAttack");
+        animator.ResetTrigger("BeingHit");
+        animator.SetTrigger("Dead");
+    }
+    else
+    {
+        Debug.LogWarning("[HollowKnight] Animator missing. Cannot play death animation.");
+    }
+}
+
+public void OnDeathFinished()
+{
+    Debug.Log("[HollowKnight] Death animation finished. Corpse remains in scene.");
+
+    if (swordDamage != null)
+        swordDamage.DisableDamage();
+
+    SetAnimatorSpeed(0f);
+
+    if (stageBossController != null)
+{
+    stageBossController.OnHollowKnightDefeated();
+}
+else
+{
+    Debug.LogWarning("[HollowKnight] StageBossController reference missing.");
+}
+
+    // Do NOT destroy or deactivate this GameObject.
+    // Hollow Knight must remain as a corpse for fragment pickup and sword reward later.
 }
 
 private IEnumerator HitRecoverRoutine()
@@ -464,6 +552,53 @@ private IEnumerator HitRecoverRoutine()
         }
     }
 
+    public void DropSword()
+{
+    if (swordDropped) return;
+
+    swordDropped = true;
+
+    Debug.Log("[HollowKnight] Sword dropped.");
+
+    if (swordDamage != null)
+        swordDamage.DisableDamage();
+
+    if (swordHitboxCollider != null)
+        swordHitboxCollider.enabled = false;
+
+    if (swordPivot != null)
+    {
+        swordPivot.SetParent(null, true);
+    }
+    else
+    {
+        Debug.LogWarning("[HollowKnight] SwordPivot reference missing. Cannot detach sword.");
+        return;
+    }
+
+    if (swordPhysicalCollider != null)
+    {
+        swordPhysicalCollider.enabled = true;
+        swordPhysicalCollider.isTrigger = false;
+    }
+
+    if (swordRigidbody != null)
+    {
+        swordRigidbody.isKinematic = false;
+        swordRigidbody.useGravity = true;
+
+        swordRigidbody.linearVelocity = Vector3.zero;
+        swordRigidbody.angularVelocity = Vector3.zero;
+
+        swordRigidbody.AddForce(transform.forward * 2f + Vector3.up * 1f, ForceMode.Impulse);
+        swordRigidbody.AddTorque(transform.right * 2f, ForceMode.Impulse);
+    }
+    else
+    {
+        Debug.LogWarning("[HollowKnight] SwordRigidbody reference missing. Sword will detach but not fall with physics.");
+    }
+}
+
     private void StopMovement()
     {
         if (agent != null && agent.enabled && agent.isOnNavMesh)
@@ -509,10 +644,10 @@ private IEnumerator HitRecoverRoutine()
         Gizmos.DrawWireSphere(center, swordSlashRange);
 
         Gizmos.color = Color.green;
-    Gizmos.DrawWireSphere(center, chargeMinRange);
+        Gizmos.DrawWireSphere(center, chargeMinRange);
 
-    Gizmos.color = Color.blue;
-    Gizmos.DrawWireSphere(center, chargeMaxRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(center, chargeMaxRange);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(center, runRange);
