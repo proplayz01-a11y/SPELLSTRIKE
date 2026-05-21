@@ -68,6 +68,7 @@ private Vector3 chargeTargetPosition;
     private float swordSlashCooldownTimer = 0f;
 
     private float speedLogTimer = 2f; // Timer for console logging
+    private bool decidedToCloseIn = false;
 
     private Coroutine recoverCoroutine;
 
@@ -239,23 +240,30 @@ if (distanceToPlayer <= swordSlashRange)
     return;
 }
 
-if (distanceToPlayer >= chargeMinRange &&
+if (!decidedToCloseIn &&
+    distanceToPlayer >= chargeMinRange &&
     distanceToPlayer <= chargeMaxRange &&
     chargeCooldownTimer <= 0f)
 {
     float chargeRoll = Random.value;
 
     if (chargeRoll <= 0.6f)
+{
+    float variantRoll = Random.value;
+
+    if (variantRoll <= 0.5f)
     {
         TriggerChargeAttack();
-        Debug.Log("[HollowKnight] Charge decision: ChargeAttack.");
+        Debug.Log("[HollowKnight] Charge variant: SlideAttack.");
     }
     else
     {
-        Debug.Log("[HollowKnight] Charge decision: Closing distance instead.");
+        TriggerChargeAttack2();
+        Debug.Log("[HollowKnight] Charge variant: ChargeAttack2.");
     }
 
     return;
+}
 }
 
 ChasePlayer(distanceToPlayer);
@@ -293,6 +301,8 @@ ChasePlayer(distanceToPlayer);
     private void TriggerSwordSlash()
     {
         if (isAttacking || isRecovering) return;
+
+         decidedToCloseIn = false;
 
         isAttacking = true;
         swordSlashCooldownTimer = swordSlashCooldown;
@@ -393,6 +403,45 @@ private void HandleChargeMovement()
 public void OnChargeAttackFinished()
 {
     Debug.Log("[HollowKnight] ChargeAttack finished. Entering recover.");
+
+    isCharging = false;
+    isAttacking = false;
+
+    if (swordDamage != null)
+        swordDamage.DisableDamage();
+
+    if (recoverCoroutine != null)
+        StopCoroutine(recoverCoroutine);
+
+    recoverCoroutine = StartCoroutine(RecoverRoutine());
+}
+
+private void TriggerChargeAttack2()
+{
+    if (isAttacking || isRecovering || isCharging) return;
+    if (player == null) return;
+
+    isCharging = true;
+    isAttacking = true;
+    chargeCooldownTimer = chargeCooldown;
+
+    chargeTargetPosition = player.position;
+    chargeTargetPosition.y = transform.position.y;
+
+    StopMovement();
+    FacePlayer();
+
+    if (swordDamage != null)
+        swordDamage.DisableDamage();
+
+    Debug.Log("[HollowKnight] ChargeAttack2 triggered. (Animation call placeholder)");
+
+    animator.SetTrigger("CloseAttack2"); 
+}
+
+public void OnChargeAttack2Finished()
+{
+    Debug.Log("[HollowKnight] ChargeAttack2 finished. Entering recover.");
 
     isCharging = false;
     isAttacking = false;
