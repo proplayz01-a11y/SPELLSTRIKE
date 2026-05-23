@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class CursedJesterTriggerEncounter : MonoBehaviour
 {
+    [Header("Progression")]
+    public Stage1ProgressionManager progressionManager;
+
     [Header("Encounter References")]
     public CursedJesterController cursedJester;
     public GameObject arenaBoundary;
@@ -19,6 +22,11 @@ public class CursedJesterTriggerEncounter : MonoBehaviour
     {
         if (triggered) return;
         if (!other.CompareTag("Player")) return;
+        if (progressionManager != null && !progressionManager.CanStartNode3())
+        {
+            Debug.Log("[CursedJesterTriggerEncounter] Node 3 is locked. Complete Node 2 first.");
+            return;
+        }
 
         triggered = true;
 

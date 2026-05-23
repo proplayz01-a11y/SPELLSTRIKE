@@ -64,6 +64,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         Debug.Log($"{name} healed {amount}. Current health: {currentHealth}/{maxHealth}");
     }
 
+    public void RestoreFullHealth()
+    {
+        currentHealth = maxHealth;
+        if (healthSlider != null)
+            healthSlider.value = currentHealth;
+        Debug.Log($"{name} restored to full health: {currentHealth}/{maxHealth}");
+    }
+
     // Support legacy SendMessage("ApplyDamage", amount) calls from other scripts/animations
     public void ApplyDamage(float damage)
     {

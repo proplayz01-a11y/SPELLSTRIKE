@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class HollowKnightTriggerEncounter : MonoBehaviour
 {
+    [Header("Progression")]
+    public Stage1ProgressionManager progressionManager;
+
     [Header("Hollow Knight")]
     public HollowKnightController hollowKnight;
 
@@ -21,6 +24,11 @@ public class HollowKnightTriggerEncounter : MonoBehaviour
     {
         if (encounterStarted) return;
         if (!other.CompareTag("Player")) return;
+        if (progressionManager != null && !progressionManager.CanStartBoss())
+        {
+            Debug.Log("[HollowKnightTriggerEncounter] Boss is locked. Complete Node 3 first.");
+            return;
+        }
 
         StartBossEncounter();
     }

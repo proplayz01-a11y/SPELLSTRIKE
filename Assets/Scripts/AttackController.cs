@@ -9,6 +9,7 @@ public class AttackController : MonoBehaviour
     public TileManager tileManager;
     public Animator playerAnimator;
     public MovementofPlayer movementController;
+    public GoalsPanelUI goalsPanelUI;
 
     // Projectile
     public GameObject playerProjectile;   // Assign your PlayerProjectile prefab
@@ -94,6 +95,9 @@ public class AttackController : MonoBehaviour
 
         if (movementController == null)
             movementController = GetComponent<MovementofPlayer>();
+
+        if (goalsPanelUI == null)
+            goalsPanelUI = FindFirstObjectByType<GoalsPanelUI>();
     }
 
     public void CheckWord()
@@ -127,6 +131,11 @@ public class AttackController : MonoBehaviour
 
         int wordLength = word.Length;
         int destroyedCount = tileManager.GetWordTileCount();
+
+        if (wordLength >= 6 && goalsPanelUI != null)
+        {
+            goalsPanelUI.IncrementWordCount();
+        }
 
         int finalDamage = CalculateDamage(word);
         pendingDamage = finalDamage;

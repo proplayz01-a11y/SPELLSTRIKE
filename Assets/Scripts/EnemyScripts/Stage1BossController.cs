@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Stage1BossController : MonoBehaviour
 {
+    [Header("Progression")]
+    public Stage1ProgressionManager progressionManager;
+    public GoalsPanelUI goalsPanelUI;
+    public PlayerHealth playerHealth;
+
     [Header("Boss References")]
     public HollowKnightController hollowKnight;
     public BossFragmentPickup bossFragment;
@@ -17,6 +22,14 @@ public class Stage1BossController : MonoBehaviour
 
     [Header("UI References")]
     public StageCompleteUI stageCompleteUI;
+
+    private void Start()
+    {
+        if (goalsPanelUI == null)
+            goalsPanelUI = FindFirstObjectByType<GoalsPanelUI>();
+        if (playerHealth == null)
+            playerHealth = FindFirstObjectByType<PlayerHealth>();
+    }
 
     public void OnHollowKnightDefeated()
     {
@@ -43,6 +56,9 @@ public class Stage1BossController : MonoBehaviour
         {
             Debug.LogWarning("[Stage1BossController] Sword reward reference missing.");
         }
+
+        if (playerHealth != null)
+            playerHealth.RestoreFullHealth();
     }
 
     public void OnSwordRewardCollected()
@@ -63,6 +79,10 @@ public class Stage1BossController : MonoBehaviour
         if (fragmentCollected) return;
 
         fragmentCollected = true;
+        if (progressionManager != null)
+            progressionManager.MarkBossComplete();
+        if (goalsPanelUI != null)
+            goalsPanelUI.IncrementFragmentCount();
 
         Debug.Log("[Stage1BossController] Stage 1 boss fragment collected.");
 

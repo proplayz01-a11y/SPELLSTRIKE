@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Node2Controller : MonoBehaviour
+public class Node3Controller : MonoBehaviour
 {
     [Header("Progression")]
     public Stage1ProgressionManager progressionManager;
@@ -13,7 +13,7 @@ public class Node2Controller : MonoBehaviour
     public GameObject arenaBoundary;
 
     [Header("Node State")]
-    public bool stoneSentinelDefeated = false;
+    public bool cursedJesterDefeated = false;
     public bool nodeCompleted = false;
 
     private void Start()
@@ -24,30 +24,29 @@ public class Node2Controller : MonoBehaviour
             playerHealth = FindFirstObjectByType<PlayerHealth>();
     }
 
-    public void OnStoneSentinelDefeated()
+    public void OnCursedJesterDefeated()
     {
-        if (stoneSentinelDefeated) return;
-        stoneSentinelDefeated = true;
+        if (cursedJesterDefeated) return;
+        cursedJesterDefeated = true;
 
-        Debug.Log("[Node2Controller] Stone Sentinel defeated. Fragment is now unlocked.");
+        Debug.Log("[Node3Controller] Cursed Jester defeated. Fragment is now unlocked.");
 
         if (fragmentToUnlock != null)
         {
             FragmentPickup pickup = fragmentToUnlock.GetComponent<FragmentPickup>();
-
             if (pickup != null)
             {
                 pickup.SetLocked(false);
-                Debug.Log("[Node2Controller] Fragment is now collectable.");
+                Debug.Log("[Node3Controller] Fragment is now collectable.");
             }
             else
             {
-                Debug.LogWarning("[Node2Controller] FragmentPickup component missing on fragment.");
+                Debug.LogWarning("[Node3Controller] FragmentPickup component missing on fragment.");
             }
         }
         else
         {
-            Debug.LogWarning("[Node2Controller] Fragment reference is missing.");
+            Debug.LogWarning("[Node3Controller] Fragment reference is missing.");
         }
 
         if (playerHealth != null)
@@ -59,22 +58,22 @@ public class Node2Controller : MonoBehaviour
         if (nodeCompleted) return;
         nodeCompleted = true;
         if (progressionManager != null)
-            progressionManager.MarkNode2Complete();
+            progressionManager.MarkNode3Complete();
         if (goalsPanelUI != null)
             goalsPanelUI.IncrementFragmentCount();
 
-        Debug.Log("[Node2Controller] Node 2 fragment collected. Node 2 completed.");
+        Debug.Log("[Node3Controller] Node 3 fragment collected. Node 3 completed.");
 
         if (nextPathIndicator != null)
         {
             nextPathIndicator.SetActive(true);
-            Debug.Log("[Node2Controller] Next path indicator enabled.");
+            Debug.Log("[Node3Controller] Next path indicator enabled.");
         }
 
         if (arenaBoundary != null)
         {
             arenaBoundary.SetActive(false);
-            Debug.Log("[Node2Controller] Arena boundary disabled.");
+            Debug.Log("[Node3Controller] Arena boundary disabled.");
         }
 
         // Later: save progress / database update here.

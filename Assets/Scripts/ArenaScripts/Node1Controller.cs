@@ -6,6 +6,9 @@ public class Node1Controller : MonoBehaviour
     public BrambleSpriteController brambleSprite; 
     public FragmentPickup fragmentPickup;
     public GameObject fragmentVisual;
+    public Stage1ProgressionManager progressionManager;
+    public GoalsPanelUI goalsPanelUI;
+    public PlayerHealth playerHealth;
 
     private bool encounterStarted = false;
     private bool enemyDefeated = false;
@@ -13,6 +16,11 @@ public class Node1Controller : MonoBehaviour
 
     private void Start()
     {
+        if (goalsPanelUI == null)
+            goalsPanelUI = FindFirstObjectByType<GoalsPanelUI>();
+        if (playerHealth == null)
+            playerHealth = FindFirstObjectByType<PlayerHealth>();
+
         if (brambleSprite != null)
             brambleSprite.gameObject.SetActive(false);
 
@@ -60,6 +68,8 @@ public class Node1Controller : MonoBehaviour
 
         if (fragmentPickup != null)
             fragmentPickup.SetLocked(false);
+        if (playerHealth != null)
+            playerHealth.RestoreFullHealth();
 
         Debug.Log("Bramble Sprite defeated. Fragment unlocked.");
     }
@@ -69,6 +79,10 @@ public class Node1Controller : MonoBehaviour
         if (nodeCompleted) return;
 
         nodeCompleted = true;
+        if (progressionManager != null)
+            progressionManager.MarkNode1Complete();
+        if (goalsPanelUI != null)
+            goalsPanelUI.IncrementFragmentCount();
 
         if (fragmentVisual != null)
             fragmentVisual.SetActive(false);

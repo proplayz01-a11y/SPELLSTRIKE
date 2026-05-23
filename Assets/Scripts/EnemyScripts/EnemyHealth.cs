@@ -57,6 +57,14 @@ public class EnemyHealth : MonoBehaviour
             hollowKnight.TriggerBeingHit();
             return;
         }
+
+        CursedJesterController cursedJester = GetComponent<CursedJesterController>();
+
+        if (cursedJester != null)
+        {
+            cursedJester.TriggerBeingHit();
+            return;
+        }
     }
 
     private void Die()
@@ -83,6 +91,14 @@ public class EnemyHealth : MonoBehaviour
             // For now, this prevents Hollow Knight from being instantly destroyed
             // once we add TriggerDeath().
             hollowKnight.TriggerDeath();
+            return;
+        }
+
+        CursedJesterController cursedJester = GetComponent<CursedJesterController>();
+
+        if (cursedJester != null)
+        {
+            cursedJester.TriggerDeath();
             return;
         }
 

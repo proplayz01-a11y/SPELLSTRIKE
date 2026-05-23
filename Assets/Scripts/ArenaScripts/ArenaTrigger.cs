@@ -47,6 +47,7 @@ public class ArenaTrigger : MonoBehaviour
     [SerializeField] private GameObject node1CompletedMarker;
     [SerializeField] private bool saveNode1Completion = true;
     [SerializeField] private int node1StageIndex = 1;
+    [SerializeField] private Stage1ProgressionManager progressionManager;
 
     [Header("Player")]
     [SerializeField] private Transform player;
@@ -271,6 +272,8 @@ public class ArenaTrigger : MonoBehaviour
     private IEnumerator HandlePhase3DeathFlow(BrambleSpriteController deadBramble)
     {
         battleStarted = false;
+        if (progressionManager != null)
+            progressionManager.MarkNode1Complete();
 
         if (arenaBoundaryObject != null)
             arenaBoundaryObject.SetActive(false);

@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class StoneSentinelTriggerEncounter : MonoBehaviour
 {
+    [Header("Progression")]
+    public Stage1ProgressionManager progressionManager;
+
     [Header("Stone Sentinel")]
     public StoneSentinelsController stoneSentinel;
 
@@ -58,6 +61,11 @@ stoneSentinel.StartBattle();
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        if (progressionManager != null && !progressionManager.CanStartNode2())
+        {
+            Debug.Log("[StoneSentinelTriggerEncounter] Node 2 is locked. Complete Node 1 first.");
+            return;
+        }
 
         StartStoneSentinelEncounter();
     }

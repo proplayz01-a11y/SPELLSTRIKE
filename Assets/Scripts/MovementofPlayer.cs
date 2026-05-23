@@ -1,4 +1,5 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
@@ -19,6 +20,7 @@ public class MovementofPlayer : MonoBehaviour
     public bool keepCursorVisible = true;
     public bool disableMovement = false;
     private bool isAttacking = false;
+    private Coroutine speedDebuffCoroutine;
 
     //private float lastLoggedSpeed = -1f;
     //private string lastAnimState = "";
@@ -124,13 +126,36 @@ public class MovementofPlayer : MonoBehaviour
         isAttacking = true;
         if (animator != null)
             animator.SetFloat("Speed", 0f);
-        Debug.Log("[Animation] Attack STARTED — movement disabled");
+        Debug.Log("[Animation] Attack STARTED - movement disabled");
     }
 
     public void EndAttack()
     {
         disableMovement = false;
         isAttacking = false;
-        Debug.Log("[Animation] Attack ENDED — movement re-enabled");
+        Debug.Log("[Animation] Attack ENDED - movement re-enabled");
+    }
+
+    public void ApplySpeedDebuff(float multiplier, float duration)
+    {
+        if (speedDebuffCoroutine != null)
+            StopCoroutine(speedDebuffCoroutine);
+
+        speedDebuffCoroutine = StartCoroutine(ApplySpeedDebuffRoutine(multiplier, duration));
+    }
+
+    private IEnumerator ApplySpeedDebuffRoutine(float multiplier, float duration)
+    {
+        float originalWalkSpeed = walkSpeed;
+        float originalRunSpeed = runSpeed;
+
+        walkSpeed = originalWalkSpeed * multiplier;
+        runSpeed = originalRunSpeed * multiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        walkSpeed = originalWalkSpeed;
+        runSpeed = originalRunSpeed;
+        speedDebuffCoroutine = null;
     }
 }
