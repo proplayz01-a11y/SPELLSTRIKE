@@ -8,6 +8,17 @@ public class BrambleSpriteController : MonoBehaviour
 {
     public event System.Action<BrambleSpriteController> OnDeathStarted;
 
+    [Header("Potion Drop")]
+    public bool dropPotionOnDeath = true;
+    public string potionDropLogSource = "BrambleSprite";
+    [Range(0f, 1f)] public float potionDropChance = 1f;
+    public int potionDropMinCount = 1;
+    public int potionDropMaxCount = 1;
+    public int potionDropAmountPerDrop = 1;
+    public bool canDropHealthPotion = true;
+    public bool canDropPurifyPotion = true;
+    public bool canDropPowerUpPotion = true;
+
     // ─────────────────────────────────────────────
     //  STATE ENUM
     //  Only Approach and Dead are active this layer.
@@ -65,6 +76,7 @@ public class BrambleSpriteController : MonoBehaviour
     private float timeOutsideNormalThornRange = 0f;
     private bool antiKiteThornReady = false;
     private bool beingHitStarted = false;
+    private bool potionDropResolved = false;
 
 
     // ─────────────────────────────────────────────
@@ -329,6 +341,7 @@ public class BrambleSpriteController : MonoBehaviour
 
         battleStarted = true;
         currentState = EnemyState.Approach;
+        potionDropResolved = false;
         agent.isStopped = false;
         agent.ResetPath();
         timeOutsideSlashRange = 0f;
@@ -425,10 +438,30 @@ public class BrambleSpriteController : MonoBehaviour
         if (!deathEventSent)
         {
             deathEventSent = true;
+            TryDropPotionReward();
             OnDeathStarted?.Invoke(this);
         }
 
         Destroy(gameObject);
+    }
+
+    private void TryDropPotionReward()
+    {
+        if (!dropPotionOnDeath || potionDropResolved)
+            return;
+
+        potionDropResolved = true;
+
+        PotionDropper.TryDropRandomPotion(
+            potionDropLogSource,
+            potionDropChance,
+            potionDropMinCount,
+            potionDropMaxCount,
+            potionDropAmountPerDrop,
+            canDropHealthPotion,
+            canDropPurifyPotion,
+            canDropPowerUpPotion
+        );
     }
 
     private IEnumerator DestroyAfterDeath()

@@ -11,6 +11,10 @@ public class AttackController : MonoBehaviour
     public MovementofPlayer movementController;
     public GoalsPanelUI goalsPanelUI;
 
+    [Header("Stage Tile Debuffs")]
+    public TileDebuffManager tileDebuffManager;
+    public bool reduceTileDebuffsOnSuccessfulAttack = true;
+
     // Projectile
     public GameObject playerProjectile;   // Assign your PlayerProjectile prefab
     public Transform magicSpawnPoint;     // Assign hand spawn point
@@ -69,14 +73,28 @@ public class AttackController : MonoBehaviour
         }
 
         float multiplier = GetLengthMultiplier(word.Length);
-        int finalDamage = Mathf.RoundToInt(baseDamage * multiplier);
+        float potionMultiplier = PotionSystem.Instance != null ? PotionSystem.Instance.GetDamageMultiplier() : 1f;
+        float passiveMultiplier = GetPassiveDamageMultiplier();
+        int finalDamage = Mathf.RoundToInt(baseDamage * multiplier * potionMultiplier * passiveMultiplier);
 
-        if (PotionSystem.Instance != null)
-            finalDamage = Mathf.RoundToInt(finalDamage * PotionSystem.Instance.GetDamageMultiplier());
+        if (PotionSystem.Instance != null && potionMultiplier > 1f)
+            PotionSystem.Instance.ConsumePowerUpAttackCharge();
 
-        Debug.Log($"Word: {word} | Base: {baseDamage} | Multiplier: {multiplier}x | Potion Multiplier: {PotionSystem.Instance?.GetDamageMultiplier() ?? 1f} | Final Damage: {finalDamage}");
+        Debug.Log($"Word: {word} | Base: {baseDamage} | Multiplier: {multiplier}x | Potion Multiplier: {potionMultiplier} | Passive Multiplier: {passiveMultiplier} | Final Damage: {finalDamage}");
 
         return finalDamage;
+    }
+
+    private float GetPassiveDamageMultiplier()
+    {
+        PassiveItemInventory passiveInventory = PassiveItemInventory.Instance;
+        if (passiveInventory == null)
+            passiveInventory = FindFirstObjectByType<PassiveItemInventory>();
+
+        if (passiveInventory != null && passiveInventory.IsEquipped(PassiveItemId.SkySword))
+            return 1.10f;
+
+        return 1f;
     }
 
     void Start()
@@ -98,6 +116,9 @@ public class AttackController : MonoBehaviour
 
         if (goalsPanelUI == null)
             goalsPanelUI = FindFirstObjectByType<GoalsPanelUI>();
+
+        if (tileDebuffManager == null)
+            tileDebuffManager = FindFirstObjectByType<TileDebuffManager>();
     }
 
     public void CheckWord()
@@ -128,6 +149,8 @@ public class AttackController : MonoBehaviour
 
         if (!DictionaryManager.Instance.IsValidWord(word))
             return;
+
+        SpellbookManager.Instance.RecordWord(word);
 
         int wordLength = word.Length;
         int destroyedCount = tileManager.GetWordTileCount();
@@ -196,11 +219,25 @@ public class AttackController : MonoBehaviour
         if (projectileScript != null)
         {
             Debug.Log($"Launching projectile with damage {pendingDamage} and word length {currentWordLength}");
-            projectileScript.Launch(pendingDamage, currentWordLength);
+            projectileScript.Launch(pendingDamage, currentWordLength, this);
         }
 
         pendingDamage = 0;
         currentWordLength = 0;
+    }
+
+    public void NotifySuccessfulAttackLanded()
+    {
+        if (!reduceTileDebuffsOnSuccessfulAttack)
+            return;
+
+        if (tileDebuffManager == null)
+            tileDebuffManager = FindFirstObjectByType<TileDebuffManager>();
+
+        if (tileDebuffManager == null)
+            return;
+
+        tileDebuffManager.ReduceTileDebuffCountersOnSuccessfulAttack();
     }
 
     Transform GetNearestEnemy()

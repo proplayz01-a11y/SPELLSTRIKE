@@ -109,7 +109,7 @@ private Vector3 chargeTargetPosition;
             currentSpeed = chargeSpeed;
         }
 
-        Debug.Log($"[HollowKnight Debug] Current Speed: {currentSpeed:F2}");
+        // Debug.Log($"[HollowKnight Debug] Current Speed: {currentSpeed:F2}");
         speedLogTimer = 2f; // Reset the timer
     }
     if (swordSlashCooldownTimer > 0f)

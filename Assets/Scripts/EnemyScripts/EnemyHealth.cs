@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,6 +67,9 @@ public class EnemyHealth : MonoBehaviour
             cursedJester.TriggerBeingHit();
             return;
         }
+
+        if (TryInvokeControllerMessage("TriggerBeingHit"))
+            return;
     }
 
     private void Die()
@@ -102,6 +107,36 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
 
+        if (TryInvokeControllerMessage("TriggerDeath"))
+            return;
+
         Destroy(gameObject);
+    }
+
+    private bool TryInvokeControllerMessage(string methodName)
+    {
+        MonoBehaviour[] receivers = GetComponents<MonoBehaviour>();
+
+        foreach (MonoBehaviour receiver in receivers)
+        {
+            if (receiver == null || receiver == this)
+                continue;
+
+            MethodInfo method = receiver.GetType().GetMethod(
+                methodName,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                null,
+                Type.EmptyTypes,
+                null
+            );
+
+            if (method == null)
+                continue;
+
+            method.Invoke(receiver, null);
+            return true;
+        }
+
+        return false;
     }
 }

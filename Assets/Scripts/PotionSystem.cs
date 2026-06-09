@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum PotionType
 {
@@ -12,16 +11,23 @@ public class PotionSystem : MonoBehaviour
 {
     public static PotionSystem Instance;
 
-    public int maxTotalPotions = 3;
-    public int healthPotions = 1;
-    public int powerUpPotions = 1;
-    public int cleansingPotions = 1;
+    [Header("References")]
+    public PotionInventory potionInventory;
+    public PlayerHealth playerHealth;
+    public TileDebuffManager tileDebuffManager;
 
-    public float powerUpMultiplier = 2f;
-    public float powerUpDuration = 6f;
+    [Header("Potion Effects")]
+    [Range(0f, 1f)] public float healthRestorePercent = 0.4f;
+    public bool purifyRestoresBrokenTiles = true;
+    public float powerUpMultiplier = 1.25f;
+    public int powerUpAttackCount = 2;
 
-    private bool powerUpActive = false;
-    private Coroutine powerUpCoroutine;
+    private int maxTotalPotions = 20;
+    private int healthPotions = 0;
+    private int powerUpPotions = 0;
+    private int cleansingPotions = 0;
+
+    private int powerUpAttacksRemaining = 0;
 
     private void Awake()
     {
@@ -33,18 +39,28 @@ public class PotionSystem : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        ResolveReferences();
+        SyncLegacyCounts();
+    }
+
+    private void Start()
+    {
+        ResolveReferences();
+        SyncLegacyCounts();
     }
 
     public bool UsePotion(PotionType type)
     {
+        ResolveReferences();
+
         switch (type)
         {
             case PotionType.Health:
                 return UseHealthPotion();
+            case PotionType.Cleansing:
+                return UsePurifyPotion();
             case PotionType.PowerUp:
                 return UsePowerUpPotion();
-            case PotionType.Cleansing:
-                return UseCleansingPotion();
             default:
                 return false;
         }
@@ -52,68 +68,155 @@ public class PotionSystem : MonoBehaviour
 
     public float GetDamageMultiplier()
     {
-        return powerUpActive ? powerUpMultiplier : 1f;
+        return powerUpAttacksRemaining > 0 ? powerUpMultiplier : 1f;
     }
+
+    public void ConsumePowerUpAttackCharge()
+    {
+        if (powerUpAttacksRemaining <= 0)
+            return;
+
+        powerUpAttacksRemaining = Mathf.Max(0, powerUpAttacksRemaining - 1);
+        Debug.Log($"[Potion] Power Up bonus applied. Remaining boosted attack(s): {powerUpAttacksRemaining}");
+
+        if (powerUpAttacksRemaining == 0)
+            Debug.Log("[Potion] Power Up expired.");
+    }
+
+    public bool IsPowerUpActive()
+    {
+        return powerUpAttacksRemaining > 0;
+    }
+
+    public int GetPowerUpAttacksRemaining()
+    {
+        return powerUpAttacksRemaining;
+    }
+
+    public int MaxTotalPotions => maxTotalPotions;
+    public int HealthPotions => healthPotions;
+    public int PowerUpPotions => powerUpPotions;
+    public int CleansingPotions => cleansingPotions;
 
     private bool UseHealthPotion()
     {
-        if (healthPotions <= 0) return false;
+        if (playerHealth == null)
+            playerHealth = FindAnyObjectOfType<PlayerHealth>();
 
-        healthPotions = Mathf.Max(0, healthPotions - 1);
-        PlayerHealth playerHealth = FindAnyObjectOfType<PlayerHealth>();
-        if (playerHealth != null)
+        if (playerHealth == null)
         {
-            int healAmount = Mathf.CeilToInt(playerHealth.maxHealth * 0.3f);
-            playerHealth.Heal(healAmount);
-            Debug.Log($"Health potion used. Healed {healAmount} HP.");
-            return true;
+            Debug.LogWarning("[Potion] Health Potion failed. PlayerHealth not found.");
+            return false;
         }
 
-        Debug.LogWarning("No PlayerHealth found for Health potion.");
-        return false;
+        if (playerHealth.currentHealth >= playerHealth.maxHealth)
+        {
+            Debug.Log("[Potion] Health Potion not used. Player is already at full HP.");
+            return false;
+        }
+
+        if (!TryConsumePotion(PotionType.Health))
+            return false;
+
+        int beforeHealth = playerHealth.currentHealth;
+        int healAmount = Mathf.CeilToInt(playerHealth.maxHealth * healthRestorePercent);
+        playerHealth.Heal(healAmount);
+        int restoredAmount = playerHealth.currentHealth - beforeHealth;
+
+        Debug.Log($"[Potion] Health Potion used. Restored {restoredAmount} HP.");
+        return true;
+    }
+
+    private bool UsePurifyPotion()
+    {
+        if (tileDebuffManager == null)
+            tileDebuffManager = FindAnyObjectOfType<TileDebuffManager>();
+
+        if (tileDebuffManager == null)
+        {
+            Debug.LogWarning("[Potion] Purify Potion failed. TileDebuffManager not found.");
+            return false;
+        }
+
+        int clearableDebuffs = tileDebuffManager.CountActiveTileDebuffs(purifyRestoresBrokenTiles);
+        if (clearableDebuffs <= 0)
+        {
+            Debug.Log("[Potion] Purify Potion not used. No active debuffs found.");
+            return false;
+        }
+
+        if (!TryConsumePotion(PotionType.Cleansing))
+            return false;
+
+        tileDebuffManager.ClearAllTileDebuffs(purifyRestoresBrokenTiles);
+        Debug.Log("[Potion] Purify Potion used. Debuffs cleared.");
+        return true;
     }
 
     private bool UsePowerUpPotion()
     {
-        if (powerUpPotions <= 0 || powerUpActive) return false;
+        if (powerUpAttacksRemaining > 0)
+        {
+            Debug.Log($"[Potion] Power Up Potion not used. Power Up already active for {powerUpAttacksRemaining} attack(s).");
+            return false;
+        }
 
-        powerUpPotions = Mathf.Max(0, powerUpPotions - 1);
-        powerUpActive = true;
-        if (powerUpCoroutine != null)
-            StopCoroutine(powerUpCoroutine);
+        if (!TryConsumePotion(PotionType.PowerUp))
+            return false;
 
-        powerUpCoroutine = StartCoroutine(PowerUpRoutine());
-        Debug.Log("Power Up potion activated.");
+        powerUpAttacksRemaining = Mathf.Max(1, powerUpAttackCount);
+        Debug.Log($"[Potion] Power Up active for next {powerUpAttacksRemaining} attacks.");
         return true;
     }
 
-    private IEnumerator PowerUpRoutine()
+    private bool TryConsumePotion(PotionType type)
     {
-        yield return new WaitForSeconds(powerUpDuration);
-        powerUpActive = false;
-        powerUpCoroutine = null;
-        Debug.Log("Power Up potion expired.");
-    }
+        if (potionInventory == null)
+            potionInventory = PotionInventory.Instance != null ? PotionInventory.Instance : FindAnyObjectOfType<PotionInventory>();
 
-    private bool UseCleansingPotion()
-    {
-        if (cleansingPotions <= 0) return false;
-
-        cleansingPotions = Mathf.Max(0, cleansingPotions - 1);
-        TileManager tileManager = FindAnyObjectOfType<TileManager>();
-        if (tileManager != null)
+        if (potionInventory != null)
         {
-            tileManager.ResetTileSelection();
-            tileManager.AddTilesToPool(3);
-            Debug.Log("Cleansing potion used: selected tiles cleared and 3 new tiles added.");
-            return true;
+            bool used = potionInventory.TryUsePotion(type);
+            SyncLegacyCounts();
+            return used;
         }
 
-        Debug.LogWarning("No TileManager found for Cleansing potion.");
+        Debug.LogWarning("[Potion] Potion use failed. PotionInventory not found.");
         return false;
     }
 
-    // Compatibility helper: use FindFirstObjectByType when available, fallback to FindObjectOfType on older Unity
+    private void ResolveReferences()
+    {
+        if (potionInventory == null)
+            potionInventory = PotionInventory.Instance != null ? PotionInventory.Instance : FindAnyObjectOfType<PotionInventory>();
+
+        if (playerHealth == null)
+            playerHealth = FindAnyObjectOfType<PlayerHealth>();
+
+        if (tileDebuffManager == null)
+            tileDebuffManager = FindAnyObjectOfType<TileDebuffManager>();
+    }
+
+    private void SyncLegacyCounts()
+    {
+        if (potionInventory == null)
+            return;
+
+        healthPotions = potionInventory.GetCount(PotionType.Health);
+        cleansingPotions = potionInventory.GetCount(PotionType.Cleansing);
+        powerUpPotions = potionInventory.GetCount(PotionType.PowerUp);
+        maxTotalPotions = potionInventory.maxPotionCount;
+    }
+
+    public void SyncReadOnlyCountMirror(PotionInventory inventory)
+    {
+        if (inventory == null)
+            return;
+
+        potionInventory = inventory;
+        SyncLegacyCounts();
+    }
+
     private static T FindAnyObjectOfType<T>() where T : UnityEngine.Object
     {
 #if UNITY_2023_1_OR_NEWER

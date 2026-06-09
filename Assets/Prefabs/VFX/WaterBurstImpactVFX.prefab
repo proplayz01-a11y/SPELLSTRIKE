@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &731440222000200001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 731440222000200002}
+  - component: {fileID: 731440222000200003}
+  m_Layer: 0
+  m_Name: WaterBurstImpactVFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &731440222000200002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731440222000200001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &731440222000200003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731440222000200001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cd67d05bd945d4ab94533b28a23103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaterBurstImpactVFX
+  duration: 3.14
+  riseDuration: 0.73
+  peakHoldDuration: 0.35
+  collapseDuration: 1.22
+  destroyOnComplete: 1
+  riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 3
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.42
+      value: 0.88
+      inSlope: 1.2
+      outSlope: 0.55
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.15
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  collapseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -0.15
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.35
+      value: 0.82
+      inSlope: -0.5
+      outSlope: -1.2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.25
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  radius: 1.2
+  height: 23.57
+  groundOffset: 0.03
+  heightSegments: 24
+  radialSegments: 44
+  baseRadiusMultiplier: 20.29
+  waistRadiusMultiplier: 14
+  topRadiusMultiplier: 1.48
+  topCrestHeight: 1.21
+  topCrestRadiusMultiplier: 1.25
+  surfaceNoiseAmount: 0.87
+  surfaceNoiseScale: 2.6
+  flowSpeed: 3.1
+  twistAmount: 1.9
+  waterNoiseTexture: {fileID: 2800000, guid: 0014080eef124c838f34db3ffd4337ef, type: 3}
+  textureTiling: {x: 2.6, y: 1.8}
+  waterColor: {r: 0.02, g: 0.68, b: 1, a: 1}
+  coreColor: {r: 0.68, g: 1, b: 1, a: 0}
+  foamColor: {r: 0.86, g: 1, b: 1, a: 1}
+  waterEmissionColor: {r: 0.1, g: 0.95, b: 1, a: 1}
+  coreEmissionColor: {r: 0.78, g: 1, b: 1, a: 1}
+  waterEmissionIntensity: 1.35
+  coreEmissionIntensity: 1.75
+  textureScrollX: 0.08
+  textureScrollY: -0.42
+  textureAlphaPulse: 0
+  foamCrownBurstCount: 127
+  sideSplashBurstCount: 134
+  groundMistBurstCount: 115
+  baseSplashRadiusMultiplier: 10.33
+  sideSplashSpeed: 7.86
+  foamCrownSpeed: 9.12
+  groundMistSpeed: 1.4
+  baseSplashParticleSize: 0.2
+  groundMistParticleSize: 0.62

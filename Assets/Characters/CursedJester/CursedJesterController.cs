@@ -44,6 +44,17 @@ public class CursedJesterController : MonoBehaviour
     public MonoBehaviour deathReceiver;
     public string deathMessage = "OnCursedJesterDefeated";
 
+    [Header("Potion Drop")]
+    public bool dropPotionOnDeath = true;
+    public string potionDropLogSource = "CursedJester";
+    [Range(0f, 1f)] public float potionDropChance = 1f;
+    public int potionDropMinCount = 1;
+    public int potionDropMaxCount = 1;
+    public int potionDropAmountPerDrop = 1;
+    public bool canDropHealthPotion = true;
+    public bool canDropPurifyPotion = true;
+    public bool canDropPowerUpPotion = true;
+
     [Header("Debug Gizmos")]
     public bool showRangeGizmos = true;
     public Color basicAttackGizmoColor = new Color(1f, 0.2f, 0.2f, 0.35f);
@@ -57,6 +68,7 @@ public class CursedJesterController : MonoBehaviour
     private bool isRecovering = false;
     private bool isBeingHit = false;
     private bool isDead = false;
+    private bool potionDropResolved = false;
     private float confettiBlastCooldownTimer = 0f;
     private float tauntCooldownTimer = 0f;
 
@@ -99,6 +111,7 @@ public class CursedJesterController : MonoBehaviour
         isAttacking = false;
         isRecovering = false;
         isBeingHit = false;
+        potionDropResolved = false;
 
         if (recoverCoroutine != null)
         {
@@ -509,12 +522,33 @@ public class CursedJesterController : MonoBehaviour
     {
         Debug.Log("[CursedJester] Death finished. Waiting for Node3 wiring.");
 
+        TryDropPotionReward();
+
         if (deathReceiver != null)
         {
             deathReceiver.SendMessage(deathMessage, SendMessageOptions.DontRequireReceiver);
         }
 
         gameObject.SetActive(false);
+    }
+
+    private void TryDropPotionReward()
+    {
+        if (!dropPotionOnDeath || potionDropResolved)
+            return;
+
+        potionDropResolved = true;
+
+        PotionDropper.TryDropRandomPotion(
+            potionDropLogSource,
+            potionDropChance,
+            potionDropMinCount,
+            potionDropMaxCount,
+            potionDropAmountPerDrop,
+            canDropHealthPotion,
+            canDropPurifyPotion,
+            canDropPowerUpPotion
+        );
     }
 
     private void StopMovement()

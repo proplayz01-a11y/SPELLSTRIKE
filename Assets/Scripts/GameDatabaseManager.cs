@@ -38,6 +38,9 @@ public class GameData
     public List<WordHistoryEntry> wordHistory = new List<WordHistoryEntry>();
     public List<StageProgressEntry> stageProgress = new List<StageProgressEntry>();
     public List<PotionInventoryEntry> potionInventory = new List<PotionInventoryEntry>();
+    public List<string> ownedPassiveItems = new List<string>();
+    public List<string> pendingPassiveItems = new List<string>();
+    public List<string> equippedPassiveItems = new List<string>();
     public List<string> leaderboard = new List<string>();
 }
 
@@ -51,6 +54,19 @@ public class GameDatabaseManager : MonoBehaviour
     private string sqliteDbPath;
     private SqliteDatabase sqliteDatabase;
     private bool isDirty = false;
+
+    public static GameDatabaseManager EnsureInstance()
+    {
+        if (Instance != null)
+            return Instance;
+
+        GameDatabaseManager existing = FindAnyObjectOfType<GameDatabaseManager>();
+        if (existing != null)
+            return existing;
+
+        GameObject databaseObject = new GameObject("GameDatabaseManager_AutoCreated");
+        return databaseObject.AddComponent<GameDatabaseManager>();
+    }
 
     private void Awake()
     {
@@ -132,6 +148,8 @@ public class GameDatabaseManager : MonoBehaviour
 
         if (Data.potionInventory == null || Data.potionInventory.Count == 0)
             InitializeDefaultInventory();
+
+        EnsurePassiveInventoryLists();
     }
 
     public void SaveDatabase()
@@ -174,6 +192,10 @@ public class GameDatabaseManager : MonoBehaviour
         Data.potionInventory = LoadPotionInventory();
         if (Data.potionInventory == null || Data.potionInventory.Count == 0)
             InitializeDefaultInventory();
+        Data.ownedPassiveItems = DeserializeStringList(LoadPlayerString("ownedPassiveItems", string.Empty));
+        Data.pendingPassiveItems = DeserializeStringList(LoadPlayerString("pendingPassiveItems", string.Empty));
+        Data.equippedPassiveItems = DeserializeStringList(LoadPlayerString("equippedPassiveItems", string.Empty));
+        EnsurePassiveInventoryLists();
         Data.wordHistory = LoadWordHistory();
         Data.stageProgress = LoadStageProgress();
         Data.leaderboard = LoadLeaderboard();
@@ -192,6 +214,10 @@ public class GameDatabaseManager : MonoBehaviour
         {
             sqliteDatabase.ExecuteNonQuery($"INSERT OR REPLACE INTO potion_inventory (type, count) VALUES ({(int)potion.type}, {potion.count})");
         }
+
+        SavePlayerString("ownedPassiveItems", SerializeStringList(Data.ownedPassiveItems));
+        SavePlayerString("pendingPassiveItems", SerializeStringList(Data.pendingPassiveItems));
+        SavePlayerString("equippedPassiveItems", SerializeStringList(Data.equippedPassiveItems));
 
         sqliteDatabase.ExecuteNonQuery("DELETE FROM word_history");
         foreach (var entry in Data.wordHistory)
@@ -224,9 +250,23 @@ public class GameDatabaseManager : MonoBehaviour
         return defaultValue;
     }
 
+    private string LoadPlayerString(string key, string defaultValue)
+    {
+        object scalar = sqliteDatabase.ExecuteScalar($"SELECT value FROM player WHERE key = '{SqliteDatabase.Escape(key)}'");
+        if (scalar == null)
+            return defaultValue;
+
+        return scalar.ToString();
+    }
+
     private void SavePlayerInt(string key, int value)
     {
         sqliteDatabase.ExecuteNonQuery($"INSERT OR REPLACE INTO player (key, value) VALUES ('{SqliteDatabase.Escape(key)}', '{value}')");
+    }
+
+    private void SavePlayerString(string key, string value)
+    {
+        sqliteDatabase.ExecuteNonQuery($"INSERT OR REPLACE INTO player (key, value) VALUES ('{SqliteDatabase.Escape(key)}', '{SqliteDatabase.Escape(value)}')");
     }
 
     private List<PotionInventoryEntry> LoadPotionInventory()
@@ -300,10 +340,49 @@ public class GameDatabaseManager : MonoBehaviour
 
     public void InitializeDefaultInventory()
     {
+        Data.potionInventory ??= new List<PotionInventoryEntry>();
         Data.potionInventory.Clear();
         Data.potionInventory.Add(new PotionInventoryEntry { type = PotionType.Health, count = 1 });
         Data.potionInventory.Add(new PotionInventoryEntry { type = PotionType.PowerUp, count = 1 });
         Data.potionInventory.Add(new PotionInventoryEntry { type = PotionType.Cleansing, count = 1 });
+        EnsurePassiveInventoryLists();
+    }
+
+    public void EnsurePassiveInventoryLists(int equippedSlotCount = 3)
+    {
+        Data.ownedPassiveItems ??= new List<string>();
+        Data.pendingPassiveItems ??= new List<string>();
+        Data.equippedPassiveItems ??= new List<string>();
+
+        for (int i = Data.equippedPassiveItems.Count; i < equippedSlotCount; i++)
+            Data.equippedPassiveItems.Add(PassiveItemId.None.ToString());
+
+        while (Data.equippedPassiveItems.Count > equippedSlotCount)
+            Data.equippedPassiveItems.RemoveAt(Data.equippedPassiveItems.Count - 1);
+    }
+
+    private string SerializeStringList(List<string> values)
+    {
+        if (values == null || values.Count == 0)
+            return string.Empty;
+
+        return string.Join("|", values);
+    }
+
+    private List<string> DeserializeStringList(string serialized)
+    {
+        List<string> values = new List<string>();
+        if (string.IsNullOrWhiteSpace(serialized))
+            return values;
+
+        string[] parts = serialized.Split('|');
+        foreach (string part in parts)
+        {
+            if (!string.IsNullOrWhiteSpace(part))
+                values.Add(part);
+        }
+
+        return values;
     }
 
     public void RecordWordHistory(string word, bool valid)
@@ -367,5 +446,14 @@ public class GameDatabaseManager : MonoBehaviour
         InitializeDefaultInventory();
         SaveDatabase();
         isDirty = false;
+    }
+
+    private static T FindAnyObjectOfType<T>() where T : UnityEngine.Object
+    {
+#if UNITY_2023_1_OR_NEWER
+        return UnityEngine.Object.FindFirstObjectByType<T>();
+#else
+        return UnityEngine.Object.FindObjectOfType<T>();
+#endif
     }
 }

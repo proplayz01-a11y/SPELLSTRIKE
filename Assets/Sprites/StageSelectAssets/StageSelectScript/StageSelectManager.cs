@@ -53,12 +53,13 @@ public class StageSelectManager : MonoBehaviour
 
     [Header("Scene Names (must match Build Settings exactly)")]
     public string[] stageSceneNames = {
-        "Stage1_EnchantedKingdom",
-        "Stage2_SunkenSeas",
+        "SampleScene",
+        "Stage2Scene",
         "Stage3_MythicRuins",
         "Stage4_CursedGothic",
         "Stage5_Final"
     };
+    public string itemSelectionSceneName = "ItemSelectionScene";
 
     // --------------------------------------------------------
     // Stage Data
@@ -341,7 +342,9 @@ public class StageSelectManager : MonoBehaviour
         if (selectedStage < 0 || selectedStage > highestUnlocked) return;
 
         string sceneName = stageSceneNames[selectedStage];
-        StartCoroutine(LoadStageScene(sceneName));
+        string stageTitle = selectedStage < stageInfoData.Length ? stageInfoData[selectedStage].title : sceneName;
+        StageRunSelection.SetSelectedStage(selectedStage, sceneName, stageTitle);
+        StartCoroutine(LoadStageScene(itemSelectionSceneName));
     }
 
     IEnumerator LoadStageScene(string sceneName)

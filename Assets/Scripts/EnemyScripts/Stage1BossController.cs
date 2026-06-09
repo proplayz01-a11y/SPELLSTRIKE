@@ -67,11 +67,10 @@ public class Stage1BossController : MonoBehaviour
 
         swordCollected = true;
 
-        Debug.Log("[Stage1BossController] Hollow Knight's Blade obtained manually.");
+        Debug.Log("[Stage1BossController] Sky Sword obtained manually.");
         Debug.Log("[Stage1BossController] Passive unlocked: +10% word attack damage starting Stage 2.");
+        PassiveRewardManager.GrantSkySwordReward("Hollow Knight reward");
 
-        // Later:
-        // Add item to inventory / passive item list.
     }
 
     public void OnBossFragmentCollected()
@@ -115,15 +114,14 @@ public class Stage1BossController : MonoBehaviour
     {
         swordCollected = true;
 
-        Debug.Log("[Stage1BossController] Hollow Knight's Blade auto-granted after fragment pickup.");
+        Debug.Log("[Stage1BossController] Sky Sword auto-granted after fragment pickup.");
         Debug.Log("[Stage1BossController] Passive unlocked: +10% word attack damage starting Stage 2.");
+        PassiveRewardManager.GrantSkySwordReward("Hollow Knight reward");
 
         if (swordReward != null)
         {
             swordReward.AutoGrantSwordReward();
         }
 
-        // Later:
-        // Add item to inventory / passive item list.
     }
 }

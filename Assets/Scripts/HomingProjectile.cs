@@ -7,6 +7,7 @@ public class HomingProjectile : MonoBehaviour
     public int wordLength = 0;
     private Transform target;
     private bool hasHit = false;
+    private AttackController attackOwner;
 
     void Start()
     {
@@ -16,7 +17,7 @@ public class HomingProjectile : MonoBehaviour
     }
 
     // Called by AttackController to pass dynamic damage
-    public void Launch(int incomingDamage, int incomingWordLength = 0)
+    public void Launch(int incomingDamage, int incomingWordLength = 0, AttackController owner = null)
     {
         if (incomingDamage <= 0)
         {
@@ -26,6 +27,7 @@ public class HomingProjectile : MonoBehaviour
 
         damage = incomingDamage;
         wordLength = incomingWordLength;
+        attackOwner = owner;
         Debug.Log("Projectile damage set to: " + damage + " | Word length: " + wordLength);
     }
 
@@ -81,6 +83,9 @@ public class HomingProjectile : MonoBehaviour
         {
             enemyHealth.TakeDamage(damage);
         }
+
+        if (wordLength > 0 && attackOwner != null)
+            attackOwner.NotifySuccessfulAttackLanded();
 
         Destroy(gameObject);
     }

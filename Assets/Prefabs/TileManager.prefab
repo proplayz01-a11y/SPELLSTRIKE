@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4108388079157923429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8952015364301219644}
+  - component: {fileID: 7192082310094637499}
+  m_Layer: 0
+  m_Name: TileManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8952015364301219644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108388079157923429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 162.91, y: 175.73361, z: 98.21119}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7192082310094637499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108388079157923429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ef1e014a4252e4b8099aff1797dcd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileManager
+  tilePoolPanel: {fileID: 0}
+  wordBarPanel: {fileID: 0}
+  tileButtonPrefab: {fileID: 8755606867422912862, guid: bfe4257d06ead2b4399f6e7d79413569, type: 3}
+  selectedTiles: []
+  wordBarTiles: []
+  letterSpritesUI:
+  - {fileID: -5443962051023347294, guid: 97447ea3aa9c19b43b91a05a7226c2e5, type: 3}
+  - {fileID: -1653097649416733764, guid: 5d7368ee95e00ce458db789cbc1ad8ca, type: 3}
+  - {fileID: -2231597765126681570, guid: 80034169bd7561149895b99ac5093edb, type: 3}
+  - {fileID: -885918713768597162, guid: 6f07c53209de28646a47569e9fd46f05, type: 3}
+  - {fileID: 8180048187377110748, guid: aab6f915d79c8f140a82061bc4b1b195, type: 3}
+  - {fileID: 7244677012188465204, guid: 494e3f1f83a5c98418066479c9d3afb0, type: 3}
+  - {fileID: 1168817093179070736, guid: 3ea8f451b6a99eb498dc46e064437c89, type: 3}
+  - {fileID: -942099624073989779, guid: dde96237480146b4d97e4aae09fa0f6f, type: 3}
+  - {fileID: 8373110231639817687, guid: 14df39c20f21640468a26b3fca0c1fb5, type: 3}
+  - {fileID: 1774709209186794324, guid: 0ea403e258ddc214e87b2a6e1246cabe, type: 3}
+  - {fileID: -1657168995197085979, guid: 6acb0b3f99bbc3b4cb877933fcd3fe47, type: 3}
+  - {fileID: 4089362764888220780, guid: 6a49c473969e88b47952e13b8e4448dd, type: 3}
+  - {fileID: -8711352173899855587, guid: ade2da4da39ec5b428516d66da758ea5, type: 3}
+  - {fileID: -4039092116628374059, guid: 8314a2c5aa19e8d4caeec7e1cb005b94, type: 3}
+  - {fileID: 1784497742173227239, guid: 73382163df6fcde439a896b9024487c2, type: 3}
+  - {fileID: -8870157312113998487, guid: 0819eb0e5e523a149907da545c6a8f21, type: 3}
+  - {fileID: -3007699585182503490, guid: cbac6acc7a405d440b6b7ff0124f1d9e, type: 3}
+  - {fileID: 6537805428522534852, guid: 11fbf0e219c04b84ebc9e6f1384c5e4b, type: 3}
+  - {fileID: 1642884814137666880, guid: 11bfd0371a7875f4193141dce7135880, type: 3}
+  - {fileID: 216624050017443828, guid: 1fcc619d9341d924184540d4e738eed9, type: 3}
+  - {fileID: 5272744554338512979, guid: 4e59a7cb9e77b2f44bb4e6a85cb23a30, type: 3}
+  - {fileID: 8537722427775889238, guid: 57b127aba154e2f488493d539cbede2d, type: 3}
+  - {fileID: -7017742713503487476, guid: 681d0f294c2cefe43a963d6fb7e9b7d6, type: 3}
+  - {fileID: 5765058209055300440, guid: c590b01567c6636408ec6ac175b8f9c2, type: 3}
+  - {fileID: 3073273864296255, guid: 5853091c4fae28b47a892a1dd2bf77db, type: 3}
+  - {fileID: 7285894993289192641, guid: 1a8de67f285925a4196bbd176f52b7f1, type: 3}
+  currentStage: 1
+  attackController: {fileID: 0}
+  tileUIPrefab: {fileID: 8755606867422912862, guid: bfe4257d06ead2b4399f6e7d79413569, type: 3}
+  wordBarBaseCellWidth: 76.5
+  wordBarMinCellWidth: 45
+  wordBarSpacing: 0.15
+  wordBarPaddingLeft: 10
+  wordBarPaddingRight: 10
+  wordBarPaddingTop: 5
+  wordBarPaddingBottom: 5
+  wordBarMinFontScale: 0.72

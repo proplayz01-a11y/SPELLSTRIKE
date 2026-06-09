@@ -26,6 +26,17 @@ public class StoneSentinelsController : MonoBehaviour
 public MonoBehaviour deathReceiver;
 public string deathMessage = "OnStoneSentinelDefeated";
 
+    [Header("Potion Drop")]
+    public bool dropPotionOnDeath = true;
+    public string potionDropLogSource = "StoneSentinel";
+    [Range(0f, 1f)] public float potionDropChance = 1f;
+    public int potionDropMinCount = 1;
+    public int potionDropMaxCount = 1;
+    public int potionDropAmountPerDrop = 1;
+    public bool canDropHealthPotion = true;
+    public bool canDropPurifyPotion = true;
+    public bool canDropPowerUpPotion = true;
+
     [Header("Stats")]
     public float maxHealth = 100f;
     private float currentHealth;
@@ -74,6 +85,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
     private bool closeAttackStarted = false;
     private Coroutine recoverCoroutine;
     private bool boulderThrowStarted = false;
+    private bool potionDropResolved = false;
 
 
     private void Awake()
@@ -582,6 +594,8 @@ public void OnDeathFinished()
 {
     Debug.Log("[StoneSentinel] Death animation finished.");
 
+    TryDropPotionReward();
+
     if (deathReceiver != null && !string.IsNullOrEmpty(deathMessage))
     {
         deathReceiver.SendMessage(deathMessage, SendMessageOptions.DontRequireReceiver);
@@ -593,6 +607,25 @@ public void OnDeathFinished()
     }
 
     gameObject.SetActive(false);
+}
+
+private void TryDropPotionReward()
+{
+    if (!dropPotionOnDeath || potionDropResolved)
+        return;
+
+    potionDropResolved = true;
+
+    PotionDropper.TryDropRandomPotion(
+        potionDropLogSource,
+        potionDropChance,
+        potionDropMinCount,
+        potionDropMaxCount,
+        potionDropAmountPerDrop,
+        canDropHealthPotion,
+        canDropPurifyPotion,
+        canDropPowerUpPotion
+    );
 }
 
     private void EnterRecover()
@@ -635,6 +668,7 @@ public void OnDeathFinished()
 
         battleStarted = true;
         currentState = EnemyState.Approach;
+        potionDropResolved = false;
 
         if (agent != null)
         {

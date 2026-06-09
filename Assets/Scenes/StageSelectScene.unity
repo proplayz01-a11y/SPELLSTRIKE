@@ -3349,7 +3349,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 716730149}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752384754}
+        m_TargetAssemblyTypeName: StageSelectManager, Assembly-CSharp
+        m_MethodName: OnEnterPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &716730149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7141,11 +7153,12 @@ MonoBehaviour:
   lockWarningDuration: 2
   canvasScaler: {fileID: 1443796131}
   stageSceneNames:
-  - Stage1_EnchantedKingdom
-  - Stage2_SunkenSeas
+  - SampleScene
+  - Stage2Scene
   - Stage3_MythicRuins
   - Stage4_CursedGothic
   - Stage5_Final
+  itemSelectionSceneName: ItemSelectionScene
 --- !u!4 &1752384755
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class SwordRewardPickup : MonoBehaviour
     public bool isCollected = false;
 
     [Header("Reward")]
-    public string itemName = "Hollow Knight's Blade";
+    public string itemName = "Sky Sword";
     public float damageBonusPercent = 10f;
 
     [Header("References")]

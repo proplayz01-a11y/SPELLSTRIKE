@@ -23,6 +23,18 @@ public class TileManager : MonoBehaviour
     private GridLayoutGroup tilePoolGrid;
     private GridLayoutGroup wordBarGrid;
     public GameObject tileUIPrefab;
+    private readonly Dictionary<Tile, float> wordBarBaseTmpFontSizes = new Dictionary<Tile, float>();
+    private readonly Dictionary<Tile, int> wordBarBaseLegacyFontSizes = new Dictionary<Tile, int>();
+
+    [Header("Word Bar Adaptive Layout")]
+    public float wordBarBaseCellWidth = 76.5f;
+    public float wordBarMinCellWidth = 45f;
+    public float wordBarSpacing = 0.15f;
+    public int wordBarPaddingLeft = 10;
+    public int wordBarPaddingRight = 10;
+    public int wordBarPaddingTop = 5;
+    public int wordBarPaddingBottom = 5;
+    [Range(0.5f, 1f)] public float wordBarMinFontScale = 0.72f;
 
     private void Awake()
     {
@@ -56,6 +68,9 @@ public class TileManager : MonoBehaviour
 
     public void ToggleTilePanel(Tile tile)
     {
+        if (tile == null || !tile.IsSelectable())
+            return;
+
         // FROM TILE POOL → WORD BAR
         if (tile.transform.parent == tilePoolPanel)
         {
@@ -148,13 +163,26 @@ public class TileManager : MonoBehaviour
         tileObj.transform.localScale = Vector3.one;
 
         Tile tileScript = tileObj.GetComponent<Tile>();
+        Button button = tileObj.GetComponent<Button>();
+        if (button == null)
+            button = tileObj.AddComponent<Button>();
+
+        Image img = tileObj.GetComponent<Image>();
+        if (img != null)
+        {
+            img.raycastTarget = true;
+            button.targetGraphic = img;
+        }
+
+        if (tileScript != null)
+            tileScript.button = button;
+
         tileScript.SetLetter(letter);
 
         // Assign the sprite for the letter
         int index = letter - 'A';
         if (index >= 0 && index < letterSpritesUI.Length)
         {
-            Image img = tileObj.GetComponent<Image>();
             if (img != null)
                 img.sprite = letterSpritesUI[index];
         }
@@ -478,29 +506,51 @@ public class TileManager : MonoBehaviour
         float panelHeight = rect.rect.height;
 
         int tileCount = Mathf.Max(1, wordBarTiles.Count);
-        float spacing = 0.15f;
-        float cellHeight = panelHeight - 10f;
-        float cellWidth;
+        float spacing = wordBarSpacing;
+        float cellHeight = panelHeight - (wordBarPaddingTop + wordBarPaddingBottom);
 
-        if (tileCount <= 11)
-        {
-            cellWidth = 76.5f;
-        }
-        else
-        {
-            // manually calculated for 12-16 tiles
-            cellWidth = Mathf.Lerp(76.5f, 56.8f, (tileCount - 11f) / 5f);
-            // smoothly scales from 76.5 down to 45 as tiles go from 12 to 16
-        }
+        float usableWidth = panelWidth - (wordBarPaddingLeft + wordBarPaddingRight);
+        float maxWidthPerTile = (usableWidth - (spacing * (tileCount - 1))) / tileCount;
+        float cellWidth = Mathf.Clamp(maxWidthPerTile, wordBarMinCellWidth, wordBarBaseCellWidth);
 
         wordBarGrid.cellSize = new Vector2(cellWidth, cellHeight);
         wordBarGrid.spacing = new Vector2(spacing, spacing);
-        wordBarGrid.padding.left = 10;
-        wordBarGrid.padding.right = 10;
-        wordBarGrid.padding.top = 5;
-        wordBarGrid.padding.bottom = 5;
+        wordBarGrid.padding.left = wordBarPaddingLeft;
+        wordBarGrid.padding.right = wordBarPaddingRight;
+        wordBarGrid.padding.top = wordBarPaddingTop;
+        wordBarGrid.padding.bottom = wordBarPaddingBottom;
         wordBarGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         wordBarGrid.constraintCount = tileCount;
         wordBarGrid.childAlignment = TextAnchor.MiddleCenter;
+
+        ApplyAdaptiveWordBarTextScale(cellWidth);
+    }
+
+    private void ApplyAdaptiveWordBarTextScale(float currentCellWidth)
+    {
+        if (wordBarTiles == null || wordBarTiles.Count == 0) return;
+
+        float scale = Mathf.Clamp(currentCellWidth / Mathf.Max(1f, wordBarBaseCellWidth), wordBarMinFontScale, 1f);
+
+        foreach (Tile tile in wordBarTiles)
+        {
+            if (tile == null) continue;
+
+            if (tile.textTMP != null)
+            {
+                if (!wordBarBaseTmpFontSizes.ContainsKey(tile))
+                    wordBarBaseTmpFontSizes[tile] = tile.textTMP.fontSize;
+
+                tile.textTMP.fontSize = wordBarBaseTmpFontSizes[tile] * scale;
+            }
+
+            if (tile.letterText != null)
+            {
+                if (!wordBarBaseLegacyFontSizes.ContainsKey(tile))
+                    wordBarBaseLegacyFontSizes[tile] = tile.letterText.fontSize;
+
+                tile.letterText.fontSize = Mathf.RoundToInt(wordBarBaseLegacyFontSizes[tile] * scale);
+            }
+        }
     }
 }
