@@ -20,6 +20,8 @@ public class FloatingTile : MonoBehaviour
     private float spawnTimer = 0f;
     private bool isSpawning = true;
 
+    public Vector3 TargetPosition => targetPos;
+    public bool IsSpawning => isSpawning;
 
     void Start()
     {
@@ -28,6 +30,15 @@ public class FloatingTile : MonoBehaviour
         transform.position = startPos; // Start below the target position
 
         phaseOffset = Random.Range(0f, 2f * Mathf.PI); // Randomize floating phase
+    }
+
+    public void MoveTargetTowards(Vector3 destination, float maxDistanceDelta)
+    {
+        if (isSpawning)
+            return;
+
+        destination.y = targetPos.y;
+        targetPos = Vector3.MoveTowards(targetPos, destination, maxDistanceDelta);
     }
 
     // Update is called once per frame

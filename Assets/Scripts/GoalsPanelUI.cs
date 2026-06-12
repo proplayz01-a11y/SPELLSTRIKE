@@ -62,9 +62,21 @@ public class GoalsPanelUI : MonoBehaviour
     private bool allGoalsRewardQueued = false;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void ActivateSampleSceneGoalsPanel()
+    private static void RegisterSceneHook()
     {
-        if (SceneManager.GetActiveScene().name != "SampleScene")
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+        ActivateSampleSceneGoalsPanel(SceneManager.GetActiveScene());
+    }
+
+    private static void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ActivateSampleSceneGoalsPanel(scene);
+    }
+
+    private static void ActivateSampleSceneGoalsPanel(Scene scene)
+    {
+        if (scene.name != "SampleScene")
             return;
 
         GoalsPanelUI[] panels = Resources.FindObjectsOfTypeAll<GoalsPanelUI>();
@@ -74,6 +86,9 @@ public class GoalsPanelUI : MonoBehaviour
                 continue;
 
             if (!panel.gameObject.scene.IsValid())
+                continue;
+
+            if (panel.gameObject.scene.name != scene.name)
                 continue;
 
             if (!panel.gameObject.activeSelf)

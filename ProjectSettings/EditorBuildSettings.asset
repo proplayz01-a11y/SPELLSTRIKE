@@ -20,6 +20,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage2Scene/Stage2Scene.unity
     guid: 9b78dbed45f656e4686cf2121b54309a
+  - enabled: 1
+    path: Assets/Scenes/MinigamesScene.unity
+    guid: 047ecc83294c4664db21edceaa495cdb
+  - enabled: 1
+    path: Assets/Scenes/MinigameModeSelectScene.unity
+    guid: 8058542acb004c0f85bbfe5251c3b366
+  - enabled: 1
+    path: Assets/Scenes/WordMasterScene.unity
+    guid: 588a578194b949d9b970070e5e4f475f
+  - enabled: 1
+    path: Assets/Scenes/SpellItOutScene.unity
+    guid: 78f5b965ca934fa8839205fa552496ae
+  - enabled: 1
+    path: Assets/Scenes/WordExcavationScene.unity
+    guid: fc695ebcab3449aab0c5540942b7e2f3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

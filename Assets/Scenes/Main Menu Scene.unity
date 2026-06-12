@@ -537,10 +537,10 @@ MonoBehaviour:
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: SampleScene
+          m_StringArgument: MinigameModeSelectScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &976179053671414664
@@ -804,7 +804,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 684.71, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -908,10 +908,10 @@ MonoBehaviour:
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: SampleScene
+          m_StringArgument: StageSelectScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!222 &3808554334263231084
@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3170112001017303481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc60c2839203ea04482ee087d989348e, type: 3}
+  m_Script: {fileID: 11500000, guid: bfdd5a9b62d398a419c64bbf571f57b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdventureButtonHandler
 --- !u!114 &9215500705883494572

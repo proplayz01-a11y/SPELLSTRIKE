@@ -1,16 +1,17 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class AdventureButtonHandler : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void LoadScene(string sceneName)
     {
-        
-    }
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            Debug.LogWarning("[MainMenu] Cannot load an empty scene name.");
+            return;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log($"[MainMenu] Loading scene: {sceneName}");
+        SceneManager.LoadScene(sceneName);
     }
 }

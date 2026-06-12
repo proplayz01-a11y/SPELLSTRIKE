@@ -1,0 +1,646 @@
+{
+  "entries": [
+    {
+      "word": "ABLE",
+      "definition": "Having the skill or power to do something.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "BOOK",
+      "definition": "A set of written pages that people read.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "CALM",
+      "definition": "Peaceful and not upset.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "CARE",
+      "definition": "Attention given to keep someone or something safe.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "DARK",
+      "definition": "Having little or no light.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "FAIR",
+      "definition": "Treating people equally and honestly.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "FIRE",
+      "definition": "Heat and light made by burning.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "GAME",
+      "definition": "An activity played for fun or competition.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "GIFT",
+      "definition": "Something given to another person.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "HAND",
+      "definition": "The body part at the end of your arm.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "HELP",
+      "definition": "To make something easier for someone.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "HOME",
+      "definition": "The place where someone lives.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "HOPE",
+      "definition": "A feeling that something good may happen.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "KIND",
+      "definition": "Gentle, helpful, and caring toward others.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "LOVE",
+      "definition": "A strong feeling of care for someone or something.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "MOON",
+      "definition": "The natural object that orbits Earth.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "RAIN",
+      "definition": "Water that falls from clouds.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "ROAD",
+      "definition": "A path or street used for travel.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "SAFE",
+      "definition": "Protected from danger or harm.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "STAR",
+      "definition": "A bright object seen in the night sky.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "TIME",
+      "definition": "The passing of moments, hours, and days.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "TREE",
+      "definition": "A tall living thing with a trunk and branches.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "TRUE",
+      "definition": "Based on fact and not false.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "WIND",
+      "definition": "Air that moves across a place.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "WORK",
+      "definition": "Effort used to do or make something.",
+      "length": 4,
+      "rarity": "common"
+    },
+    {
+      "word": "BRAVE",
+      "definition": "Ready to face danger or difficulty.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "BUILD",
+      "definition": "To make something by putting parts together.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "CLEAN",
+      "definition": "Free from dirt or mess.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "DREAM",
+      "definition": "Thoughts or images in the mind while sleeping.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "EARTH",
+      "definition": "The planet we live on.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "GRACE",
+      "definition": "Calm, polite, and thoughtful behavior.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "GREEN",
+      "definition": "The color of grass and many leaves.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "HAPPY",
+      "definition": "Feeling pleased or joyful.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "HEART",
+      "definition": "The organ that pumps blood through the body.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "HOUSE",
+      "definition": "A building where people live.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "LEARN",
+      "definition": "To gain knowledge or skill.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "LIGHT",
+      "definition": "Brightness that lets people see.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "MONEY",
+      "definition": "Something used to buy goods or services.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "MUSIC",
+      "definition": "Organized sounds made to be heard and enjoyed.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "PEACE",
+      "definition": "A calm state without fighting.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "POWER",
+      "definition": "The ability to do something or control something.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "RIVER",
+      "definition": "A natural stream of water.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "SHARE",
+      "definition": "To let others use or have part of something.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "SMILE",
+      "definition": "A happy expression made with the mouth.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "SOUND",
+      "definition": "Something that can be heard.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "STONE",
+      "definition": "A hard piece of rock.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "STORY",
+      "definition": "A description of events, real or imagined.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "TRUST",
+      "definition": "Belief that someone is reliable or truthful.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "TRUTH",
+      "definition": "The real facts about something.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "WATER",
+      "definition": "A clear liquid that people and animals need.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "WORLD",
+      "definition": "The earth and all the people and things on it.",
+      "length": 5,
+      "rarity": "common"
+    },
+    {
+      "word": "ANSWER",
+      "definition": "A reply to a question.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "BEACON",
+      "definition": "A light or signal used to guide people.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "CHANGE",
+      "definition": "To become different or make something different.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "CHOICE",
+      "definition": "An act of picking between options.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "CREATE",
+      "definition": "To make something new.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "FAMILY",
+      "definition": "A group of people related to one another.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "FRIEND",
+      "definition": "A person you like and trust.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "FUTURE",
+      "definition": "The time that has not happened yet.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "GARDEN",
+      "definition": "A cared-for outdoor space beside a home.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "HEALTH",
+      "definition": "The condition of the body or mind.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "LISTEN",
+      "definition": "To pay attention to a sound or someone speaking.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "MEMORY",
+      "definition": "Something remembered from the past.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "NATURE",
+      "definition": "The living world and its natural features.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "PEOPLE",
+      "definition": "Human beings in general or as a group.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "REASON",
+      "definition": "A cause or explanation for something.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "RESCUE",
+      "definition": "To save someone from danger.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "SAFETY",
+      "definition": "The state of being protected from harm.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "SCHOOL",
+      "definition": "A place where students learn.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "SIMPLE",
+      "definition": "Easy to understand or do.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "STRONG",
+      "definition": "Having great physical or mental power.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "WONDER",
+      "definition": "A feeling of surprise and curiosity.",
+      "length": 6,
+      "rarity": "common"
+    },
+    {
+      "word": "BALANCE",
+      "definition": "A steady state where things are even or stable.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "BELIEVE",
+      "definition": "To accept that something is true.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "COMFORT",
+      "definition": "A feeling of ease or relief.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "COURAGE",
+      "definition": "The ability to do something even when it is difficult or scary.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "FREEDOM",
+      "definition": "The power to choose or act without unfair control.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "HONESTY",
+      "definition": "The quality of telling the truth and being fair.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "IMAGINE",
+      "definition": "To form an idea or picture in your mind.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "JOURNEY",
+      "definition": "A trip from one place to another.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "JUSTICE",
+      "definition": "Fair treatment under rules or laws.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "PROTECT",
+      "definition": "To keep someone or something safe from harm.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "RESPECT",
+      "definition": "To treat someone or something as important.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "SCIENCE",
+      "definition": "The study of the natural world through evidence.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "SERVICE",
+      "definition": "Work done to help other people.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "SUPPORT",
+      "definition": "To help someone or hold something up.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "THOUGHT",
+      "definition": "An idea formed in the mind.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "VICTORY",
+      "definition": "Success in a contest or struggle.",
+      "length": 7,
+      "rarity": "common"
+    },
+    {
+      "word": "CREATIVE",
+      "definition": "Able to make or imagine new things.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "DISCOVER",
+      "definition": "To find or learn something for the first time.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "GENERATE",
+      "definition": "To produce or create something.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "KINDNESS",
+      "definition": "The quality of being gentle and helpful.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "LANGUAGE",
+      "definition": "A system of words used to communicate.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "PATIENCE",
+      "definition": "The ability to wait calmly without getting upset.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "PRACTICE",
+      "definition": "To do something repeatedly to improve a skill.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "QUESTION",
+      "definition": "A sentence used to ask for information.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "REMEMBER",
+      "definition": "To keep something in the mind.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "SOLUTION",
+      "definition": "An answer to a problem.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "TOGETHER",
+      "definition": "With each other or in one group.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "TREASURE",
+      "definition": "Something very valuable or special.",
+      "length": 8,
+      "rarity": "common"
+    },
+    {
+      "word": "ADVENTURE",
+      "definition": "An exciting or unusual experience.",
+      "length": 9,
+      "rarity": "common"
+    },
+    {
+      "word": "HAPPINESS",
+      "definition": "A feeling of joy or satisfaction.",
+      "length": 9,
+      "rarity": "common"
+    },
+    {
+      "word": "IMPORTANT",
+      "definition": "Having great value or meaning.",
+      "length": 9,
+      "rarity": "common"
+    },
+    {
+      "word": "KNOWLEDGE",
+      "definition": "Information and understanding gained through learning.",
+      "length": 9,
+      "rarity": "common"
+    },
+    {
+      "word": "CONFIDENCE",
+      "definition": "Belief in your own ability.",
+      "length": 10,
+      "rarity": "common"
+    },
+    {
+      "word": "FRIENDSHIP",
+      "definition": "A close and trusting relationship between people.",
+      "length": 10,
+      "rarity": "common"
+    },
+    {
+      "word": "PROTECTION",
+      "definition": "The act of keeping someone or something safe.",
+      "length": 10,
+      "rarity": "common"
+    }
+  ]
+}

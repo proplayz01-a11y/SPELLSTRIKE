@@ -196,6 +196,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b82a23d1215318647a5e169f04866ff6, type: 2}
   - {fileID: 2100000, guid: fcbab8907d13d5b40a231b1c1d63d273, type: 2}
   maxPoolCount: 16
+  enableGreatAttractorPull: 1
+  attractorRadius: 45
+  attractorPullSpeed: 5
+  attractorStopDistance: 0.35
+  passiveCheckInterval: 0.35
 --- !u!114 &3864145992315229884
 MonoBehaviour:
   m_ObjectHideFlags: 0

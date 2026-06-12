@@ -27,7 +27,7 @@ public static class PassiveItemCatalog
             displayName = "The Great Attractor",
             shortName = "Attractor",
             description = "A gravity relic earned by completing the objective.",
-            effectSummary = "Later: nearby tiles slowly move toward the player."
+            effectSummary = "Nearby world letter tiles slowly move toward the player."
         }
     };
 
