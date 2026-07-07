@@ -5234,7 +5234,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 93834befe3e2e6346b755321d1d28a2f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 016c40ce1db919e4b97ae52b4fd464fd, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &961551294
 GameObject:
@@ -6931,9 +6931,9 @@ MonoBehaviour:
   progressionManager: {fileID: 2081010881}
   stoneSentinel: {fileID: 1155258163}
   stoneSentinelArenaCenter: {fileID: 1084769371}
-  stoneSentinelArenaRadius: 99.7
+  stoneSentinelArenaRadius: 67.4
   stoneSentinelShrineCenter: {fileID: 617735856}
-  stoneSentinelShrineExclusionRadius: 11.8
+  stoneSentinelShrineExclusionRadius: 0
   arenaBoundary: {fileID: 1785164429}
 --- !u!135 &1171844998
 SphereCollider:
@@ -10504,7 +10504,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.53
-  m_BaseOffset: -0.02
+  m_BaseOffset: -0.07
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1900036783
@@ -10567,8 +10567,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -10608,6 +10608,9 @@ MonoBehaviour:
   animator: {fileID: 1900036786}
   maxHealth: 20.1
   walkSpeed: 35.5
+  navMeshSnapRadius: 12
+  destinationSampleRadius: 4
+  warnWhenOffNavMesh: 1
   closeAttackRange: 21.3
   thornPrefab: {fileID: 3108942740940661776, guid: 952858554325a684ebb3b927e87cc6eb, type: 3}
   thornSpawnPoint: {fileID: 527359282}
@@ -13141,7 +13144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fba58c18054f55c4b8cc402b4df14dca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -126.48884
+      value: -125.36
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fba58c18054f55c4b8cc402b4df14dca, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13589,7 +13592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fba58c18054f55c4b8cc402b4df14dca, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fba58c18054f55c4b8cc402b4df14dca, type: 3}
       propertyPath: m_TagString

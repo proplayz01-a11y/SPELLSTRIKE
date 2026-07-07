@@ -47,6 +47,11 @@ public class BrambleSpriteController : MonoBehaviour
     [Header("Movement")]
     public float walkSpeed = 3.5f;
 
+    [Header("Navigation")]
+    [SerializeField] private float navMeshSnapRadius = 12f;
+    [SerializeField] private float destinationSampleRadius = 4f;
+    [SerializeField] private bool warnWhenOffNavMesh = true;
+
     [Header("Ranges")]
     public float closeAttackRange = 2.5f;
 
@@ -77,6 +82,7 @@ public class BrambleSpriteController : MonoBehaviour
     private bool antiKiteThornReady = false;
     private bool beingHitStarted = false;
     private bool potionDropResolved = false;
+    private bool navMeshWarningLogged = false;
 
 
     // ─────────────────────────────────────────────
@@ -97,12 +103,18 @@ public class BrambleSpriteController : MonoBehaviour
 
     private void Start()
     {
-        agent.updateRotation = false;   // We rotate manually via FaceTarget
-        agent.updatePosition = true;
-        agent.speed = walkSpeed;
-        agent.stoppingDistance = 0f;
-        agent.autoBraking = true;
-        animator.applyRootMotion = false;
+        if (agent != null)
+        {
+            agent.updateRotation = false;   // We rotate manually via FaceTarget
+            agent.updatePosition = true;
+            agent.speed = walkSpeed;
+            agent.stoppingDistance = 0f;
+            agent.autoBraking = true;
+            TryPlaceAgentOnNavMesh();
+        }
+
+        if (animator != null)
+            animator.applyRootMotion = false;
     }
 
     // ─────────────────────────────────────────────
@@ -144,8 +156,14 @@ public class BrambleSpriteController : MonoBehaviour
                 break;
         }
         // Drive the blend tree Speed float from actual agent velocity
-        if (animator != null && agent != null && agent.enabled)
-            animator.SetFloat("Speed", agent.velocity.magnitude / Mathf.Max(walkSpeed, 0.01f));
+        if (animator != null)
+        {
+            float normalizedSpeed = 0f;
+            if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
+                normalizedSpeed = agent.velocity.magnitude / Mathf.Max(walkSpeed, 0.01f);
+
+            animator.SetFloat("Speed", normalizedSpeed);
+        }
     }
 
     // ─────────────────────────────────────────────
@@ -158,8 +176,7 @@ public class BrambleSpriteController : MonoBehaviour
         // CLOSE ZONE -> melee combo
         if (distanceToPlayer <= closeAttackRange)
         {
-            agent.isStopped = true;
-            agent.ResetPath();
+            StopAgent();
 
             currentState = EnemyState.CloseAttack;
             closeAttackStarted = false;
@@ -175,8 +192,7 @@ public class BrambleSpriteController : MonoBehaviour
         // NORMAL THORN ZONE
         if (distanceToPlayer <= thornThrowRange)
         {
-            agent.isStopped = true;
-            agent.ResetPath();
+            StopAgent();
 
             currentState = EnemyState.ThornThrow;
             thornThrowStarted = false;
@@ -197,8 +213,7 @@ public class BrambleSpriteController : MonoBehaviour
         // EXTENDED THORN ZONE if anti-kite is armed
         if (antiKiteThornReady && distanceToPlayer <= extendedThornThrowRange)
         {
-            agent.isStopped = true;
-            agent.ResetPath();
+            StopAgent();
 
             currentState = EnemyState.ThornThrow;
             thornThrowStarted = false;
@@ -210,13 +225,11 @@ public class BrambleSpriteController : MonoBehaviour
         }
 
         // Otherwise keep chasing
-        agent.isStopped = false;
-        agent.SetDestination(player.position);
+        MoveAgentTo(player.position);
     }
     private void HandleBeingHit()
     {
-        agent.isStopped = true;
-        agent.ResetPath();
+        StopAgent();
 
         if (!beingHitStarted)
         {
@@ -237,8 +250,7 @@ public class BrambleSpriteController : MonoBehaviour
 
     private void HandleCloseAttack()
     {
-        agent.isStopped = true;
-        agent.ResetPath();
+        StopAgent();
 
         if (!closeAttackStarted)
         {
@@ -260,8 +272,7 @@ public class BrambleSpriteController : MonoBehaviour
 
     private void HandleCloseAttack2()
     {
-        agent.isStopped = true;
-        agent.ResetPath();
+        StopAgent();
 
         if (!closeAttack2Started)
         {
@@ -281,20 +292,19 @@ public class BrambleSpriteController : MonoBehaviour
     }
 
     private void HandleThornThrow()
-{
-    agent.isStopped = true;
-    agent.ResetPath();
-
-    if (!thornThrowStarted)
     {
-        thornThrowStarted = true;
+        StopAgent();
 
-        if (animator != null)
-            animator.SetTrigger("ThornToss");
+        if (!thornThrowStarted)
+        {
+            thornThrowStarted = true;
 
-        Debug.Log("[BrambleSprite] Triggered ThornToss.");
+            if (animator != null)
+                animator.SetTrigger("ThornToss");
+
+            Debug.Log("[BrambleSprite] Triggered ThornToss.");
+        }
     }
-}
 
     public void OnThornTossFinished()
     {
@@ -309,8 +319,7 @@ public class BrambleSpriteController : MonoBehaviour
     private void EnterRecover()
     {
         currentState = EnemyState.Recover;
-        agent.isStopped = true;
-        agent.ResetPath();
+        StopAgent();
 
         if (recoverCoroutine != null)
             StopCoroutine(recoverCoroutine);
@@ -342,8 +351,7 @@ public class BrambleSpriteController : MonoBehaviour
         battleStarted = true;
         currentState = EnemyState.Approach;
         potionDropResolved = false;
-        agent.isStopped = false;
-        agent.ResetPath();
+        ResumeAgent();
         timeOutsideSlashRange = 0f;
         timeOutsideNormalThornRange = 0f;
         antiKiteThornReady = false;
@@ -383,8 +391,7 @@ public class BrambleSpriteController : MonoBehaviour
             recoverCoroutine = null;
         }
 
-        agent.isStopped = true;
-        agent.ResetPath();
+        StopAgent();
 
         closeAttackStarted = false;
         closeAttack2Started = false;
@@ -414,11 +421,7 @@ public class BrambleSpriteController : MonoBehaviour
         thornThrowStarted = false;
         beingHitStarted = false;
 
-        if (agent != null && agent.enabled)
-        {
-            agent.isStopped = true;
-            agent.ResetPath();
-        }
+        StopAgent();
 
         if (animator != null)
         {
@@ -548,6 +551,75 @@ public class BrambleSpriteController : MonoBehaviour
                 Mathf.Max(0f, turnSpeedDegreesPerSecond) * Time.deltaTime
             );
         }
+    }
+
+    private bool TryPlaceAgentOnNavMesh()
+    {
+        if (agent == null || !agent.isActiveAndEnabled)
+            return false;
+
+        if (agent.isOnNavMesh)
+        {
+            navMeshWarningLogged = false;
+            return true;
+        }
+
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit navHit, navMeshSnapRadius, NavMesh.AllAreas))
+        {
+            transform.position = navHit.position;
+            if (agent.Warp(navHit.position))
+            {
+                navMeshWarningLogged = false;
+                return true;
+            }
+        }
+
+        WarnAgentOffNavMesh();
+        return false;
+    }
+
+    private bool StopAgent()
+    {
+        if (!TryPlaceAgentOnNavMesh())
+            return false;
+
+        agent.isStopped = true;
+        agent.ResetPath();
+        return true;
+    }
+
+    private bool ResumeAgent()
+    {
+        if (!TryPlaceAgentOnNavMesh())
+            return false;
+
+        agent.ResetPath();
+        agent.isStopped = false;
+        return true;
+    }
+
+    private bool MoveAgentTo(Vector3 destination)
+    {
+        if (!TryPlaceAgentOnNavMesh())
+            return false;
+
+        if (NavMesh.SamplePosition(destination, out NavMeshHit navHit, destinationSampleRadius, NavMesh.AllAreas))
+            destination = navHit.position;
+
+        agent.isStopped = false;
+        return agent.SetDestination(destination);
+    }
+
+    private void WarnAgentOffNavMesh()
+    {
+        if (!warnWhenOffNavMesh || navMeshWarningLogged)
+            return;
+
+        navMeshWarningLogged = true;
+        Debug.LogWarning(
+            $"[BrambleSprite] NavMeshAgent is not on a NavMesh near {transform.position}. Move the Stage 1 Node 1 spawn/arena center onto the baked NavMesh, or rebake the Stage 1 NavMesh.",
+            this
+        );
     }
 
     // Kept for future layers (ThornThrow, CloseAttack animation waits)

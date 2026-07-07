@@ -14,6 +14,7 @@ public class ArenaTrigger : MonoBehaviour
     [SerializeField] private float groundRayStartHeight = 50f;
     [SerializeField] private float groundRayDistance = 200f;
     [SerializeField] private LayerMask groundMask = ~0;
+    [SerializeField] private float navMeshSampleRadius = 12f;
     [SerializeField] private bool debugBrambleSpeed = false;
     [SerializeField] private float debugLogInterval = 0.25f;
 
@@ -91,7 +92,7 @@ public class ArenaTrigger : MonoBehaviour
             player.position = newPos;
         }
 
-        if (debugBrambleSpeed && brambleAgent != null)
+        if (debugBrambleSpeed && brambleAgent != null && brambleAgent.isActiveAndEnabled && brambleAgent.isOnNavMesh)
         {
             speedDebugTimer += Time.deltaTime;
             if (speedDebugTimer >= Mathf.Max(0.05f, debugLogInterval))
@@ -150,8 +151,8 @@ public class ArenaTrigger : MonoBehaviour
         }
         if (brambleAgent != null)
         {
-            brambleAgent.isStopped = true;
-            brambleAgent.ResetPath();
+            TryWarpBrambleAgentToNavMesh(brambleSprite.transform.position);
+            StopBrambleAgent();
             brambleAgent.updatePosition = false;
         }
         if (brambleRb != null)
@@ -225,10 +226,17 @@ public class ArenaTrigger : MonoBehaviour
         // Re-enable enemy nav agent and sync it to current position.
         if (brambleAgent != null)
         {
-            brambleAgent.Warp(brambleSprite.transform.position);
-            brambleAgent.ResetPath();
+            bool agentPlaced = TryWarpBrambleAgentToNavMesh(brambleSprite.transform.position);
             brambleAgent.updatePosition = true;
-            brambleAgent.isStopped = false;
+            if (agentPlaced)
+            {
+                brambleAgent.ResetPath();
+                brambleAgent.isStopped = false;
+            }
+            else
+            {
+                Debug.LogWarning("[ArenaTrigger] Bramble Sprite could not be placed on the NavMesh before battle. Check the Stage 1 Node 1 arena center/spawn or rebake the NavMesh.", brambleSprite);
+            }
         }
         if (brambleRb != null)
         {
@@ -310,7 +318,7 @@ public class ArenaTrigger : MonoBehaviour
 
     private Vector3 GetGroundedPosition(Vector3 candidate)
     {
-        if (NavMesh.SamplePosition(candidate, out NavMeshHit navHit, 10f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(candidate, out NavMeshHit navHit, navMeshSampleRadius, NavMesh.AllAreas))
         {
             return navHit.position;
         }
@@ -330,6 +338,35 @@ public class ArenaTrigger : MonoBehaviour
         }
 
         return candidate;
+    }
+
+    private bool TryWarpBrambleAgentToNavMesh(Vector3 candidate)
+    {
+        if (brambleAgent == null || !brambleAgent.isActiveAndEnabled)
+            return false;
+
+        if (brambleSprite == null)
+            return brambleAgent.isOnNavMesh;
+
+        if (NavMesh.SamplePosition(candidate, out NavMeshHit navHit, navMeshSampleRadius, NavMesh.AllAreas))
+        {
+            brambleSprite.transform.position = navHit.position;
+            return brambleAgent.Warp(navHit.position);
+        }
+
+        return brambleAgent.isOnNavMesh;
+    }
+
+    private void StopBrambleAgent()
+    {
+        if (brambleAgent == null || !brambleAgent.isActiveAndEnabled)
+            return;
+
+        if (!brambleAgent.isOnNavMesh && !TryWarpBrambleAgentToNavMesh(brambleSprite.transform.position))
+            return;
+
+        brambleAgent.isStopped = true;
+        brambleAgent.ResetPath();
     }
 
     private void ShowBrambleDialogue()

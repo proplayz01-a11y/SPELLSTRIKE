@@ -1,0 +1,4 @@
+interface:
+  display_name: "SPELLSTRIKE"
+  short_description: "Project workflow for SPELLSTRIKE Unity work"
+  default_prompt: "Use $spellstrike before auditing or implementing SPELLSTRIKE features."
