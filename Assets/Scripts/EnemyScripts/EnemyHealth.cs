@@ -14,12 +14,7 @@ public class EnemyHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-
-        if (healthSlider != null)
-        {
-            healthSlider.maxValue = maxHealth;
-            healthSlider.value = currentHealth;
-        }
+        SyncHealthSlider();
     }
 
     public void TakeDamage(float damage)
@@ -27,9 +22,7 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
 
         currentHealth = Mathf.Max(0f, currentHealth - damage);
-
-        if (healthSlider != null)
-            healthSlider.value = currentHealth;
+        SyncHealthSlider();
 
         Debug.Log($"{name} took {damage} damage. HP: {currentHealth}/{maxHealth}");
 
@@ -111,6 +104,15 @@ public class EnemyHealth : MonoBehaviour
             return;
 
         Destroy(gameObject);
+    }
+
+    private void SyncHealthSlider()
+    {
+        if (healthSlider == null)
+            return;
+
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
     }
 
     private bool TryInvokeControllerMessage(string methodName)

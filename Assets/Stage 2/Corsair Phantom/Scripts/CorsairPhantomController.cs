@@ -49,6 +49,10 @@ public class CorsairPhantomController : MonoBehaviour
     public bool createProjectileIfPrefabMissing = true;
     public bool useInstantHitFallbackIfProjectileMissing = true;
 
+    [Header("Phantom Shot Charge VFX")]
+    public PhantomShotChargeVFX phantomShotChargePrefab;
+    public bool createPhantomShotChargeIfPrefabMissing = true;
+
     [Header("Piercing Scream")]
     public bool enablePiercingScream = true;
     public float piercingScreamCooldown = 8f;
@@ -57,20 +61,35 @@ public class CorsairPhantomController : MonoBehaviour
     [Range(1f, 180f)] public float piercingScreamAngle = 45f;
     public float piercingScreamCastDelay = 0.6f;
     public float piercingScreamFallbackFinishTime = 1.25f;
+    [SerializeField, Min(0)] private int piercingScreamDamage = 5;
 
     [Header("Piercing Scream VFX")]
     public PiercingScreamWaveVFX piercingScreamWavePrefab;
     public bool createPiercingScreamWaveIfPrefabMissing = true;
 
+    [Header("Piercing Scream Layered VFX")]
+    public PiercingScreamVFX piercingScreamVFXPrefab;
+    public bool createPiercingScreamVFXIfPrefabMissing = true;
+
+    [Header("Piercing Scream Tile Cracking")]
+    [SerializeField] private TileDebuffManager tileDebuffManager;
+    [SerializeField] private bool crackTilesOnPiercingScreamHit = true;
+    [SerializeField, Min(0)] private int piercingScreamCrackedTileCount = 1;
+    [SerializeField] private int piercingScreamCrackCounter = 2;
+
     [Header("Death Callback")]
     public MonoBehaviour deathReceiver;
     public string deathMessage = "OnEnemyDefeated";
+
+    [Header("Hit / Death Timing")]
+    public float hitFallbackFinishTime = 0.7f;
+    public float deathFallbackFinishTime = 2f;
 
     [Header("Animator Parameters")]
     public string speedParameter = "Speed";
     public string attackTrigger = "Attack";
     public string castTrigger = "Cast";
-    public string hitTrigger = "Hit";
+    public string hitTrigger = "BeingHit";
     public string deathTrigger = "Die";
 
     [Header("Debug Testing")]
@@ -106,12 +125,18 @@ public class CorsairPhantomController : MonoBehaviour
     private float nextPiercingScreamTime;
     private Vector3 piercingScreamTargetPosition;
     private Vector3 piercingScreamTargetDirection;
+    private Vector3 piercingScreamVisualDirection;
 
     private Coroutine phantomShotRoutine;
     private Coroutine recoverRoutine;
     private Coroutine ghostGlideRoutine;
     private Coroutine piercingScreamRoutine;
     private Coroutine playerMovementStunRoutine;
+    private Coroutine hitFallbackRoutine;
+    private Coroutine deathFallbackRoutine;
+
+    private PhantomShotChargeVFX activePhantomShotChargeVFX;
+    private PiercingScreamVFX activePiercingScreamVFX;
 
     private void Awake()
     {
@@ -201,6 +226,8 @@ public class CorsairPhantomController : MonoBehaviour
         StopRecoverRoutine();
         StopGhostGlideRoutine();
         StopPiercingScreamRoutine();
+        StopHitFallbackRoutine();
+        StopDeathFallbackRoutine();
 
         if (TryPrepareAgentForMovement())
         {
@@ -231,19 +258,23 @@ public class CorsairPhantomController : MonoBehaviour
         StopRecoverRoutine();
         StopGhostGlideRoutine();
         StopPiercingScreamRoutine();
+        StopHitFallbackRoutine();
         ResetAnimatorTrigger(attackTrigger);
         ResetAnimatorTrigger(castTrigger);
 
-        if (!TrySetAnimatorTrigger(hitTrigger, false))
+        if (TrySetAnimatorTrigger(hitTrigger, false))
+            hitFallbackRoutine = StartCoroutine(HitFallbackRoutine());
+        else
             OnBeingHitFinished();
     }
 
-    // Animation Event: place this on the final frame of the Hit animation.
+    // Animation Event: place this on the final frame of the BeingHit animation.
     public void OnBeingHitFinished()
     {
         if (!isBeingHit)
             return;
 
+        StopHitFallbackRoutine();
         isBeingHit = false;
         SetAnimatorSpeed(0f);
         Log("[CorsairPhantom] Hit finished.");
@@ -270,12 +301,16 @@ public class CorsairPhantomController : MonoBehaviour
         StopRecoverRoutine();
         StopGhostGlideRoutine();
         StopPiercingScreamRoutine();
+        StopHitFallbackRoutine();
+        StopDeathFallbackRoutine();
         SetAnimatorSpeed(0f);
         ResetActionTriggers();
 
         Log("[CorsairPhantom] Death triggered.");
 
-        if (!TrySetAnimatorTrigger(deathTrigger, false))
+        if (TrySetAnimatorTrigger(deathTrigger, false))
+            deathFallbackRoutine = StartCoroutine(DeathFallbackRoutine());
+        else
             OnDeathFinished();
     }
 
@@ -286,12 +321,31 @@ public class CorsairPhantomController : MonoBehaviour
             return;
 
         deathFinished = true;
+        StopDeathFallbackRoutine();
         Log("[CorsairPhantom] Death finished.");
 
         if (deathReceiver != null)
             deathReceiver.SendMessage(deathMessage, SendMessageOptions.DontRequireReceiver);
 
         gameObject.SetActive(false);
+    }
+
+    private IEnumerator HitFallbackRoutine()
+    {
+        yield return new WaitForSeconds(Mathf.Max(0.01f, hitFallbackFinishTime));
+        hitFallbackRoutine = null;
+
+        if (isBeingHit && !isDead)
+            OnBeingHitFinished();
+    }
+
+    private IEnumerator DeathFallbackRoutine()
+    {
+        yield return new WaitForSeconds(Mathf.Max(0.01f, deathFallbackFinishTime));
+        deathFallbackRoutine = null;
+
+        if (isDead && !deathFinished)
+            OnDeathFinished();
     }
 
     private void ConfigureIdleState()
@@ -446,6 +500,7 @@ public class CorsairPhantomController : MonoBehaviour
         Log("[CorsairPhantom] Phantom Shot started.");
 
         StopPhantomShotRoutine();
+        BeginPhantomShotChargeVFX();
         phantomShotRoutine = StartCoroutine(PhantomShotRoutine());
     }
 
@@ -510,6 +565,7 @@ public class CorsairPhantomController : MonoBehaviour
             return;
 
         phantomShotResolved = true;
+        CancelPhantomShotChargeVFX();
 
         if (player == null)
         {
@@ -704,6 +760,7 @@ public class CorsairPhantomController : MonoBehaviour
         piercingScreamResolved = false;
         piercingScreamTargetPosition = GetPlayerAimPoint();
         piercingScreamTargetDirection = GetPiercingScreamDirectionToTarget(piercingScreamTargetPosition);
+        piercingScreamVisualDirection = GetPiercingScreamVisualDirectionToTarget(piercingScreamTargetPosition);
 
         StopMovement();
 
@@ -711,6 +768,8 @@ public class CorsairPhantomController : MonoBehaviour
 
         SetAnimatorSpeed(0f);
         TrySetAnimatorTrigger(castTrigger);
+
+        BeginPiercingScreamChargeVFX();
 
         Log("[CorsairPhantom] Piercing Scream cast started.");
         Log($"[CorsairPhantom] Piercing Scream target position saved: {FormatVector3(piercingScreamTargetPosition)}");
@@ -743,15 +802,42 @@ public class CorsairPhantomController : MonoBehaviour
         piercingScreamResolved = true;
         Log($"[CorsairPhantom] Piercing Scream player position on resolve: {FormatVector3(GetPlayerAimPoint())}");
 
-        if (IsPlayerInsidePiercingScreamCone())
+        bool playerHit = IsPlayerInsidePiercingScreamCone();
+        Vector3 impactPoint = playerHit
+            ? GetPlayerAimPoint()
+            : GetPiercingScreamOrigin() + GetPiercingScreamVisualDirection() * piercingScreamRange;
+
+        ReleasePiercingScreamVFX(playerHit, impactPoint);
+
+        if (playerHit)
         {
-            SpawnPiercingScreamWaveVFX();
-            Log("[CorsairPhantom] Piercing Scream hit player.");
+            if (piercingScreamDamage > 0)
+                DealDamageToPlayer(piercingScreamDamage);
+
+            ApplyPiercingScreamTileCracking();
+            Log($"[CorsairPhantom] Piercing Scream hit player for {piercingScreamDamage} damage.");
             return;
         }
 
-        SpawnPiercingScreamWaveVFX();
         Log("[CorsairPhantom] Piercing Scream missed.");
+    }
+
+    private void ApplyPiercingScreamTileCracking()
+    {
+        if (!crackTilesOnPiercingScreamHit || piercingScreamCrackedTileCount <= 0)
+            return;
+
+        if (tileDebuffManager == null)
+            tileDebuffManager = FindFirstObjectByType<TileDebuffManager>();
+
+        if (tileDebuffManager == null)
+        {
+            Debug.LogWarning("[CorsairPhantom] Piercing Scream could not crack tiles. TileDebuffManager not found.");
+            return;
+        }
+
+        tileDebuffManager.ApplyTileCracking(piercingScreamCrackedTileCount, piercingScreamCrackCounter);
+        Log("[CorsairPhantom] Piercing Scream cracked tile(s).");
     }
 
     private bool IsPlayerInsidePiercingScreamCone()
@@ -810,6 +896,16 @@ public class CorsairPhantomController : MonoBehaviour
         return direction.normalized;
     }
 
+    private Vector3 GetPiercingScreamVisualDirectionToTarget(Vector3 targetPosition)
+    {
+        Vector3 direction = targetPosition - GetPiercingScreamOrigin();
+
+        if (direction.sqrMagnitude <= 0.001f)
+            return GetPiercingScreamVisualDirection();
+
+        return direction.normalized;
+    }
+
     private Vector3 GetPiercingScreamAimDirection()
     {
         Vector3 direction = piercingScreamTargetDirection;
@@ -830,11 +926,63 @@ public class CorsairPhantomController : MonoBehaviour
         return direction.normalized;
     }
 
+    private Vector3 GetPiercingScreamVisualDirection()
+    {
+        Vector3 direction = piercingScreamVisualDirection;
+
+        if (!isCastingPiercingScream || direction.sqrMagnitude <= 0.001f)
+            direction = GetPiercingScreamForward();
+
+        if (direction.sqrMagnitude <= 0.001f)
+            direction = GetPiercingScreamAimDirection();
+
+        if (direction.sqrMagnitude <= 0.001f)
+            return Vector3.forward;
+
+        return direction.normalized;
+    }
+
+    private void BeginPiercingScreamChargeVFX()
+    {
+        activePiercingScreamVFX = null;
+
+        Vector3 origin = GetPiercingScreamOrigin();
+        Vector3 forward = GetPiercingScreamVisualDirection();
+
+        if (piercingScreamVFXPrefab != null)
+            activePiercingScreamVFX = Instantiate(piercingScreamVFXPrefab, origin, Quaternion.LookRotation(forward));
+        else if (createPiercingScreamVFXIfPrefabMissing)
+            activePiercingScreamVFX = new GameObject("PiercingScreamVFX").AddComponent<PiercingScreamVFX>();
+
+        if (activePiercingScreamVFX == null)
+            return;
+
+        Transform mouth = piercingScreamOrigin != null ? piercingScreamOrigin : transform;
+        activePiercingScreamVFX.BeginCharge(mouth, forward, piercingScreamCastDelay, piercingScreamRange, piercingScreamAngle);
+        Log("[CorsairPhantom] Piercing Scream charge VFX started.");
+    }
+
+    private void ReleasePiercingScreamVFX(bool playerHit, Vector3 impactPoint)
+    {
+        Vector3 forward = GetPiercingScreamVisualDirection();
+
+        if (activePiercingScreamVFX != null)
+        {
+            activePiercingScreamVFX.Release(forward, playerHit, impactPoint);
+            activePiercingScreamVFX = null;
+            Log("[CorsairPhantom] Piercing Scream layered VFX released.");
+            return;
+        }
+
+        // Fallback when the layered orchestrator is unavailable: rings only.
+        SpawnPiercingScreamWaveVFX();
+    }
+
     private void SpawnPiercingScreamWaveVFX()
     {
         PiercingScreamWaveVFX wave = null;
         Vector3 origin = GetPiercingScreamOrigin();
-        Vector3 forward = GetPiercingScreamAimDirection();
+        Vector3 forward = GetPiercingScreamVisualDirection();
 
         if (piercingScreamWavePrefab != null)
             wave = Instantiate(piercingScreamWavePrefab, origin, Quaternion.LookRotation(forward));
@@ -845,6 +993,7 @@ public class CorsairPhantomController : MonoBehaviour
             return;
 
         wave.range = piercingScreamRange;
+        wave.coneAngle = piercingScreamAngle;
         wave.Play(origin, forward);
         Log("[CorsairPhantom] Piercing Scream wave spawned.");
     }
@@ -857,6 +1006,7 @@ public class CorsairPhantomController : MonoBehaviour
         if (!piercingScreamResolved)
         {
             piercingScreamResolved = true;
+            CancelPiercingScreamVFX();
             Debug.LogWarning("[CorsairPhantom] Piercing Scream finished before cone was resolved. Check OnPiercingScreamHit, or tune Piercing Scream Cast Delay.");
         }
 
@@ -875,6 +1025,34 @@ public class CorsairPhantomController : MonoBehaviour
         StopCoroutine(piercingScreamRoutine);
         piercingScreamRoutine = null;
         isCastingPiercingScream = false;
+        CancelPiercingScreamVFX();
+    }
+
+    private void StopHitFallbackRoutine()
+    {
+        if (hitFallbackRoutine == null)
+            return;
+
+        StopCoroutine(hitFallbackRoutine);
+        hitFallbackRoutine = null;
+    }
+
+    private void StopDeathFallbackRoutine()
+    {
+        if (deathFallbackRoutine == null)
+            return;
+
+        StopCoroutine(deathFallbackRoutine);
+        deathFallbackRoutine = null;
+    }
+
+    private void CancelPiercingScreamVFX()
+    {
+        if (activePiercingScreamVFX == null)
+            return;
+
+        activePiercingScreamVFX.Cancel();
+        activePiercingScreamVFX = null;
     }
 
     private bool IsPlayerInsideGhostGlideHitRadius()
@@ -993,11 +1171,42 @@ public class CorsairPhantomController : MonoBehaviour
 
     private void StopPhantomShotRoutine()
     {
+        CancelPhantomShotChargeVFX();
+
         if (phantomShotRoutine == null)
             return;
 
         StopCoroutine(phantomShotRoutine);
         phantomShotRoutine = null;
+    }
+
+    private void BeginPhantomShotChargeVFX()
+    {
+        CancelPhantomShotChargeVFX();
+
+        PhantomShotChargeVFX charge = null;
+        Transform origin = phantomShotOrigin != null ? phantomShotOrigin : transform;
+
+        if (phantomShotChargePrefab != null)
+            charge = Instantiate(phantomShotChargePrefab, origin.position, origin.rotation);
+        else if (createPhantomShotChargeIfPrefabMissing)
+            charge = new GameObject("PhantomShotChargeVFX").AddComponent<PhantomShotChargeVFX>();
+
+        if (charge == null)
+            return;
+
+        activePhantomShotChargeVFX = charge;
+        activePhantomShotChargeVFX.BeginCharge(origin, phantomShotFireDelay);
+        Log("[CorsairPhantom] Phantom Shot charge VFX started.");
+    }
+
+    private void CancelPhantomShotChargeVFX()
+    {
+        if (activePhantomShotChargeVFX == null)
+            return;
+
+        activePhantomShotChargeVFX.Cancel();
+        activePhantomShotChargeVFX = null;
     }
 
     private void StopRecoverRoutine()

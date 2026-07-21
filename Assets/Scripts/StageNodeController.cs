@@ -12,6 +12,7 @@ public class StageNodeController : MonoBehaviour
     [SerializeField] private GameObject fragmentVisual;
     [SerializeField] private bool lockFragmentAtStart = true;
     [SerializeField] private bool unlockFragmentOnEnemyDefeat = true;
+    [SerializeField] private bool completeNodeOnEnemyDefeat;
     [SerializeField] private bool hideFragmentVisualOnComplete = true;
 
     [Header("Player")]
@@ -93,6 +94,11 @@ public class StageNodeController : MonoBehaviour
 
         Log(enemyDefeatedMessage);
         onEnemyDefeated?.Invoke();
+
+        if (completeNodeOnEnemyDefeat)
+        {
+            CompleteNode();
+        }
     }
 
     public void OnFragmentCollected()

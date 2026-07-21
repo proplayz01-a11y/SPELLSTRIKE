@@ -11,7 +11,7 @@ public class PhantomShotProjectile : MonoBehaviour
     public float damage = 6f;
     public string playerTag = "Player";
 
-    [Header("Temporary Visual")]
+    [Header("Spectral Visual")]
     public bool createFallbackVisualIfMissing = true;
     public bool createFallbackTrail = true;
     public float fallbackVisualScale = 0.7f;
@@ -23,15 +23,48 @@ public class PhantomShotProjectile : MonoBehaviour
     public Color emissionColor = new Color(0.38f, 0.12f, 1f, 1f);
     public float emissionIntensity = 3f;
 
+    [Header("Ghost Shell / Aura")]
+    public Color shellColor = new Color(0.55f, 1f, 0.9f, 0.22f);
+    public float shellScaleMultiplier = 2.1f;
+    public float shellSpinSpeed = 40f;
+
+    [Header("Misty Trail")]
+    public Color mistColor = new Color(0.5f, 1f, 0.88f, 0.35f);
+    public int mistMaxParticles = 24;
+    public float mistRateOverDistance = 4f;
+    public float mistLifetime = 0.55f;
+
+    [Header("Backward Wisps")]
+    public Color wispColor = new Color(0.65f, 1f, 0.92f, 0.7f);
+    public int wispMaxParticles = 12;
+    public float wispRate = 16f;
+    public float wispLifetime = 0.4f;
+    public float wispSize = 0.07f;
+
+    [Header("Impact Burst")]
+    public Color impactColor = new Color(0.6f, 1f, 0.9f, 1f);
+    public int impactParticleCount = 14;
+    public float impactDuration = 0.28f;
+    public float impactShellRadius = 0.9f;
+
+    [Header("Optional Subtle Light")]
+    public bool enableProjectileLight = false;
+    public Color projectileLightColor = new Color(0.5f, 1f, 0.85f, 1f);
+    public float projectileLightIntensity = 1.2f;
+    public float projectileLightRange = 3.5f;
+
     [Header("Debug")]
     public bool debugLogs = true;
+
+    private const float CoreScaleFactor = 0.55f;
 
     private Transform owner;
     private Transform target;
     private Collider targetCollider;
     private Vector3 direction;
-    private Vector3 baseVisualScale;
-    private Transform visualRoot;
+    private Vector3 baseCoreScale;
+    private Transform coreVisual;
+    private Transform shellVisual;
     private float spawnTime;
     private bool launched;
     private bool hasHit;
@@ -67,8 +100,7 @@ public class PhantomShotProjectile : MonoBehaviour
 
         ResolveTargetCollider();
         EnsureTriggerCollider();
-        EnsureFallbackVisual();
-        EnsureFallbackTrail();
+        BuildSpectralLayers();
 
         Log("[PhantomShot] Projectile launched.");
     }
@@ -92,7 +124,7 @@ public class PhantomShotProjectile : MonoBehaviour
             return;
 
         transform.position = endPosition;
-        AnimateFallbackVisual();
+        AnimateSpectralVisual();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -195,6 +227,7 @@ public class PhantomShotProjectile : MonoBehaviour
             hitCollider.SendMessageUpwards("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver);
 
         Log("[PhantomShot] Projectile hit player.");
+        SpawnImpactBurst(transform.position);
         Destroy(gameObject);
     }
 
@@ -231,96 +264,253 @@ public class PhantomShotProjectile : MonoBehaviour
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
     }
 
-    private void EnsureFallbackVisual()
+    private void BuildSpectralLayers()
     {
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        if (renderers.Length > 0 || !createFallbackVisualIfMissing)
-        {
-            visualRoot = renderers.Length > 0 ? renderers[0].transform : null;
-            if (visualRoot != null)
-                baseVisualScale = visualRoot.localScale;
-            return;
-        }
-
-        GameObject visual = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        visual.name = "GhostBlobVisual";
-        visual.transform.SetParent(transform, false);
-        visual.transform.localPosition = Vector3.zero;
-        visual.transform.localRotation = Quaternion.identity;
-        visual.transform.localScale = Vector3.one * fallbackVisualScale;
-
-        Collider visualCollider = visual.GetComponent<Collider>();
-        if (visualCollider != null)
-            Destroy(visualCollider);
-
-        Renderer visualRenderer = visual.GetComponent<Renderer>();
-        if (visualRenderer != null)
-            visualRenderer.material = CreateGhostMaterial(coreColor, emissionColor, emissionIntensity);
-
-        visualRoot = visual.transform;
-        baseVisualScale = visualRoot.localScale;
+        DisableAuthoredBallVisual();
+        BuildSpectralCore();
+        BuildGhostShell();
+        BuildMistyTrail();
+        BuildBackwardWisps();
+        BuildOptionalLight();
     }
 
-    private void EnsureFallbackTrail()
+    // The authored prefab ships a plain glowing sphere + TrailRenderer. We replace
+    // that look with layered spectral VFX, so hide the originals at runtime while
+    // keeping the collider/gameplay intact.
+    private void DisableAuthoredBallVisual()
+    {
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer != null)
+            meshRenderer.enabled = false;
+
+        TrailRenderer trailRenderer = GetComponent<TrailRenderer>();
+        if (trailRenderer != null)
+            trailRenderer.enabled = false;
+    }
+
+    private void BuildSpectralCore()
+    {
+        GameObject coreObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        coreObject.name = "SpectralCore";
+        coreObject.transform.SetParent(transform, false);
+        coreObject.transform.localPosition = Vector3.zero;
+        coreObject.transform.localScale = Vector3.one * (fallbackVisualScale * CoreScaleFactor);
+
+        Collider coreCollider = coreObject.GetComponent<Collider>();
+        if (coreCollider != null)
+            Destroy(coreCollider);
+
+        Renderer coreRenderer = coreObject.GetComponent<Renderer>();
+        if (coreRenderer != null)
+        {
+            coreRenderer.sharedMaterial = CreateSpectralMaterial(coreColor, true);
+            coreRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            coreRenderer.receiveShadows = false;
+        }
+
+        coreVisual = coreObject.transform;
+        baseCoreScale = coreVisual.localScale;
+    }
+
+    private void BuildGhostShell()
+    {
+        GameObject shellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        shellObject.name = "GhostShell";
+        shellObject.transform.SetParent(transform, false);
+        shellObject.transform.localPosition = Vector3.zero;
+        shellObject.transform.localScale = Vector3.one * (fallbackVisualScale * CoreScaleFactor * shellScaleMultiplier);
+
+        Collider shellCollider = shellObject.GetComponent<Collider>();
+        if (shellCollider != null)
+            Destroy(shellCollider);
+
+        Renderer shellRenderer = shellObject.GetComponent<Renderer>();
+        if (shellRenderer != null)
+        {
+            shellRenderer.sharedMaterial = CreateSpectralMaterial(shellColor, true);
+            shellRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            shellRenderer.receiveShadows = false;
+        }
+
+        shellVisual = shellObject.transform;
+    }
+
+    private void BuildMistyTrail()
     {
         if (!createFallbackTrail)
             return;
 
-        TrailRenderer trail = GetComponent<TrailRenderer>();
-        if (trail == null)
-            trail = gameObject.AddComponent<TrailRenderer>();
+        GameObject mistObject = new GameObject("MistyTrail");
+        mistObject.transform.SetParent(transform, false);
+        mistObject.transform.localPosition = Vector3.zero;
 
-        trail.time = 0.28f;
-        trail.startWidth = Mathf.Max(0.05f, fallbackVisualScale * 0.8f);
-        trail.endWidth = 0.03f;
-        trail.minVertexDistance = 0.05f;
-        trail.autodestruct = false;
-        trail.material = CreateGhostMaterial(trailColor, emissionColor, emissionIntensity);
-        trail.startColor = trailColor;
-        trail.endColor = new Color(trailColor.r, trailColor.g, trailColor.b, 0f);
+        ParticleSystem system = mistObject.AddComponent<ParticleSystem>();
+        system.Stop();
+
+        ParticleSystem.MainModule main = system.main;
+        main.startLifetime = mistLifetime;
+        main.startSpeed = 0f;
+        main.startSize = fallbackVisualScale * 0.6f;
+        main.startColor = mistColor;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        main.maxParticles = Mathf.Max(1, mistMaxParticles);
+
+        ParticleSystem.EmissionModule emission = system.emission;
+        emission.rateOverTime = 0f;
+        emission.rateOverDistance = mistRateOverDistance;
+
+        ParticleSystem.ShapeModule shape = system.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = fallbackVisualScale * 0.2f;
+
+        ParticleSystem.SizeOverLifetimeModule sizeOverLife = system.sizeOverLifetime;
+        sizeOverLife.enabled = true;
+        sizeOverLife.size = new ParticleSystem.MinMaxCurve(1f, AnimationCurve.EaseInOut(0f, 0.6f, 1f, 1.4f));
+
+        ParticleSystem.ColorOverLifetimeModule colorOverLife = system.colorOverLifetime;
+        colorOverLife.enabled = true;
+        colorOverLife.color = SpectralVFXUtility.FadeGradient(mistColor);
+
+        SpectralVFXUtility.ConfigureParticleRenderer(system, mistColor);
+        system.Play();
     }
 
-    private void AnimateFallbackVisual()
+    private void BuildBackwardWisps()
     {
-        if (visualRoot == null)
+        GameObject wispObject = new GameObject("BackwardWisps");
+        wispObject.transform.SetParent(transform, false);
+        wispObject.transform.localPosition = Vector3.zero;
+        wispObject.transform.localRotation = Quaternion.Euler(0f, 180f, 0f); // Emit opposite the travel direction.
+
+        ParticleSystem system = wispObject.AddComponent<ParticleSystem>();
+        system.Stop();
+
+        ParticleSystem.MainModule main = system.main;
+        main.startLifetime = wispLifetime;
+        main.startSpeed = 1.5f;
+        main.startSize = wispSize;
+        main.startColor = wispColor;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        main.maxParticles = Mathf.Max(1, wispMaxParticles);
+
+        ParticleSystem.EmissionModule emission = system.emission;
+        emission.rateOverTime = wispRate;
+
+        ParticleSystem.ShapeModule shape = system.shape;
+        shape.shapeType = ParticleSystemShapeType.Cone;
+        shape.angle = 18f;
+        shape.radius = 0.1f;
+
+        ParticleSystem.NoiseModule noise = system.noise;
+        noise.enabled = true;
+        noise.strength = 0.25f;
+        noise.frequency = 1.2f;
+
+        ParticleSystem.ColorOverLifetimeModule colorOverLife = system.colorOverLifetime;
+        colorOverLife.enabled = true;
+        colorOverLife.color = SpectralVFXUtility.FadeGradient(wispColor);
+
+        SpectralVFXUtility.ConfigureParticleRenderer(system, wispColor);
+        system.Play();
+    }
+
+    private void BuildOptionalLight()
+    {
+        if (!enableProjectileLight)
             return;
 
-        float pulse = 1f + Mathf.Sin(Time.time * pulseSpeed) * pulseAmount;
-        visualRoot.localScale = baseVisualScale * pulse;
-        visualRoot.Rotate(spinSpeed * Time.deltaTime, Space.Self);
+        GameObject lightObject = new GameObject("SpectralLight");
+        lightObject.transform.SetParent(transform, false);
+        lightObject.transform.localPosition = Vector3.zero;
+
+        Light light = lightObject.AddComponent<Light>();
+        light.type = LightType.Point;
+        light.color = projectileLightColor;
+        light.intensity = projectileLightIntensity;
+        light.range = projectileLightRange;
+        light.shadows = LightShadows.None;
     }
 
-    private Material CreateGhostMaterial(Color color, Color glowColor, float glowIntensity)
+    private void AnimateSpectralVisual()
     {
-        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
-        if (shader == null)
-            shader = Shader.Find("Universal Render Pipeline/Lit");
-        if (shader == null)
-            shader = Shader.Find("Standard");
+        if (coreVisual != null)
+        {
+            float pulse = 1f + Mathf.Sin(Time.time * pulseSpeed) * pulseAmount;
+            coreVisual.localScale = baseCoreScale * pulse;
+            coreVisual.Rotate(spinSpeed * Time.deltaTime, Space.Self);
+        }
 
-        Material material = new Material(shader);
+        if (shellVisual != null)
+            shellVisual.Rotate(Vector3.up * shellSpinSpeed * Time.deltaTime, Space.Self);
+    }
 
-        if (material.HasProperty("_BaseColor"))
-            material.SetColor("_BaseColor", color);
-        if (material.HasProperty("_Color"))
-            material.SetColor("_Color", color);
+    private void SpawnImpactBurst(Vector3 position)
+    {
+        GameObject burstObject = new GameObject("PhantomShotImpactBurst");
+        burstObject.transform.position = position;
+
+        // Radial spectral puff.
+        ParticleSystem system = burstObject.AddComponent<ParticleSystem>();
+        system.Stop();
+
+        ParticleSystem.MainModule main = system.main;
+        main.duration = impactDuration;
+        main.loop = false;
+        main.startLifetime = impactDuration;
+        main.startSpeed = 4f;
+        main.startSize = 0.12f;
+        main.startColor = impactColor;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        main.maxParticles = Mathf.Max(1, impactParticleCount);
+
+        ParticleSystem.EmissionModule emission = system.emission;
+        emission.rateOverTime = 0f;
+        emission.SetBursts(new[] { new ParticleSystem.Burst(0f, (short)impactParticleCount) });
+
+        ParticleSystem.ShapeModule shape = system.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.1f;
+
+        ParticleSystem.ColorOverLifetimeModule colorOverLife = system.colorOverLifetime;
+        colorOverLife.enabled = true;
+        colorOverLife.color = SpectralVFXUtility.FadeGradient(impactColor);
+
+        SpectralVFXUtility.ConfigureParticleRenderer(system, impactColor);
+        system.Play();
+
+        // Quick expanding shell flash.
+        GameObject shellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        shellObject.name = "ImpactShell";
+        shellObject.transform.SetParent(burstObject.transform, false);
+        shellObject.transform.localScale = Vector3.zero;
+
+        Collider shellCollider = shellObject.GetComponent<Collider>();
+        if (shellCollider != null)
+            Destroy(shellCollider);
+
+        Renderer shellRenderer = shellObject.GetComponent<Renderer>();
+        if (shellRenderer != null)
+        {
+            shellRenderer.sharedMaterial = CreateSpectralMaterial(impactColor, true);
+            shellRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            shellRenderer.receiveShadows = false;
+        }
+
+        SpectralImpactShell shell = shellObject.AddComponent<SpectralImpactShell>();
+        shell.Initialize(shellRenderer, impactColor, impactShellRadius, impactDuration);
+
+        Destroy(burstObject, impactDuration + 0.2f);
+    }
+
+    private Material CreateSpectralMaterial(Color color, bool additive)
+    {
+        Material material = SpectralVFXUtility.CreateMaterial(color, additive);
+
         if (material.HasProperty("_EmissionColor"))
-            material.SetColor("_EmissionColor", glowColor * Mathf.Max(0f, glowIntensity));
-
-        if (material.HasProperty("_Surface"))
-            material.SetFloat("_Surface", 1f);
-        if (material.HasProperty("_Blend"))
-            material.SetFloat("_Blend", 0f);
-        if (material.HasProperty("_AlphaClip"))
-            material.SetFloat("_AlphaClip", 0f);
-
-        material.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetFloat("_ZWrite", 0f);
-        material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
-        material.EnableKeyword("_ALPHABLEND_ON");
-        material.EnableKeyword("_EMISSION");
-        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        {
+            material.SetColor("_EmissionColor", emissionColor * Mathf.Max(0f, emissionIntensity));
+            material.EnableKeyword("_EMISSION");
+        }
 
         return material;
     }
@@ -335,5 +525,46 @@ public class PhantomShotProjectile : MonoBehaviour
     {
         Gizmos.color = new Color(0.35f, 1f, 1f, 0.75f);
         Gizmos.DrawWireSphere(transform.position, hitRadius);
+    }
+
+    /// <summary>
+    /// Animates the short expanding, fading shell of the impact burst.
+    /// </summary>
+    private class SpectralImpactShell : MonoBehaviour
+    {
+        private Renderer shellRenderer;
+        private Material material;
+        private Color color;
+        private float maxRadius;
+        private float duration;
+        private float startTime;
+
+        public void Initialize(Renderer targetRenderer, Color shellColor, float radius, float shellDuration)
+        {
+            shellRenderer = targetRenderer;
+            material = targetRenderer != null ? targetRenderer.sharedMaterial : null;
+            color = shellColor;
+            maxRadius = Mathf.Max(0.1f, radius);
+            duration = Mathf.Max(0.05f, shellDuration);
+            startTime = Time.time;
+        }
+
+        private void Update()
+        {
+            float progress = Mathf.Clamp01((Time.time - startTime) / duration);
+            float scale = maxRadius * 2f * Mathf.SmoothStep(0f, 1f, progress);
+            transform.localScale = Vector3.one * scale;
+
+            if (material != null)
+            {
+                Color faded = color;
+                faded.a *= 1f - progress;
+
+                if (material.HasProperty("_BaseColor"))
+                    material.SetColor("_BaseColor", faded);
+                if (material.HasProperty("_Color"))
+                    material.SetColor("_Color", faded);
+            }
+        }
     }
 }

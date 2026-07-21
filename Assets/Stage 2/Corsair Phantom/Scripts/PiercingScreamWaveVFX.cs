@@ -4,19 +4,24 @@ using UnityEngine;
 public class PiercingScreamWaveVFX : MonoBehaviour
 {
     [Header("Travel")]
-    public float duration = 0.75f;
+    public float duration = 0.42f;
     public float range = 7f;
-    public float startOffset = 0.25f;
+    public float startOffset = 0.12f;
 
     [Header("Wave Shape")]
-    public int waveCount = 5;
+    public int waveCount = 6;
     public int segments = 64;
-    public float startHeight = 0.55f;
-    public float endHeight = 2.6f;
-    public float startWidth = 0.25f;
-    public float endWidth = 1.6f;
-    public float lineWidth = 0.06f;
-    public float waveSpacing = 0.45f;
+    public float startHeight = 0.18f;
+    public float endHeight = 2.8f;
+    public float startWidth = 0.08f;
+    public float endWidth = 1.8f;
+    public float lineWidth = 0.08f;
+    public float waveSpacing = 0.12f;
+
+    [Header("Cone Fit")]
+    [Range(1f, 180f)] public float coneAngle = 45f;
+    public bool matchWidthToCone = true;
+    public float coneWidthScale = 0.82f;
 
     [Header("Spectral Noise")]
     public float noiseAmount = 0.12f;
@@ -24,7 +29,7 @@ public class PiercingScreamWaveVFX : MonoBehaviour
     public float noiseSpeed = 8f;
 
     [Header("Color")]
-    public Color startColor = new Color(0.25f, 0.95f, 1f, 0.8f);
+    public Color startColor = new Color(0.32f, 1f, 1f, 0.9f);
     public Color endColor = new Color(0.08f, 0.32f, 0.42f, 0f);
     public Color emissionColor = new Color(0.35f, 1f, 1f, 1f);
     public float emissionIntensity = 2.5f;
@@ -47,9 +52,16 @@ public class PiercingScreamWaveVFX : MonoBehaviour
         rightDirection = Vector3.Cross(Vector3.up, travelDirection).normalized;
 
         if (rightDirection.sqrMagnitude <= 0.001f)
+            rightDirection = Vector3.Cross(Vector3.right, travelDirection).normalized;
+
+        if (rightDirection.sqrMagnitude <= 0.001f)
             rightDirection = Vector3.right;
 
-        upDirection = Vector3.up;
+        upDirection = Vector3.Cross(travelDirection, rightDirection).normalized;
+
+        if (upDirection.sqrMagnitude <= 0.001f)
+            upDirection = Vector3.up;
+
         spawnTime = Time.time;
 
         BuildRings();
@@ -121,10 +133,26 @@ public class PiercingScreamWaveVFX : MonoBehaviour
             if (ring == null)
                 continue;
 
-            float ringTime = Mathf.Clamp01(normalizedTime - ringOffsets[i] * 0.18f);
+            float delayedTime = normalizedTime - ringOffsets[i];
+            if (delayedTime < 0f)
+            {
+                ring.enabled = false;
+                continue;
+            }
+
+            ring.enabled = true;
+
+            float ringTime = Mathf.Clamp01(delayedTime / Mathf.Max(0.01f, 1f - ringOffsets[i]));
             float distance = startOffset + range * ringTime;
             float height = Mathf.Lerp(startHeight, endHeight, ringTime);
             float width = Mathf.Lerp(startWidth, endWidth, ringTime);
+
+            if (matchWidthToCone)
+            {
+                float coneRadius = Mathf.Tan(coneAngle * 0.5f * Mathf.Deg2Rad) * distance * coneWidthScale;
+                width = Mathf.Max(width, coneRadius);
+            }
+
             float alpha = Mathf.SmoothStep(1f, 0f, ringTime);
 
             Color color = Color.Lerp(startColor, endColor, ringTime);

@@ -147,8 +147,21 @@ public class TileSpawner : MonoBehaviour
             GameObject tileObj = Instantiate(worldTilePrefab, tilePoolPanel);
             tileObj.transform.localScale = Vector3.one;
 
-            WorldTilePickup tileScript = tileObj.GetComponent<WorldTilePickup>();
-            tileScript.SetLetter(randomLetter);
+            WorldTilePickup pickupTile = tileObj.GetComponent<WorldTilePickup>();
+            if (pickupTile != null)
+            {
+                pickupTile.SetLetter(randomLetter);
+                continue;
+            }
+
+            WorldTile worldTile = tileObj.GetComponent<WorldTile>();
+            if (worldTile != null)
+            {
+                worldTile.SetLetter(randomLetter);
+                continue;
+            }
+
+            Debug.LogWarning("[TileSpawner] Spawned tile prefab has no WorldTilePickup or WorldTile component.");
         }
     }
 
