@@ -138,6 +138,49 @@ Codex should not refactor technical debt unless explicitly instructed.
 
 ---
 
+## DEC-010 --- Use Generated Circular Arena Boundaries
+**Date:** 2026-07-10
+**Status:** Accepted
+
+### Decision
+Circular arena locks should use `CircularArenaBoundary` to generate collider
+segments at runtime while visual ring art remains a separate child/reference.
+
+### Reason
+This avoids hand-placing many box colliders for every circular arena, keeps
+collision simpler than mesh-collider torus walls, and gives later Stage 2 nodes
+a reusable setup.
+
+### Consequences
+Arena boundary wrappers should be wired to `StageNodeTrigger` for activation
+and `StageNodeController` for cleanup. Visual meshes can be swapped or scaled
+without rewriting combat flow.
+
+---
+
+## DEC-011 --- Build the Vocabulary Flow as an Opt-In One-Word Vertical Slice
+**Date:** 2026-07-15
+**Status:** Accepted
+
+### Decision
+Implement the first educational loop with one fixed Stage 1 prototype word and
+small optional components for Teach, combat retrieval, post-stage review,
+explanatory feedback, corrective retry, and runtime attempt records.
+
+### Reason
+The complete five-stage educational system is not yet validated. A one-word
+vertical slice makes the claimed learning activity observable and testable while
+preserving the working combat architecture and preventing premature scope
+expansion.
+
+### Consequences
+The prototype uses `MITIGATE` as unvalidated placeholder content. It does not
+prove vocabulary improvement, does not count as expert-reviewed content, and
+does not yet persist educational results. Expansion to more words or stages
+should follow only after Unity and Android playtests confirm this loop.
+
+---
+
 # Deferred Decisions
 
 ## DEC-008 — Unified Save System

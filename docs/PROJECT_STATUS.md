@@ -47,12 +47,23 @@ Current goal:
 - [x] Sword reward pickup
 - [x] Node progression
 - [x] Basic Stage Complete UI
+- [x] One-word vocabulary-practice C# foundation
+- [x] Submitted-word transport from attack input to confirmed projectile impact
+- [x] Optional target-word combat barrier
+- [x] Teach, review, explanatory feedback, retry, and runtime record components
+- [ ] Stage 1 Teach/Barrier/Review scene and Inspector wiring
+- [ ] Unity Play Mode validation of the full educational loop
+- [ ] Android device validation of the educational loop
+- [ ] Expert validation of vocabulary content and assessment item
+- [ ] Persistent educational result storage
 - [ ] Final polish
 - [ ] Architecture cleanup
 
 ### Notes
 
-Stage 1 should remain stable. Avoid refactoring unless necessary.
+Stage 1 should remain stable. Avoid refactoring unless necessary. The vocabulary
+prototype is opt-in until its Unity wiring is complete; do not report it as a
+finished educational system or as evidence of vocabulary improvement.
 
 ---
 
@@ -70,6 +81,7 @@ Stage 1 should remain stable. Avoid refactoring unless necessary.
 - [x] Tile Locking
 - [x] Death callback
 - [x] Potion drop
+- [x] Node 1 attack-refill TileSpawner scene object
 - [ ] Balance pass
 
 #### Corsair Phantom
@@ -77,10 +89,18 @@ Stage 1 should remain stable. Avoid refactoring unless necessary.
 - [x] Model/assets present
 - [x] Controller exists
 - [x] StartBattle flow
+- [x] BeingHit / Death animation trigger flow
 - [x] Ghost Glide
-- [x] Piercing Scream
+- [x] Piercing Scream damage / cone hit flow
 - [x] Phantom Shot / ability foundation
-- [ ] Tile Cracking integration
+- [x] Phantom Shot charge VFX activation
+- [x] Player projectile targeting / damage scene tag
+- [x] Player projectile damage / shared health bar sync
+- [x] Tile Cracking integration
+- [x] Node 2 death/progression callback
+- [x] BeingHit / Death animation events
+- [x] Node 2 attack-refill TileSpawner arena references
+- [x] Node 2 circular arena boundary wiring
 - [ ] Final balancing
 - [ ] Final VFX polish
 
@@ -104,6 +124,9 @@ Stage 1 should remain stable. Avoid refactoring unless necessary.
 - [x] TileDebuffManager
 - [x] StageProgressionManager
 - [x] StageNodeTrigger / StageNodeController
+- [x] Node 1 to Node 2 encounter wiring
+- [x] Stage 2 shared TileSpawner for attack-refill world tiles
+- [x] Reusable circular arena boundary component
 - [ ] Full node chain validation
 - [ ] Stage 2 boss completion flow
 - [ ] Stage 2 reward flow
@@ -156,11 +179,11 @@ Stage 1 should remain stable. Avoid refactoring unless necessary.
 
 # Immediate Next Recommended Tasks
 
-1. Verify Stage 2 tile spawning in Unity after the `currentStage` correction.
-2. Confirm Corsair Phantom's current abilities versus intended design.
-3. Implement or finish Tile Cracking for Corsair Phantom.
-4. Validate Stage 2 node progression from Node 1 to Node 2.
-5. Create Tide Wraith using the enemy layer workflow.
+1. Wire the one-word vocabulary prototype in the Stage 1 scene using `STAGE1_VOCABULARY_PROTOTYPE_SETUP.md`.
+2. Unity-test both correct-first-attempt and wrong-answer/retry educational flows.
+3. Build and test the same Stage 1 flow on an Android device.
+4. Resume Stage 2 progression validation from Barnacle Husk through Corsair Phantom.
+5. Expand the vocabulary prototype only after the Stage 1 loop passes those tests.
 
 ---
 

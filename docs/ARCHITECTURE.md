@@ -223,10 +223,85 @@ StageNodeTrigger
 StageNodeController
 ```
 
+`StageNodeController` supports two completion styles:
+
+```text
+Enemy defeated
+↓
+Fragment unlocks
+↓
+Player collects fragment
+↓
+Node completes
+```
+
+or, for encounters without a fragment pickup:
+
+```text
+Enemy defeated
+↓
+Node completes directly
+```
+
 ## Rule
 
 Keep Stage 1 stable.
 Use Stage 2 as the model for future reusable architecture.
+
+## Arena Boundaries
+
+Stage combat locks can use an arena boundary object assigned to both
+`StageNodeTrigger` and `StageNodeController`.
+
+For circular arenas, use `CircularArenaBoundary` on the boundary wrapper. The
+component keeps visual ring art separate from collision and generates low-poly
+`BoxCollider` wall segments from Inspector-tuned radius, height, thickness, and
+segment count.
+
+Runtime flow:
+
+```text
+StageNodeTrigger starts combat
+↓
+Boundary wrapper activates
+↓
+CircularArenaBoundary shows visual ring and generates colliders
+↓
+StageNodeController completes node
+↓
+Boundary wrapper deactivates
+```
+
+---
+
+# Vocabulary Practice Prototype
+
+The Stage 1 educational prototype extends the existing Tile and combat systems
+without replacing them.
+
+```text
+StageVocabularyProfile (prototype content)
+-> VocabularyTeachController (presentation + guided reconstruction)
+-> AttackController carries the submitted word into HomingProjectile
+-> VocabularyBarrier evaluates the word at confirmed enemy impact
+-> StageVocabularyReviewController (question + feedback + corrective retry)
+-> VocabularyPracticeSession (runtime attempt records + summary)
+-> StageCompleteUI returns the player to StageSelectScene
+```
+
+`TileManager.EnsureWordLettersAvailable` guarantees the required target letters
+inside the existing Tile Pool, replaces only surplus letters, and shuffles the
+pool. It does not arrange or reveal the answer.
+
+The combat barrier is an optional component. Enemies without
+`VocabularyBarrier` retain their existing damage behavior. While a barrier is
+active, a non-target valid word still damages the enemy at a reduced multiplier;
+the target word breaks the barrier and receives the configured bonus.
+
+`VocabularyPracticeSession` is runtime-only in this layer. Persistent SQLite or
+JSON educational records are deferred until the current split save architecture
+is resolved. Prototype content must not be labelled expert-reviewed until an
+actual reviewer and validation record exist.
 
 ---
 

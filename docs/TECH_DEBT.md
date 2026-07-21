@@ -180,6 +180,114 @@ Update documentation periodically instead of every feature.
 
 ------------------------------------------------------------------------
 
+## TD-009 --- Stage 2 Tile Spawning Validation
+
+**Priority:** Medium
+
+### Issue
+
+`Stage2Scene` has `TileManager.currentStage` serialized as `2`, and now has a
+serialized `TileSpawner` for attack-refill world tiles. However, the current
+`TileManager.GenerateDictionaryWeightedLetters(int amount, int stage)` path does
+not yet apply the stage-specific weights returned by `GetStageLengthWeights`.
+Stage 2 tile spawning also still needs Unity validation against actual Ground
+layer colliders.
+
+### Risk
+
+Stage 2 may appear to be stage-configured while still using mostly generic tile
+generation behavior. Future Stage 2 nodes also need their own spawn-area
+validation as they are wired.
+
+### Current Decision
+
+Stage 2 `TileSpawner` scene wiring was restored on 2026-07-09. Unity-test the
+Node 1 and Node 2 attack-refill flow plus Ground layer raycast behavior, then
+keep the stage-specific weighting investigation deferred until the Stage 2 node
+chain is stable.
+
+**Status:** Partially Resolved / Monitor
+
+------------------------------------------------------------------------
+
+## TD-010 --- TileSpawner Startup Pool Duplication
+
+**Priority:** Medium
+
+### Issue
+
+`TileSpawner.Start()` still spawns initial tile objects into the tile pool, while
+`TileManager` also owns UI tile pool prefill.
+
+### Risk
+
+Scenes that use both components can briefly create duplicate tile objects and
+depend on cleanup behavior to remove world-tile prefabs from the UI pool.
+
+### Current Decision
+
+Keep the behavior stable for now. Revisit after Stage 2 attack-refill spawning
+is manually confirmed.
+
+**Status:** Monitor
+
+------------------------------------------------------------------------
+
+## TD-011 --- Stage 2 Node 2 Arena Boundary Placement
+
+**Priority:** Medium
+
+### Issue
+
+Stage 2 Node 2 now uses `C_ArenaBoundary` with a generated circular collider
+wall and the `Stage2_CP-ARENA BOUNDARY` visual ring, but the collision feel
+still needs Unity playtesting.
+
+### Risk
+
+Corsair Phantom combat should lock the player inside the intended arena, but the
+radius, height, wall thickness, and visual-ring alignment may need tuning in
+Unity.
+
+### Current Decision
+
+Use `CircularArenaBoundary` instead of hand-placed collider boxes or a torus
+mesh collider. Validate the generated collider wall in Play Mode before treating
+Node 2 arena locking as final.
+
+**Status:** Partially Resolved / Validate
+
+------------------------------------------------------------------------
+
+## TD-012 --- Vocabulary Prototype Validation and Persistence
+
+**Priority:** High
+
+### Issue
+
+The Stage 1 vocabulary-practice code compiles, but its Teach UI, Bramble Sprite
+barrier, mandatory review, and Stage Complete integration are not yet wired or
+playtested in the Unity scene. Attempt records are runtime-only, and the
+`MITIGATE` content has not been reviewed by a qualified English or education
+expert.
+
+### Risk
+
+Documentation could overstate a coded foundation as a finished educational
+system. Results would also be lost when the runtime session ends, and unvalidated
+content would not support the manuscript's expert-reviewed wording.
+
+### Current Decision
+
+Complete the exact Inspector wiring and Play Mode checklist in
+`STAGE1_VOCABULARY_PROTOTYPE_SETUP.md`, then test the same loop on Android.
+Defer SQLite/JSON persistence until the prototype flow is stable and the
+project's split persistence architecture has a chosen owner.
+
+**Status:** Open / Validate Before Expansion
+
+------------------------------------------------------------------------
+
 # Future Refactor Candidates
 
 -   Replace bespoke Stage 1 progression with reusable node framework.
@@ -204,4 +312,4 @@ Before adding a new entry:
 
 ------------------------------------------------------------------------
 
-*Last Updated:* 2026-07-06
+*Last Updated:* 2026-07-15
