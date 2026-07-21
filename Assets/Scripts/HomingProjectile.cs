@@ -8,6 +8,7 @@ public class HomingProjectile : MonoBehaviour
     private Transform target;
     private bool hasHit = false;
     private AttackController attackOwner;
+    private string submittedWord = string.Empty;
 
     void Start()
     {
@@ -17,7 +18,11 @@ public class HomingProjectile : MonoBehaviour
     }
 
     // Called by AttackController to pass dynamic damage
-    public void Launch(int incomingDamage, int incomingWordLength = 0, AttackController owner = null)
+    public void Launch(
+        int incomingDamage,
+        int incomingWordLength = 0,
+        AttackController owner = null,
+        string incomingWord = "")
     {
         if (incomingDamage <= 0)
         {
@@ -28,7 +33,10 @@ public class HomingProjectile : MonoBehaviour
         damage = incomingDamage;
         wordLength = incomingWordLength;
         attackOwner = owner;
-        Debug.Log("Projectile damage set to: " + damage + " | Word length: " + wordLength);
+        submittedWord = string.IsNullOrWhiteSpace(incomingWord)
+            ? string.Empty
+            : incomingWord.Trim().ToUpperInvariant();
+        Debug.Log("Projectile damage set to: " + damage + " | Word length: " + wordLength + " | Word: " + submittedWord);
     }
 
     void Update()
@@ -63,25 +71,30 @@ public class HomingProjectile : MonoBehaviour
         EnemyController enemyController = other.GetComponentInParent<EnemyController>();
         BrambleSpriteController brambleController = other.GetComponentInParent<BrambleSpriteController>();
         EnemyHealth enemyHealth = other.GetComponentInParent<EnemyHealth>();
+        VocabularyBarrier vocabularyBarrier = other.GetComponentInParent<VocabularyBarrier>();
 
         if (enemyController == null && brambleController == null && enemyHealth == null) return;
 
         hasHit = true;
-        Debug.Log("Projectile hit: " + other.name + " | Damage: " + damage + " | Word length: " + wordLength);
+        int resolvedDamage = vocabularyBarrier != null
+            ? vocabularyBarrier.ResolveHit(submittedWord, damage)
+            : damage;
+
+        Debug.Log("Projectile hit: " + other.name + " | Damage: " + resolvedDamage + " | Word length: " + wordLength + " | Word: " + submittedWord);
 
         if (enemyController != null)
         {
             // EnemyController supports (float damage, int wordLength)
-            enemyController.TakeDamage(damage, wordLength);
+            enemyController.TakeDamage(resolvedDamage, wordLength);
         }
         else if (brambleController != null)
         {
             // BrambleSpriteController has only TakeDamage(float)
-            brambleController.TakeDamage(damage);
+            brambleController.TakeDamage(resolvedDamage);
         }
         else if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(damage);
+            enemyHealth.TakeDamage(resolvedDamage);
         }
 
         if (wordLength > 0 && attackOwner != null)

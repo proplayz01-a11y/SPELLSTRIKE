@@ -97,3 +97,17 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Local Codex/transcription tooling and private working artifacts
+/.codex-transcription-models/
+/.codex-transcription-runtime/
+/.codex_artifacts/
+/Transcriptions/
+/CHAT_HANDOFF_*.md
+
+# Local working drafts; the repository tracks source assets and implementation, not submission copies.
+/SPELLSTRIKE_CHAPTERS_1_TO_3_REVISED_WORKING_DRAFT.docx
+/SPELLSTRIKE_SPRINT_1_PLANNING_DOCUMENT.docx
+
+# Generated solution files
+*.slnx

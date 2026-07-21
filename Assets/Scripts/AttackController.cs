@@ -20,8 +20,10 @@ public class AttackController : MonoBehaviour
     public Transform magicSpawnPoint;     // Assign hand spawn point
     private int pendingDamage = 0;
     private int currentWordLength = 0;
+    private string pendingWord = string.Empty;
     private string currentAttackTrigger = "BasicAttack";
     private Coroutine attackCoroutine;
+    private bool attackInputLocked;
 
     // Rarer letters bonus multiplier
     private readonly HashSet<char> rareLetters = new HashSet<char>() { 'X', 'Z', 'Q', 'K', 'J', 'V' };
@@ -130,7 +132,8 @@ public class AttackController : MonoBehaviour
         Debug.Log("Current word: " + word + "'Upper: '" + word.ToUpper() + "'");
         Debug.Log("Is valid Word? " + DictionaryManager.Instance.IsValidWord(word));
 
-        attackButton.interactable = DictionaryManager.Instance.IsValidWord(word)
+        attackButton.interactable = !attackInputLocked
+                                    && DictionaryManager.Instance.IsValidWord(word)
                                     && word.Length >= 3
                                     && word.Length <= 16;
     }
@@ -163,6 +166,7 @@ public class AttackController : MonoBehaviour
         int finalDamage = CalculateDamage(word);
         pendingDamage = finalDamage;
         currentWordLength = wordLength;
+        pendingWord = word;
 
         currentAttackTrigger = GetAttackTrigger(wordLength);
         Debug.Log("Attack tier: " + currentAttackTrigger);
@@ -219,11 +223,25 @@ public class AttackController : MonoBehaviour
         if (projectileScript != null)
         {
             Debug.Log($"Launching projectile with damage {pendingDamage} and word length {currentWordLength}");
-            projectileScript.Launch(pendingDamage, currentWordLength, this);
+            projectileScript.Launch(pendingDamage, currentWordLength, this, pendingWord);
         }
 
         pendingDamage = 0;
         currentWordLength = 0;
+        pendingWord = string.Empty;
+    }
+
+    public void SetAttackInputLocked(bool locked)
+    {
+        attackInputLocked = locked;
+
+        if (attackButton == null)
+            return;
+
+        if (locked)
+            attackButton.interactable = false;
+        else
+            CheckWord();
     }
 
     public void NotifySuccessfulAttackLanded()

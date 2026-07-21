@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1de40da4e925c4ab129168da2fc093, type: 3}
+  m_Name: Stage1_Mitigate_Prototype
+  m_EditorClassIdentifier: Assembly-CSharp::StageVocabularyProfile
+  stageNumber: 1
+  words:
+  - wordId: stage1_mitigate
+    word: MITIGATE
+    partOfSpeech: verb
+    definition: To reduce the severity or harmful effect of something.
+    contextSentence: The shield helped mitigate the damage.
+    combatClue: Form the word that means to reduce the severity of harm.
+    reviewQuestion: Which word means to reduce the severity of a problem?
+    distractors:
+    - word: INTENSIFY
+      explanation: Intensify means to make something stronger or more severe.
+    - word: EXPAND
+      explanation: Expand means to increase in size, amount, or scope.
+    - word: IGNORE
+      explanation: Ignore means to deliberately pay no attention to something.

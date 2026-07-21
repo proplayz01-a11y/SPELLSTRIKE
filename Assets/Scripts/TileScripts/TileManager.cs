@@ -453,6 +453,138 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    public bool EnsureWordLettersAvailable(string targetWord, int maximumPoolTiles = 16)
+    {
+        if (string.IsNullOrWhiteSpace(targetWord) || tilePoolPanel == null)
+            return false;
+
+        targetWord = targetWord.Trim().ToUpperInvariant();
+        Dictionary<char, int> requiredCounts = BuildLetterCounts(targetWord);
+        List<Tile> poolTiles = new List<Tile>();
+
+        foreach (Transform child in tilePoolPanel)
+        {
+            Tile tile = child.GetComponent<Tile>();
+            if (tile != null && tile.gameObject.activeInHierarchy && tile.IsSelectable())
+                poolTiles.Add(tile);
+        }
+        int currentPoolTileCount = poolTiles.Count;
+
+        Dictionary<char, int> availableCounts = new Dictionary<char, int>();
+        foreach (Tile tile in poolTiles)
+            IncrementCount(availableCounts, char.ToUpperInvariant(tile.letter));
+
+        List<char> missingLetters = new List<char>();
+        foreach (KeyValuePair<char, int> required in requiredCounts)
+        {
+            availableCounts.TryGetValue(required.Key, out int available);
+            for (int i = available; i < required.Value; i++)
+                missingLetters.Add(required.Key);
+        }
+
+        foreach (char missingLetter in missingLetters)
+        {
+            Tile replacement = FindReplacementTile(poolTiles, availableCounts, requiredCounts);
+            if (replacement != null)
+            {
+                char previousLetter = char.ToUpperInvariant(replacement.letter);
+                availableCounts[previousLetter] = Mathf.Max(0, availableCounts[previousLetter] - 1);
+                SetTileLetterAndSprite(replacement, missingLetter);
+                IncrementCount(availableCounts, missingLetter);
+                poolTiles.Remove(replacement);
+                continue;
+            }
+
+            if (currentPoolTileCount < maximumPoolTiles)
+            {
+                CreateTileInPool(missingLetter);
+                IncrementCount(availableCounts, missingLetter);
+                currentPoolTileCount++;
+                continue;
+            }
+
+            Debug.LogWarning($"[TileManager] Could not guarantee all letters for {targetWord}. No safe replacement tile remained.", this);
+            ShuffleTilePoolOrder();
+            return false;
+        }
+
+        ShuffleTilePoolOrder();
+        Debug.Log($"[TileManager] Guaranteed shuffled target letters for {targetWord} without displaying their order.", this);
+        return true;
+    }
+
+    private Dictionary<char, int> BuildLetterCounts(string value)
+    {
+        Dictionary<char, int> counts = new Dictionary<char, int>();
+        foreach (char character in value)
+        {
+            if (char.IsLetter(character))
+                IncrementCount(counts, char.ToUpperInvariant(character));
+        }
+        return counts;
+    }
+
+    private void IncrementCount(Dictionary<char, int> counts, char character)
+    {
+        if (!counts.ContainsKey(character))
+            counts[character] = 0;
+        counts[character]++;
+    }
+
+    private Tile FindReplacementTile(
+        List<Tile> candidates,
+        Dictionary<char, int> availableCounts,
+        Dictionary<char, int> requiredCounts)
+    {
+        foreach (Tile candidate in candidates)
+        {
+            char candidateLetter = char.ToUpperInvariant(candidate.letter);
+            availableCounts.TryGetValue(candidateLetter, out int available);
+            requiredCounts.TryGetValue(candidateLetter, out int required);
+            if (available > required)
+                return candidate;
+        }
+
+        return null;
+    }
+
+    private void SetTileLetterAndSprite(Tile tile, char letter)
+    {
+        if (tile == null)
+            return;
+
+        letter = char.ToUpperInvariant(letter);
+        tile.SetLetter(letter);
+
+        Image image = tile.GetComponent<Image>();
+        int spriteIndex = letter - 'A';
+        if (image != null && letterSpritesUI != null && spriteIndex >= 0 && spriteIndex < letterSpritesUI.Length)
+            image.sprite = letterSpritesUI[spriteIndex];
+    }
+
+    private void ShuffleTilePoolOrder()
+    {
+        if (tilePoolPanel == null)
+            return;
+
+        List<Transform> children = new List<Transform>();
+        foreach (Transform child in tilePoolPanel)
+            children.Add(child);
+
+        for (int i = children.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            Transform temporary = children[i];
+            children[i] = children[randomIndex];
+            children[randomIndex] = temporary;
+        }
+
+        for (int i = 0; i < children.Count; i++)
+            children[i].SetSiblingIndex(i);
+
+        SetTilePoolPanelGrid();
+    }
+
     private void CleanupTilePoolPanel()
     {
         
