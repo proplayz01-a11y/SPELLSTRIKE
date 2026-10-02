@@ -1,5 +1,13 @@
 # SPELLSTRIKE Changelog
 
+## 2026-10-02 — Desert Archer Mixamo Material Package
+
+- Extracted the original 4096² color atlas, three-material Blender library, and
+  material settings; packaged an FBX with embedded texture for user-run Mixamo rigging.
+- Isolated FBX reimport retained texture, 13,409 triangles, scale, and hollow quiver.
+  Material-library loading passed. Source character unchanged; Mixamo rigging untested.
+  See `docs/STAGE3_NODE2_DESERT_ARCHER_EMPTY_QUIVER.md`.
+
 ## 2026-10-02 — Desert Archer Character with Empty Quiver
 
 - Preserved the matching source character's detail and UVs, removed seven arrow

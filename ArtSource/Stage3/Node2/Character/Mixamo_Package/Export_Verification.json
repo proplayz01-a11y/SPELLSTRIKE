@@ -1,0 +1,52 @@
+{
+  "meshes": [
+    {
+      "name": "DesertArcher_Body",
+      "triangles": 12813,
+      "materials": [
+        "tripo_node_f922fb36-c740-49f9-8224-8ac24dda4d3d_material"
+      ]
+    },
+    {
+      "name": "DesertArcher_Quiver_Hollow",
+      "triangles": 596,
+      "materials": [
+        "tripo_node_f922fb36-c740-49f9-8224-8ac24dda4d3d_material",
+        "Quiver_Interior_DarkLeather",
+        "Quiver_Rim_WornLeather"
+      ],
+      "cavity_depth_m": 0.31215540170669553
+    }
+  ],
+  "triangles": 13409,
+  "height_m": 1.8999999897880038,
+  "images": [
+    {
+      "name": "fantasy+hooded+character+3d+model_basecolor.jpg",
+      "size": [
+        4096,
+        4096
+      ],
+      "has_data": true,
+      "filepath": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Stage3\\Node2\\Character\\Mixamo_Export_Verification\\S3N2_DesertArcher_Mixamo.fbm\\DesertArcher_BaseColor.jpg"
+    }
+  ],
+  "source_blend_unchanged": true,
+  "mixamo_upload_tested": false,
+  "material_library_materials": [
+    "tripo_node_f922fb36-c740-49f9-8224-8ac24dda4d3d_material",
+    "Quiver_Rim_WornLeather",
+    "Quiver_Interior_DarkLeather"
+  ],
+  "material_library_images": [
+    {
+      "name": "fantasy+hooded+character+3d+model_basecolor.jpg",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true,
+      "has_data": true
+    }
+  ]
+}

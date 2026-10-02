@@ -77,6 +77,28 @@ Galaxy A05s behavior. None of those future checks is claimed complete here.
 
 ## Reproduction scripts
 
+### Mixamo material/texture package — 2026-10-02
+
+`Character/Mixamo_Package/` contains `S3N2_DesertArcher_Mixamo.fbx` with embedded
+texture, `Textures/DesertArcher_BaseColor.jpg` (4096², original image bytes),
+`DesertArcher_Materials.blend` (three reusable Blender materials with packed
+image), `Material_Settings.json`, usage instructions, and export verification.
+`Character/S3N2_DesertArcher_Mixamo_Package.zip` bundles these delivery files.
+Upload the FBX itself to Mixamo after extracting the package. The library is a
+Blender material library, not a Unity `.mat` asset.
+
+The FBX was copied to a separate verification folder and imported with external
+image searching disabled. Its embedded texture loaded from that isolated folder;
+mesh count, 13,409 triangles, 1.90 m height, and 0.312 m quiver cavity were retained.
+The material library was also independently loaded and its packed image verified.
+The editable character source was unchanged. No Mixamo upload or rigging was run.
+The source has one actual color atlas; interior/rim use plain material colors.
+No separate normal/roughness/metallic texture maps were invented.
+
+`prepare_mixamo_package.py` creates and verifies this package. Supported upload
+formats/embedded-media guidance:
+[Adobe Mixamo guide](https://helpx.adobe.com/creative-cloud/help/mixamo-rigging-animation.html).
+
 `inspect_character.py` imports the matching source and creates the inspection
 scene. `analyze_cap.py` and `analyze_components.py` locate the exact source regions.
 `build_empty_quiver.py` performs the scoped edit, restores/packs the exact embedded

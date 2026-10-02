@@ -1,0 +1,46 @@
+{
+  "materials": [
+    {
+      "name": "tripo_node_f922fb36-c740-49f9-8224-8ac24dda4d3d_material",
+      "base_color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "base_color_texture": "Textures/DesertArcher_BaseColor.jpg"
+    },
+    {
+      "name": "Quiver_Interior_DarkLeather",
+      "base_color": [
+        0.03500000014901161,
+        0.017000000923871994,
+        0.008999999612569809,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8999999761581421,
+      "base_color_texture": null
+    },
+    {
+      "name": "Quiver_Rim_WornLeather",
+      "base_color": [
+        0.18000000715255737,
+        0.10499999672174454,
+        0.04699999839067459,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.800000011920929,
+      "base_color_texture": null
+    }
+  ],
+  "texture_resolution": [
+    4096,
+    4096
+  ],
+  "texture_sha256": "c7c34ed56a2f213737d078c1c708028a1135b3c37e4cb3d5e05a8372d7192ab6",
+  "normal_roughness_metallic_texture_maps": "Not present in source; scalar material settings only."
+}
