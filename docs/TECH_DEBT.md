@@ -24,6 +24,15 @@
 
 # Current Technical Debt
 
+## Desert archer character rigging/platform validation — 2026-10-02
+
+The empty-quiver character is an unrigged adaptation of the supplied source mesh.
+It still needs rigging/weights, deformation checks, actual weapon/hip fitting,
+Unity integration, and PC/A05s validation. Its preserved 4096² source texture needs
+an Android import/compression budget. Geometry/export checks do not establish
+animation quality or device performance. See
+`docs/STAGE3_NODE2_DESERT_ARCHER_EMPTY_QUIVER.md`.
+
 ## Stage 3 Node 2 weapon production acceptance — 2026-10-02
 
 The v013 Blender revision has offline geometry/draw evidence, but still needs a

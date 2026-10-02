@@ -1,0 +1,45 @@
+{
+  "blend_images": [
+    {
+      "name": "fantasy+hooded+character+3d+model_basecolor.jpg",
+      "packed": true,
+      "size": [
+        4096,
+        4096
+      ],
+      "has_data": true
+    }
+  ],
+  "export_meshes": [
+    {
+      "name": "DesertArcher_Body",
+      "triangles": 12813,
+      "materials": [
+        "tripo_node_f922fb36-c740-49f9-8224-8ac24dda4d3d_material"
+      ]
+    },
+    {
+      "name": "DesertArcher_Quiver_Hollow",
+      "triangles": 596,
+      "materials": [
+        "tripo_node_f922fb36-c740-49f9-8224-8ac24dda4d3d_material",
+        "Quiver_Interior_DarkLeather",
+        "Quiver_Rim_WornLeather"
+      ],
+      "cavity_depth_m": 0.31215531229972837
+    }
+  ],
+  "export_images": [
+    {
+      "name": "Source_BaseColor",
+      "size": [
+        4096,
+        4096
+      ],
+      "has_data": true,
+      "packed": true
+    }
+  ],
+  "height_m": 1.899999976158142,
+  "export_total_triangles": 13409
+}

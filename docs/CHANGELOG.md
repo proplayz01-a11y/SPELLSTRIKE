@@ -1,5 +1,14 @@
 # SPELLSTRIKE Changelog
 
+## 2026-10-02 — Desert Archer Character with Empty Quiver
+
+- Preserved the matching source character's detail and UVs, removed seven arrow
+  components and the filled quiver cap, and authored an editable hollow shell.
+- Delivered separate Blender/GLB files, packed texture, review renders, and fresh
+  export verification: 13,409 triangles and approximately 31.2 cm cavity depth.
+- No rig, animation, Unity scene/prefab change, or gameplay integration was added.
+  See `docs/STAGE3_NODE2_DESERT_ARCHER_EMPTY_QUIVER.md`.
+
 ## 2026-10-02 — Stage 3 Node 2 Bow/Arrow v013
 
 - Preserved v012 and revised the Blender weapon parts: offset arrow passage,

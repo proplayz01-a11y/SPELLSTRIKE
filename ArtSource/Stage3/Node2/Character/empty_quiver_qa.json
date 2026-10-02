@@ -1,0 +1,68 @@
+{
+  "source_sha256": "92944cbf5cf4769de144769601f54c9f74ad97346dff41b9f4ab604ebce9a685",
+  "source_triangles": 13480,
+  "source_arrow_components_removed": 7,
+  "source_arrow_triangles_removed": 353,
+  "solid_cap_triangles_removed": 36,
+  "rim_cleanup_faces": [
+    6579,
+    6705
+  ],
+  "body_triangles": 12813,
+  "quiver_evaluated_triangles": 596,
+  "total_triangles": 13409,
+  "character_height_m": 1.9,
+  "quiver_wall_thickness_m": 0.006663013715296984,
+  "body_uv_max_error": 0.0,
+  "quiver_boundary_before_cap_removal": 0,
+  "opening_boundary_edges": 22,
+  "evaluated_quiver_boundary_edges": 0,
+  "evaluated_quiver_nonmanifold_edges": 0,
+  "cavity_rays": [
+    {
+      "offset": [
+        0,
+        0
+      ],
+      "first_hit_from_opening_m": 0.31215540170669553
+    },
+    {
+      "offset": [
+        0.012,
+        0
+      ],
+      "first_hit_from_opening_m": 0.3118144631385803
+    },
+    {
+      "offset": [
+        -0.012,
+        0
+      ],
+      "first_hit_from_opening_m": 0.3124616205692291
+    },
+    {
+      "offset": [
+        0,
+        0.012
+      ],
+      "first_hit_from_opening_m": 0.31237939596176145
+    },
+    {
+      "offset": [
+        0,
+        -0.012
+      ],
+      "first_hit_from_opening_m": 0.3119941115379333
+    }
+  ],
+  "rigged": false,
+  "source_arrow_component_ids": [
+    10047,
+    10438,
+    9295,
+    10214,
+    10244,
+    9327,
+    9413
+  ]
+}

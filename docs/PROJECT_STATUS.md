@@ -1,5 +1,14 @@
 # SPELLSTRIKE Project Status
 
+## Stage 3 Node 2 Character / Empty Quiver — 2026-10-02
+
+Created a separate textured desert-archer asset from the exact supplied screenshot
+source, with all seven arrow components removed and a real hollow quiver. Blender
+and GLB outputs contain 13,409 active triangles; the cavity is approximately
+31.2 cm deep. Export reimport and packed texture checks pass. Character rigging,
+animation, Unity integration, and PC/A05s validation remain pending. See
+`docs/STAGE3_NODE2_DESERT_ARCHER_EMPTY_QUIVER.md`.
+
 ## Stage 3 Node 2 Weapon Asset Revision — 2026-10-02
 
 Authored `ArtSource/Stage3/Node2/S3N2_DesertWeapons_v013.blend` from the preserved
