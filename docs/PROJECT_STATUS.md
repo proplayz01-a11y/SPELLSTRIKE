@@ -1,5 +1,16 @@
 # SPELLSTRIKE Project Status
 
+## Stage 3 Node 2 Weapon Asset Revision — 2026-10-02
+
+Authored `ArtSource/Stage3/Node2/S3N2_DesertWeapons_v013.blend` from the preserved
+v012 source: corrected arrow passage/nock/string, refined silhouette and surface
+parts, and added an isolated Blender draw/release preview. Fresh counts are 2,758
+bow triangles and 460 arrow triangles. Offline draw and 121-sample release checks
+found no arrow/bow surface intersections (string contact excluded). Final atlas,
+enemy hand fit, export/integration, and PC/A05s validation remain pending. See
+`docs/STAGE3_NODE2_WEAPONS_V013_REVISION_REPORT.md`; this does not mark the enemy
+or Stage 3 gameplay complete.
+
 > **Purpose**
 >
 > This file tells Codex and the team what is currently done, what is in progress, and what should be built next.

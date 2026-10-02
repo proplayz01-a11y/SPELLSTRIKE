@@ -1,5 +1,17 @@
 # SPELLSTRIKE Changelog
 
+## 2026-10-02 — Stage 3 Node 2 Bow/Arrow v013
+
+- Preserved v012 and revised the Blender weapon parts: offset arrow passage,
+  seated nock, volumetric string/anchors, broader limbs, curved trim, swept guards,
+  hooked tips, conforming wraps, cloth clearance, rune lanes and sharper arrowhead.
+- Added a linked Blender-only draw/release review scene and reproducible revision/QA
+  scripts. Bow: 2,758 triangles; arrow: 460. Five draw states and 121 release samples
+  showed no arrow/bow surface intersections, excluding intentional string contact.
+- Final atlas/bakes, export consolidation, Unity integration and device validation
+  remain deferred. No gameplay scene, prefab or C# script changed. See
+  `docs/STAGE3_NODE2_WEAPONS_V013_REVISION_REPORT.md`.
+
 > **Purpose**
 >
 > This file records notable project changes in plain language.

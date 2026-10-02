@@ -24,6 +24,16 @@
 
 # Current Technical Debt
 
+## Stage 3 Node 2 weapon production acceptance — 2026-10-02
+
+The v013 Blender revision has offline geometry/draw evidence, but still needs a
+final shared UV atlas and baked texture maps, actual enemy hand/socket fit,
+export/renderer consolidation and an appropriate LOD policy, Unity draw/release
+hookup, runtime bounds/collision checks, and PC/Galaxy A05s validation. Its 121
+release samples are discrete surface-overlap checks, not continuous collision or
+device-performance proof. Packed rune art is a preview mask. Details:
+`docs/STAGE3_NODE2_WEAPONS_V013_REVISION_REPORT.md`.
+
 ## TD-001 --- Stage Progression Architecture
 
 **Priority:** 🟠 High

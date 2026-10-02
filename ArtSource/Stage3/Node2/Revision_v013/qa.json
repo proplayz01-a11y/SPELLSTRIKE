@@ -1,0 +1,820 @@
+{
+  "bow_triangles": 2758,
+  "arrow_triangles": 460,
+  "objects": {
+    "Bow_Grip": {
+      "triangles": 68,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Leather"
+      ]
+    },
+    "Bow_RiserUpper": {
+      "triangles": 92,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_RiserLower": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_WindowBack": {
+      "triangles": 20,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_WindowShelf": {
+      "triangles": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_Limb_U_01": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_U_02": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_U_03": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_U_04": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_U_05": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_L_01": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_L_02": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_L_03": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_L_04": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Limb_L_05": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Bow_Nock_U": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Leather"
+      ]
+    },
+    "Bow_Nock_L": {
+      "triangles": 44,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Leather"
+      ]
+    },
+    "Bow_Guard_L": {
+      "triangles": 100,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Guard_R": {
+      "triangles": 100,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Shoulder_U_A": {
+      "triangles": 100,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Shoulder_U_Wing": {
+      "triangles": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_Shoulder_U_Wing2": {
+      "triangles": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_Shoulder_L_A": {
+      "triangles": 100,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Shoulder_L_Wing": {
+      "triangles": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_Shoulder_L_Wing2": {
+      "triangles": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_RunePlate_Center": {
+      "triangles": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_RunePlate_U": {
+      "triangles": 32,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_RuneLane_Preview"
+      ]
+    },
+    "Bow_RunePlate_L": {
+      "triangles": 32,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_RuneLane_Preview"
+      ]
+    },
+    "Bow_TipCap_U": {
+      "triangles": 88,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_TipCap_U_Spike": {
+      "triangles": 56,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_TipCap_L": {
+      "triangles": 88,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_TipCap_L_Spike": {
+      "triangles": 56,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_WornGold_Preview"
+      ]
+    },
+    "Bow_Collar_U": {
+      "triangles": 36,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Collar_L": {
+      "triangles": 36,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_GripCap_U": {
+      "triangles": 36,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_GripPommel": {
+      "triangles": 36,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Wrap_01": {
+      "triangles": 340,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Leather"
+      ]
+    },
+    "Bow_Cloth_Long": {
+      "triangles": 52,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Cloth"
+      ]
+    },
+    "Bow_Cloth_Short": {
+      "triangles": 52,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Cloth"
+      ]
+    },
+    "Bow_ClothRing": {
+      "triangles": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Cloth"
+      ]
+    },
+    "Bow_Pendant_Frame": {
+      "triangles": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Pendant_Rune": {
+      "triangles": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Bow_String_Brace": {
+      "triangles": 20,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_String"
+      ]
+    },
+    "Bow_Border_U_Rail_Outer": {
+      "triangles": 76,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Border_U_Rail_Inner": {
+      "triangles": 76,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Border_L_Rail_Outer": {
+      "triangles": 76,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Bow_Border_L_Rail_Inner": {
+      "triangles": 76,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Arrow_Shaft": {
+      "triangles": 28,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_SandWood"
+      ]
+    },
+    "Arrow_Head": {
+      "triangles": 96,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Arrow_Rune_A_1": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_Rune_A_2": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_Rune_A_3": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_Rune_A_4": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_Rune_B_1": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_Rune_B_2": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_Rune_B_3": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_Rune_B_4": {
+      "triangles": 4,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 4,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Runes"
+      ]
+    },
+    "Arrow_HeadCollar": {
+      "triangles": 28,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Arrow_Band_1": {
+      "triangles": 28,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Arrow_Band_2": {
+      "triangles": 28,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Arrow_Feather_1": {
+      "triangles": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Feather"
+      ]
+    },
+    "Arrow_Feather_2": {
+      "triangles": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Feather"
+      ]
+    },
+    "Arrow_Feather_3": {
+      "triangles": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Feather"
+      ]
+    },
+    "Arrow_NockCollar": {
+      "triangles": 56,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Bronze"
+      ]
+    },
+    "Arrow_TieStub": {
+      "triangles": 20,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "materials": [
+        "M_S3N2_Leather"
+      ]
+    }
+  },
+  "draw_checks": {
+    "0": {
+      "axis_hits": [],
+      "arrow_bow_surface_overlaps": [],
+      "string_centers": [
+        [
+          -6.888638002954292e-20,
+          0.2800000011920929,
+          0.699999988079071
+        ],
+        [
+          -6.888638002954292e-20,
+          0.2800000011920929,
+          0.11999999731779099
+        ],
+        [
+          -6.888638002954292e-20,
+          0.2800000011920929,
+          -0.699999988079071
+        ]
+      ],
+      "held_arrow_world": [
+        0.0,
+        0.2800000011920929,
+        0.11999999731779099
+      ]
+    },
+    "0.25": {
+      "axis_hits": [],
+      "arrow_bow_surface_overlaps": [],
+      "string_centers": [
+        [
+          -6.888638002954292e-20,
+          0.3100000023841858,
+          0.681999921798706
+        ],
+        [
+          -6.888638002954292e-20,
+          0.3799999952316284,
+          0.11999999731779099
+        ],
+        [
+          -6.888638002954292e-20,
+          0.3100000023841858,
+          -0.687749981880188
+        ]
+      ],
+      "held_arrow_world": [
+        0.0,
+        0.3799999952316284,
+        0.11999999731779099
+      ]
+    },
+    "0.5": {
+      "axis_hits": [],
+      "arrow_bow_surface_overlaps": [],
+      "string_centers": [
+        [
+          -6.888638002954292e-20,
+          0.3400000035762787,
+          0.6640000343322754
+        ],
+        [
+          -6.888638002954292e-20,
+          0.47999995946884155,
+          0.11999999731779099
+        ],
+        [
+          -6.888638002954292e-20,
+          0.3400000035762787,
+          -0.6755000352859497
+        ]
+      ],
+      "held_arrow_world": [
+        0.0,
+        0.47999998927116394,
+        0.11999999731779099
+      ]
+    },
+    "0.75": {
+      "axis_hits": [],
+      "arrow_bow_surface_overlaps": [],
+      "string_centers": [
+        [
+          -6.888638002954292e-20,
+          0.3700000047683716,
+          0.6460000276565552
+        ],
+        [
+          -6.888638002954292e-20,
+          0.5800000429153442,
+          0.11999999731779099
+        ],
+        [
+          -6.888638002954292e-20,
+          0.3700000047683716,
+          -0.6632500290870667
+        ]
+      ],
+      "held_arrow_world": [
+        0.0,
+        0.5799999833106995,
+        0.11999999731779099
+      ]
+    },
+    "1": {
+      "axis_hits": [],
+      "arrow_bow_surface_overlaps": [],
+      "string_centers": [
+        [
+          -6.888638002954292e-20,
+          0.4000000059604645,
+          0.628000020980835
+        ],
+        [
+          -6.888638002954292e-20,
+          0.6800000071525574,
+          0.11999999731779099
+        ],
+        [
+          -6.888638002954292e-20,
+          0.3999999761581421,
+          -0.6510000228881836
+        ]
+      ],
+      "held_arrow_world": [
+        0.0,
+        0.6800000667572021,
+        0.11999999731779099
+      ]
+    }
+  },
+  "release_overlaps": [],
+  "missing_uv": [],
+  "non_unit_scale": [],
+  "outward_rune_normals": {
+    "Bow_RunePlate_U": true,
+    "Bow_RunePlate_L": true,
+    "Arrow_Rune_A_1": true,
+    "Arrow_Rune_A_2": true,
+    "Arrow_Rune_A_3": true,
+    "Arrow_Rune_A_4": true,
+    "Arrow_Rune_B_1": true,
+    "Arrow_Rune_B_2": true,
+    "Arrow_Rune_B_3": true,
+    "Arrow_Rune_B_4": true
+  },
+  "native_timeline": {
+    "1": {
+      "draw": 0.0,
+      "release": 0.0,
+      "held_arrow_world": [
+        0.0,
+        0.2800000011920929,
+        0.11999999731779099
+      ],
+      "string_draw": 0.0
+    },
+    "16": {
+      "draw": 0.5,
+      "release": 0.0,
+      "held_arrow_world": [
+        0.0,
+        0.47999998927116394,
+        0.11999999731779099
+      ],
+      "string_draw": 0.4999999403953552
+    },
+    "31": {
+      "draw": 1.0,
+      "release": 0.0,
+      "held_arrow_world": [
+        0.0,
+        0.6800000667572021,
+        0.11999999731779099
+      ],
+      "string_draw": 1.0
+    },
+    "38": {
+      "draw": 1.0,
+      "release": 0.0,
+      "held_arrow_world": [
+        0.0,
+        0.6800000667572021,
+        0.11999999731779099
+      ],
+      "string_draw": 1.0
+    },
+    "39": {
+      "draw": 0.800000011920929,
+      "release": 0.04545454680919647,
+      "held_arrow_world": [
+        0.0,
+        0.6000000238418579,
+        0.11999999731779099
+      ],
+      "string_draw": 0.800000011920929
+    },
+    "43": {
+      "draw": 0.0,
+      "release": 0.22727273404598236,
+      "held_arrow_world": [
+        0.0,
+        0.2800000011920929,
+        0.11999999731779099
+      ],
+      "string_draw": 0.0
+    },
+    "48": {
+      "draw": 0.0,
+      "release": 0.4545454680919647,
+      "held_arrow_world": [
+        0.0,
+        -0.12000002712011337,
+        0.11999999731779099
+      ],
+      "string_draw": 0.0
+    },
+    "60": {
+      "draw": 0.0,
+      "release": 1.0,
+      "held_arrow_world": [
+        0.0,
+        -1.0800000429153442,
+        0.11999999731779099
+      ],
+      "string_draw": 0.0
+    }
+  }
+}
