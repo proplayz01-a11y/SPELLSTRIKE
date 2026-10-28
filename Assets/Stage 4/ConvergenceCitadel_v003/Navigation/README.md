@@ -1,0 +1,3 @@
+# Stage 4 navigation validation
+
+Collision export has 19 mesh parts. The isolated scene configures non-convex static MeshColliders and a **disabled, unbaked** NavMeshSurface. Bake only after real character controller scale and surfaces pass. Saved Stage 3 player capsule is approx 21.42 high / radius 5.355; do not use default agent radius 0.5 as a pass. Titan floor support/contact, bridges, stairs and camera require live QA. Decorative islands are not guaranteed playable.

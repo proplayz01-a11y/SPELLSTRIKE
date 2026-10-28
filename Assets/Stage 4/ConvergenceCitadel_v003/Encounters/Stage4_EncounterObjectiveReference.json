@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "stage": 4,
+  "stage_name": "Convergence Citadel",
+  "intent": "Planning/reference only. Encounter logic, progression, saves and animations are NOT wired.",
+  "largest_island": "Node3_TitanColossus",
+  "linear_route": ["Start", "HollowKnight", "DrownedCaptain", "TitanColossus", "VanderPoel"],
+  "encounters": [
+    {"order": 0, "name": "The Last Gate", "spawn_marker": "PlayerSpawn_Start", "next_gate": "Bridge_Gate_01", "status": "map spawn marker only"},
+    {"order": 1, "name": "Hollow Knight", "arena_marker": "Node1_ArenaCenter", "boss_spawn_marker": "Node1_BossSpawn", "next_gate": "Bridge_Gate_02", "reuse_animator": "Assets/Characters/HollowKnight/HK_Animator_Controller.controller", "source_actor": "Existing Stage 1 SampleScene embedded boss; not extracted", "status": "not wired"},
+    {"order": 2, "name": "Drowned Captain", "arena_marker": "Node2_ArenaCenter", "boss_spawn_marker": "Node2_BossSpawn", "next_gate": "Bridge_Gate_03", "reuse_animator": "Assets/Stage 2/Drowned Captain/Animations/DrownedCaptainAnimController.controller", "source_actor": "Existing Stage 2 scene embedded boss; not extracted", "status": "not wired"},
+    {"order": 3, "name": "Titan Colossus / Titan Earthbreaker", "arena_marker": "Node3_ArenaCenter", "boss_spawn_marker": "Node3_BossSpawn", "next_gate": "Bridge_Gate_04", "reuse_candidate_prefab": "Assets/Stage 3/Enemies/STAGE 3 BOSS - TITAN/Animation_V017/Titan_ProductionIntegration/S3N4_TitanV017_PhysicalCombatCandidate.prefab", "status": "inactive calibration prefab only; V017 combat not wired"},
+    {"order": 4, "name": "Vander Poel", "arena_marker": "Boss_ArenaCenter", "boss_spawn_marker": "Boss_BossSpawn", "throne_marker": "Boss_ThroneSeat", "status": "boss-specific rig/controller/animation not established; not wired"}
+  ],
+  "objectives_in_design_order": [
+    "Enter the Last Gate and approach Hollow Knight",
+    "Defeat Hollow Knight to unlock Bridge Gate 02",
+    "Defeat Drowned Captain to unlock Bridge Gate 03",
+    "Defeat Titan Earthbreaker to unlock Bridge Gate 04",
+    "Defeat Vander Poel and complete vocabulary review before ending sequence"
+  ],
+  "safety": ["No stage-select or build settings edits", "No save, PlayerPrefs or progress modifications", "No duplicate original boss clips or prefab overwrites", "No gameplay runtime progression from this JSON", "Actual Unity imported X coordinate equals negative manifest GLB X coordinate"]
+}

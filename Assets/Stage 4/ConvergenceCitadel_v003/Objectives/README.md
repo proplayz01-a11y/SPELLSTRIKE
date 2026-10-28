@@ -1,0 +1,3 @@
+# Objectives (not wired)
+
+Sequential progression is Start -> Hollow Knight -> Drowned Captain -> Titan -> Vander Poel. Use supplied GLB marker transforms (`PlayerSpawn_Start`, `Node1_Entry`, `Node1_EncounterBounds`, rewards, `Bridge_Gate_01`..`04`, `Boss_ThroneSeat`) when the later encounter-authoring pass is approved. No objective scripts, unlocks, vocabulary gates, cutscene handoff or save state changed here.

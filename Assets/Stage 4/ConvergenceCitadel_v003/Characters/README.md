@@ -1,0 +1,3 @@
+# Stage 4 boss roles
+
+Use the original canonical boss prefabs/rigs and animation controllers by reference, not copied or reauthored here. Node 1 Hollow Knight; Node 2 Drowned Captain; Node 3 Titan Colossus / Titan Earthbreaker; final boss Vander Poel. Subfolders are reserved for **new Stage-4-specific assets only**. Existing clips, animations/events and boss mechanics are protected. The current stage scaffold does not instantiate real combat encounters.

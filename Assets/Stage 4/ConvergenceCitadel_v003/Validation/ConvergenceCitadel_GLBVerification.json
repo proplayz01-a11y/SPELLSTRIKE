@@ -1,0 +1,4556 @@
+{
+  "schema_version": "1.0",
+  "checked_at_utc": "2026-10-19T17:47:53.586373+00:00",
+  "blender_version": "5.1.2",
+  "scope": "Binary GLB inspection and fresh Blender reimport only",
+  "source_blend_opened_or_saved": false,
+  "unity_import_tested": false,
+  "unity_gameplay_or_device_validation_tested": false,
+  "blender_reimport_tested": true,
+  "files": {
+    "visual": {
+      "file": "ConvergenceCitadel_Final.glb",
+      "bytes": 27235044,
+      "sha256": "be4e97ab5cd93960a372687f2797ee21fd5eca9879b71b28767b2de1518129ac",
+      "glb_version": 2,
+      "chunks": [
+        {
+          "type": "0x4e4f534a",
+          "bytes": 134204
+        },
+        {
+          "type": "0x4e4942",
+          "bytes": 27100812
+        }
+      ],
+      "nodes": 159,
+      "active_scene_nodes": 159,
+      "meshes": 110,
+      "mesh_instances": 110,
+      "materials": 53,
+      "textures": 2,
+      "images": 2,
+      "accessors": 498,
+      "unique_position_accessor_vertices": 612686,
+      "triangles": 281090,
+      "unique_mesh_triangles": 281090,
+      "finite_position_accessors": true,
+      "finite_node_world_matrices": true,
+      "invalid_index_primitives": [],
+      "malformed_triangle_list_primitives": [],
+      "index_degenerate_triangle_lists": 0,
+      "nontriangle_primitives": [],
+      "external_image_dependencies": [],
+      "node_names": [
+        "00_START_ISLAND_cyan",
+        "00_START_ISLAND_gold",
+        "00_START_ISLAND_gold_dark",
+        "00_START_ISLAND_navy",
+        "00_START_ISLAND_rock_BatchedDetail",
+        "00_START_ISLAND_stone",
+        "00_START_ISLAND_stone_a_BatchedDetail",
+        "00_START_ISLAND_stone_b_BatchedDetail",
+        "00_START_ISLAND_stone_light",
+        "I0_Cliff_ExposedUnderside",
+        "LastGate_Portal_URPShaderCandidate",
+        "Spawn_Pedestal",
+        "00_START_ISLAND",
+        "01_HOLLOW_KNIGHT_bark",
+        "01_HOLLOW_KNIGHT_gold",
+        "01_HOLLOW_KNIGHT_gold_dark",
+        "01_HOLLOW_KNIGHT_leaf",
+        "01_HOLLOW_KNIGHT_leaf_dark",
+        "01_HOLLOW_KNIGHT_leaf_light",
+        "01_HOLLOW_KNIGHT_marble",
+        "01_HOLLOW_KNIGHT_navy",
+        "01_HOLLOW_KNIGHT_red_leaf",
+        "01_HOLLOW_KNIGHT_rock_BatchedDetail",
+        "01_HOLLOW_KNIGHT_stone",
+        "01_HOLLOW_KNIGHT_stone_a_BatchedDetail",
+        "01_HOLLOW_KNIGHT_stone_b_BatchedDetail",
+        "01_HOLLOW_KNIGHT_stone_dark",
+        "01_HOLLOW_KNIGHT_stone_light",
+        "I1_Cliff_ExposedUnderside",
+        "Kingdom_Cathedral_CyanMemoryCrystal",
+        "01_HOLLOW_KNIGHT",
+        "02_DROWNED_CAPTAIN_algae",
+        "02_DROWNED_CAPTAIN_barnacle",
+        "02_DROWNED_CAPTAIN_coral",
+        "02_DROWNED_CAPTAIN_coral_gold",
+        "02_DROWNED_CAPTAIN_coral_purple",
+        "02_DROWNED_CAPTAIN_gold_dark",
+        "02_DROWNED_CAPTAIN_iron",
+        "02_DROWNED_CAPTAIN_navy",
+        "02_DROWNED_CAPTAIN_rock_BatchedDetail",
+        "02_DROWNED_CAPTAIN_rope",
+        "02_DROWNED_CAPTAIN_rust",
+        "02_DROWNED_CAPTAIN_sail",
+        "02_DROWNED_CAPTAIN_sail_dark",
+        "02_DROWNED_CAPTAIN_seastone",
+        "02_DROWNED_CAPTAIN_seastone_a",
+        "02_DROWNED_CAPTAIN_ShallowWater_Surface_Transparent",
+        "02_DROWNED_CAPTAIN_stone",
+        "02_DROWNED_CAPTAIN_stone_light",
+        "02_DROWNED_CAPTAIN_Water_Foam_Transparent",
+        "02_DROWNED_CAPTAIN_wetstone",
+        "02_DROWNED_CAPTAIN_wood",
+        "02_DROWNED_CAPTAIN_wood_dark",
+        "02_DROWNED_CAPTAIN_wood_light",
+        "I2_Cliff_ExposedUnderside",
+        "02_DROWNED_CAPTAIN",
+        "03_TITAN_COLOSSUS_bark",
+        "03_TITAN_COLOSSUS_crystal",
+        "03_TITAN_COLOSSUS_gold",
+        "03_TITAN_COLOSSUS_gold_dark",
+        "03_TITAN_COLOSSUS_leaf",
+        "03_TITAN_COLOSSUS_leaf_light",
+        "03_TITAN_COLOSSUS_purple",
+        "03_TITAN_COLOSSUS_rock_BatchedDetail",
+        "03_TITAN_COLOSSUS_sand",
+        "03_TITAN_COLOSSUS_sand_a_BatchedDetail",
+        "03_TITAN_COLOSSUS_sand_b_BatchedDetail",
+        "03_TITAN_COLOSSUS_sand_dark",
+        "03_TITAN_COLOSSUS_sand_light",
+        "03_TITAN_COLOSSUS_soil",
+        "03_TITAN_COLOSSUS_violet",
+        "I3_Cliff_ExposedUnderside",
+        "03_TITAN_COLOSSUS",
+        "04_VANDER_POEL_bark",
+        "04_VANDER_POEL_blue_cloth",
+        "04_VANDER_POEL_blue_roof",
+        "04_VANDER_POEL_flower_white",
+        "04_VANDER_POEL_flower_yellow",
+        "04_VANDER_POEL_gold",
+        "04_VANDER_POEL_gold_dark",
+        "04_VANDER_POEL_leaf",
+        "04_VANDER_POEL_leaf_dark",
+        "04_VANDER_POEL_leaf_light",
+        "04_VANDER_POEL_marble",
+        "04_VANDER_POEL_navy",
+        "04_VANDER_POEL_rock",
+        "04_VANDER_POEL_soil",
+        "04_VANDER_POEL_stone_light",
+        "I4_Cliff_ExposedUnderside",
+        "04_VANDER_POEL",
+        "BACKGROUND_ISLANDS_BG_RuinHaze",
+        "BACKGROUND_ISLANDS_BG_SandHaze",
+        "BACKGROUND_ISLANDS",
+        "Bridge_Node1_Node2_cyan",
+        "Bridge_Node1_Node2_gold_dark",
+        "Bridge_Node1_Node2_stone_light",
+        "Bridge_Node1_Node2_wood_dark",
+        "Bridge_Node1_Node2_wood_light",
+        "Bridge_Node1_Node2",
+        "Bridge_Node2_Node3_cyan",
+        "Bridge_Node2_Node3_gold",
+        "Bridge_Node2_Node3_gold_dark",
+        "Bridge_Node2_Node3_purple",
+        "Bridge_Node2_Node3_sand_light",
+        "Bridge_Node2_Node3_stone_light",
+        "Bridge_Node2_Node3",
+        "Bridge_Node3_Boss_blue_cloth",
+        "Bridge_Node3_Boss_cyan",
+        "Bridge_Node3_Boss_gold",
+        "Bridge_Node3_Boss_gold_dark",
+        "Bridge_Node3_Boss_marble",
+        "Bridge_Node3_Boss_stone_light",
+        "Bridge_Node3_Boss_violet",
+        "Bridge_Node3_Boss",
+        "Bridge_Start_Node1_cyan",
+        "Bridge_Start_Node1_gold_dark",
+        "Bridge_Start_Node1_stone_light",
+        "Bridge_Start_Node1",
+        "Boss_ArenaCenter",
+        "Boss_BossSpawn",
+        "Boss_CutsceneView",
+        "Boss_EncounterBounds",
+        "Boss_Entry",
+        "Boss_RewardSpot",
+        "Boss_ThroneSeat",
+        "Bridge_01_Entry",
+        "Bridge_01_Exit",
+        "Bridge_02_Entry",
+        "Bridge_02_Exit",
+        "Bridge_03_Entry",
+        "Bridge_03_Exit",
+        "Bridge_04_Entry",
+        "Bridge_04_Exit",
+        "Bridge_Gate_01",
+        "Bridge_Gate_02",
+        "Bridge_Gate_03",
+        "Bridge_Gate_04",
+        "Final_VictorySpot",
+        "Node1_ArenaCenter",
+        "Node1_BossSpawn",
+        "Node1_EncounterBounds",
+        "Node1_Entry",
+        "Node1_RewardSpot",
+        "Node2_ArenaCenter",
+        "Node2_BossSpawn",
+        "Node2_EncounterBounds",
+        "Node2_Entry",
+        "Node2_RewardSpot",
+        "Node3_ArenaCenter",
+        "Node3_BossSpawn",
+        "Node3_EncounterBounds",
+        "Node3_Entry",
+        "Node3_RewardSpot",
+        "PlayerSpawn_Start",
+        "GAMEPLAY_MARKERS",
+        "WATERFALLS_Cascade_Mist_Transparent",
+        "WATERFALLS_fall",
+        "WATERFALLS",
+        "ConvergenceCitadel_Environment"
+      ],
+      "mesh_inventory": [
+        {
+          "name": "Gate_FlankingRuin_Crystal",
+          "triangles": 296,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 632,
+              "index_or_vertex_elements": 888,
+              "triangles": 296
+            }
+          ]
+        },
+        {
+          "name": "LastGate_Monument_Plinth",
+          "triangles": 232,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 504,
+              "index_or_vertex_elements": 696,
+              "triangles": 232
+            }
+          ]
+        },
+        {
+          "name": "Start_Inlay",
+          "triangles": 1400,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2736,
+              "index_or_vertex_elements": 4200,
+              "triangles": 1400
+            }
+          ]
+        },
+        {
+          "name": "Gate_WizardBanner_NavyPennant",
+          "triangles": 6,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 10,
+              "index_or_vertex_elements": 18,
+              "triangles": 6
+            }
+          ]
+        },
+        {
+          "name": "I0_FloatingDebris",
+          "triangles": 180,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 540,
+              "index_or_vertex_elements": 540,
+              "triangles": 180
+            }
+          ]
+        },
+        {
+          "name": "I0_TerrainShoulder",
+          "triangles": 2276,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4812,
+              "index_or_vertex_elements": 6828,
+              "triangles": 2276
+            }
+          ]
+        },
+        {
+          "name": "Start_Paver.001",
+          "triangles": 1044,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2088,
+              "index_or_vertex_elements": 3132,
+              "triangles": 1044
+            }
+          ]
+        },
+        {
+          "name": "Start_Paver",
+          "triangles": 1080,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2160,
+              "index_or_vertex_elements": 3240,
+              "triangles": 1080
+            }
+          ]
+        },
+        {
+          "name": "LastGate_Monument_Pier",
+          "triangles": 192,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 336,
+              "index_or_vertex_elements": 576,
+              "triangles": 192
+            }
+          ]
+        },
+        {
+          "name": "I0_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 426,
+              "index_or_vertex_elements": 426,
+              "triangles": 142
+            },
+            {
+              "mode": 4,
+              "position_vertices": 186,
+              "index_or_vertex_elements": 186,
+              "triangles": 62
+            },
+            {
+              "mode": 4,
+              "position_vertices": 321,
+              "index_or_vertex_elements": 321,
+              "triangles": 107
+            },
+            {
+              "mode": 4,
+              "position_vertices": 39,
+              "index_or_vertex_elements": 39,
+              "triangles": 13
+            }
+          ]
+        },
+        {
+          "name": "LastGate_Portal_URPShaderCandidate",
+          "triangles": 3,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 5,
+              "index_or_vertex_elements": 9,
+              "triangles": 3
+            }
+          ]
+        },
+        {
+          "name": "Spawn_Pedestal",
+          "triangles": 124,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 192,
+              "index_or_vertex_elements": 372,
+              "triangles": 124
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_Root",
+          "triangles": 5312,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 10164,
+              "index_or_vertex_elements": 15936,
+              "triangles": 5312
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RimHabitat_FlowerHeart",
+          "triangles": 2340,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 6318,
+              "index_or_vertex_elements": 7020,
+              "triangles": 2340
+            }
+          ]
+        },
+        {
+          "name": "Knight_Inlay",
+          "triangles": 2358,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4946,
+              "index_or_vertex_elements": 7074,
+              "triangles": 2358
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_IvyLeaf.002",
+          "triangles": 8650,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 25638,
+              "index_or_vertex_elements": 25950,
+              "triangles": 8650
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_IvyLeaf.003",
+          "triangles": 7032,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 18576,
+              "index_or_vertex_elements": 21096,
+              "triangles": 7032
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_IvyLeaf",
+          "triangles": 5468,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 16068,
+              "index_or_vertex_elements": 16404,
+              "triangles": 5468
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RimHabitat_FlowerPetal",
+          "triangles": 6480,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 19440,
+              "index_or_vertex_elements": 19440,
+              "triangles": 6480
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RoyalBannerLeft_BlueCloth",
+          "triangles": 144,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 288,
+              "index_or_vertex_elements": 432,
+              "triangles": 144
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RedMemoryTree_LeafCrown",
+          "triangles": 3744,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 11232,
+              "index_or_vertex_elements": 11232,
+              "triangles": 3744
+            }
+          ]
+        },
+        {
+          "name": "I1_FloatingDebris",
+          "triangles": 180,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 540,
+              "index_or_vertex_elements": 540,
+              "triangles": 180
+            }
+          ]
+        },
+        {
+          "name": "I1_TerrainShoulder",
+          "triangles": 9498,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 20618,
+              "index_or_vertex_elements": 28494,
+              "triangles": 9498
+            }
+          ]
+        },
+        {
+          "name": "Knight_Paver.007",
+          "triangles": 960,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1920,
+              "index_or_vertex_elements": 2880,
+              "triangles": 960
+            }
+          ]
+        },
+        {
+          "name": "Knight_Paver.001",
+          "triangles": 1152,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2304,
+              "index_or_vertex_elements": 3456,
+              "triangles": 1152
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_Cathedral_MainPier_Footing",
+          "triangles": 3078,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 6624,
+              "index_or_vertex_elements": 9234,
+              "triangles": 3078
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_Cathedral_MainArch_Voussoir01",
+          "triangles": 6346,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 13098,
+              "index_or_vertex_elements": 19038,
+              "triangles": 6346
+            }
+          ]
+        },
+        {
+          "name": "I1_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 447,
+              "index_or_vertex_elements": 447,
+              "triangles": 149
+            },
+            {
+              "mode": 4,
+              "position_vertices": 180,
+              "index_or_vertex_elements": 180,
+              "triangles": 60
+            },
+            {
+              "mode": 4,
+              "position_vertices": 300,
+              "index_or_vertex_elements": 300,
+              "triangles": 100
+            },
+            {
+              "mode": 4,
+              "position_vertices": 45,
+              "index_or_vertex_elements": 45,
+              "triangles": 15
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_Cathedral_CyanMemoryCrystal",
+          "triangles": 13,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 39,
+              "index_or_vertex_elements": 39,
+              "triangles": 13
+            }
+          ]
+        },
+        {
+          "name": "Sea_0564_RibbonKelp",
+          "triangles": 1068,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2136,
+              "index_or_vertex_elements": 3204,
+              "triangles": 1068
+            }
+          ]
+        },
+        {
+          "name": "Sea_0562_HollowBarnacle",
+          "triangles": 2120,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4240,
+              "index_or_vertex_elements": 6360,
+              "triangles": 2120
+            }
+          ]
+        },
+        {
+          "name": "Sea_2521_CoralTrunk",
+          "triangles": 1628,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3476,
+              "index_or_vertex_elements": 4884,
+              "triangles": 1628
+            }
+          ]
+        },
+        {
+          "name": "Sea_2543_CoralTrunk",
+          "triangles": 1628,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3476,
+              "index_or_vertex_elements": 4884,
+              "triangles": 1628
+            }
+          ]
+        },
+        {
+          "name": "Sea_2565_CoralTrunk",
+          "triangles": 1628,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3476,
+              "index_or_vertex_elements": 4884,
+              "triangles": 1628
+            }
+          ]
+        },
+        {
+          "name": "Captain_Rosette",
+          "triangles": 2078,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4038,
+              "index_or_vertex_elements": 6234,
+              "triangles": 2078
+            }
+          ]
+        },
+        {
+          "name": "Sea_0013_HullForgedFastener",
+          "triangles": 4098,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 9174,
+              "index_or_vertex_elements": 12294,
+              "triangles": 4098
+            }
+          ]
+        },
+        {
+          "name": "Sea_0361_SternGalleryWindowRecess",
+          "triangles": 60,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 120,
+              "index_or_vertex_elements": 180,
+              "triangles": 60
+            }
+          ]
+        },
+        {
+          "name": "I2_FloatingDebris",
+          "triangles": 180,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 540,
+              "index_or_vertex_elements": 540,
+              "triangles": 180
+            }
+          ]
+        },
+        {
+          "name": "Sea_0396_ProwEngravedGoldFeather",
+          "triangles": 12406,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 25026,
+              "index_or_vertex_elements": 37218,
+              "triangles": 12406
+            }
+          ]
+        },
+        {
+          "name": "Sea_0494_BarrelIronHoop",
+          "triangles": 3958,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 8038,
+              "index_or_vertex_elements": 11874,
+              "triangles": 3958
+            }
+          ]
+        },
+        {
+          "name": "Sea_0414_MainSail_RaggedMainCanvas",
+          "triangles": 238,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 488,
+              "index_or_vertex_elements": 714,
+              "triangles": 238
+            }
+          ]
+        },
+        {
+          "name": "Sea_0415_MainSail_WeatheredCanvasPatches",
+          "triangles": 82,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 156,
+              "index_or_vertex_elements": 246,
+              "triangles": 82
+            }
+          ]
+        },
+        {
+          "name": "I2_TerrainShoulder",
+          "triangles": 4540,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 10940,
+              "index_or_vertex_elements": 13620,
+              "triangles": 4540
+            }
+          ]
+        },
+        {
+          "name": "Captain_ShallowBrokenSlab",
+          "triangles": 168,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 336,
+              "index_or_vertex_elements": 504,
+              "triangles": 168
+            }
+          ]
+        },
+        {
+          "name": "Captain_ShallowWater_URPShaderCandidate",
+          "triangles": 384,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 772,
+              "index_or_vertex_elements": 1152,
+              "triangles": 384
+            }
+          ]
+        },
+        {
+          "name": "Sea_1482_RuinedDockArchMasonry",
+          "triangles": 1344,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3528,
+              "index_or_vertex_elements": 4032,
+              "triangles": 1344
+            }
+          ]
+        },
+        {
+          "name": "Captain_ShallowBrokenSlab.002",
+          "triangles": 184,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 368,
+              "index_or_vertex_elements": 552,
+              "triangles": 184
+            }
+          ]
+        },
+        {
+          "name": "Captain_LocalFoamBreakup",
+          "triangles": 1920,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3840,
+              "index_or_vertex_elements": 5760,
+              "triangles": 1920
+            }
+          ]
+        },
+        {
+          "name": "Captain_ContinuousArenaFloor",
+          "triangles": 548,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 980,
+              "index_or_vertex_elements": 1644,
+              "triangles": 548
+            }
+          ]
+        },
+        {
+          "name": "Sea_0006_GalleonCurvedIndividualHullStrake",
+          "triangles": 6846,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 13692,
+              "index_or_vertex_elements": 20538,
+              "triangles": 6846
+            }
+          ]
+        },
+        {
+          "name": "Sea_0001_GalleonHeavyKeel",
+          "triangles": 9146,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 17060,
+              "index_or_vertex_elements": 27438,
+              "triangles": 9146
+            }
+          ]
+        },
+        {
+          "name": "Sea_0004_GalleonCurvedIndividualHullStrake",
+          "triangles": 6492,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 12492,
+              "index_or_vertex_elements": 19476,
+              "triangles": 6492
+            }
+          ]
+        },
+        {
+          "name": "I2_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 474,
+              "index_or_vertex_elements": 474,
+              "triangles": 158
+            },
+            {
+              "mode": 4,
+              "position_vertices": 198,
+              "index_or_vertex_elements": 198,
+              "triangles": 66
+            },
+            {
+              "mode": 4,
+              "position_vertices": 276,
+              "index_or_vertex_elements": 276,
+              "triangles": 92
+            },
+            {
+              "mode": 4,
+              "position_vertices": 24,
+              "index_or_vertex_elements": 24,
+              "triangles": 8
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PalmTrunk_00",
+          "triangles": 120,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 240,
+              "index_or_vertex_elements": 360,
+              "triangles": 120
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_CrystalFacetLight",
+          "triangles": 96,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 192,
+              "index_or_vertex_elements": 288,
+              "triangles": 96
+            }
+          ]
+        },
+        {
+          "name": "TitanDetailGatewayColumn_CollarHighlight",
+          "triangles": 11348,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 21208,
+              "index_or_vertex_elements": 34044,
+              "triangles": 11348
+            }
+          ]
+        },
+        {
+          "name": "Titan_Inlay",
+          "triangles": 11284,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 20900,
+              "index_or_vertex_elements": 33852,
+              "triangles": 11284
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PalmFrond",
+          "triangles": 30,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 60,
+              "index_or_vertex_elements": 90,
+              "triangles": 30
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PalmFrond.001",
+          "triangles": 40,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 80,
+              "index_or_vertex_elements": 120,
+              "triangles": 40
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PortalInnerGilt_Pier",
+          "triangles": 249,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 491,
+              "index_or_vertex_elements": 747,
+              "triangles": 249
+            }
+          ]
+        },
+        {
+          "name": "I3_FloatingDebris",
+          "triangles": 180,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 540,
+              "index_or_vertex_elements": 540,
+              "triangles": 180
+            }
+          ]
+        },
+        {
+          "name": "I3_TerrainShoulder",
+          "triangles": 14012,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 30208,
+              "index_or_vertex_elements": 42036,
+              "triangles": 14012
+            }
+          ]
+        },
+        {
+          "name": "Titan_Paver.001",
+          "triangles": 1020,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2040,
+              "index_or_vertex_elements": 3060,
+              "triangles": 1020
+            }
+          ]
+        },
+        {
+          "name": "Titan_Paver.002",
+          "triangles": 1020,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2040,
+              "index_or_vertex_elements": 3060,
+              "triangles": 1020
+            }
+          ]
+        },
+        {
+          "name": "TitanDetailGatewayColumn_SteppedBase",
+          "triangles": 10544,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 23488,
+              "index_or_vertex_elements": 31632,
+              "triangles": 10544
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_GatewayStair",
+          "triangles": 17646,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 35318,
+              "index_or_vertex_elements": 52938,
+              "triangles": 17646
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_DryRimGrass",
+          "triangles": 1080,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2160,
+              "index_or_vertex_elements": 3240,
+              "triangles": 1080
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_LeftColossalPharaoh_RoyalForeheadGem",
+          "triangles": 48,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 144,
+              "triangles": 48
+            }
+          ]
+        },
+        {
+          "name": "I3_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 447,
+              "index_or_vertex_elements": 447,
+              "triangles": 149
+            },
+            {
+              "mode": 4,
+              "position_vertices": 222,
+              "index_or_vertex_elements": 222,
+              "triangles": 74
+            },
+            {
+              "mode": 4,
+              "position_vertices": 273,
+              "index_or_vertex_elements": 273,
+              "triangles": 91
+            },
+            {
+              "mode": 4,
+              "position_vertices": 30,
+              "index_or_vertex_elements": 30,
+              "triangles": 10
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_Trunk",
+          "triangles": 2568,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4872,
+              "index_or_vertex_elements": 7704,
+              "triangles": 2568
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_RunnerTread",
+          "triangles": 304,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 594,
+              "index_or_vertex_elements": 912,
+              "triangles": 304
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_CanopyBlueSpireRoof",
+          "triangles": 552,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 872,
+              "index_or_vertex_elements": 1656,
+              "triangles": 552
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneFlowerUrn_WhiteBloom",
+          "triangles": 4640,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 13920,
+              "index_or_vertex_elements": 13920,
+              "triangles": 4640
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneFlowerUrn_YellowHeart",
+          "triangles": 480,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 1440,
+              "triangles": 480
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_RunnerGoldHem",
+          "triangles": 7872,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 15632,
+              "index_or_vertex_elements": 23616,
+              "triangles": 7872
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_Inlay",
+          "triangles": 9768,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 17264,
+              "index_or_vertex_elements": 29304,
+              "triangles": 9768
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_ClippedCypressFoliage",
+          "triangles": 4912,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 14736,
+              "index_or_vertex_elements": 14736,
+              "triangles": 4912
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_ClippedCypressFoliage.003",
+          "triangles": 4312,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 12936,
+              "index_or_vertex_elements": 12936,
+              "triangles": 4312
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneFlowerUrn_LeafCluster.001",
+          "triangles": 2448,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 7344,
+              "index_or_vertex_elements": 7344,
+              "triangles": 2448
+            }
+          ]
+        },
+        {
+          "name": "I4_TerrainShoulder.001",
+          "triangles": 13824,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 25764,
+              "index_or_vertex_elements": 41472,
+              "triangles": 13824
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_CanopyRoyalBlueInset",
+          "triangles": 77,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 151,
+              "index_or_vertex_elements": 231,
+              "triangles": 77
+            }
+          ]
+        },
+        {
+          "name": "I4_FloatingDebris.001",
+          "triangles": 180,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 540,
+              "index_or_vertex_elements": 540,
+              "triangles": 180
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_PlanterSoil",
+          "triangles": 664,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1080,
+              "index_or_vertex_elements": 1992,
+              "triangles": 664
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_CanopyOuterMoulding_Voussoir",
+          "triangles": 2124,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3872,
+              "index_or_vertex_elements": 6372,
+              "triangles": 2124
+            }
+          ]
+        },
+        {
+          "name": "I4_Cliff_ExposedUnderside.001",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 426,
+              "index_or_vertex_elements": 426,
+              "triangles": 142
+            },
+            {
+              "mode": 4,
+              "position_vertices": 186,
+              "index_or_vertex_elements": 186,
+              "triangles": 62
+            },
+            {
+              "mode": 4,
+              "position_vertices": 321,
+              "index_or_vertex_elements": 321,
+              "triangles": 107
+            },
+            {
+              "mode": 4,
+              "position_vertices": 39,
+              "index_or_vertex_elements": 39,
+              "triangles": 13
+            }
+          ]
+        },
+        {
+          "name": "BG_Precinct_00_NonPlayableLandmass",
+          "triangles": 6050,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 12400,
+              "index_or_vertex_elements": 18150,
+              "triangles": 6050
+            }
+          ]
+        },
+        {
+          "name": "BG_Precinct_02_NonPlayableLandmass",
+          "triangles": 2468,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 5056,
+              "index_or_vertex_elements": 7404,
+              "triangles": 2468
+            }
+          ]
+        },
+        {
+          "name": "B2_Lantern.024",
+          "triangles": 320,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 960,
+              "index_or_vertex_elements": 960,
+              "triangles": 320
+            }
+          ]
+        },
+        {
+          "name": "B2_CrossRib.024",
+          "triangles": 736,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1344,
+              "index_or_vertex_elements": 2208,
+              "triangles": 736
+            }
+          ]
+        },
+        {
+          "name": "B2_Baluster.048",
+          "triangles": 1008,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1728,
+              "index_or_vertex_elements": 3024,
+              "triangles": 1008
+            }
+          ]
+        },
+        {
+          "name": "SeaBridge_BoundTimberPile.006",
+          "triangles": 72,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 216,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "name": "B2_DeckPaver.035",
+          "triangles": 408,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 816,
+              "index_or_vertex_elements": 1224,
+              "triangles": 408
+            }
+          ]
+        },
+        {
+          "name": "B3_Lantern.034",
+          "triangles": 480,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 1440,
+              "triangles": 480
+            }
+          ]
+        },
+        {
+          "name": "Bridge_BannerGoldHem.060",
+          "triangles": 360,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 720,
+              "index_or_vertex_elements": 1080,
+              "triangles": 360
+            }
+          ]
+        },
+        {
+          "name": "B3_CrossRib.033",
+          "triangles": 904,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1680,
+              "index_or_vertex_elements": 2712,
+              "triangles": 904
+            }
+          ]
+        },
+        {
+          "name": "Bridge_HangingPurpleBanner.006",
+          "triangles": 18,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 30,
+              "index_or_vertex_elements": 54,
+              "triangles": 18
+            }
+          ]
+        },
+        {
+          "name": "B3_DeckPaver.060",
+          "triangles": 732,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1464,
+              "index_or_vertex_elements": 2196,
+              "triangles": 732
+            }
+          ]
+        },
+        {
+          "name": "B3_Baluster.066",
+          "triangles": 1456,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2496,
+              "index_or_vertex_elements": 4368,
+              "triangles": 1456
+            }
+          ]
+        },
+        {
+          "name": "Bridge_HangingRoyalBlueBanner.006",
+          "triangles": 18,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 30,
+              "index_or_vertex_elements": 54,
+              "triangles": 18
+            }
+          ]
+        },
+        {
+          "name": "B4_GatePylon_Crystal.008",
+          "triangles": 80,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 240,
+              "index_or_vertex_elements": 240,
+              "triangles": 80
+            }
+          ]
+        },
+        {
+          "name": "B4_ContinuousRail.024",
+          "triangles": 504,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1008,
+              "index_or_vertex_elements": 1512,
+              "triangles": 504
+            }
+          ]
+        },
+        {
+          "name": "B4_CrossRib.037",
+          "triangles": 784,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 2352,
+              "triangles": 784
+            }
+          ]
+        },
+        {
+          "name": "B4_DeckPaver.066",
+          "triangles": 1116,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2136,
+              "index_or_vertex_elements": 3348,
+              "triangles": 1116
+            }
+          ]
+        },
+        {
+          "name": "B4_Baluster.074",
+          "triangles": 1256,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2160,
+              "index_or_vertex_elements": 3768,
+              "triangles": 1256
+            }
+          ]
+        },
+        {
+          "name": "B4_Lantern.038",
+          "triangles": 440,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1320,
+              "index_or_vertex_elements": 1320,
+              "triangles": 440
+            }
+          ]
+        },
+        {
+          "name": "B1_Lantern.020",
+          "triangles": 280,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 840,
+              "index_or_vertex_elements": 840,
+              "triangles": 280
+            }
+          ]
+        },
+        {
+          "name": "B1_CrossRib.020",
+          "triangles": 784,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 2352,
+              "triangles": 784
+            }
+          ]
+        },
+        {
+          "name": "B1_DeckPaver.029",
+          "triangles": 1256,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2256,
+              "index_or_vertex_elements": 3768,
+              "triangles": 1256
+            }
+          ]
+        },
+        {
+          "name": "I1_TranslucentCascadeRibbon",
+          "triangles": 2142,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4284,
+              "index_or_vertex_elements": 6426,
+              "triangles": 2142
+            }
+          ]
+        },
+        {
+          "name": "Waterfall_I0_0_Ribbon",
+          "triangles": 24,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 48,
+              "index_or_vertex_elements": 72,
+              "triangles": 24
+            }
+          ]
+        }
+      ]
+    },
+    "collision": {
+      "file": "ConvergenceCitadel_Collision.glb",
+      "bytes": 256104,
+      "sha256": "087a0ca6b432a20fc04f28b64ad5522962e1624a769f999f68dcc87cdca5b329",
+      "glb_version": 2,
+      "chunks": [
+        {
+          "type": "0x4e4f534a",
+          "bytes": 16004
+        },
+        {
+          "type": "0x4e4942",
+          "bytes": 240072
+        }
+      ],
+      "nodes": 19,
+      "active_scene_nodes": 19,
+      "meshes": 19,
+      "mesh_instances": 19,
+      "materials": 0,
+      "textures": 0,
+      "images": 0,
+      "accessors": 60,
+      "unique_position_accessor_vertices": 7224,
+      "triangles": 3816,
+      "unique_mesh_triangles": 3816,
+      "finite_position_accessors": true,
+      "finite_node_world_matrices": true,
+      "invalid_index_primitives": [],
+      "malformed_triangle_list_primitives": [],
+      "index_degenerate_triangle_lists": 0,
+      "nontriangle_primitives": [],
+      "external_image_dependencies": [],
+      "node_names": [
+        "COL_Island_00_ContinuousFloor",
+        "COL_Island_01_ContinuousFloor",
+        "COL_Island_02_ContinuousFloor",
+        "COL_Island_03_ContinuousFloor",
+        "COL_Start_SpawnPedestal",
+        "COL_Island_00_FallBoundary_Combined",
+        "COL_Island_01_FallBoundary_Combined",
+        "COL_Island_02_FallBoundary_Combined",
+        "COL_Island_03_FallBoundary_Combined",
+        "COL_Island_04_FallBoundary_Combined",
+        "COL_Island_04_ContinuousFloor",
+        "COL_Bridge_01_Deck",
+        "COL_Bridge_01_Rail_Combined",
+        "COL_Bridge_02_Deck",
+        "COL_Bridge_02_Rail_Combined",
+        "COL_Bridge_03_Deck",
+        "COL_Bridge_03_Rail_Combined",
+        "COL_Bridge_04_Deck",
+        "COL_Bridge_04_Rail_Combined"
+      ],
+      "mesh_inventory": [
+        {
+          "name": "COL_Island_00_ContinuousFloor",
+          "triangles": 140,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 216,
+              "index_or_vertex_elements": 420,
+              "triangles": 140
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_01_ContinuousFloor",
+          "triangles": 140,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 216,
+              "index_or_vertex_elements": 420,
+              "triangles": 140
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_02_ContinuousFloor",
+          "triangles": 140,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 216,
+              "index_or_vertex_elements": 420,
+              "triangles": 140
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_03_ContinuousFloor",
+          "triangles": 140,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 216,
+              "index_or_vertex_elements": 420,
+              "triangles": 140
+            }
+          ]
+        },
+        {
+          "name": "COL_Start_SpawnPedestal",
+          "triangles": 124,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 192,
+              "index_or_vertex_elements": 372,
+              "triangles": 124
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_00_FallBoundary",
+          "triangles": 540,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1080,
+              "index_or_vertex_elements": 1620,
+              "triangles": 540
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_01_FallBoundary",
+          "triangles": 504,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1008,
+              "index_or_vertex_elements": 1512,
+              "triangles": 504
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_02_FallBoundary",
+          "triangles": 504,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1008,
+              "index_or_vertex_elements": 1512,
+              "triangles": 504
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_03_FallBoundary",
+          "triangles": 504,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1008,
+              "index_or_vertex_elements": 1512,
+              "triangles": 504
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_04_FallBoundary",
+          "triangles": 540,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1080,
+              "index_or_vertex_elements": 1620,
+              "triangles": 540
+            }
+          ]
+        },
+        {
+          "name": "COL_Island_04_ContinuousFloor.001",
+          "triangles": 140,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 216,
+              "index_or_vertex_elements": 420,
+              "triangles": 140
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_01_Deck.002",
+          "triangles": 28,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 48,
+              "index_or_vertex_elements": 84,
+              "triangles": 28
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_01_Rail.012",
+          "triangles": 72,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 216,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_02_Deck.002",
+          "triangles": 28,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 48,
+              "index_or_vertex_elements": 84,
+              "triangles": 28
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_02_Rail.012",
+          "triangles": 72,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 216,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_03_Deck.002",
+          "triangles": 28,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 48,
+              "index_or_vertex_elements": 84,
+              "triangles": 28
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_03_Rail.012",
+          "triangles": 72,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 216,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_04_Deck.002",
+          "triangles": 28,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 48,
+              "index_or_vertex_elements": 84,
+              "triangles": 28
+            }
+          ]
+        },
+        {
+          "name": "COL_Bridge_04_Rail.012",
+          "triangles": 72,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 216,
+              "triangles": 72
+            }
+          ]
+        }
+      ]
+    },
+    "lod1": {
+      "file": "ConvergenceCitadel_LOD1.glb",
+      "bytes": 21790372,
+      "sha256": "50f0f62c0e6e8044947e1813a5fbd1977950f4744d347eede6cc606f99ab6331",
+      "glb_version": 2,
+      "chunks": [
+        {
+          "type": "0x4e4f534a",
+          "bytes": 134080
+        },
+        {
+          "type": "0x4e4942",
+          "bytes": 21656264
+        }
+      ],
+      "nodes": 159,
+      "active_scene_nodes": 159,
+      "meshes": 110,
+      "mesh_instances": 110,
+      "materials": 53,
+      "textures": 2,
+      "images": 2,
+      "accessors": 498,
+      "unique_position_accessor_vertices": 457794,
+      "triangles": 199754,
+      "unique_mesh_triangles": 199754,
+      "finite_position_accessors": true,
+      "finite_node_world_matrices": true,
+      "invalid_index_primitives": [],
+      "malformed_triangle_list_primitives": [],
+      "index_degenerate_triangle_lists": 0,
+      "nontriangle_primitives": [],
+      "external_image_dependencies": [],
+      "node_names": [
+        "00_START_ISLAND_cyan",
+        "00_START_ISLAND_gold",
+        "00_START_ISLAND_gold_dark",
+        "00_START_ISLAND_navy",
+        "00_START_ISLAND_rock_BatchedDetail",
+        "00_START_ISLAND_stone",
+        "00_START_ISLAND_stone_a_BatchedDetail",
+        "00_START_ISLAND_stone_b_BatchedDetail",
+        "00_START_ISLAND_stone_light",
+        "I0_Cliff_ExposedUnderside",
+        "LastGate_Portal_URPShaderCandidate",
+        "Spawn_Pedestal",
+        "00_START_ISLAND",
+        "01_HOLLOW_KNIGHT_bark",
+        "01_HOLLOW_KNIGHT_gold",
+        "01_HOLLOW_KNIGHT_gold_dark",
+        "01_HOLLOW_KNIGHT_leaf",
+        "01_HOLLOW_KNIGHT_leaf_dark",
+        "01_HOLLOW_KNIGHT_leaf_light",
+        "01_HOLLOW_KNIGHT_marble",
+        "01_HOLLOW_KNIGHT_navy",
+        "01_HOLLOW_KNIGHT_red_leaf",
+        "01_HOLLOW_KNIGHT_rock_BatchedDetail",
+        "01_HOLLOW_KNIGHT_stone",
+        "01_HOLLOW_KNIGHT_stone_a_BatchedDetail",
+        "01_HOLLOW_KNIGHT_stone_b_BatchedDetail",
+        "01_HOLLOW_KNIGHT_stone_dark",
+        "01_HOLLOW_KNIGHT_stone_light",
+        "I1_Cliff_ExposedUnderside",
+        "Kingdom_Cathedral_CyanMemoryCrystal",
+        "01_HOLLOW_KNIGHT",
+        "02_DROWNED_CAPTAIN_algae",
+        "02_DROWNED_CAPTAIN_barnacle",
+        "02_DROWNED_CAPTAIN_coral",
+        "02_DROWNED_CAPTAIN_coral_gold",
+        "02_DROWNED_CAPTAIN_coral_purple",
+        "02_DROWNED_CAPTAIN_gold_dark",
+        "02_DROWNED_CAPTAIN_iron",
+        "02_DROWNED_CAPTAIN_navy",
+        "02_DROWNED_CAPTAIN_rock_BatchedDetail",
+        "02_DROWNED_CAPTAIN_rope",
+        "02_DROWNED_CAPTAIN_rust",
+        "02_DROWNED_CAPTAIN_sail",
+        "02_DROWNED_CAPTAIN_sail_dark",
+        "02_DROWNED_CAPTAIN_seastone",
+        "02_DROWNED_CAPTAIN_seastone_a",
+        "02_DROWNED_CAPTAIN_ShallowWater_Surface_Transparent",
+        "02_DROWNED_CAPTAIN_stone",
+        "02_DROWNED_CAPTAIN_stone_light",
+        "02_DROWNED_CAPTAIN_Water_Foam_Transparent",
+        "02_DROWNED_CAPTAIN_wetstone",
+        "02_DROWNED_CAPTAIN_wood",
+        "02_DROWNED_CAPTAIN_wood_dark",
+        "02_DROWNED_CAPTAIN_wood_light",
+        "I2_Cliff_ExposedUnderside",
+        "02_DROWNED_CAPTAIN",
+        "03_TITAN_COLOSSUS_bark",
+        "03_TITAN_COLOSSUS_crystal",
+        "03_TITAN_COLOSSUS_gold",
+        "03_TITAN_COLOSSUS_gold_dark",
+        "03_TITAN_COLOSSUS_leaf",
+        "03_TITAN_COLOSSUS_leaf_light",
+        "03_TITAN_COLOSSUS_purple",
+        "03_TITAN_COLOSSUS_rock_BatchedDetail",
+        "03_TITAN_COLOSSUS_sand",
+        "03_TITAN_COLOSSUS_sand_a_BatchedDetail",
+        "03_TITAN_COLOSSUS_sand_b_BatchedDetail",
+        "03_TITAN_COLOSSUS_sand_dark",
+        "03_TITAN_COLOSSUS_sand_light",
+        "03_TITAN_COLOSSUS_soil",
+        "03_TITAN_COLOSSUS_violet",
+        "I3_Cliff_ExposedUnderside",
+        "03_TITAN_COLOSSUS",
+        "04_VANDER_POEL_bark",
+        "04_VANDER_POEL_blue_cloth",
+        "04_VANDER_POEL_blue_roof",
+        "04_VANDER_POEL_flower_white",
+        "04_VANDER_POEL_flower_yellow",
+        "04_VANDER_POEL_gold",
+        "04_VANDER_POEL_gold_dark",
+        "04_VANDER_POEL_leaf",
+        "04_VANDER_POEL_leaf_dark",
+        "04_VANDER_POEL_leaf_light",
+        "04_VANDER_POEL_marble",
+        "04_VANDER_POEL_navy",
+        "04_VANDER_POEL_rock",
+        "04_VANDER_POEL_soil",
+        "04_VANDER_POEL_stone_light",
+        "I4_Cliff_ExposedUnderside",
+        "04_VANDER_POEL",
+        "BACKGROUND_ISLANDS_BG_RuinHaze",
+        "BACKGROUND_ISLANDS_BG_SandHaze",
+        "BACKGROUND_ISLANDS",
+        "Bridge_Node1_Node2_cyan",
+        "Bridge_Node1_Node2_gold_dark",
+        "Bridge_Node1_Node2_stone_light",
+        "Bridge_Node1_Node2_wood_dark",
+        "Bridge_Node1_Node2_wood_light",
+        "Bridge_Node1_Node2",
+        "Bridge_Node2_Node3_cyan",
+        "Bridge_Node2_Node3_gold",
+        "Bridge_Node2_Node3_gold_dark",
+        "Bridge_Node2_Node3_purple",
+        "Bridge_Node2_Node3_sand_light",
+        "Bridge_Node2_Node3_stone_light",
+        "Bridge_Node2_Node3",
+        "Bridge_Node3_Boss_blue_cloth",
+        "Bridge_Node3_Boss_cyan",
+        "Bridge_Node3_Boss_gold",
+        "Bridge_Node3_Boss_gold_dark",
+        "Bridge_Node3_Boss_marble",
+        "Bridge_Node3_Boss_stone_light",
+        "Bridge_Node3_Boss_violet",
+        "Bridge_Node3_Boss",
+        "Bridge_Start_Node1_cyan",
+        "Bridge_Start_Node1_gold_dark",
+        "Bridge_Start_Node1_stone_light",
+        "Bridge_Start_Node1",
+        "Boss_ArenaCenter",
+        "Boss_BossSpawn",
+        "Boss_CutsceneView",
+        "Boss_EncounterBounds",
+        "Boss_Entry",
+        "Boss_RewardSpot",
+        "Boss_ThroneSeat",
+        "Bridge_01_Entry",
+        "Bridge_01_Exit",
+        "Bridge_02_Entry",
+        "Bridge_02_Exit",
+        "Bridge_03_Entry",
+        "Bridge_03_Exit",
+        "Bridge_04_Entry",
+        "Bridge_04_Exit",
+        "Bridge_Gate_01",
+        "Bridge_Gate_02",
+        "Bridge_Gate_03",
+        "Bridge_Gate_04",
+        "Final_VictorySpot",
+        "Node1_ArenaCenter",
+        "Node1_BossSpawn",
+        "Node1_EncounterBounds",
+        "Node1_Entry",
+        "Node1_RewardSpot",
+        "Node2_ArenaCenter",
+        "Node2_BossSpawn",
+        "Node2_EncounterBounds",
+        "Node2_Entry",
+        "Node2_RewardSpot",
+        "Node3_ArenaCenter",
+        "Node3_BossSpawn",
+        "Node3_EncounterBounds",
+        "Node3_Entry",
+        "Node3_RewardSpot",
+        "PlayerSpawn_Start",
+        "GAMEPLAY_MARKERS",
+        "WATERFALLS_Cascade_Mist_Transparent",
+        "WATERFALLS_fall",
+        "WATERFALLS",
+        "ConvergenceCitadel_Environment"
+      ],
+      "mesh_inventory": [
+        {
+          "name": "Gate_FlankingRuin_Crystal",
+          "triangles": 296,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 632,
+              "index_or_vertex_elements": 888,
+              "triangles": 296
+            }
+          ]
+        },
+        {
+          "name": "LastGate_Monument_Plinth",
+          "triangles": 232,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 504,
+              "index_or_vertex_elements": 696,
+              "triangles": 232
+            }
+          ]
+        },
+        {
+          "name": "Start_Inlay",
+          "triangles": 1400,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2736,
+              "index_or_vertex_elements": 4200,
+              "triangles": 1400
+            }
+          ]
+        },
+        {
+          "name": "Gate_WizardBanner_NavyPennant",
+          "triangles": 6,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 10,
+              "index_or_vertex_elements": 18,
+              "triangles": 6
+            }
+          ]
+        },
+        {
+          "name": "I0_FloatingDebris",
+          "triangles": 80,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 240,
+              "index_or_vertex_elements": 240,
+              "triangles": 80
+            }
+          ]
+        },
+        {
+          "name": "I0_TerrainShoulder",
+          "triangles": 2276,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4812,
+              "index_or_vertex_elements": 6828,
+              "triangles": 2276
+            }
+          ]
+        },
+        {
+          "name": "Start_Paver.001",
+          "triangles": 1044,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2088,
+              "index_or_vertex_elements": 3132,
+              "triangles": 1044
+            }
+          ]
+        },
+        {
+          "name": "Start_Paver",
+          "triangles": 1080,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2160,
+              "index_or_vertex_elements": 3240,
+              "triangles": 1080
+            }
+          ]
+        },
+        {
+          "name": "LastGate_Monument_Pier",
+          "triangles": 192,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 336,
+              "index_or_vertex_elements": 576,
+              "triangles": 192
+            }
+          ]
+        },
+        {
+          "name": "I0_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 426,
+              "index_or_vertex_elements": 426,
+              "triangles": 142
+            },
+            {
+              "mode": 4,
+              "position_vertices": 186,
+              "index_or_vertex_elements": 186,
+              "triangles": 62
+            },
+            {
+              "mode": 4,
+              "position_vertices": 321,
+              "index_or_vertex_elements": 321,
+              "triangles": 107
+            },
+            {
+              "mode": 4,
+              "position_vertices": 39,
+              "index_or_vertex_elements": 39,
+              "triangles": 13
+            }
+          ]
+        },
+        {
+          "name": "LastGate_Portal_URPShaderCandidate",
+          "triangles": 3,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 5,
+              "index_or_vertex_elements": 9,
+              "triangles": 3
+            }
+          ]
+        },
+        {
+          "name": "Spawn_Pedestal",
+          "triangles": 124,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 192,
+              "index_or_vertex_elements": 372,
+              "triangles": 124
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_Root",
+          "triangles": 2656,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 5988,
+              "index_or_vertex_elements": 7968,
+              "triangles": 2656
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RimHabitat_FlowerHeart",
+          "triangles": 1170,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3230,
+              "index_or_vertex_elements": 3510,
+              "triangles": 1170
+            }
+          ]
+        },
+        {
+          "name": "Knight_Inlay",
+          "triangles": 1179,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2735,
+              "index_or_vertex_elements": 3537,
+              "triangles": 1179
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_IvyLeaf.002",
+          "triangles": 4325,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 12673,
+              "index_or_vertex_elements": 12975,
+              "triangles": 4325
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_IvyLeaf.003",
+          "triangles": 3516,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 10548,
+              "index_or_vertex_elements": 10548,
+              "triangles": 3516
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_FallenRoyalGuardian_ArmorIvy_IvyLeaf",
+          "triangles": 2734,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 7898,
+              "index_or_vertex_elements": 8202,
+              "triangles": 2734
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RimHabitat_FlowerPetal",
+          "triangles": 6480,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 19440,
+              "index_or_vertex_elements": 19440,
+              "triangles": 6480
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RoyalBannerLeft_BlueCloth",
+          "triangles": 72,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 186,
+              "index_or_vertex_elements": 216,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_RedMemoryTree_LeafCrown",
+          "triangles": 1872,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 5616,
+              "index_or_vertex_elements": 5616,
+              "triangles": 1872
+            }
+          ]
+        },
+        {
+          "name": "I1_FloatingDebris",
+          "triangles": 90,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 270,
+              "index_or_vertex_elements": 270,
+              "triangles": 90
+            }
+          ]
+        },
+        {
+          "name": "I1_TerrainShoulder",
+          "triangles": 9498,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 20618,
+              "index_or_vertex_elements": 28494,
+              "triangles": 9498
+            }
+          ]
+        },
+        {
+          "name": "Knight_Paver.007",
+          "triangles": 960,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1920,
+              "index_or_vertex_elements": 2880,
+              "triangles": 960
+            }
+          ]
+        },
+        {
+          "name": "Knight_Paver.001",
+          "triangles": 1152,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2304,
+              "index_or_vertex_elements": 3456,
+              "triangles": 1152
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_Cathedral_MainPier_Footing",
+          "triangles": 1538,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3664,
+              "index_or_vertex_elements": 4614,
+              "triangles": 1538
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_Cathedral_MainArch_Voussoir01",
+          "triangles": 3172,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 7344,
+              "index_or_vertex_elements": 9516,
+              "triangles": 3172
+            }
+          ]
+        },
+        {
+          "name": "I1_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 447,
+              "index_or_vertex_elements": 447,
+              "triangles": 149
+            },
+            {
+              "mode": 4,
+              "position_vertices": 180,
+              "index_or_vertex_elements": 180,
+              "triangles": 60
+            },
+            {
+              "mode": 4,
+              "position_vertices": 300,
+              "index_or_vertex_elements": 300,
+              "triangles": 100
+            },
+            {
+              "mode": 4,
+              "position_vertices": 45,
+              "index_or_vertex_elements": 45,
+              "triangles": 15
+            }
+          ]
+        },
+        {
+          "name": "Kingdom_Cathedral_CyanMemoryCrystal",
+          "triangles": 13,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 39,
+              "index_or_vertex_elements": 39,
+              "triangles": 13
+            }
+          ]
+        },
+        {
+          "name": "Sea_0564_RibbonKelp",
+          "triangles": 533,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1269,
+              "index_or_vertex_elements": 1599,
+              "triangles": 533
+            }
+          ]
+        },
+        {
+          "name": "Sea_0562_HollowBarnacle",
+          "triangles": 1060,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2120,
+              "index_or_vertex_elements": 3180,
+              "triangles": 1060
+            }
+          ]
+        },
+        {
+          "name": "Sea_2521_CoralTrunk",
+          "triangles": 814,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2180,
+              "index_or_vertex_elements": 2442,
+              "triangles": 814
+            }
+          ]
+        },
+        {
+          "name": "Sea_2543_CoralTrunk",
+          "triangles": 814,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2168,
+              "index_or_vertex_elements": 2442,
+              "triangles": 814
+            }
+          ]
+        },
+        {
+          "name": "Sea_2565_CoralTrunk",
+          "triangles": 814,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2182,
+              "index_or_vertex_elements": 2442,
+              "triangles": 814
+            }
+          ]
+        },
+        {
+          "name": "Captain_Rosette",
+          "triangles": 1038,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2308,
+              "index_or_vertex_elements": 3114,
+              "triangles": 1038
+            }
+          ]
+        },
+        {
+          "name": "Sea_0013_HullForgedFastener",
+          "triangles": 2048,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4930,
+              "index_or_vertex_elements": 6144,
+              "triangles": 2048
+            }
+          ]
+        },
+        {
+          "name": "Sea_0361_SternGalleryWindowRecess",
+          "triangles": 30,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 68,
+              "index_or_vertex_elements": 90,
+              "triangles": 30
+            }
+          ]
+        },
+        {
+          "name": "I2_FloatingDebris",
+          "triangles": 90,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 270,
+              "index_or_vertex_elements": 270,
+              "triangles": 90
+            }
+          ]
+        },
+        {
+          "name": "Sea_0396_ProwEngravedGoldFeather",
+          "triangles": 6202,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 14432,
+              "index_or_vertex_elements": 18606,
+              "triangles": 6202
+            }
+          ]
+        },
+        {
+          "name": "Sea_0494_BarrelIronHoop",
+          "triangles": 1978,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 5046,
+              "index_or_vertex_elements": 5934,
+              "triangles": 1978
+            }
+          ]
+        },
+        {
+          "name": "Sea_0414_MainSail_RaggedMainCanvas",
+          "triangles": 118,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 298,
+              "index_or_vertex_elements": 354,
+              "triangles": 118
+            }
+          ]
+        },
+        {
+          "name": "Sea_0415_MainSail_WeatheredCanvasPatches",
+          "triangles": 41,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 87,
+              "index_or_vertex_elements": 123,
+              "triangles": 41
+            }
+          ]
+        },
+        {
+          "name": "I2_TerrainShoulder",
+          "triangles": 4540,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 10940,
+              "index_or_vertex_elements": 13620,
+              "triangles": 4540
+            }
+          ]
+        },
+        {
+          "name": "Captain_ShallowBrokenSlab",
+          "triangles": 168,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 336,
+              "index_or_vertex_elements": 504,
+              "triangles": 168
+            }
+          ]
+        },
+        {
+          "name": "Captain_ShallowWater_URPShaderCandidate",
+          "triangles": 384,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 772,
+              "index_or_vertex_elements": 1152,
+              "triangles": 384
+            }
+          ]
+        },
+        {
+          "name": "Sea_1482_RuinedDockArchMasonry",
+          "triangles": 1344,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3528,
+              "index_or_vertex_elements": 4032,
+              "triangles": 1344
+            }
+          ]
+        },
+        {
+          "name": "Captain_ShallowBrokenSlab.002",
+          "triangles": 92,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 190,
+              "index_or_vertex_elements": 276,
+              "triangles": 92
+            }
+          ]
+        },
+        {
+          "name": "Captain_LocalFoamBreakup",
+          "triangles": 959,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2099,
+              "index_or_vertex_elements": 2877,
+              "triangles": 959
+            }
+          ]
+        },
+        {
+          "name": "Captain_ContinuousArenaFloor",
+          "triangles": 548,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 980,
+              "index_or_vertex_elements": 1644,
+              "triangles": 548
+            }
+          ]
+        },
+        {
+          "name": "Sea_0006_GalleonCurvedIndividualHullStrake",
+          "triangles": 3423,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 7845,
+              "index_or_vertex_elements": 10269,
+              "triangles": 3423
+            }
+          ]
+        },
+        {
+          "name": "Sea_0001_GalleonHeavyKeel",
+          "triangles": 4572,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 10238,
+              "index_or_vertex_elements": 13716,
+              "triangles": 4572
+            }
+          ]
+        },
+        {
+          "name": "Sea_0004_GalleonCurvedIndividualHullStrake",
+          "triangles": 3246,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 6718,
+              "index_or_vertex_elements": 9738,
+              "triangles": 3246
+            }
+          ]
+        },
+        {
+          "name": "I2_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 474,
+              "index_or_vertex_elements": 474,
+              "triangles": 158
+            },
+            {
+              "mode": 4,
+              "position_vertices": 198,
+              "index_or_vertex_elements": 198,
+              "triangles": 66
+            },
+            {
+              "mode": 4,
+              "position_vertices": 276,
+              "index_or_vertex_elements": 276,
+              "triangles": 92
+            },
+            {
+              "mode": 4,
+              "position_vertices": 24,
+              "index_or_vertex_elements": 24,
+              "triangles": 8
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PalmTrunk_00",
+          "triangles": 60,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 180,
+              "triangles": 60
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_CrystalFacetLight",
+          "triangles": 48,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 112,
+              "index_or_vertex_elements": 144,
+              "triangles": 48
+            }
+          ]
+        },
+        {
+          "name": "TitanDetailGatewayColumn_CollarHighlight",
+          "triangles": 5674,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 11210,
+              "index_or_vertex_elements": 17022,
+              "triangles": 5674
+            }
+          ]
+        },
+        {
+          "name": "Titan_Inlay",
+          "triangles": 5642,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 11906,
+              "index_or_vertex_elements": 16926,
+              "triangles": 5642
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PalmFrond",
+          "triangles": 15,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 45,
+              "index_or_vertex_elements": 45,
+              "triangles": 15
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PalmFrond.001",
+          "triangles": 20,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 60,
+              "index_or_vertex_elements": 60,
+              "triangles": 20
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_PortalInnerGilt_Pier",
+          "triangles": 124,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 258,
+              "index_or_vertex_elements": 372,
+              "triangles": 124
+            }
+          ]
+        },
+        {
+          "name": "I3_FloatingDebris",
+          "triangles": 90,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 270,
+              "index_or_vertex_elements": 270,
+              "triangles": 90
+            }
+          ]
+        },
+        {
+          "name": "I3_TerrainShoulder",
+          "triangles": 14012,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 30208,
+              "index_or_vertex_elements": 42036,
+              "triangles": 14012
+            }
+          ]
+        },
+        {
+          "name": "Titan_Paver.001",
+          "triangles": 1020,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2040,
+              "index_or_vertex_elements": 3060,
+              "triangles": 1020
+            }
+          ]
+        },
+        {
+          "name": "Titan_Paver.002",
+          "triangles": 1020,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2040,
+              "index_or_vertex_elements": 3060,
+              "triangles": 1020
+            }
+          ]
+        },
+        {
+          "name": "TitanDetailGatewayColumn_SteppedBase",
+          "triangles": 5272,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 13464,
+              "index_or_vertex_elements": 15816,
+              "triangles": 5272
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_GatewayStair",
+          "triangles": 8822,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 20390,
+              "index_or_vertex_elements": 26466,
+              "triangles": 8822
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_DryRimGrass",
+          "triangles": 540,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1282,
+              "index_or_vertex_elements": 1620,
+              "triangles": 540
+            }
+          ]
+        },
+        {
+          "name": "TitanDetail_LeftColossalPharaoh_RoyalForeheadGem",
+          "triangles": 24,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 72,
+              "index_or_vertex_elements": 72,
+              "triangles": 24
+            }
+          ]
+        },
+        {
+          "name": "I3_Cliff_ExposedUnderside",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 447,
+              "index_or_vertex_elements": 447,
+              "triangles": 149
+            },
+            {
+              "mode": 4,
+              "position_vertices": 222,
+              "index_or_vertex_elements": 222,
+              "triangles": 74
+            },
+            {
+              "mode": 4,
+              "position_vertices": 273,
+              "index_or_vertex_elements": 273,
+              "triangles": 91
+            },
+            {
+              "mode": 4,
+              "position_vertices": 30,
+              "index_or_vertex_elements": 30,
+              "triangles": 10
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_Trunk",
+          "triangles": 2568,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4872,
+              "index_or_vertex_elements": 7704,
+              "triangles": 2568
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_RunnerTread",
+          "triangles": 304,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 594,
+              "index_or_vertex_elements": 912,
+              "triangles": 304
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_CanopyBlueSpireRoof",
+          "triangles": 552,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 872,
+              "index_or_vertex_elements": 1656,
+              "triangles": 552
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneFlowerUrn_WhiteBloom",
+          "triangles": 4640,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 13920,
+              "index_or_vertex_elements": 13920,
+              "triangles": 4640
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneFlowerUrn_YellowHeart",
+          "triangles": 480,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 1440,
+              "triangles": 480
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_RunnerGoldHem",
+          "triangles": 7872,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 15632,
+              "index_or_vertex_elements": 23616,
+              "triangles": 7872
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_Inlay",
+          "triangles": 9768,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 17264,
+              "index_or_vertex_elements": 29304,
+              "triangles": 9768
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_ClippedCypressFoliage",
+          "triangles": 4912,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 14736,
+              "index_or_vertex_elements": 14736,
+              "triangles": 4912
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_ClippedCypressFoliage.003",
+          "triangles": 4312,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 12936,
+              "index_or_vertex_elements": 12936,
+              "triangles": 4312
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneFlowerUrn_LeafCluster.001",
+          "triangles": 2448,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 7344,
+              "index_or_vertex_elements": 7344,
+              "triangles": 2448
+            }
+          ]
+        },
+        {
+          "name": "I4_TerrainShoulder.001",
+          "triangles": 13824,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 25764,
+              "index_or_vertex_elements": 41472,
+              "triangles": 13824
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_CanopyRoyalBlueInset",
+          "triangles": 77,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 151,
+              "index_or_vertex_elements": 231,
+              "triangles": 77
+            }
+          ]
+        },
+        {
+          "name": "I4_FloatingDebris.001",
+          "triangles": 180,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 540,
+              "index_or_vertex_elements": 540,
+              "triangles": 180
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_ThroneCypress_PlanterSoil",
+          "triangles": 664,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1080,
+              "index_or_vertex_elements": 1992,
+              "triangles": 664
+            }
+          ]
+        },
+        {
+          "name": "ThroneCourt_CanopyOuterMoulding_Voussoir",
+          "triangles": 2124,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 3872,
+              "index_or_vertex_elements": 6372,
+              "triangles": 2124
+            }
+          ]
+        },
+        {
+          "name": "I4_Cliff_ExposedUnderside.001",
+          "triangles": 324,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 426,
+              "index_or_vertex_elements": 426,
+              "triangles": 142
+            },
+            {
+              "mode": 4,
+              "position_vertices": 186,
+              "index_or_vertex_elements": 186,
+              "triangles": 62
+            },
+            {
+              "mode": 4,
+              "position_vertices": 321,
+              "index_or_vertex_elements": 321,
+              "triangles": 107
+            },
+            {
+              "mode": 4,
+              "position_vertices": 39,
+              "index_or_vertex_elements": 39,
+              "triangles": 13
+            }
+          ]
+        },
+        {
+          "name": "BG_Precinct_00_NonPlayableLandmass",
+          "triangles": 2722,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 6514,
+              "index_or_vertex_elements": 8166,
+              "triangles": 2722
+            }
+          ]
+        },
+        {
+          "name": "BG_Precinct_02_NonPlayableLandmass",
+          "triangles": 1110,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2686,
+              "index_or_vertex_elements": 3330,
+              "triangles": 1110
+            }
+          ]
+        },
+        {
+          "name": "B2_Lantern.024",
+          "triangles": 320,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 960,
+              "index_or_vertex_elements": 960,
+              "triangles": 320
+            }
+          ]
+        },
+        {
+          "name": "B2_CrossRib.024",
+          "triangles": 736,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1344,
+              "index_or_vertex_elements": 2208,
+              "triangles": 736
+            }
+          ]
+        },
+        {
+          "name": "B2_Baluster.048",
+          "triangles": 1008,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1728,
+              "index_or_vertex_elements": 3024,
+              "triangles": 1008
+            }
+          ]
+        },
+        {
+          "name": "SeaBridge_BoundTimberPile.006",
+          "triangles": 72,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 144,
+              "index_or_vertex_elements": 216,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "name": "B2_DeckPaver.035",
+          "triangles": 408,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 816,
+              "index_or_vertex_elements": 1224,
+              "triangles": 408
+            }
+          ]
+        },
+        {
+          "name": "B3_Lantern.034",
+          "triangles": 480,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 1440,
+              "triangles": 480
+            }
+          ]
+        },
+        {
+          "name": "Bridge_BannerGoldHem.060",
+          "triangles": 360,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 720,
+              "index_or_vertex_elements": 1080,
+              "triangles": 360
+            }
+          ]
+        },
+        {
+          "name": "B3_CrossRib.033",
+          "triangles": 904,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1680,
+              "index_or_vertex_elements": 2712,
+              "triangles": 904
+            }
+          ]
+        },
+        {
+          "name": "Bridge_HangingPurpleBanner.006",
+          "triangles": 18,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 30,
+              "index_or_vertex_elements": 54,
+              "triangles": 18
+            }
+          ]
+        },
+        {
+          "name": "B3_DeckPaver.060",
+          "triangles": 732,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1464,
+              "index_or_vertex_elements": 2196,
+              "triangles": 732
+            }
+          ]
+        },
+        {
+          "name": "B3_Baluster.066",
+          "triangles": 1456,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2496,
+              "index_or_vertex_elements": 4368,
+              "triangles": 1456
+            }
+          ]
+        },
+        {
+          "name": "Bridge_HangingRoyalBlueBanner.006",
+          "triangles": 18,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 30,
+              "index_or_vertex_elements": 54,
+              "triangles": 18
+            }
+          ]
+        },
+        {
+          "name": "B4_GatePylon_Crystal.008",
+          "triangles": 80,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 240,
+              "index_or_vertex_elements": 240,
+              "triangles": 80
+            }
+          ]
+        },
+        {
+          "name": "B4_ContinuousRail.024",
+          "triangles": 504,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1008,
+              "index_or_vertex_elements": 1512,
+              "triangles": 504
+            }
+          ]
+        },
+        {
+          "name": "B4_CrossRib.037",
+          "triangles": 784,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 2352,
+              "triangles": 784
+            }
+          ]
+        },
+        {
+          "name": "B4_DeckPaver.066",
+          "triangles": 1116,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2136,
+              "index_or_vertex_elements": 3348,
+              "triangles": 1116
+            }
+          ]
+        },
+        {
+          "name": "B4_Baluster.074",
+          "triangles": 1256,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2160,
+              "index_or_vertex_elements": 3768,
+              "triangles": 1256
+            }
+          ]
+        },
+        {
+          "name": "B4_Lantern.038",
+          "triangles": 440,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1320,
+              "index_or_vertex_elements": 1320,
+              "triangles": 440
+            }
+          ]
+        },
+        {
+          "name": "B1_Lantern.020",
+          "triangles": 280,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 840,
+              "index_or_vertex_elements": 840,
+              "triangles": 280
+            }
+          ]
+        },
+        {
+          "name": "B1_CrossRib.020",
+          "triangles": 784,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 1440,
+              "index_or_vertex_elements": 2352,
+              "triangles": 784
+            }
+          ]
+        },
+        {
+          "name": "B1_DeckPaver.029",
+          "triangles": 1256,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 2256,
+              "index_or_vertex_elements": 3768,
+              "triangles": 1256
+            }
+          ]
+        },
+        {
+          "name": "I1_TranslucentCascadeRibbon",
+          "triangles": 2142,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 4284,
+              "index_or_vertex_elements": 6426,
+              "triangles": 2142
+            }
+          ]
+        },
+        {
+          "name": "Waterfall_I0_0_Ribbon",
+          "triangles": 24,
+          "primitives": [
+            {
+              "mode": 4,
+              "position_vertices": 48,
+              "index_or_vertex_elements": 72,
+              "triangles": 24
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "checks": [
+    {
+      "name": "visual_binary_geometry_valid",
+      "passed": true
+    },
+    {
+      "name": "visual_self_contained_images",
+      "passed": true
+    },
+    {
+      "name": "collision_binary_geometry_valid",
+      "passed": true
+    },
+    {
+      "name": "collision_self_contained_images",
+      "passed": true
+    },
+    {
+      "name": "lod1_binary_geometry_valid",
+      "passed": true
+    },
+    {
+      "name": "lod1_self_contained_images",
+      "passed": true
+    },
+    {
+      "name": "visual_has_no_unbaked_preview_normal_map",
+      "passed": true,
+      "details": {
+        "normal_map_baked": false,
+        "unexpected_normal_maps": []
+      }
+    },
+    {
+      "name": "lod1_has_no_unbaked_preview_normal_map",
+      "passed": true,
+      "details": {
+        "normal_map_baked": false,
+        "unexpected_normal_maps": []
+      }
+    },
+    {
+      "name": "exactly_five_named_island_groups",
+      "passed": true,
+      "details": [
+        "00_START_ISLAND",
+        "01_HOLLOW_KNIGHT",
+        "02_DROWNED_CAPTAIN",
+        "03_TITAN_COLOSSUS",
+        "04_VANDER_POEL"
+      ]
+    },
+    {
+      "name": "exactly_four_named_adjacent_bridge_groups",
+      "passed": true,
+      "details": [
+        "Bridge_Node1_Node2",
+        "Bridge_Node2_Node3",
+        "Bridge_Node3_Boss",
+        "Bridge_Start_Node1"
+      ]
+    },
+    {
+      "name": "manifest_has_five_islands",
+      "passed": true
+    },
+    {
+      "name": "manifest_route_is_linear",
+      "passed": true,
+      "details": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "name": "required_markers_in_visual_glb",
+      "passed": true,
+      "details": {
+        "missing": []
+      }
+    },
+    {
+      "name": "required_markers_in_manifest",
+      "passed": true
+    },
+    {
+      "name": "visual_binary_triangles_match_manifest",
+      "passed": true,
+      "details": {
+        "binary": 281090,
+        "manifest": 281090
+      }
+    },
+    {
+      "name": "collision_binary_triangles_match_manifest",
+      "passed": true,
+      "details": {
+        "binary": 3816,
+        "manifest": 3816
+      }
+    },
+    {
+      "name": "lod1_has_measured_triangle_reduction",
+      "passed": true,
+      "details": {
+        "visual": 281090,
+        "lod1": 199754
+      }
+    },
+    {
+      "name": "fresh_visual_import_has_finite_geometry",
+      "passed": true
+    },
+    {
+      "name": "fresh_visual_import_triangle_count_matches_binary",
+      "passed": true,
+      "details": {
+        "imported": 281090,
+        "binary": 281090
+      }
+    },
+    {
+      "name": "fresh_visual_island_0_floor_under_declared_center",
+      "passed": true,
+      "details": {
+        "hit": [
+          -6.0,
+          -12.0,
+          1.439971923828125
+        ],
+        "expected_z": 1.44
+      }
+    },
+    {
+      "name": "fresh_visual_island_1_floor_under_declared_center",
+      "passed": true,
+      "details": {
+        "hit": [
+          276.0,
+          132.0,
+          6.024993896484375
+        ],
+        "expected_z": 6
+      }
+    },
+    {
+      "name": "fresh_visual_island_2_floor_under_declared_center",
+      "passed": true,
+      "details": {
+        "hit": [
+          624.0,
+          306.0,
+          12.037994384765625
+        ],
+        "expected_z": 12
+      }
+    },
+    {
+      "name": "fresh_visual_island_3_floor_under_declared_center",
+      "passed": true,
+      "details": {
+        "hit": [
+          1280.0,
+          620.0,
+          17.999969482421875
+        ],
+        "expected_z": 18
+      }
+    },
+    {
+      "name": "fresh_visual_island_4_floor_under_declared_center",
+      "passed": true,
+      "details": {
+        "hit": [
+          2020.0,
+          980.0,
+          30.287994384765625
+        ],
+        "expected_z": 30
+      }
+    },
+    {
+      "name": "Bridge_Start_Node1_exported_geometry_stays_on_intended_route",
+      "passed": true,
+      "details": {
+        "along_min": -1.3721866607666016,
+        "along_max": 150.42117309570312,
+        "cross_max": 26.60667610168457,
+        "deck_length": 150.42115842641203
+      }
+    },
+    {
+      "name": "Bridge_Node1_Node2_exported_geometry_stays_on_intended_route",
+      "passed": true,
+      "details": {
+        "along_min": -1.3764429092407227,
+        "along_max": 181.7158432006836,
+        "cross_max": 26.64593505859375,
+        "deck_length": 181.71580097564095
+      }
+    },
+    {
+      "name": "Bridge_Node2_Node3_exported_geometry_stays_on_intended_route",
+      "passed": true,
+      "details": {
+        "along_min": -1.3723340034484863,
+        "along_max": 316.8771286010742,
+        "cross_max": 26.607383728027344,
+        "deck_length": 316.877092571986
+      }
+    },
+    {
+      "name": "Bridge_Node3_Boss_exported_geometry_stays_on_intended_route",
+      "passed": true,
+      "details": {
+        "along_min": -1.3739166259765625,
+        "along_max": 347.72146224975586,
+        "cross_max": 26.621938705444336,
+        "deck_length": 347.72146438906384
+      }
+    },
+    {
+      "name": "all_manifest_marker_world_positions_within_1mm",
+      "passed": true,
+      "details": {
+        "compared": 36,
+        "failed": []
+      }
+    },
+    {
+      "name": "collision_binary_contains_five_floors_four_decks",
+      "passed": true,
+      "details": {
+        "missing": []
+      }
+    },
+    {
+      "name": "fresh_collision_import_has_finite_geometry",
+      "passed": true
+    },
+    {
+      "name": "fresh_collision_import_triangle_count_matches_binary",
+      "passed": true
+    },
+    {
+      "name": "fresh_collision_import_contains_five_floor_meshes_four_decks",
+      "passed": true,
+      "details": {
+        "missing": []
+      }
+    }
+  ],
+  "errors": [],
+  "lod1_triangle_reduction_fraction": 0.2893592799459248,
+  "fresh_blender_visual_import": {
+    "objects": 159,
+    "meshes": 110,
+    "vertices": 612686,
+    "triangles": 281090,
+    "finite_local_vertices": true,
+    "finite_world_matrices": true,
+    "object_names": [
+      "ConvergenceCitadel_Environment",
+      "00_START_ISLAND",
+      "00_START_ISLAND_cyan",
+      "00_START_ISLAND_gold",
+      "00_START_ISLAND_gold_dark",
+      "00_START_ISLAND_navy",
+      "00_START_ISLAND_rock_BatchedDetail",
+      "00_START_ISLAND_stone",
+      "00_START_ISLAND_stone_a_BatchedDetail",
+      "00_START_ISLAND_stone_b_BatchedDetail",
+      "00_START_ISLAND_stone_light",
+      "I0_Cliff_ExposedUnderside",
+      "LastGate_Portal_URPShaderCandidate",
+      "Spawn_Pedestal",
+      "01_HOLLOW_KNIGHT",
+      "01_HOLLOW_KNIGHT_bark",
+      "01_HOLLOW_KNIGHT_gold",
+      "01_HOLLOW_KNIGHT_gold_dark",
+      "01_HOLLOW_KNIGHT_leaf",
+      "01_HOLLOW_KNIGHT_leaf_dark",
+      "01_HOLLOW_KNIGHT_leaf_light",
+      "01_HOLLOW_KNIGHT_marble",
+      "01_HOLLOW_KNIGHT_navy",
+      "01_HOLLOW_KNIGHT_red_leaf",
+      "01_HOLLOW_KNIGHT_rock_BatchedDetail",
+      "01_HOLLOW_KNIGHT_stone",
+      "01_HOLLOW_KNIGHT_stone_a_BatchedDetail",
+      "01_HOLLOW_KNIGHT_stone_b_BatchedDetail",
+      "01_HOLLOW_KNIGHT_stone_dark",
+      "01_HOLLOW_KNIGHT_stone_light",
+      "I1_Cliff_ExposedUnderside",
+      "Kingdom_Cathedral_CyanMemoryCrystal",
+      "02_DROWNED_CAPTAIN",
+      "02_DROWNED_CAPTAIN_algae",
+      "02_DROWNED_CAPTAIN_barnacle",
+      "02_DROWNED_CAPTAIN_coral",
+      "02_DROWNED_CAPTAIN_coral_gold",
+      "02_DROWNED_CAPTAIN_coral_purple",
+      "02_DROWNED_CAPTAIN_gold_dark",
+      "02_DROWNED_CAPTAIN_iron",
+      "02_DROWNED_CAPTAIN_navy",
+      "02_DROWNED_CAPTAIN_rock_BatchedDetail",
+      "02_DROWNED_CAPTAIN_rope",
+      "02_DROWNED_CAPTAIN_rust",
+      "02_DROWNED_CAPTAIN_sail",
+      "02_DROWNED_CAPTAIN_sail_dark",
+      "02_DROWNED_CAPTAIN_seastone",
+      "02_DROWNED_CAPTAIN_seastone_a",
+      "02_DROWNED_CAPTAIN_ShallowWater_Surface_Transparent",
+      "02_DROWNED_CAPTAIN_stone",
+      "02_DROWNED_CAPTAIN_stone_light",
+      "02_DROWNED_CAPTAIN_Water_Foam_Transparent",
+      "02_DROWNED_CAPTAIN_wetstone",
+      "02_DROWNED_CAPTAIN_wood",
+      "02_DROWNED_CAPTAIN_wood_dark",
+      "02_DROWNED_CAPTAIN_wood_light",
+      "I2_Cliff_ExposedUnderside",
+      "03_TITAN_COLOSSUS",
+      "03_TITAN_COLOSSUS_bark",
+      "03_TITAN_COLOSSUS_crystal",
+      "03_TITAN_COLOSSUS_gold",
+      "03_TITAN_COLOSSUS_gold_dark",
+      "03_TITAN_COLOSSUS_leaf",
+      "03_TITAN_COLOSSUS_leaf_light",
+      "03_TITAN_COLOSSUS_purple",
+      "03_TITAN_COLOSSUS_rock_BatchedDetail",
+      "03_TITAN_COLOSSUS_sand",
+      "03_TITAN_COLOSSUS_sand_a_BatchedDetail",
+      "03_TITAN_COLOSSUS_sand_b_BatchedDetail",
+      "03_TITAN_COLOSSUS_sand_dark",
+      "03_TITAN_COLOSSUS_sand_light",
+      "03_TITAN_COLOSSUS_soil",
+      "03_TITAN_COLOSSUS_violet",
+      "I3_Cliff_ExposedUnderside",
+      "04_VANDER_POEL",
+      "04_VANDER_POEL_bark",
+      "04_VANDER_POEL_blue_cloth",
+      "04_VANDER_POEL_blue_roof",
+      "04_VANDER_POEL_flower_white",
+      "04_VANDER_POEL_flower_yellow",
+      "04_VANDER_POEL_gold",
+      "04_VANDER_POEL_gold_dark",
+      "04_VANDER_POEL_leaf",
+      "04_VANDER_POEL_leaf_dark",
+      "04_VANDER_POEL_leaf_light",
+      "04_VANDER_POEL_marble",
+      "04_VANDER_POEL_navy",
+      "04_VANDER_POEL_rock",
+      "04_VANDER_POEL_soil",
+      "04_VANDER_POEL_stone_light",
+      "I4_Cliff_ExposedUnderside",
+      "BACKGROUND_ISLANDS",
+      "BACKGROUND_ISLANDS_BG_RuinHaze",
+      "BACKGROUND_ISLANDS_BG_SandHaze",
+      "Bridge_Node1_Node2",
+      "Bridge_Node1_Node2_cyan",
+      "Bridge_Node1_Node2_gold_dark",
+      "Bridge_Node1_Node2_stone_light",
+      "Bridge_Node1_Node2_wood_dark",
+      "Bridge_Node1_Node2_wood_light",
+      "Bridge_Node2_Node3",
+      "Bridge_Node2_Node3_cyan",
+      "Bridge_Node2_Node3_gold",
+      "Bridge_Node2_Node3_gold_dark",
+      "Bridge_Node2_Node3_purple",
+      "Bridge_Node2_Node3_sand_light",
+      "Bridge_Node2_Node3_stone_light",
+      "Bridge_Node3_Boss",
+      "Bridge_Node3_Boss_blue_cloth",
+      "Bridge_Node3_Boss_cyan",
+      "Bridge_Node3_Boss_gold",
+      "Bridge_Node3_Boss_gold_dark",
+      "Bridge_Node3_Boss_marble",
+      "Bridge_Node3_Boss_stone_light",
+      "Bridge_Node3_Boss_violet",
+      "Bridge_Start_Node1",
+      "Bridge_Start_Node1_cyan",
+      "Bridge_Start_Node1_gold_dark",
+      "Bridge_Start_Node1_stone_light",
+      "GAMEPLAY_MARKERS",
+      "Boss_ArenaCenter",
+      "Boss_BossSpawn",
+      "Boss_CutsceneView",
+      "Boss_EncounterBounds",
+      "Boss_Entry",
+      "Boss_RewardSpot",
+      "Boss_ThroneSeat",
+      "Bridge_01_Entry",
+      "Bridge_01_Exit",
+      "Bridge_02_Entry",
+      "Bridge_02_Exit",
+      "Bridge_03_Entry",
+      "Bridge_03_Exit",
+      "Bridge_04_Entry",
+      "Bridge_04_Exit",
+      "Bridge_Gate_01",
+      "Bridge_Gate_02",
+      "Bridge_Gate_03",
+      "Bridge_Gate_04",
+      "Final_VictorySpot",
+      "Node1_ArenaCenter",
+      "Node1_BossSpawn",
+      "Node1_EncounterBounds",
+      "Node1_Entry",
+      "Node1_RewardSpot",
+      "Node2_ArenaCenter",
+      "Node2_BossSpawn",
+      "Node2_EncounterBounds",
+      "Node2_Entry",
+      "Node2_RewardSpot",
+      "Node3_ArenaCenter",
+      "Node3_BossSpawn",
+      "Node3_EncounterBounds",
+      "Node3_Entry",
+      "Node3_RewardSpot",
+      "PlayerSpawn_Start",
+      "WATERFALLS",
+      "WATERFALLS_Cascade_Mist_Transparent",
+      "WATERFALLS_fall"
+    ]
+  },
+  "fresh_blender_marker_comparisons": [
+    {
+      "name": "PlayerSpawn_Start",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        -6.0,
+        -12.0,
+        1.44
+      ],
+      "imported_blender_position_m": [
+        -6.0,
+        -12.0,
+        1.4399999380111694
+      ],
+      "position_error_m": 1.1920928955078125e-07
+    },
+    {
+      "name": "Node1_ArenaCenter",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        276.0,
+        132.0,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        276.0,
+        132.0,
+        6.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node1_BossSpawn",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        276.0,
+        166.5,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        276.0,
+        166.5,
+        6.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node1_RewardSpot",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        306.36002,
+        132.0,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        306.3600158691406,
+        132.0,
+        6.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node1_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        207.52802,
+        99.25253,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        207.52801513671875,
+        99.25252532958984,
+        6.0
+      ],
+      "position_error_m": 7.62939453125e-06
+    },
+    {
+      "name": "Node1_EncounterBounds",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        276.0,
+        132.0,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        276.0,
+        132.0,
+        6.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node2_ArenaCenter",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        624.0,
+        306.0,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        624.0,
+        306.0,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node2_BossSpawn",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        624.0,
+        343.5,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        624.0,
+        343.5,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node2_RewardSpot",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        657.0,
+        306.0,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        657.0,
+        306.0,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node2_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        550.20978,
+        269.10489,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        550.2097778320312,
+        269.1048889160156,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node2_EncounterBounds",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        624.0,
+        306.0,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        624.0,
+        306.0,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node3_ArenaCenter",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node3_BossSpawn",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node3_RewardSpot",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1372.40015,
+        620.0,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        1372.400146484375,
+        620.0,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node3_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1071.55444,
+        520.44385,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        1071.554443359375,
+        520.44384765625,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Node3_EncounterBounds",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Boss_ArenaCenter",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        2020.0,
+        980.0,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        2020.0,
+        980.0,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Boss_BossSpawn",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        2020.0,
+        1040.0,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        2020.0,
+        1040.0,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Boss_RewardSpot",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        2072.7998,
+        980.0,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        2072.7998046875,
+        980.0,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Boss_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1902.83875,
+        919.19482,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        1902.8387451171875,
+        919.19482421875,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Boss_EncounterBounds",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        2020.0,
+        980.0,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        2020.0,
+        980.0,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_Gate_01",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        161.93791,
+        77.44858,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        161.9379119873047,
+        77.44857788085938,
+        6.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_01_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        50.66386,
+        24.23054,
+        0.0
+      ],
+      "imported_blender_position_m": [
+        50.663856506347656,
+        24.230541229248047,
+        0.0
+      ],
+      "position_error_m": 4.264961199760036e-06
+    },
+    {
+      "name": "Bridge_01_Exit",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        186.36394,
+        89.13058,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        186.3639373779297,
+        89.13058471679688,
+        6.0
+      ],
+      "position_error_m": 7.62939453125e-06
+    },
+    {
+      "name": "Bridge_Gate_02",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        498.14618,
+        243.07309,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        498.14617919921875,
+        243.07308959960938,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_02_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        364.8703,
+        176.43515,
+        6.0
+      ],
+      "imported_blender_position_m": [
+        364.87030029296875,
+        176.43515014648438,
+        6.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_02_Exit",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        527.40186,
+        257.70093,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        527.40185546875,
+        257.700927734375,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_Gate_03",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        955.789,
+        464.81363,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        955.7890014648438,
+        464.8136291503906,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_03_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        721.41541,
+        352.62872,
+        12.0
+      ],
+      "imported_blender_position_m": [
+        721.4154052734375,
+        352.62872314453125,
+        12.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_03_Exit",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1007.23682,
+        489.43958,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        1007.23681640625,
+        489.4395751953125,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_Gate_04",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1808.3291,
+        877.0249,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        1808.3291015625,
+        877.02490234375,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_04_Entry",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1551.92871,
+        752.28967,
+        18.0
+      ],
+      "imported_blender_position_m": [
+        1551.9287109375,
+        752.2896728515625,
+        18.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Bridge_04_Exit",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        1864.61206,
+        904.40588,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        1864.612060546875,
+        904.4058837890625,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Final_VictorySpot",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        2020.0,
+        936.9231,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        2020.0,
+        936.923095703125,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Boss_CutsceneView",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        2020.0,
+        820.0,
+        30.0
+      ],
+      "imported_blender_position_m": [
+        2020.0,
+        820.0,
+        30.0
+      ],
+      "position_error_m": 0.0
+    },
+    {
+      "name": "Boss_ThroneSeat",
+      "present": true,
+      "passed": true,
+      "expected_blender_position_m": [
+        2019.99988,
+        1203.92004,
+        53.28
+      ],
+      "imported_blender_position_m": [
+        2019.9998779296875,
+        1203.9200439453125,
+        53.279998779296875
+      ],
+      "position_error_m": 0.0
+    }
+  ],
+  "fresh_blender_collision_import": {
+    "objects": 19,
+    "meshes": 19,
+    "vertices": 7224,
+    "triangles": 3816,
+    "finite_local_vertices": true,
+    "finite_world_matrices": true,
+    "object_names": [
+      "COL_Island_00_ContinuousFloor",
+      "COL_Island_01_ContinuousFloor",
+      "COL_Island_02_ContinuousFloor",
+      "COL_Island_03_ContinuousFloor",
+      "COL_Start_SpawnPedestal",
+      "COL_Island_00_FallBoundary_Combined",
+      "COL_Island_01_FallBoundary_Combined",
+      "COL_Island_02_FallBoundary_Combined",
+      "COL_Island_03_FallBoundary_Combined",
+      "COL_Island_04_FallBoundary_Combined",
+      "COL_Island_04_ContinuousFloor",
+      "COL_Bridge_01_Deck",
+      "COL_Bridge_01_Rail_Combined",
+      "COL_Bridge_02_Deck",
+      "COL_Bridge_02_Rail_Combined",
+      "COL_Bridge_03_Deck",
+      "COL_Bridge_03_Rail_Combined",
+      "COL_Bridge_04_Deck",
+      "COL_Bridge_04_Rail_Combined"
+    ]
+  },
+  "passed": true
+}

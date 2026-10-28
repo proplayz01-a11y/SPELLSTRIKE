@@ -1,0 +1,38 @@
+# Unity Stage 4 v003 editor-only import audit
+Executed via visible Unity Editor menu; no Play Mode, no production-scene save, no persistence writes.
+- Scene path: `Assets/Scenes/Stage4Scene/Stage4Scene_ConvergenceCitadel_v003_Validation.unity`
+- Imported main root active: True
+- LOD1 root active: False; note: island-level LODGroups NOT configured
+- Visual meshFilter count: 110; imported triangle instances: 281090
+- LOD1 meshFilter count: 110; imported triangle instances: 199754
+- Independent static non-convex MeshColliders: 19
+- Collider renderers enabled: 0
+- Colliders configured: True
+- Island 0 ACTUAL UNITY continuous floor collider bounds: center=(-7.85, -2.55, -0.93), size=(159.44, 5.10, 162.10) (world units, axis-aligned box, not walkable area)
+- Island 1 ACTUAL UNITY continuous floor collider bounds: center=(-272.71, 3.45, -137.53), size=(308.74, 5.10, 249.17) (world units, axis-aligned box, not walkable area)
+- Island 2 ACTUAL UNITY continuous floor collider bounds: center=(-626.91, 9.45, -291.47), size=(323.90, 5.10, 317.39) (world units, axis-aligned box, not walkable area)
+- Island 3 ACTUAL UNITY continuous floor collider bounds: center=(-1281.76, 12.24, -625.88), size=(823.59, 11.52, 940.21) (world units, axis-aligned box, not walkable area)
+- Island 4 ACTUAL UNITY continuous floor collider bounds: center=(-2022.91, 27.45, -977.12), size=(521.03, 5.10, 509.31) (world units, axis-aligned box, not walkable area)
+- Bridge deck collider meshes: 4/4; bridge rail collider meshes: 4/4
+- NavMeshSurface present: True; NavMesh baked: NO
+- Actual imported validation-player capsule local H=2 radius=0.5; world H=21.4200, world horizontal radius=5.3550, object scale=(10.71, 10.71, 10.71)
+- Player calibration root inactive: True
+- Titan calibration root inactive: True; original actor-prefab instance preserved
+- Titan collider capsules in imported canonical QA prefab: 6
+  - S3N4_Titan_EarthbreakerV017_BOSS: local radius=0.3000, height=0.8300, world radius~=12.0030, height~=33.2083, trigger=False
+  - V017_SOLID_LEFT_SHIN: local radius=0.0637, height=0.3693, world radius~=2.5500, height~=14.7775, trigger=False
+  - V017_SOLID_LEFT_THIGH: local radius=0.0787, height=0.4254, world radius~=3.1500, height~=17.0218, trigger=False
+  - V017_SOLID_RIGHT_SHIN: local radius=0.0637, height=0.3701, world radius~=2.5500, height~=14.8087, trigger=False
+  - V017_SOLID_RIGHT_THIGH: local radius=0.0787, height=0.4258, world radius~=3.1500, height~=17.0357, trigger=False
+  - V017_PROJECTILE_HURTBOX_TRIGGER_NOT_SOLID: local radius=0.5300, height=2.2700, world radius~=21.2053, height~=90.8227, trigger=True
+- Imported GLB material count: 53; unsupported shader count: 0; shader names outside URP/GLTFast naming: 53
+  - Shader Graphs/glTF-pbrMetallicRoughness: 53 materials
+  - RenderPipeline shader tag UniversalPipeline: 53 materials
+- Distinct assigned textures in glTF material properties: 2
+  - Citadel_BaseColor_Atlas: 2048x2048
+  - Citadel_ORM_Atlas: 2048x2048
+- Authored LODGroup components: 0; expected still 0 pending safe island-by-island grouping
+- ORM channel conversion and water/VFX fidelity: NOT TESTED; glTF ORM is R occlusion/G roughness/B metallic; not a Unity metallic-smoothness texture.
+- Marker match (<=1cm, Unity X=-GLB X): 36/36; max coordinate error=0.00001 Unity units
+- Editor-only physics bridge-deck samples: 36/36 (nine centreline samples per bridge; unrelated scene colliders filtered out). Not a walking test.
+- Player-controlled bridge traversal, camera clearance, physical Titan V017 stomp contact, 98m waves, mandatory vocabulary, PC FPS, Galaxy A05s: NOT TESTED

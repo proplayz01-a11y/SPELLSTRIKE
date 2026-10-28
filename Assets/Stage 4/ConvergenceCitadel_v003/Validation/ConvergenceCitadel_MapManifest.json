@@ -1,0 +1,1857 @@
+{
+  "layout": [
+    [
+      0,
+      0,
+      0,
+      78
+    ],
+    [
+      276,
+      132,
+      6,
+      138
+    ],
+    [
+      624,
+      306,
+      12,
+      150
+    ],
+    [
+      1280,
+      620,
+      18,
+      420
+    ],
+    [
+      2020,
+      980,
+      30,
+      240
+    ]
+  ],
+  "names": [
+    "00_START_ISLAND",
+    "01_HOLLOW_KNIGHT",
+    "02_DROWNED_CAPTAIN",
+    "03_TITAN_COLOSSUS",
+    "04_VANDER_POEL"
+  ],
+  "themes": [
+    "The Last Gate",
+    "Hollow Knight",
+    "Drowned Captain",
+    "Titan Colossus",
+    "Vander Poel"
+  ],
+  "bridges": [
+    {
+      "name": "Bridge_Start_Node1",
+      "start": [
+        50.66385841369629,
+        24.230541229248047,
+        0.0
+      ],
+      "end": [
+        186.36393356323242,
+        89.13058090209961,
+        6.0
+      ],
+      "profile_points": [
+        [
+          50.66385841369629,
+          24.230541229248047,
+          0.0
+        ],
+        [
+          80.89740371704102,
+          38.690062522888184,
+          0.0
+        ],
+        [
+          132.8738250732422,
+          63.54835510253906,
+          6.0
+        ],
+        [
+          186.36393356323242,
+          89.13058090209961,
+          6.0
+        ]
+      ],
+      "profile_t": [
+        0,
+        0.2227967699961814,
+        0.6058210992375253,
+        1
+      ],
+      "width": 33.599999999999994,
+      "clear_width": 30.719999999999995,
+      "length": 150.5407820794478,
+      "slope_degrees": 5.94532956123003,
+      "from_island": 0,
+      "to_island": 1
+    },
+    {
+      "name": "Bridge_Node1_Node2",
+      "start": [
+        364.8702850341797,
+        176.43514251708984,
+        6.0
+      ],
+      "end": [
+        527.4018859863281,
+        257.70094299316406,
+        12.0
+      ],
+      "profile_points": [
+        [
+          364.8702850341797,
+          176.43514251708984,
+          6.0
+        ],
+        [
+          417.9167175292969,
+          202.95835876464844,
+          6.0
+        ],
+        [
+          469.7427520751953,
+          228.87137603759766,
+          12.0
+        ],
+        [
+          527.4018859863281,
+          257.70094299316406,
+          12.0
+        ]
+      ],
+      "profile_t": [
+        0,
+        0.3263759267629526,
+        0.645243557866356,
+        1
+      ],
+      "width": 33.599999999999994,
+      "clear_width": 30.719999999999995,
+      "length": 181.81488012471812,
+      "slope_degrees": 5.91187921397023,
+      "from_island": 1,
+      "to_island": 2
+    },
+    {
+      "name": "Bridge_Node2_Node3",
+      "start": [
+        721.4154052734375,
+        352.62872314453125,
+        12.0
+      ],
+      "end": [
+        1007.23681640625,
+        489.43959045410156,
+        18.0
+      ],
+      "profile_points": [
+        [
+          721.4154052734375,
+          352.62872314453125,
+          12.0
+        ],
+        [
+          779.5836181640625,
+          380.4714660644531,
+          12.0
+        ],
+        [
+          844.3657836914062,
+          411.4800109863281,
+          18.0
+        ],
+        [
+          1007.23681640625,
+          489.43959045410156,
+          18.0
+        ]
+      ],
+      "profile_t": [
+        0,
+        0.20351247167662964,
+        0.430165079305437,
+        1
+      ],
+      "width": 33.599999999999994,
+      "clear_width": 30.719999999999995,
+      "length": 316.933893380682,
+      "slope_degrees": 4.775458014490374,
+      "from_island": 2,
+      "to_island": 3
+    },
+    {
+      "name": "Bridge_Node3_Boss",
+      "start": [
+        1551.9287109375,
+        752.2896423339844,
+        18.0
+      ],
+      "end": [
+        1864.612060546875,
+        904.4058837890625,
+        30.0
+      ],
+      "profile_points": [
+        [
+          1551.9287109375,
+          752.2896423339844,
+          18.0
+        ],
+        [
+          1714.2339477539062,
+          831.2489318847656,
+          18.0
+        ],
+        [
+          1771.8662109375,
+          859.2863159179688,
+          30.0
+        ],
+        [
+          1864.612060546875,
+          904.4058837890625,
+          30.0
+        ]
+      ],
+      "profile_t": [
+        0,
+        0.5190721947896593,
+        0.7033873172630518,
+        1
+      ],
+      "width": 33.599999999999994,
+      "clear_width": 30.719999999999995,
+      "length": 347.9284804942856,
+      "slope_degrees": 10.605027941689155,
+      "from_island": 3,
+      "to_island": 4
+    }
+  ],
+  "output": "C:\\Users\\David\\Documents\\Codex\\2026-10-19\\files-mentioned-by-the-user-convergence\\outputs\\ConvergenceCitadel_v003",
+  "art_unit_to_meters": 6.0,
+  "revision": "v003_live_mcp_monumental_scale",
+  "atlas": {
+    "shared_base_color": "Citadel_BaseColor_Atlas.png",
+    "shared_orm": "Citadel_ORM_Atlas.png",
+    "atlas_width": 2048,
+    "atlas_height": 2048,
+    "material_cells": 42,
+    "normal_map_baked": false
+  },
+  "approach_decor_removed": [
+    "I1_RimRock.040",
+    "I1_RimRock.027",
+    "I1_RimRock.036",
+    "I2_RimRock.011",
+    "I2_RimRock.001",
+    "I2_RimRock.004",
+    "I2_RimRock.009",
+    "I3_RimRock.031",
+    "I3_RimRock.054",
+    "TitanDetail_RightFallenPharaoh_HeavyBrow.001",
+    "TitanDetail_RightFallenPharaoh_NasalBridgeAndTip",
+    "TitanDetail_RightFallenPharaoh_CarvedNostril",
+    "TitanDetail_RightFallenPharaoh_CarvedNostril.001",
+    "TitanDetail_RightFallenPharaoh_DiademCarvedBlock.013",
+    "TitanDetail_RightFallenPharaoh_DiademCarvedBlock.014",
+    "TitanDetail_RightFallenPharaoh_DiademCarvedBlock.015",
+    "I4_RimRock.005",
+    "Boss_RimArcanePylon_04_Base",
+    "Boss_RimArcanePylon_04_Shaft",
+    "Boss_RimArcanePylon_04_Crown",
+    "Boss_RimArcanePylon_04_LightCrystal"
+  ],
+  "production_player_capsule": {
+    "height": 21.42,
+    "radius": 5.3550005,
+    "source": "Saved Stage3Scene player prefab overrides"
+  },
+  "supported_terrace_meshes": 118,
+  "detail_reference_images": [
+    "ChatGPT Image Oct 19, 2026, 10_54_26 PM-1.png",
+    "ChatGPT Image Oct 19, 2026, 10_54_30 PM-3.png",
+    "ChatGPT Image Oct 19, 2026, 10_54_28 PM-2.png",
+    "Floating Sky-Citadel Throne Courtyard.png"
+  ],
+  "art_polish": {
+    "rounded_armor_parts": 67,
+    "new_meshes": 1213,
+    "water": "shallow alpha surface and visible broken slabs",
+    "cliffs": "rear-only supported terraces; narrower irregular foreground"
+  },
+  "source_degenerate_faces_removed": 11,
+  "user_scale_decision": "Node3 is the largest physical island; throne courtyard is the finale",
+  "scale_ratios": {
+    "Node3_vs_Node1_diameter": 3.0434782608695654,
+    "Node3_vs_Node2_diameter": 2.8,
+    "Node3_vs_Finale_diameter": 1.75
+  },
+  "live_blender_version": "5.0.1",
+  "source_version": "v003 live-authored in Blender 5.0.1; v002 seed and package preserved unchanged",
+  "titan_scale_cues": {
+    "doorways": [
+      {
+        "name": "WestArchivistRuins",
+        "position": [
+          891.844543159246,
+          746.1193531278427,
+          21.6414
+        ],
+        "clear_width": 15.850800000000001,
+        "clear_height": 24.2046,
+        "facade_height": 28.702800000000003
+      },
+      {
+        "name": "SouthReliquary",
+        "position": [
+          1195.144835297195,
+          220.78783719443135,
+          21.6414
+        ],
+        "clear_width": 15.850800000000001,
+        "clear_height": 24.2046,
+        "facade_height": 28.702800000000003
+      },
+      {
+        "name": "EastPilgrimHouse",
+        "position": [
+          1547.757896349119,
+          311.97977525601584,
+          21.6414
+        ],
+        "clear_width": 15.850800000000001,
+        "clear_height": 24.2046,
+        "facade_height": 28.702800000000003
+      },
+      {
+        "name": "EastBrokenShrine",
+        "position": [
+          1687.571470923012,
+          598.6400843098021,
+          21.6414
+        ],
+        "clear_width": 15.850800000000001,
+        "clear_height": 24.2046,
+        "facade_height": 28.702800000000003
+      }
+    ],
+    "shrine_facades": 4,
+    "player_height_parameter": 21.42,
+    "metric_scale": "provisional integration parameter",
+    "clear_combat_radius": 294.0,
+    "detail_inner_limit": 344.4,
+    "reference_scale_cues": [
+      "small shrine entrances and local stairs beside colossal stone heads",
+      "modest terrace walls below enormous fluted pillars",
+      "detached stone hand fragments dwarfing door openings"
+    ],
+    "objects_created": 1875
+  },
+  "titan_rear_colonnade": {
+    "new_columns": 6,
+    "ranks": "old gateway front; new monumental rear row",
+    "small_door_clearance_units": 24.2046,
+    "reference_scale": "relative visual evidence; no image-derived metric claim"
+  },
+  "throne_courtyard": {
+    "objects": 2614,
+    "triangles_estimate": 49737,
+    "hero_throne": 1,
+    "roofed_pavilions": 4,
+    "central_raised_clear_radius": 158.4,
+    "incoming_clear_sector_degrees": [
+      194,
+      218
+    ],
+    "dais_north_support_extent_r": 1.05,
+    "seat_top_above_dais_r": 0.061,
+    "chair_back_top_above_dais_r": 0.211,
+    "reference": "Floating Sky-Citadel Throne Courtyard.png",
+    "materials_used": [
+      "marble",
+      "stone_light",
+      "gold",
+      "gold_dark",
+      "navy",
+      "leaf",
+      "leaf_light",
+      "leaf_dark",
+      "bark",
+      "soil",
+      "flower_white",
+      "flower_yellow",
+      "blue_roof",
+      "blue_cloth"
+    ],
+    "validation": "Source and actual exported GLB renders reviewed; native and offline sampled support checks passed. Unity traversal and visual acceptance untested."
+  },
+  "finale_floor_material": "white marble with flush blue/gold seal",
+  "background_precincts": {
+    "count": 7,
+    "non_playable": true,
+    "scale_basis": "reference silhouette, not measured distant buildings",
+    "colliders": 0,
+    "apparent_scale_factors": [
+      0.3,
+      0.45,
+      0.48,
+      0.5,
+      0.4,
+      0.36,
+      0.4
+    ],
+    "purpose": "distant nonplayable ruin silhouettes, not extra arena destinations"
+  },
+  "shared_orthographic_overview": {
+    "camera": "Camera_TopDown",
+    "width_units": 2699.51123046875,
+    "Node3_largest": true
+  },
+  "source_finalization": {
+    "mesh_origins_centered": 16047,
+    "zero_area_faces_removed": 18,
+    "editing_route": "live Blender MCP",
+    "blender_version": "5.0.1",
+    "v001_v002_preserved": true
+  },
+  "throne_blue_skin_offset_units": 0.1,
+  "bridge_themes": [
+    "royal stone",
+    "bound timber dock bridge",
+    "sandstone and purple banners",
+    "white stone and royal blue banners"
+  ],
+  "restored_fallen_titan_head": {
+    "complete_mesh_parts": 128,
+    "reason": "wider giant-island approach no longer requires the old conservative face trim"
+  },
+  "throne_blue_surface_top_offset_units": 0.06,
+  "schema_version": "1.0",
+  "blender_version": "5.1.2",
+  "source_counts": {
+    "objects": 16206,
+    "meshes": 16156,
+    "vertices": 191746,
+    "triangles": 297322
+  },
+  "collections": {
+    "00_START_ISLAND": {
+      "objects": 110,
+      "meshes": 109,
+      "vertices": 5044,
+      "triangles": 7157
+    },
+    "01_HOLLOW_KNIGHT": {
+      "objects": 3978,
+      "meshes": 3977,
+      "vertices": 42040,
+      "triangles": 63079
+    },
+    "02_DROWNED_CAPTAIN": {
+      "objects": 3255,
+      "meshes": 3254,
+      "vertices": 42527,
+      "triangles": 66672
+    },
+    "03_TITAN_COLOSSUS": {
+      "objects": 4021,
+      "meshes": 4020,
+      "vertices": 43978,
+      "triangles": 69041
+    },
+    "04_VANDER_POEL": {
+      "objects": 2972,
+      "meshes": 2971,
+      "vertices": 35244,
+      "triangles": 55049
+    },
+    "BRIDGES": {
+      "objects": 720,
+      "meshes": 720,
+      "vertices": 7964,
+      "triangles": 13012
+    },
+    "COLLISION": {
+      "objects": 250,
+      "meshes": 250,
+      "vertices": 2408,
+      "triangles": 3816
+    },
+    "GAMEPLAY_MARKERS": {
+      "objects": 36,
+      "meshes": 0,
+      "vertices": 0,
+      "triangles": 0
+    },
+    "WATERFALLS": {
+      "objects": 75,
+      "meshes": 75,
+      "vertices": 2316,
+      "triangles": 2166
+    },
+    "BACKGROUND_ISLANDS": {
+      "objects": 669,
+      "meshes": 669,
+      "vertices": 5597,
+      "triangles": 8518
+    },
+    "CLOUDS_AND_ATMOSPHERE": {
+      "objects": 111,
+      "meshes": 111,
+      "vertices": 4628,
+      "triangles": 8812
+    },
+    "LIGHTING_AND_PREVIEW": {
+      "objects": 9,
+      "meshes": 0,
+      "vertices": 0,
+      "triangles": 0
+    }
+  },
+  "gameplay_markers": {
+    "PlayerSpawn_Start": {
+      "blender_position_m": [
+        -6.0,
+        -12.0,
+        1.44
+      ],
+      "gltf_position_m": [
+        -6.0,
+        1.44,
+        12.0
+      ],
+      "custom_properties": {}
+    },
+    "Node1_ArenaCenter": {
+      "blender_position_m": [
+        276.0,
+        132.0,
+        6.0
+      ],
+      "gltf_position_m": [
+        276.0,
+        6.0,
+        -132.0
+      ],
+      "custom_properties": {}
+    },
+    "Node1_BossSpawn": {
+      "blender_position_m": [
+        276.0,
+        166.5,
+        6.0
+      ],
+      "gltf_position_m": [
+        276.0,
+        6.0,
+        -166.5
+      ],
+      "custom_properties": {}
+    },
+    "Node1_RewardSpot": {
+      "blender_position_m": [
+        306.36002,
+        132.0,
+        6.0
+      ],
+      "gltf_position_m": [
+        306.36002,
+        6.0,
+        -132.0
+      ],
+      "custom_properties": {}
+    },
+    "Node1_Entry": {
+      "blender_position_m": [
+        207.52802,
+        99.25253,
+        6.0
+      ],
+      "gltf_position_m": [
+        207.52802,
+        6.0,
+        -99.25253
+      ],
+      "custom_properties": {}
+    },
+    "Node1_EncounterBounds": {
+      "blender_position_m": [
+        276.0,
+        132.0,
+        6.0
+      ],
+      "gltf_position_m": [
+        276.0,
+        6.0,
+        -132.0
+      ],
+      "custom_properties": {
+        "clear_floor_radius": 93.84
+      }
+    },
+    "Node2_ArenaCenter": {
+      "blender_position_m": [
+        624.0,
+        306.0,
+        12.0
+      ],
+      "gltf_position_m": [
+        624.0,
+        12.0,
+        -306.0
+      ],
+      "custom_properties": {}
+    },
+    "Node2_BossSpawn": {
+      "blender_position_m": [
+        624.0,
+        343.5,
+        12.0
+      ],
+      "gltf_position_m": [
+        624.0,
+        12.0,
+        -343.5
+      ],
+      "custom_properties": {}
+    },
+    "Node2_RewardSpot": {
+      "blender_position_m": [
+        657.0,
+        306.0,
+        12.0
+      ],
+      "gltf_position_m": [
+        657.0,
+        12.0,
+        -306.0
+      ],
+      "custom_properties": {}
+    },
+    "Node2_Entry": {
+      "blender_position_m": [
+        550.20978,
+        269.10489,
+        12.0
+      ],
+      "gltf_position_m": [
+        550.20978,
+        12.0,
+        -269.10489
+      ],
+      "custom_properties": {}
+    },
+    "Node2_EncounterBounds": {
+      "blender_position_m": [
+        624.0,
+        306.0,
+        12.0
+      ],
+      "gltf_position_m": [
+        624.0,
+        12.0,
+        -306.0
+      ],
+      "custom_properties": {
+        "clear_floor_radius": 90.0
+      }
+    },
+    "Node3_ArenaCenter": {
+      "blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "gltf_position_m": [
+        1280.0,
+        18.0,
+        -620.0
+      ],
+      "custom_properties": {}
+    },
+    "Node3_BossSpawn": {
+      "blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "gltf_position_m": [
+        1280.0,
+        18.0,
+        -620.0
+      ],
+      "custom_properties": {}
+    },
+    "Node3_RewardSpot": {
+      "blender_position_m": [
+        1372.40015,
+        620.0,
+        18.0
+      ],
+      "gltf_position_m": [
+        1372.40015,
+        18.0,
+        -620.0
+      ],
+      "custom_properties": {}
+    },
+    "Node3_Entry": {
+      "blender_position_m": [
+        1071.55444,
+        520.44385,
+        18.0
+      ],
+      "gltf_position_m": [
+        1071.55444,
+        18.0,
+        -520.44385
+      ],
+      "custom_properties": {}
+    },
+    "Node3_EncounterBounds": {
+      "blender_position_m": [
+        1280.0,
+        620.0,
+        18.0
+      ],
+      "gltf_position_m": [
+        1280.0,
+        18.0,
+        -620.0
+      ],
+      "custom_properties": {
+        "clear_floor_radius": 294.0
+      }
+    },
+    "Boss_ArenaCenter": {
+      "blender_position_m": [
+        2020.0,
+        980.0,
+        30.0
+      ],
+      "gltf_position_m": [
+        2020.0,
+        30.0,
+        -980.0
+      ],
+      "custom_properties": {}
+    },
+    "Boss_BossSpawn": {
+      "blender_position_m": [
+        2020.0,
+        1040.0,
+        30.0
+      ],
+      "gltf_position_m": [
+        2020.0,
+        30.0,
+        -1040.0
+      ],
+      "custom_properties": {}
+    },
+    "Boss_RewardSpot": {
+      "blender_position_m": [
+        2072.7998,
+        980.0,
+        30.0
+      ],
+      "gltf_position_m": [
+        2072.7998,
+        30.0,
+        -980.0
+      ],
+      "custom_properties": {}
+    },
+    "Boss_Entry": {
+      "blender_position_m": [
+        1902.83875,
+        919.19482,
+        30.0
+      ],
+      "gltf_position_m": [
+        1902.83875,
+        30.0,
+        -919.19482
+      ],
+      "custom_properties": {}
+    },
+    "Boss_EncounterBounds": {
+      "blender_position_m": [
+        2020.0,
+        980.0,
+        30.0
+      ],
+      "gltf_position_m": [
+        2020.0,
+        30.0,
+        -980.0
+      ],
+      "custom_properties": {
+        "clear_floor_radius": 158.4
+      }
+    },
+    "Bridge_Gate_01": {
+      "blender_position_m": [
+        161.93791,
+        77.44858,
+        6.0
+      ],
+      "gltf_position_m": [
+        161.93791,
+        6.0,
+        -77.44858
+      ],
+      "custom_properties": {
+        "clear_width": 30.719999999999995,
+        "no_logic": true
+      }
+    },
+    "Bridge_01_Entry": {
+      "blender_position_m": [
+        50.66386,
+        24.23054,
+        0.0
+      ],
+      "gltf_position_m": [
+        50.66386,
+        0.0,
+        -24.23054
+      ],
+      "custom_properties": {}
+    },
+    "Bridge_01_Exit": {
+      "blender_position_m": [
+        186.36394,
+        89.13058,
+        6.0
+      ],
+      "gltf_position_m": [
+        186.36394,
+        6.0,
+        -89.13058
+      ],
+      "custom_properties": {}
+    },
+    "Bridge_Gate_02": {
+      "blender_position_m": [
+        498.14618,
+        243.07309,
+        12.0
+      ],
+      "gltf_position_m": [
+        498.14618,
+        12.0,
+        -243.07309
+      ],
+      "custom_properties": {
+        "clear_width": 30.719999999999995,
+        "no_logic": true
+      }
+    },
+    "Bridge_02_Entry": {
+      "blender_position_m": [
+        364.8703,
+        176.43515,
+        6.0
+      ],
+      "gltf_position_m": [
+        364.8703,
+        6.0,
+        -176.43515
+      ],
+      "custom_properties": {}
+    },
+    "Bridge_02_Exit": {
+      "blender_position_m": [
+        527.40186,
+        257.70093,
+        12.0
+      ],
+      "gltf_position_m": [
+        527.40186,
+        12.0,
+        -257.70093
+      ],
+      "custom_properties": {}
+    },
+    "Bridge_Gate_03": {
+      "blender_position_m": [
+        955.789,
+        464.81363,
+        18.0
+      ],
+      "gltf_position_m": [
+        955.789,
+        18.0,
+        -464.81363
+      ],
+      "custom_properties": {
+        "clear_width": 30.719999999999995,
+        "no_logic": true
+      }
+    },
+    "Bridge_03_Entry": {
+      "blender_position_m": [
+        721.41541,
+        352.62872,
+        12.0
+      ],
+      "gltf_position_m": [
+        721.41541,
+        12.0,
+        -352.62872
+      ],
+      "custom_properties": {}
+    },
+    "Bridge_03_Exit": {
+      "blender_position_m": [
+        1007.23682,
+        489.43958,
+        18.0
+      ],
+      "gltf_position_m": [
+        1007.23682,
+        18.0,
+        -489.43958
+      ],
+      "custom_properties": {}
+    },
+    "Bridge_Gate_04": {
+      "blender_position_m": [
+        1808.3291,
+        877.0249,
+        30.0
+      ],
+      "gltf_position_m": [
+        1808.3291,
+        30.0,
+        -877.0249
+      ],
+      "custom_properties": {
+        "clear_width": 30.719999999999995,
+        "no_logic": true
+      }
+    },
+    "Bridge_04_Entry": {
+      "blender_position_m": [
+        1551.92871,
+        752.28967,
+        18.0
+      ],
+      "gltf_position_m": [
+        1551.92871,
+        18.0,
+        -752.28967
+      ],
+      "custom_properties": {}
+    },
+    "Bridge_04_Exit": {
+      "blender_position_m": [
+        1864.61206,
+        904.40588,
+        30.0
+      ],
+      "gltf_position_m": [
+        1864.61206,
+        30.0,
+        -904.40588
+      ],
+      "custom_properties": {}
+    },
+    "Final_VictorySpot": {
+      "blender_position_m": [
+        2020.0,
+        936.9231,
+        30.0
+      ],
+      "gltf_position_m": [
+        2020.0,
+        30.0,
+        -936.9231
+      ],
+      "custom_properties": {}
+    },
+    "Boss_CutsceneView": {
+      "blender_position_m": [
+        2020.0,
+        820.0,
+        30.0
+      ],
+      "gltf_position_m": [
+        2020.0,
+        30.0,
+        -820.0
+      ],
+      "custom_properties": {}
+    },
+    "Boss_ThroneSeat": {
+      "blender_position_m": [
+        2019.99988,
+        1203.92004,
+        53.28
+      ],
+      "gltf_position_m": [
+        2019.99988,
+        53.28,
+        -1203.92004
+      ],
+      "custom_properties": {
+        "purpose": "Throne seat reference; no boss spawn or seating logic"
+      }
+    }
+  },
+  "materials": [
+    {
+      "name": "algae",
+      "base_color": [
+        0.13,
+        0.28,
+        0.17,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "bark",
+      "base_color": [
+        0.16,
+        0.12,
+        0.16,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "barnacle",
+      "base_color": [
+        0.63,
+        0.6,
+        0.46,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "BG_RuinHaze",
+      "base_color": [
+        0.23,
+        0.29,
+        0.36,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "BG_SandHaze",
+      "base_color": [
+        0.39,
+        0.34,
+        0.29,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "blue_cloth",
+      "base_color": [
+        0.025,
+        0.065,
+        0.22,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "blue_roof",
+      "base_color": [
+        0.055,
+        0.15,
+        0.4,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "Cascade_Mist_Transparent",
+      "base_color": [
+        0.52,
+        0.78,
+        0.86,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "cloud",
+      "base_color": [
+        0.35,
+        0.38,
+        0.59,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "coral",
+      "base_color": [
+        0.75,
+        0.22,
+        0.3,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "coral_gold",
+      "base_color": [
+        0.73,
+        0.46,
+        0.19,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "coral_purple",
+      "base_color": [
+        0.36,
+        0.18,
+        0.49,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "crystal",
+      "base_color": [
+        0.12,
+        0.3,
+        0.9,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "cyan",
+      "base_color": [
+        0.04,
+        0.65,
+        1.0,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "fall",
+      "base_color": [
+        0.09,
+        0.42,
+        0.8,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "flower_white",
+      "base_color": [
+        0.85,
+        0.83,
+        0.64,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "flower_yellow",
+      "base_color": [
+        0.82,
+        0.52,
+        0.12,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "gold",
+      "base_color": [
+        0.86,
+        0.52,
+        0.1,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "gold_dark",
+      "base_color": [
+        0.45,
+        0.28,
+        0.09,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "iron",
+      "base_color": [
+        0.12,
+        0.19,
+        0.22,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "leaf",
+      "base_color": [
+        0.08,
+        0.23,
+        0.13,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "leaf_dark",
+      "base_color": [
+        0.035,
+        0.12,
+        0.055,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "leaf_light",
+      "base_color": [
+        0.25,
+        0.39,
+        0.12,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "marble",
+      "base_color": [
+        0.61,
+        0.68,
+        0.8,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "Material",
+      "base_color": [
+        0.8,
+        0.8,
+        0.8,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "navy",
+      "base_color": [
+        0.035,
+        0.065,
+        0.18,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "Preview_CloudHaze_Volume",
+      "base_color": [
+        0.8,
+        0.8,
+        0.8,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "purple",
+      "base_color": [
+        0.19,
+        0.055,
+        0.35,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "red_leaf",
+      "base_color": [
+        0.38,
+        0.07,
+        0.055,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "rock",
+      "base_color": [
+        0.24,
+        0.25,
+        0.37,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "rock_dark",
+      "base_color": [
+        0.13,
+        0.14,
+        0.23,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "rock_light",
+      "base_color": [
+        0.39,
+        0.38,
+        0.5,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "rope",
+      "base_color": [
+        0.48,
+        0.36,
+        0.2,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "rust",
+      "base_color": [
+        0.32,
+        0.13,
+        0.055,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "sail",
+      "base_color": [
+        0.55,
+        0.5,
+        0.37,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "sail_dark",
+      "base_color": [
+        0.18,
+        0.16,
+        0.12,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "sand",
+      "base_color": [
+        0.7,
+        0.55,
+        0.34,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "sand_a",
+      "base_color": [
+        0.735,
+        0.58,
+        0.37,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "sand_b",
+      "base_color": [
+        0.665,
+        0.515,
+        0.315,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "sand_dark",
+      "base_color": [
+        0.44,
+        0.31,
+        0.17,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "sand_light",
+      "base_color": [
+        0.86,
+        0.72,
+        0.48,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "seastone",
+      "base_color": [
+        0.38,
+        0.49,
+        0.43,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "seastone_a",
+      "base_color": [
+        0.42,
+        0.53,
+        0.47,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "ShallowWater_Surface_Transparent",
+      "base_color": [
+        0.025,
+        0.55,
+        0.59,
+        0.34
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "soil",
+      "base_color": [
+        0.18,
+        0.15,
+        0.08,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "stone",
+      "base_color": [
+        0.42,
+        0.45,
+        0.43,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "stone_a",
+      "base_color": [
+        0.45,
+        0.47,
+        0.45,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "stone_b",
+      "base_color": [
+        0.385,
+        0.415,
+        0.395,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "stone_dark",
+      "base_color": [
+        0.15,
+        0.19,
+        0.22,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "stone_light",
+      "base_color": [
+        0.61,
+        0.63,
+        0.58,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "violet",
+      "base_color": [
+        0.35,
+        0.035,
+        0.95,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "Water_Foam_Transparent",
+      "base_color": [
+        0.6,
+        0.87,
+        0.85,
+        1.0
+      ],
+      "texture_images": []
+    },
+    {
+      "name": "wetstone",
+      "base_color": [
+        0.46,
+        0.53,
+        0.44,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "wood",
+      "base_color": [
+        0.25,
+        0.12,
+        0.055,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "wood_dark",
+      "base_color": [
+        0.13,
+        0.075,
+        0.042,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    },
+    {
+      "name": "wood_light",
+      "base_color": [
+        0.4,
+        0.23,
+        0.11,
+        1.0
+      ],
+      "texture_images": [
+        "Citadel_BaseColor_Atlas.png",
+        "Citadel_ORM_Atlas.png"
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "Citadel_BaseColor_Atlas.png",
+      "width": 2048,
+      "height": 2048,
+      "packed": true,
+      "source": "//Textures\\Citadel_BaseColor_Atlas.png"
+    },
+    {
+      "name": "Citadel_ORM_Atlas.png",
+      "width": 2048,
+      "height": 2048,
+      "packed": true,
+      "source": "//Textures\\Citadel_ORM_Atlas.png"
+    }
+  ],
+  "validation": {
+    "route_edges": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "five_playable_islands": true,
+    "four_adjacent_bridges": true,
+    "bridge_support_raycast": [
+      {
+        "bridge": 1,
+        "samples": 303,
+        "failures": [],
+        "maximum_surface_error_m": 9.1552734375e-05
+      },
+      {
+        "bridge": 2,
+        "samples": 303,
+        "failures": [],
+        "maximum_surface_error_m": 9.1552734375e-05
+      },
+      {
+        "bridge": 3,
+        "samples": 303,
+        "failures": [],
+        "maximum_surface_error_m": 9.918212890625e-05
+      },
+      {
+        "bridge": 4,
+        "samples": 303,
+        "failures": [],
+        "maximum_surface_error_m": 0.0001087188720703125
+      }
+    ],
+    "bridge_support_pass": true,
+    "titan_floor_top_vertex_range_m": 0.0,
+    "titan_main_floor_diameter_m": 680.4000000000001,
+    "titan_clear_floor_diameter_m": 588.0,
+    "unity_import_tested": false,
+    "actual_controller_traversal_tested": false,
+    "titan_pose_or_foot_ik_tested": false,
+    "android_profiled": false
+  },
+  "exports": {
+    "visual": {
+      "objects": 159,
+      "meshes": 110,
+      "vertices": 184710,
+      "triangles": 281090
+    },
+    "collision": {
+      "objects": 19,
+      "meshes": 19,
+      "vertices": 2408,
+      "triangles": 3816
+    },
+    "lod1_source_counts_before_modifier": {
+      "objects": 159,
+      "meshes": 110,
+      "vertices": 184710,
+      "triangles": 281090
+    },
+    "lod1_decimated_meshes": [
+      "00_START_ISLAND_rock_BatchedDetail",
+      "01_HOLLOW_KNIGHT_rock_BatchedDetail",
+      "01_HOLLOW_KNIGHT_gold_dark",
+      "01_HOLLOW_KNIGHT_stone_light",
+      "01_HOLLOW_KNIGHT_stone_dark",
+      "01_HOLLOW_KNIGHT_bark",
+      "01_HOLLOW_KNIGHT_leaf_light",
+      "01_HOLLOW_KNIGHT_leaf",
+      "01_HOLLOW_KNIGHT_leaf_dark",
+      "01_HOLLOW_KNIGHT_gold",
+      "01_HOLLOW_KNIGHT_navy",
+      "01_HOLLOW_KNIGHT_red_leaf",
+      "02_DROWNED_CAPTAIN_rock_BatchedDetail",
+      "02_DROWNED_CAPTAIN_gold_dark",
+      "02_DROWNED_CAPTAIN_wood_dark",
+      "02_DROWNED_CAPTAIN_wood_light",
+      "02_DROWNED_CAPTAIN_wood",
+      "02_DROWNED_CAPTAIN_iron",
+      "02_DROWNED_CAPTAIN_navy",
+      "02_DROWNED_CAPTAIN_rope",
+      "02_DROWNED_CAPTAIN_sail",
+      "02_DROWNED_CAPTAIN_sail_dark",
+      "02_DROWNED_CAPTAIN_rust",
+      "02_DROWNED_CAPTAIN_barnacle",
+      "02_DROWNED_CAPTAIN_algae",
+      "02_DROWNED_CAPTAIN_coral",
+      "02_DROWNED_CAPTAIN_coral_gold",
+      "02_DROWNED_CAPTAIN_coral_purple",
+      "02_DROWNED_CAPTAIN_stone_light",
+      "02_DROWNED_CAPTAIN_Water_Foam_Transparent",
+      "03_TITAN_COLOSSUS_rock_BatchedDetail",
+      "03_TITAN_COLOSSUS_gold_dark",
+      "03_TITAN_COLOSSUS_sand_light",
+      "03_TITAN_COLOSSUS_sand_dark",
+      "03_TITAN_COLOSSUS_gold",
+      "03_TITAN_COLOSSUS_purple",
+      "03_TITAN_COLOSSUS_violet",
+      "03_TITAN_COLOSSUS_crystal",
+      "03_TITAN_COLOSSUS_bark",
+      "03_TITAN_COLOSSUS_leaf",
+      "03_TITAN_COLOSSUS_leaf_light",
+      "03_TITAN_COLOSSUS_soil",
+      "BACKGROUND_ISLANDS_BG_RuinHaze",
+      "BACKGROUND_ISLANDS_BG_SandHaze"
+    ],
+    "settings": {
+      "format": "GLB",
+      "export_yup": true,
+      "export_apply": true,
+      "use_selection": true,
+      "export_extras": true,
+      "camera_export": false,
+      "light_export": false,
+      "units": "1 Blender unit = 1 meter = 1 Unity unit",
+      "glb_axes": "Blender (X,Y,Z) -> glTF (X,Z,-Y); Unity importer conversion must be checked"
+    },
+    "clouds_exported": false,
+    "lighting_exported": false,
+    "lod1_final_binary": {
+      "triangles": 199754,
+      "meshes": 110,
+      "nodes": 159,
+      "triangle_reduction": 0.2893592799459248
+    }
+  },
+  "final_verification_record": {
+    "native_authoring_blender": "5.0.1",
+    "derivative_export_render_blender": "5.1.2",
+    "source_checks_passed": 14,
+    "glb_checks_passed": 33,
+    "main_glb_triangles": 281090,
+    "lod1_glb_triangles": 199754,
+    "lod1_triangle_reduction": 0.2893592799459248,
+    "main_and_lod_actual_reimport_renders_reviewed": true,
+    "source_overview_titan_and_throne_renders_reviewed": true,
+    "reference_visual_parity_claimed": false,
+    "unity_runtime_or_device_tested": false
+  }
+}

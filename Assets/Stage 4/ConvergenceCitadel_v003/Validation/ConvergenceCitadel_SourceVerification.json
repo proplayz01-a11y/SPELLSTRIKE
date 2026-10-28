@@ -1,0 +1,176 @@
+{
+  "blender_version": "5.0.1",
+  "source_opened": "C:\\Users\\David\\Documents\\Codex\\2026-10-19\\files-mentioned-by-the-user-convergence\\outputs\\ConvergenceCitadel_v003\\ConvergenceCitadel_Final.blend",
+  "checks": [
+    {
+      "name": "Node1_declared_clear_disc_vertices",
+      "passed": true,
+      "details": {
+        "island": 1,
+        "required_radius_m": 93.84,
+        "nearest_above_floor_0_35m_vertex_radius_m": 97.32131796645827,
+        "nearest_object": "Kingdom_FallenRoyalGuardian_ArmoredSabatons.001"
+      }
+    },
+    {
+      "name": "Node2_declared_clear_disc_vertices",
+      "passed": true,
+      "details": {
+        "island": 2,
+        "required_radius_m": 90.0,
+        "nearest_above_floor_0_35m_vertex_radius_m": 96.7669932381956,
+        "nearest_object": "Sea_1168_PileRopeLashing"
+      }
+    },
+    {
+      "name": "Node3_declared_clear_disc_vertices",
+      "passed": true,
+      "details": {
+        "island": 3,
+        "required_radius_m": 294.0,
+        "nearest_above_floor_0_35m_vertex_radius_m": 331.28631979409494,
+        "nearest_object": "TitanPrecinct_MonumentalStairFlight"
+      }
+    },
+    {
+      "name": "Node4_declared_clear_disc_vertices",
+      "passed": true,
+      "details": {
+        "island": 4,
+        "required_radius_m": 158.4,
+        "nearest_above_floor_0_35m_vertex_radius_m": 161.8431482478812,
+        "nearest_object": "ThroneCourt_RunnerRiser"
+      }
+    },
+    {
+      "name": "user_selected_Node3_largest_nominal_diameter",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Island0_visual_floor_aligned_with_design_center",
+      "passed": true,
+      "details": {
+        "floor": "Start_ContinuousArenaFloor",
+        "hit": [
+          0.0,
+          0.0,
+          -3.0517578125e-05
+        ],
+        "expected_z": 0
+      }
+    },
+    {
+      "name": "Island1_visual_floor_aligned_with_design_center",
+      "passed": true,
+      "details": {
+        "floor": "Knight_ContinuousArenaFloor",
+        "hit": [
+          276.0,
+          132.0,
+          6.0
+        ],
+        "expected_z": 6
+      }
+    },
+    {
+      "name": "Island2_visual_floor_aligned_with_design_center",
+      "passed": true,
+      "details": {
+        "floor": "Captain_ContinuousArenaFloor",
+        "hit": [
+          624.0,
+          306.0,
+          12.000030517578125
+        ],
+        "expected_z": 12
+      }
+    },
+    {
+      "name": "Island3_visual_floor_aligned_with_design_center",
+      "passed": true,
+      "details": {
+        "floor": "Titan_ContinuousArenaFloor",
+        "hit": [
+          1280.0,
+          620.0,
+          17.999969482421875
+        ],
+        "expected_z": 18
+      }
+    },
+    {
+      "name": "Island4_visual_floor_aligned_with_design_center",
+      "passed": true,
+      "details": {
+        "floor": "ThroneCourt_ContinuousArenaFloor",
+        "hit": [
+          2020.0,
+          980.0,
+          30.0
+        ],
+        "expected_z": 30
+      }
+    },
+    {
+      "name": "Node3_largest_measured_collision_footprint_bounds",
+      "passed": true,
+      "details": [
+        25844.753373814747,
+        76929.9419552125,
+        102802.28246057965,
+        774343.170976013,
+        265363.59228082
+      ]
+    },
+    {
+      "name": "finite_source_mesh_coordinates",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "finite_uv_coordinates",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "zero_area_source_faces_removed",
+      "passed": true,
+      "details": 0
+    }
+  ],
+  "combat_clearance": [
+    {
+      "island": 1,
+      "required_radius_m": 93.84,
+      "nearest_above_floor_0_35m_vertex_radius_m": 97.32131796645827,
+      "nearest_object": "Kingdom_FallenRoyalGuardian_ArmoredSabatons.001"
+    },
+    {
+      "island": 2,
+      "required_radius_m": 90.0,
+      "nearest_above_floor_0_35m_vertex_radius_m": 96.7669932381956,
+      "nearest_object": "Sea_1168_PileRopeLashing"
+    },
+    {
+      "island": 3,
+      "required_radius_m": 294.0,
+      "nearest_above_floor_0_35m_vertex_radius_m": 331.28631979409494,
+      "nearest_object": "TitanPrecinct_MonumentalStairFlight"
+    },
+    {
+      "island": 4,
+      "required_radius_m": 158.4,
+      "nearest_above_floor_0_35m_vertex_radius_m": 161.8431482478812,
+      "nearest_object": "ThroneCourt_RunnerRiser"
+    }
+  ],
+  "unity_runtime_tested": false,
+  "hero_inventory": {
+    "kingdom_monumental_guardians": true,
+    "sea_galleon": true,
+    "titan_two_named_heads": true
+  },
+  "source_triangles_including_preview_collision": 297322,
+  "passed": true
+}

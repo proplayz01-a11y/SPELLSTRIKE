@@ -1,0 +1,73 @@
+# Stage4 v003 real Play Mode capsule collision traversal (NOT canonical player)
+Dedicated Stage4 RuntimeQA scene only, original VanAert/Titan prefabs inactive. No GameDatabaseManager, objectives, unlocks or PlayerPrefs writes by this test.
+Real CharacterController.Move + imported MeshCollider contact while traversing all four bridge decks forwards and backwards. This is not player input/animation or Titan combat.
+- Capsule: height 21.42, radius 5.355, step 3.213, slope 45; speed=65.0 units/s
+## Bridge 4 authoritative Unity MeshCollider raycast height profile
+- Profile t=0.000 x=-1551.93 z=-752.29: colliderY=15.00 linearY=18.00 deltaY=0.00 grade=0.00
+- Profile t=0.017 x=-1557.14 z=-754.82: colliderY=15.00 linearY=18.20 deltaY=0.00 grade=0.00
+- Profile t=0.033 x=-1562.35 z=-757.36: colliderY=15.00 linearY=18.40 deltaY=0.00 grade=0.00
+- Profile t=0.050 x=-1567.56 z=-759.90: colliderY=15.00 linearY=18.60 deltaY=0.00 grade=0.00
+- Profile t=0.067 x=-1572.77 z=-762.43: colliderY=15.00 linearY=18.80 deltaY=0.00 grade=0.00
+- Profile t=0.083 x=-1577.99 z=-764.97: colliderY=15.00 linearY=19.00 deltaY=0.00 grade=0.00
+- Profile t=0.100 x=-1583.20 z=-767.50: colliderY=15.00 linearY=19.20 deltaY=0.00 grade=0.00
+- Profile t=0.117 x=-1588.41 z=-770.04: colliderY=15.00 linearY=19.40 deltaY=0.00 grade=0.00
+- Profile t=0.133 x=-1593.62 z=-772.57: colliderY=15.00 linearY=19.60 deltaY=0.00 grade=0.00
+- Profile t=0.150 x=-1598.83 z=-775.11: colliderY=15.00 linearY=19.80 deltaY=0.00 grade=0.00
+- Profile t=0.167 x=-1604.04 z=-777.64: colliderY=15.00 linearY=20.00 deltaY=0.00 grade=0.00
+- Profile t=0.183 x=-1609.25 z=-780.18: colliderY=15.00 linearY=20.20 deltaY=0.00 grade=0.00
+- Profile t=0.200 x=-1614.47 z=-782.71: colliderY=15.00 linearY=20.40 deltaY=0.00 grade=0.00
+- Profile t=0.217 x=-1619.68 z=-785.25: colliderY=15.00 linearY=20.60 deltaY=0.00 grade=0.00
+- Profile t=0.233 x=-1624.89 z=-787.78: colliderY=15.00 linearY=20.80 deltaY=0.00 grade=0.00
+- Profile t=0.250 x=-1630.10 z=-790.32: colliderY=15.00 linearY=21.00 deltaY=0.00 grade=0.00
+- Profile t=0.267 x=-1635.31 z=-792.85: colliderY=15.00 linearY=21.20 deltaY=0.00 grade=0.00
+- Profile t=0.283 x=-1640.52 z=-795.39: colliderY=15.00 linearY=21.40 deltaY=0.00 grade=0.00
+- Profile t=0.300 x=-1645.73 z=-797.92: colliderY=15.00 linearY=21.60 deltaY=0.00 grade=0.00
+- Profile t=0.317 x=-1650.95 z=-800.46: colliderY=15.00 linearY=21.80 deltaY=0.00 grade=0.00
+- Profile t=0.333 x=-1656.16 z=-803.00: colliderY=15.00 linearY=22.00 deltaY=0.00 grade=0.00
+- Profile t=0.350 x=-1661.37 z=-805.53: colliderY=15.00 linearY=22.20 deltaY=0.00 grade=0.00
+- Profile t=0.367 x=-1666.58 z=-808.07: colliderY=15.00 linearY=22.40 deltaY=0.00 grade=0.00
+- Profile t=0.383 x=-1671.79 z=-810.60: colliderY=15.00 linearY=22.60 deltaY=0.00 grade=0.00
+- Profile t=0.400 x=-1677.00 z=-813.14: colliderY=15.00 linearY=22.80 deltaY=0.00 grade=0.00
+- Profile t=0.417 x=-1682.21 z=-815.67: colliderY=15.00 linearY=23.00 deltaY=0.00 grade=0.00
+- Profile t=0.433 x=-1687.43 z=-818.21: colliderY=15.00 linearY=23.20 deltaY=0.00 grade=0.00
+- Profile t=0.450 x=-1692.64 z=-820.74: colliderY=15.00 linearY=23.40 deltaY=0.00 grade=0.00
+- Profile t=0.467 x=-1697.85 z=-823.28: colliderY=15.00 linearY=23.60 deltaY=0.00 grade=0.00
+- Profile t=0.483 x=-1703.06 z=-825.81: colliderY=15.00 linearY=23.80 deltaY=0.00 grade=0.00
+- Profile t=0.500 x=-1708.27 z=-828.35: colliderY=15.00 linearY=24.00 deltaY=0.00 grade=0.00
+- Profile t=0.517 x=-1713.48 z=-830.88: colliderY=15.00 linearY=24.20 deltaY=0.00 grade=0.00
+- Profile t=0.533 x=-1718.69 z=-833.42: colliderY=15.93 linearY=24.40 deltaY=0.93 grade=0.16
+- Profile t=0.550 x=-1723.91 z=-835.95: colliderY=17.01 linearY=24.60 deltaY=1.09 grade=0.19
+- Profile t=0.567 x=-1729.12 z=-838.49: colliderY=18.10 linearY=24.80 deltaY=1.09 grade=0.19
+- Profile t=0.583 x=-1734.33 z=-841.02: colliderY=19.18 linearY=25.00 deltaY=1.09 grade=0.19
+- Profile t=0.600 x=-1739.54 z=-843.56: colliderY=20.27 linearY=25.20 deltaY=1.09 grade=0.19
+- Profile t=0.617 x=-1744.75 z=-846.09: colliderY=21.35 linearY=25.40 deltaY=1.09 grade=0.19
+- Profile t=0.633 x=-1749.96 z=-848.63: colliderY=22.44 linearY=25.60 deltaY=1.09 grade=0.19
+- Profile t=0.650 x=-1755.17 z=-851.17: colliderY=23.52 linearY=25.80 deltaY=1.09 grade=0.19
+- Profile t=0.667 x=-1760.38 z=-853.70: colliderY=24.61 linearY=26.00 deltaY=1.09 grade=0.19
+- Profile t=0.683 x=-1765.60 z=-856.24: colliderY=25.69 linearY=26.20 deltaY=1.09 grade=0.19
+- Profile t=0.700 x=-1770.81 z=-858.77: colliderY=26.78 linearY=26.40 deltaY=1.09 grade=0.19
+- Profile t=0.717 x=-1776.02 z=-861.31: colliderY=27.00 linearY=26.60 deltaY=0.22 grade=0.04
+- Profile t=0.733 x=-1781.23 z=-863.84: colliderY=27.00 linearY=26.80 deltaY=0.00 grade=0.00
+- Profile t=0.750 x=-1786.44 z=-866.38: colliderY=27.00 linearY=27.00 deltaY=0.00 grade=0.00
+- Profile t=0.767 x=-1791.65 z=-868.91: colliderY=27.00 linearY=27.20 deltaY=0.00 grade=0.00
+- Profile t=0.783 x=-1796.86 z=-871.45: colliderY=27.00 linearY=27.40 deltaY=0.00 grade=0.00
+- Profile t=0.800 x=-1802.08 z=-873.98: colliderY=27.00 linearY=27.60 deltaY=0.00 grade=0.00
+- Profile t=0.817 x=-1807.29 z=-876.52: colliderY=27.00 linearY=27.80 deltaY=0.00 grade=0.00
+- Profile t=0.833 x=-1812.50 z=-879.05: colliderY=27.00 linearY=28.00 deltaY=0.00 grade=0.00
+- Profile t=0.850 x=-1817.71 z=-881.59: colliderY=27.00 linearY=28.20 deltaY=0.00 grade=0.00
+- Profile t=0.867 x=-1822.92 z=-884.12: colliderY=27.00 linearY=28.40 deltaY=0.00 grade=0.00
+- Profile t=0.883 x=-1828.13 z=-886.66: colliderY=27.00 linearY=28.60 deltaY=0.00 grade=0.00
+- Profile t=0.900 x=-1833.34 z=-889.19: colliderY=27.00 linearY=28.80 deltaY=0.00 grade=0.00
+- Profile t=0.917 x=-1838.56 z=-891.73: colliderY=27.00 linearY=29.00 deltaY=0.00 grade=0.00
+- Profile t=0.933 x=-1843.77 z=-894.26: colliderY=27.00 linearY=29.20 deltaY=0.00 grade=0.00
+- Profile t=0.950 x=-1848.98 z=-896.80: colliderY=27.00 linearY=29.40 deltaY=0.00 grade=0.00
+- Profile t=0.967 x=-1854.19 z=-899.34: colliderY=27.00 linearY=29.60 deltaY=0.00 grade=0.00
+- Profile t=0.983 x=-1859.40 z=-901.87: colliderY=27.00 linearY=29.80 deltaY=0.00 grade=0.00
+- Profile t=1.000 x=-1864.61 z=-904.41: colliderY=27.00 linearY=30.00 deltaY=0.00 grade=0.00
+- Bridge 4 forward: FAIL, path=PathComplete, corners=2, actualDeckContacts=0, unsupportedFrames=197, groundedFrames=399/411, maxSingleFrameDrop=0.700, elapsedSimulation=5.30s
+  - start=(-1551.93, 18.40, -752.29); endpoint=(-1864.61, 30.40, -904.41); FINAL=(-1861.98, 30.45, -903.13); remainingXZ=2.925; sideCollisionFrames=0/411; flagsLast=Below; navCorners=(-1551.93, 18.40, -752.29); (-1864.61, 30.40, -904.41)
+  - CapsuleCast obstacle candidates (nearest 15m): 
+- Bridge 4 reverse: FAIL, path=PathComplete, corners=2, actualDeckContacts=0, unsupportedFrames=318, groundedFrames=675/700, maxSingleFrameDrop=0.569, elapsedSimulation=5.30s
+  - start=(-1864.61, 30.40, -904.41); endpoint=(-1551.93, 18.40, -752.29); FINAL=(-1555.03, 18.45, -753.80); remainingXZ=3.447; sideCollisionFrames=0/700; flagsLast=Below; navCorners=(-1864.61, 30.40, -904.41); (-1551.93, 18.40, -752.29)
+  - CapsuleCast obstacle candidates (nearest 15m): 
+- Bridge4 diagnostic pass: 0/2 directional bridge runs pass. Original complete 6/8 run is retained unchanged. This cannot validate original VanAert controls, boss combat, camera or physical A05s performance.
