@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="BasicChargeStreakPreviewWindow.uss" />
+    <ui:VisualElement class="streak-preview-root">
+        <ui:Label class="title" text="LAYER 1 — REAL VFX GRAPH / STREAKS ONLY" />
+        <ui:Label class="description" text="Actual streak VFX Graph with HDR appearance controls. Status reports whether controls are linked. Preview-only URP bloom; no gameplay components, lights or gizmos." />
+        <ui:VisualElement class="toolbar">
+            <ui:Button name="q0" text="Charge 0" />
+            <ui:Button name="q50" text="Charge 0.5" />
+            <ui:Button name="q96" text="Charge 0.96" />
+            <ui:Button name="restart" text="Restart" />
+            <ui:Button name="step" text="Step 1/30s" />
+            <ui:Toggle name="playing" label="Play" value="true" />
+            <ui:Toggle name="slow" label="0.25x" />
+        </ui:VisualElement>
+        <ui:Slider name="charge" label="Charge01" low-value="0" high-value="1" show-input-field="true" value="0.5" />
+        <ui:VisualElement class="toolbar">
+            <ui:FloatField name="emission-low" label="Emission low" value="0.35" />
+            <ui:FloatField name="emission-high" label="Emission high" value="6" />
+            <ui:FloatField name="edge-softness" label="Edge softness" value="1.4" />
+        </ui:VisualElement>
+        <ui:VisualElement class="toolbar">
+            <ui:Toggle name="bloom" label="Preview bloom" value="true" />
+            <ui:FloatField name="bloom-intensity" label="Bloom intensity" value="0.35" />
+        </ui:VisualElement>
+        <ui:VisualElement class="toolbar">
+            <ui:FloatField name="distance" label="Camera distance" value="1.25" />
+            <ui:Toggle name="bright" label="Bright backdrop" />
+            <ui:Button name="still" text="Save frame" />
+            <ui:Button name="record" text="Record 2s / 60 frames" />
+        </ui:VisualElement>
+        <ui:Label name="status" class="description" text="Waiting for graph import…" />
+        <ui:Label name="message" class="description" text="Use Restart, let the trails develop, then capture. This previews the graph asset, not the old CPU effect." />
+        <ui:VisualElement name="preview" class="preview-area" />
+    </ui:VisualElement>
+</ui:UXML>

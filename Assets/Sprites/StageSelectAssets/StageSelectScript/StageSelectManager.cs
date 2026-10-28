@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -55,11 +55,17 @@ public class StageSelectManager : MonoBehaviour
     public string[] stageSceneNames = {
         "SampleScene",
         "Stage2Scene",
-        "Stage3_MythicRuins",
-        "Stage4_CursedGothic",
+        "Stage3Scene",
+        "Stage4Scene",
         "Stage5_Final"
     };
     public string itemSelectionSceneName = "ItemSelectionScene";
+
+    [Header("Mandatory Stage Vocabulary Review")]
+    [SerializeField] private StageVocabularyReviewController vocabularyReviewController;
+    [SerializeField] private StageVocabularyProfile stage1VocabularyReviewProfile;
+    [SerializeField] private StageVocabularyProfile stage2VocabularyReviewProfile;
+    [SerializeField] private StageVocabularyProfile stage3VocabularyReviewProfile;
 
     // --------------------------------------------------------
     // Stage Data
@@ -94,10 +100,10 @@ public class StageSelectManager : MonoBehaviour
             flavour  = "Something feels wrong. You find the Master Wizard's seal..."
         },
         new StageInfo {
-            title    = "Stage 4: Cursed Gothic",
-            enemies  = "Plague Wraith  •  Vampiric Shade  •  Gargoyle Sentinel",
-            boss     = "Boss: Crimson Duchess — transforms to shadow dragon at 25% HP",
-            flavour  = "Full rage. The truth is finally revealed."
+            title    = "Stage 4: Convergence Citadel",
+            enemies  = "Hollow Knight  •  Drowned Captain  •  Titan Earthbreaker",
+            boss     = "Final Boss: Vander Poel",
+            flavour  = "The final gauntlet awaits in the five floating islands."
         },
         new StageInfo {
             title    = "Stage 5: ???",
@@ -114,6 +120,7 @@ public class StageSelectManager : MonoBehaviour
     private int selectedStage = -1;        // 0-indexed, -1 = none selected
     private int highestUnlocked = 0;       // 0-indexed
     private Coroutine lockWarnCoroutine;
+    private bool vocabularyReviewGateActive;
 
     // PlayerPrefs keys
     private const string PREF_HIGHEST_STAGE = "HighestStageUnlocked";
@@ -144,6 +151,8 @@ public class StageSelectManager : MonoBehaviour
         // Hide lock warning at start
         if (lockWarningPopup != null)
             lockWarningPopup.SetActive(false);
+
+        TryBeginPendingVocabularyReview();
     }
 
     // --------------------------------------------------------
@@ -217,7 +226,11 @@ public class StageSelectManager : MonoBehaviour
     {
         for (int i = 0; i < stageButtons.Length; i++)
         {
-            bool isUnlocked = i <= highestUnlocked;
+            // Never present a saved/unlocked slot as enterable when its
+            // gameplay scene is not in the actual build (Stage 5 placeholder).
+            bool sceneAvailable = i < stageSceneNames.Length &&
+                Application.CanStreamedLevelBeLoaded(stageSceneNames[i]);
+            bool isUnlocked = i <= highestUnlocked && sceneAvailable;
             bool isCompleted = i < highestUnlocked;
 
             // --- Button interactability ---
@@ -288,7 +301,16 @@ public class StageSelectManager : MonoBehaviour
 
     public void SelectStage(int index)
     {
+        if (vocabularyReviewGateActive)
+            return;
+
         if (index < 0 || index >= stageButtons.Length) return;
+        if (index >= stageSceneNames.Length ||
+            !Application.CanStreamedLevelBeLoaded(stageSceneNames[index]))
+        {
+            ShowLockedWarning();
+            return;
+        }
         if (index > highestUnlocked)
         {
             ShowLockedWarning();
@@ -339,12 +361,43 @@ public class StageSelectManager : MonoBehaviour
 
     public void OnEnterPressed()
     {
+        if (vocabularyReviewGateActive)
+            return;
+
         if (selectedStage < 0 || selectedStage > highestUnlocked) return;
 
-        string sceneName = stageSceneNames[selectedStage];
-        string stageTitle = selectedStage < stageInfoData.Length ? stageInfoData[selectedStage].title : sceneName;
-        StageRunSelection.SetSelectedStage(selectedStage, sceneName, stageTitle);
-        StartCoroutine(LoadStageScene(itemSelectionSceneName));
+        OpenItemSelectionForStage(selectedStage);
+    }
+
+    private void OpenItemSelectionForStage(int stageIndex)
+    {
+        if (stageIndex < 0
+            || stageIndex >= stageSceneNames.Length
+            || stageIndex > highestUnlocked)
+            return;
+
+        string sceneName = stageSceneNames[stageIndex];
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            ShowLockedWarning();
+            return;
+        }
+        string stageTitle = stageIndex < stageInfoData.Length
+            ? stageInfoData[stageIndex].title
+            : sceneName;
+
+        StageRunSelection.SetSelectedStage(stageIndex, sceneName, stageTitle);
+
+        // Wizard's Vault art has been approved and implemented for Stage 1/2/3.
+        // Keep Stage 4+ on the existing Item Selection scene until their own
+        // baked StagePage images are ready, rather than showing Stage 1 art.
+        string selectionScene = stageIndex <= 2
+            ? itemSelectionSceneName
+            : "ItemSelectionScene";
+        Debug.Log(
+            $"[StageSelectManager] Routing Stage {stageIndex + 1} through {selectionScene}.",
+            this);
+        StartCoroutine(LoadStageScene(selectionScene));
     }
 
     IEnumerator LoadStageScene(string sceneName)
@@ -386,6 +439,124 @@ public class StageSelectManager : MonoBehaviour
 
     public void OnBackPressed()
     {
-        SceneManager.LoadScene("MainMenu");
+        if (vocabularyReviewGateActive)
+            return;
+
+        SceneManager.LoadScene("Main Menu Scene");
+    }
+
+    private void TryBeginPendingVocabularyReview()
+    {
+        if (!StageVocabularyReviewPendingState.HasPendingReview)
+            return;
+
+        vocabularyReviewGateActive = true;
+        SetStageSelectionInteractable(false);
+
+        if (vocabularyReviewController == null)
+            vocabularyReviewController = FindFirstObjectByType<StageVocabularyReviewController>();
+
+        if (vocabularyReviewController == null)
+        {
+            Debug.LogError(
+                "[StageSelectManager] A vocabulary review is pending, but no StageVocabularyReviewController exists in StageSelectScene. Stage selection remains locked.",
+                this);
+            return;
+        }
+
+        int pendingStageNumber = StageVocabularyReviewPendingState.PendingStageNumber;
+        StageVocabularyProfile selectedProfile = ResolveVocabularyReviewProfile(pendingStageNumber);
+        if (selectedProfile == null)
+        {
+            Debug.LogError(
+                $"[StageSelectManager] No review profile is assigned for pending Stage {pendingStageNumber}. "
+                + "Stage selection remains locked.",
+                this);
+            return;
+        }
+
+        if (!vocabularyReviewController.TrySetProfile(selectedProfile))
+        {
+            Debug.LogError(
+                $"[StageSelectManager] Stage {pendingStageNumber} review profile could not be selected. "
+                + "Stage selection remains locked.",
+                vocabularyReviewController);
+            return;
+        }
+
+        if (!vocabularyReviewController.IsConfigurationValid())
+        {
+            Debug.LogError(
+                "[StageSelectManager] The pending vocabulary review is not configured correctly. Stage selection remains locked.",
+                vocabularyReviewController);
+            return;
+        }
+
+        vocabularyReviewController.BeginReview(OnPendingVocabularyReviewCompleted);
+        Debug.Log(
+            $"[StageSelectManager] Mandatory Stage {pendingStageNumber} vocabulary review opened.",
+            this);
+    }
+
+    private StageVocabularyProfile ResolveVocabularyReviewProfile(int stageNumber)
+    {
+        switch (stageNumber)
+        {
+            case 1:
+                return stage1VocabularyReviewProfile != null
+                    ? stage1VocabularyReviewProfile
+                    : vocabularyReviewController != null
+                        ? vocabularyReviewController.Profile
+                        : null;
+            case 2:
+                return stage2VocabularyReviewProfile;
+            case 3:
+                return stage3VocabularyReviewProfile;
+            default:
+                return null;
+        }
+    }
+
+    private void OnPendingVocabularyReviewCompleted()
+    {
+        int completedStageNumber = StageVocabularyReviewPendingState.PendingStageNumber;
+        StageVocabularyReviewPendingState.Clear();
+        GameDatabaseManager.EnsureInstance()?.FlushSave();
+        vocabularyReviewGateActive = false;
+        InitialiseNodes();
+        SelectStage(highestUnlocked);
+        Debug.Log("[StageSelectManager] Vocabulary review completed. Stage selection unlocked.", this);
+
+        // Stage 2 completion is the presentation handoff into Stage 3 loadout
+        // selection. Keep the mandatory review in Stage Select, then continue
+        // through the same Item Selection route used by the Enter button rather
+        // than introducing a second stage-loading path.
+        if (completedStageNumber == 2)
+        {
+            const int stage3Index = 2;
+            if (stage3Index <= highestUnlocked && stage3Index < stageSceneNames.Length)
+            {
+                SelectStage(stage3Index);
+                OpenItemSelectionForStage(stage3Index);
+            }
+            else
+            {
+                Debug.LogError(
+                    "[StageSelectManager] Stage 2 review completed, but Stage 3 is not unlocked/configured for Item Selection.",
+                    this);
+            }
+        }
+    }
+
+    private void SetStageSelectionInteractable(bool interactable)
+    {
+        foreach (Button stageButton in stageButtons)
+        {
+            if (stageButton != null)
+                stageButton.interactable = interactable;
+        }
+
+        if (enterButton != null)
+            enterButton.interactable = interactable;
     }
 }

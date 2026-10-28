@@ -1,0 +1,36 @@
+.streak-preview-root {
+    flex-grow: 1;
+    padding: 8px;
+    background-color: #202329;
+    color: #e9edf2;
+}
+.title {
+    -unity-font-style: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.description {
+    white-space: normal;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.toolbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 3px;
+}
+.toolbar > * {
+    margin-right: 6px;
+}
+.toolbar > FloatField {
+    width: 245px;
+}
+.preview-area {
+    flex-grow: 1;
+    min-height: 300px;
+}
+.render-surface {
+    flex-grow: 1;
+    min-height: 300px;
+}

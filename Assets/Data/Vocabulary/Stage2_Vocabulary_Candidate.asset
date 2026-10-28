@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1de40da4e925c4ab129168da2fc093, type: 3}
+  m_Name: Stage2_Vocabulary_Candidate
+  m_EditorClassIdentifier: Assembly-CSharp::StageVocabularyProfile
+  stageNumber: 2
+  words:
+  - wordId: stage2_submerge
+    word: SUBMERGE
+    encounterId: stage2_barnacle_husk
+    opportunityTiming: 1
+    successEffectId: submerge_barnacle_barrier
+    partOfSpeech: verb
+    phoneticSpelling: "/s\u0259b\u02C8m\u025C\u02D0rd\u0292/"
+    definition: To cause something to go completely under water.
+    contextSentence: The storm surge can submerge low roads near the coast.
+    combatClue: Form the word that means to put something completely under water.
+    challengeDistractorLetters: TALONSPY
+    reviewQuestion: Which sentence correctly uses the word SUBMERGE?
+    distractors: []
+    reviewChoices:
+    - sentence: Heavy rain can submerge low roads beneath water.
+      correct: 1
+      explanation: SUBMERGE is used correctly in this sentence.
+    - sentence: The captain submerged the route by drawing it on a map.
+      correct: 0
+      explanation: This does not match the meaning of SUBMERGE.
+    - sentence: The sailor submerged the compass by polishing it.
+      correct: 0
+      explanation: This does not match the meaning of SUBMERGE.
+    - sentence: The crew submerged the anchor by tying it to the mast.
+      correct: 0
+      explanation: This does not match the meaning of SUBMERGE.
+  - wordId: stage2_navigate
+    word: NAVIGATE
+    encounterId: stage2_corsair_phantom
+    opportunityTiming: 1
+    successEffectId: navigate_phantom_course
+    partOfSpeech: verb
+    phoneticSpelling: "/\u02C8n\xE6v\u026A\u0261e\u026At/"
+    definition: To plan and direct the route of a ship, vehicle, or journey.
+    contextSentence: The navigator used the stars to navigate the ship through fog.
+    combatClue: Form the word that means to plan and direct a route.
+    challengeDistractorLetters: CLOUDERS
+    reviewQuestion: Which sentence correctly uses the word NAVIGATE?
+    distractors: []
+    reviewChoices:
+    - sentence: The navigator used the stars to navigate the ship through fog.
+      correct: 1
+      explanation: NAVIGATE is used correctly in this sentence.
+    - sentence: The sailor navigated the anchor into a heavier metal.
+      correct: 0
+      explanation: This does not match the meaning of NAVIGATE.
+    - sentence: The crew navigated the waves by making them disappear.
+      correct: 0
+      explanation: This does not match the meaning of NAVIGATE.
+    - sentence: The captain navigated the treasure by hiding it in the hold.
+      correct: 0
+      explanation: This does not match the meaning of NAVIGATE.
+  - wordId: stage2_undertow
+    word: UNDERTOW
+    encounterId: stage2_tide_wraith
+    opportunityTiming: 1
+    successEffectId: undertow_wraith_current
+    partOfSpeech: noun
+    phoneticSpelling: "/\u02C8\u028Cnd\u0259rto\u028A/"
+    definition: A strong current beneath the water's surface that pulls away from
+      shore.
+    contextSentence: The lifeguard warned swimmers about the undertow near the reef.
+    combatClue: Form the word for a strong current that pulls water away from shore.
+    challengeDistractorLetters: SILKPACE
+    reviewQuestion: Which sentence correctly uses the word UNDERTOW?
+    distractors: []
+    reviewChoices:
+    - sentence: The lifeguard warned swimmers about the undertow near the reef.
+      correct: 1
+      explanation: UNDERTOW is used correctly in this sentence.
+    - sentence: The undertow repaired the broken lighthouse lamp.
+      correct: 0
+      explanation: This does not match the meaning of UNDERTOW.
+    - sentence: The undertow is a tool sailors use to measure distance.
+      correct: 0
+      explanation: This does not match the meaning of UNDERTOW.
+    - sentence: The undertow is the safe, shallow area beside a beach.
+      correct: 0
+      explanation: This does not match the meaning of UNDERTOW.
+  - wordId: stage2_nautical
+    word: NAUTICAL
+    encounterId: stage2_drowned_captain
+    opportunityTiming: 1
+    successEffectId: nautical_captain_command
+    partOfSpeech: adjective
+    phoneticSpelling: "/\u02C8n\u0254\u02D0t\u026Ak\u0259l/"
+    definition: Related to ships, sailors, or travel on the sea.
+    contextSentence: The captain kept nautical charts beside the ship's wheel.
+    combatClue: Form the word that means related to ships or travel on the sea.
+    challengeDistractorLetters: BENDROPS
+    reviewQuestion: Which sentence correctly uses the word NAUTICAL?
+    distractors: []
+    reviewChoices:
+    - sentence: The captain kept nautical charts beside the ship's wheel.
+      correct: 1
+      explanation: NAUTICAL is used correctly in this sentence.
+    - sentence: The crew used nautical ropes to grow vegetables on deck.
+      correct: 0
+      explanation: This does not match the meaning of NAUTICAL.
+    - sentence: Nautical means silent and unable to make a sound.
+      correct: 0
+      explanation: This does not match the meaning of NAUTICAL.
+    - sentence: The sailor called the ship's anchor nautical because it was made
+        of glass.
+      correct: 0
+      explanation: This does not match the meaning of NAUTICAL.
+  - wordId: stage2_erode
+    word: ERODE
+    encounterId: stage2_erode_boulder
+    opportunityTiming: 1
+    successEffectId: erode_boulder_passage
+    partOfSpeech: verb
+    phoneticSpelling: "/\u026A\u02C8ro\u028Ad/"
+    definition: To gradually wear away rock, soil, or another surface through water,
+      wind, or friction.
+    contextSentence: Powerful waves can erode the rocks along the shore.
+    combatClue: Form the word that means to gradually wear away rock or soil.
+    challengeDistractorLetters: TALSNIPWUCK
+    reviewQuestion: Which sentence correctly uses the word ERODE?
+    distractors: []
+    reviewChoices:
+    - sentence: Powerful waves can erode the rocks along the shore.
+      correct: 1
+      explanation: ERODE is used correctly in this sentence.
+    - sentence: The sailor eroded the map by using it to navigate north.
+      correct: 0
+      explanation: This does not match the meaning of ERODE.
+    - sentence: The captain eroded the anchor by lifting it onto the deck.
+      correct: 0
+      explanation: This does not match the meaning of ERODE.
+    - sentence: The crew eroded the lighthouse by switching on its lamp.
+      correct: 0
+      explanation: This does not match the meaning of ERODE.

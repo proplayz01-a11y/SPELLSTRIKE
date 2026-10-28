@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1de40da4e925c4ab129168da2fc093, type: 3}
+  m_Name: Stage3_Vocabulary_Review
+  m_EditorClassIdentifier: Assembly-CSharp::StageVocabularyProfile
+  stageNumber: 3
+  words:
+  - wordId: stage3_scorched
+    word: SCORCHED
+    encounterId: stage3_sunbound_warden
+    opportunityTiming: 1
+    successEffectId: scorched_warden_gate
+    partOfSpeech: adjective
+    phoneticSpelling: "/sk\u0254\u02D0rt\u0283t/"
+    definition: Burned, dried, or damaged by intense heat.
+    contextSentence: The scorched ground cracked beneath the desert sun.
+    combatClue: Form the word that means burned or dried by intense heat.
+    challengeDistractorLetters: BLUNTIFY
+    reviewQuestion: Which sentence correctly uses the word SCORCHED?
+    distractors: []
+    reviewChoices:
+    - sentence: The scorched ground was dry and blackened by the intense heat.
+      correct: 1
+      explanation: SCORCHED is used correctly in this sentence.
+    - sentence: The map was scorched because the traveler folded it carefully.
+      correct: 0
+      explanation: This does not match the meaning of SCORCHED.
+    - sentence: The guard called the cool spring water scorched.
+      correct: 0
+      explanation: This does not match the meaning of SCORCHED.
+    - sentence: The merchant scorched the coins by counting them twice.
+      correct: 0
+      explanation: This does not match the meaning of SCORCHED.
+  - wordId: stage3_drought
+    word: DROUGHT
+    encounterId: stage3_desert_archer
+    opportunityTiming: 1
+    successEffectId: drought_archer_gate
+    partOfSpeech: noun
+    phoneticSpelling: "/dra\u028At/"
+    definition: A long period with little or no rainfall.
+    contextSentence: The village stored water to survive the severe drought.
+    combatClue: Form the word for a long period with very little rain.
+    challengeDistractorLetters: SANDCLIME
+    reviewQuestion: Which sentence correctly uses the word DROUGHT?
+    distractors: []
+    reviewChoices:
+    - sentence: The long drought left the wells nearly empty.
+      correct: 1
+      explanation: DROUGHT is used correctly in this sentence.
+    - sentence: The drought repaired the broken bridge before sunset.
+      correct: 0
+      explanation: This does not match the meaning of DROUGHT.
+    - sentence: A drought is a short burst of heavy rainfall.
+      correct: 0
+      explanation: This does not match the meaning of DROUGHT.
+    - sentence: The traveler used a drought to measure the distance between towns.
+      correct: 0
+      explanation: This does not match the meaning of DROUGHT.
+  - wordId: stage3_sand
+    word: SAND
+    encounterId: stage3_stone_golem
+    opportunityTiming: 1
+    successEffectId: sand_golem_gate
+    partOfSpeech: noun
+    phoneticSpelling: "/s\xE6nd/"
+    definition: Loose grains of rock or mineral found on beaches and in deserts.
+    contextSentence: Wind pushed the sand across the desert path.
+    combatClue: Form the word for loose grains of rock found across the desert.
+    challengeDistractorLetters: HEATROCKWIND
+    reviewQuestion: Which sentence correctly uses the word SAND?
+    distractors: []
+    reviewChoices:
+    - sentence: Strong wind carried sand across the desert floor.
+      correct: 1
+      explanation: SAND is used correctly in this sentence.
+    - sentence: Sand is a metal tool used to repair armor.
+      correct: 0
+      explanation: This does not match the meaning of SAND.
+    - sentence: The traveler used sand as another word for a mountain peak.
+      correct: 0
+      explanation: This does not match the meaning of SAND.
+    - sentence: Sand means a deep pool of fresh water beneath the ground.
+      correct: 0
+      explanation: This does not match the meaning of SAND.
+  - wordId: stage3_node4_riddle_wind
+    word: WIND
+    encounterId: stage3_node4_riddle
+    opportunityTiming: 4
+    successEffectId: stage3_riddle_correct
+    partOfSpeech: noun
+    phoneticSpelling: 
+    definition: Air moving naturally across the Earth's surface.
+    contextSentence: The wind swept loose sand across the dunes.
+    combatClue: 
+    challengeDistractorLetters: 
+    reviewQuestion: Which sentence correctly uses the word WIND?
+    distractors: []
+    reviewChoices:
+    - sentence: The wind carried sand through the desert canyon.
+      correct: 1
+      explanation: WIND is used correctly in this sentence.
+    - sentence: The traveler wore a wind on each foot instead of shoes.
+      correct: 0
+      explanation: This does not match the meaning of WIND.
+    - sentence: The wind was a stone staircase leading underground.
+      correct: 0
+      explanation: This does not match the meaning of WIND.
+    - sentence: The map showed a wind as a unit of distance.
+      correct: 0
+      explanation: This does not match the meaning of WIND.
+  - wordId: stage3_node4_riddle_sky
+    word: SKY
+    encounterId: stage3_node4_riddle
+    opportunityTiming: 4
+    successEffectId: stage3_riddle_correct
+    partOfSpeech: noun
+    phoneticSpelling: 
+    definition: The space above the ground where clouds, the Sun, and stars appear.
+    contextSentence: The clear sky stretched above the desert at dawn.
+    combatClue: 
+    challengeDistractorLetters: 
+    reviewQuestion: Which sentence correctly uses the word SKY?
+    distractors: []
+    reviewChoices:
+    - sentence: Stars appeared in the dark sky over the sleeping camp.
+      correct: 1
+      explanation: SKY is used correctly in this sentence.
+    - sentence: The traveler folded the sky and put it inside a pocket.
+      correct: 0
+      explanation: This does not match the meaning of SKY.
+    - sentence: The blacksmith used the sky to sharpen a sword blade.
+      correct: 0
+      explanation: This does not match the meaning of SKY.
+    - sentence: The sky was a small jar of drinking water.
+      correct: 0
+      explanation: This does not match the meaning of SKY.
+  - wordId: stage3_node4_riddle_desert
+    word: DESERT
+    encounterId: stage3_node4_riddle
+    opportunityTiming: 4
+    successEffectId: stage3_riddle_correct
+    partOfSpeech: noun
+    phoneticSpelling: 
+    definition: A very dry region that receives little rainfall.
+    contextSentence: The travelers crossed the hot desert with limited water.
+    combatClue: 
+    challengeDistractorLetters: 
+    reviewQuestion: Which sentence correctly uses the word DESERT?
+    distractors: []
+    reviewChoices:
+    - sentence: The desert received so little rain that few plants survived.
+      correct: 1
+      explanation: DESERT is used correctly in this sentence.
+    - sentence: The soldier used a desert to lock the wooden gate.
+      correct: 0
+      explanation: This does not match the meaning of DESERT.
+    - sentence: The desert chimed loudly when the clock struck noon.
+      correct: 0
+      explanation: This does not match the meaning of DESERT.
+    - sentence: The baker poured a desert into the cup as a drink.
+      correct: 0
+      explanation: This does not match the meaning of DESERT.
+  - wordId: stage3_node4_riddle_sun
+    word: SUN
+    encounterId: stage3_node4_riddle
+    opportunityTiming: 4
+    successEffectId: stage3_riddle_correct
+    partOfSpeech: noun
+    phoneticSpelling: 
+    definition: The star that gives Earth light and heat.
+    contextSentence: The Sun sank below the dunes at the end of the day.
+    combatClue: 
+    challengeDistractorLetters: 
+    reviewQuestion: Which sentence correctly uses the word SUN?
+    distractors: []
+    reviewChoices:
+    - sentence: The Sun warmed the desert sand after sunrise.
+      correct: 1
+      explanation: SUN is used correctly in this sentence.
+    - sentence: The traveler packed the Sun in a small leather bag.
+      correct: 0
+      explanation: This does not match the meaning of SUN.
+    - sentence: The Sun is a type of fish living beneath the sand.
+      correct: 0
+      explanation: This does not match the meaning of SUN.
+    - sentence: The merchant used the Sun as a name for a pair of boots.
+      correct: 0
+      explanation: This does not match the meaning of SUN.

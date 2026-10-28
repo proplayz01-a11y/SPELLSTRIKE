@@ -1,0 +1,3287 @@
+{
+  "name": "Spellstrike_Hall_of_Chronicles_Animated_Asset_Pack_v1",
+  "version": 1,
+  "canvas": {
+    "width": 2400,
+    "height": 1080,
+    "origin": "top_left"
+  },
+  "approved_source": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png",
+  "ui_overlay": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\work\\hall-chronicles\\StageSelect_UI_Overlay.png",
+  "color_space": "sRGB-encoded color textures; straight alpha; normal SourceOver in LINEAR light; project m_ActiveColorSpace=1 read-only verified",
+  "alignment_contract": "Cropped effects: exact integer top-left source_rect_xywh; center pivot; preserve source size and no per-layer fitting",
+  "reconstruction_regions": [
+    {
+      "bounds_xywh": [
+        579,
+        0,
+        116,
+        95
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "chandelier_left"
+    },
+    {
+      "bounds_xywh": [
+        626,
+        0,
+        112,
+        70
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "chandelier_upper_left"
+    },
+    {
+      "bounds_xywh": [
+        830,
+        0,
+        110,
+        70
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "chandelier_upper_right"
+    },
+    {
+      "bounds_xywh": [
+        863,
+        0,
+        118,
+        111
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "chandelier_right"
+    },
+    {
+      "bounds_xywh": [
+        6,
+        166,
+        143,
+        174
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_left_outer"
+    },
+    {
+      "bounds_xywh": [
+        285,
+        207,
+        146,
+        172
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_left_middle"
+    },
+    {
+      "bounds_xywh": [
+        477,
+        272,
+        146,
+        150
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_left_inner"
+    },
+    {
+      "bounds_xywh": [
+        830,
+        260,
+        174,
+        174
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_left_arch"
+    },
+    {
+      "bounds_xywh": [
+        1051,
+        355,
+        119,
+        118
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "corridor_left"
+    },
+    {
+      "bounds_xywh": [
+        1280,
+        356,
+        121,
+        120
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "corridor_right"
+    },
+    {
+      "bounds_xywh": [
+        1441,
+        258,
+        177,
+        174
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_right_arch"
+    },
+    {
+      "bounds_xywh": [
+        1652,
+        254,
+        141,
+        155
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_right_inner"
+    },
+    {
+      "bounds_xywh": [
+        1887,
+        183,
+        147,
+        174
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_right_middle"
+    },
+    {
+      "bounds_xywh": [
+        2181,
+        144,
+        138,
+        183
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "wall_right_outer"
+    },
+    {
+      "bounds_xywh": [
+        413,
+        433,
+        88,
+        98
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "table_left_left"
+    },
+    {
+      "bounds_xywh": [
+        450,
+        409,
+        92,
+        103
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "table_left_center"
+    },
+    {
+      "bounds_xywh": [
+        486,
+        433,
+        89,
+        99
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "table_left_right"
+    },
+    {
+      "bounds_xywh": [
+        1980,
+        477,
+        98,
+        107
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "table_right_left"
+    },
+    {
+      "bounds_xywh": [
+        2068,
+        516,
+        99,
+        108
+      ],
+      "reason": "Wide feathered local ImageGen donor repair; original candle bodies/holders protected below wick",
+      "source_id": "table_right_right"
+    },
+    {
+      "bounds_xywh": [
+        579,
+        0,
+        116,
+        95
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "chandelier_left"
+    },
+    {
+      "bounds_xywh": [
+        626,
+        0,
+        112,
+        70
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "chandelier_upper_left"
+    },
+    {
+      "bounds_xywh": [
+        830,
+        0,
+        110,
+        70
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "chandelier_upper_right"
+    },
+    {
+      "bounds_xywh": [
+        863,
+        0,
+        118,
+        111
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "chandelier_right"
+    },
+    {
+      "bounds_xywh": [
+        6,
+        166,
+        143,
+        174
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_left_outer"
+    },
+    {
+      "bounds_xywh": [
+        285,
+        207,
+        146,
+        172
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_left_middle"
+    },
+    {
+      "bounds_xywh": [
+        477,
+        272,
+        146,
+        150
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_left_inner"
+    },
+    {
+      "bounds_xywh": [
+        830,
+        260,
+        174,
+        174
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_left_arch"
+    },
+    {
+      "bounds_xywh": [
+        1051,
+        355,
+        119,
+        118
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "corridor_left"
+    },
+    {
+      "bounds_xywh": [
+        1280,
+        356,
+        121,
+        120
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "corridor_right"
+    },
+    {
+      "bounds_xywh": [
+        1441,
+        258,
+        177,
+        174
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_right_arch"
+    },
+    {
+      "bounds_xywh": [
+        1652,
+        254,
+        141,
+        155
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_right_inner"
+    },
+    {
+      "bounds_xywh": [
+        1887,
+        183,
+        147,
+        174
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_right_middle"
+    },
+    {
+      "bounds_xywh": [
+        2181,
+        144,
+        138,
+        183
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "wall_right_outer"
+    },
+    {
+      "bounds_xywh": [
+        413,
+        433,
+        88,
+        98
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "table_left_left"
+    },
+    {
+      "bounds_xywh": [
+        450,
+        409,
+        92,
+        103
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "table_left_center"
+    },
+    {
+      "bounds_xywh": [
+        486,
+        433,
+        89,
+        99
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "table_left_right"
+    },
+    {
+      "bounds_xywh": [
+        1980,
+        477,
+        98,
+        107
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "table_right_left"
+    },
+    {
+      "bounds_xywh": [
+        2068,
+        516,
+        99,
+        108
+      ],
+      "reason": "Local positive illumination residual only; broad baked room bounce retained",
+      "source_id": "table_right_right"
+    },
+    {
+      "bounds_xywh": [
+        1118,
+        256,
+        216,
+        177
+      ],
+      "reason": "Subdued blue fanlight intensity separation; original glass geometry retained",
+      "source_id": "blue_archway"
+    }
+  ],
+  "assets": [
+    {
+      "filename": "PNG/library_base_2400x1080.png",
+      "role": "base",
+      "dimensions": [
+        2400,
+        1080
+      ],
+      "source_rect_xywh": [
+        0,
+        0,
+        2400,
+        1080
+      ],
+      "rendering_order": 0,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "blend": "opaque",
+      "default_opacity": 1,
+      "animation": {
+        "type": "none",
+        "max_translation_source_pixels": 0,
+        "maximum_alpha_delta": 0,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "90ad424a4be3723b918ea5c1f6dcec30f8101f932fe320ab76efea4b944f83fe",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "None",
+        "alpha_is_transparency": false,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 4096,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented."
+    },
+    {
+      "filename": "PNG/Glows/glow_blue_archway.png",
+      "role": "glow",
+      "dimensions": [
+        200,
+        163
+      ],
+      "source_rect_xywh": [
+        1126,
+        270,
+        200,
+        163
+      ],
+      "source_id": "blue_archway",
+      "depth": "strong_far",
+      "rendering_order": 10,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1226,
+        352
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.49693251533742333
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          6,
+          10
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "3c37e5aab4162a6c325741440806bbbc00730db8404b790de46b2e702acb3d37",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_table_right_right.png",
+      "role": "glow",
+      "dimensions": [
+        88,
+        78
+      ],
+      "source_rect_xywh": [
+        2074,
+        537,
+        88,
+        78
+      ],
+      "source_id": "table_right_right",
+      "depth": "light_to_moderate",
+      "rendering_order": 11,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        2117,
+        581
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.48863636363636365,
+        0.4358974358974359
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "4555cdf2e8328ec6a317bcce23268be96d36e74a3037f62563a4cd2e414a06e3",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_table_right_left.png",
+      "role": "glow",
+      "dimensions": [
+        77,
+        98
+      ],
+      "source_rect_xywh": [
+        1984,
+        477,
+        77,
+        98
+      ],
+      "source_id": "table_right_left",
+      "depth": "light_to_moderate",
+      "rendering_order": 12,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        2029,
+        540
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5844155844155844,
+        0.3571428571428571
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "e9557934a19048daf1e5c2a1515973f54815b60a53bcd11f69a6ae52171189bb",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_table_left_right.png",
+      "role": "glow",
+      "dimensions": [
+        82,
+        90
+      ],
+      "source_rect_xywh": [
+        490,
+        434,
+        82,
+        90
+      ],
+      "source_id": "table_left_right",
+      "depth": "light_to_moderate",
+      "rendering_order": 13,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        531,
+        493
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.34444444444444444
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "0c1bd4b831674989ea242ebb14f9ccd5b7ed6f20eaf3f81d49614c90fda1e1f9",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_table_left_center.png",
+      "role": "glow",
+      "dimensions": [
+        84,
+        94
+      ],
+      "source_rect_xywh": [
+        454,
+        412,
+        84,
+        94
+      ],
+      "source_id": "table_left_center",
+      "depth": "light_to_moderate",
+      "rendering_order": 14,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        496,
+        474
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.34042553191489366
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "94d4db126424039d22da3abb4d9e7d2a28b3322a7056c1dc206151a42633f322",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_table_left_left.png",
+      "role": "glow",
+      "dimensions": [
+        80,
+        90
+      ],
+      "source_rect_xywh": [
+        418,
+        434,
+        80,
+        90
+      ],
+      "source_id": "table_left_left",
+      "depth": "light_to_moderate",
+      "rendering_order": 15,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        458,
+        493
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.34444444444444444
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "2035da1b37c0af49dcc6e7fb8647942d82a695ffcd8623999f9f88a63874473c",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_right_outer.png",
+      "role": "glow",
+      "dimensions": [
+        125,
+        162
+      ],
+      "source_rect_xywh": [
+        2185,
+        143,
+        125,
+        162
+      ],
+      "source_id": "wall_right_outer",
+      "depth": "moderate",
+      "rendering_order": 16,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        2248,
+        246
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.504,
+        0.3641975308641975
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "8f8c0e8edfce9a409bfc7eeec935e796810ce53e527d09f63aba5c616785e633",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_right_middle.png",
+      "role": "glow",
+      "dimensions": [
+        134,
+        158
+      ],
+      "source_rect_xywh": [
+        1888,
+        182,
+        134,
+        158
+      ],
+      "source_id": "wall_right_middle",
+      "depth": "moderate",
+      "rendering_order": 17,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1956,
+        277
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5074626865671642,
+        0.3987341772151899
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "fddce75f1cca6ff329d5579f072cb6aba3f0e0819833f820466972df2e0ccf2f",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_right_inner.png",
+      "role": "glow",
+      "dimensions": [
+        128,
+        142
+      ],
+      "source_rect_xywh": [
+        1653,
+        259,
+        128,
+        142
+      ],
+      "source_id": "wall_right_inner",
+      "depth": "moderate_to_far",
+      "rendering_order": 18,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1718,
+        349
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5078125,
+        0.3661971830985915
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "4702ad4377f5d4b441333d7f23868a61d4356d550c5be5a1001fa6de3055c835",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_right_arch.png",
+      "role": "glow",
+      "dimensions": [
+        162,
+        158
+      ],
+      "source_rect_xywh": [
+        1448,
+        265,
+        162,
+        158
+      ],
+      "source_id": "wall_right_arch",
+      "depth": "far",
+      "rendering_order": 19,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1529,
+        373
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.31645569620253167
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "5fd9cd0be4ffabbd6484122c0af37d8a0cc4ef7cde2edd8206ce57ae5fcd4270",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_corridor_right.png",
+      "role": "glow",
+      "dimensions": [
+        110,
+        110
+      ],
+      "source_rect_xywh": [
+        1286,
+        362,
+        110,
+        110
+      ],
+      "source_id": "corridor_right",
+      "depth": "strong_far",
+      "rendering_order": 20,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1341,
+        435
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.3363636363636363
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "cc14a2e74b76cdcd16d32994bbcc0f60148ed07645597487420646dec81c78ab",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_corridor_left.png",
+      "role": "glow",
+      "dimensions": [
+        108,
+        108
+      ],
+      "source_rect_xywh": [
+        1056,
+        360,
+        108,
+        108
+      ],
+      "source_id": "corridor_left",
+      "depth": "strong_far",
+      "rendering_order": 21,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1110,
+        433
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.32407407407407407
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "9c547ff35cda664d3845e742a63037dd2bcddc77312289b7f6b7caec60f685d0",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_left_arch.png",
+      "role": "glow",
+      "dimensions": [
+        158,
+        158
+      ],
+      "source_rect_xywh": [
+        837,
+        265,
+        158,
+        158
+      ],
+      "source_id": "wall_left_arch",
+      "depth": "far",
+      "rendering_order": 22,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        916,
+        373
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.31645569620253167
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "fee0f0784640bcee049264c227b24f3f5025915df16d41e1a5d4a58678f3b5cd",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_left_inner.png",
+      "role": "glow",
+      "dimensions": [
+        119,
+        138
+      ],
+      "source_rect_xywh": [
+        498,
+        278,
+        119,
+        138
+      ],
+      "source_id": "wall_left_inner",
+      "depth": "moderate_to_far",
+      "rendering_order": 23,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        551,
+        369
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.44537815126050423,
+        0.3405797101449275
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "2959d8b997f5741ee0cb03ae2dd11a8b91b8c0133f0f4dae96eca23732fa2e09",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_left_middle.png",
+      "role": "glow",
+      "dimensions": [
+        132,
+        157
+      ],
+      "source_rect_xywh": [
+        291,
+        207,
+        132,
+        157
+      ],
+      "source_id": "wall_left_middle",
+      "depth": "moderate",
+      "rendering_order": 24,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        357,
+        298
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.42038216560509556
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "5e8e0abd16c741b2f8c1460b485b79bda6c872d70f191a894b78835282553e91",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_wall_left_outer.png",
+      "role": "glow",
+      "dimensions": [
+        130,
+        155
+      ],
+      "source_rect_xywh": [
+        15,
+        168,
+        130,
+        155
+      ],
+      "source_id": "wall_left_outer",
+      "depth": "moderate",
+      "rendering_order": 25,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        80,
+        261
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.4
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "63accf5cbc04cf83719207a49ca504d7e84395846c59bb21186f308c09f06030",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 256,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_chandelier_right.png",
+      "role": "glow",
+      "dimensions": [
+        105,
+        89
+      ],
+      "source_rect_xywh": [
+        867,
+        3,
+        105,
+        89
+      ],
+      "source_id": "chandelier_right",
+      "depth": "moderate",
+      "rendering_order": 26,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        920,
+        59
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5047619047619047,
+        0.3707865168539326
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "e55f248d66245d2e5f56e334a96f0f8250d9c51b11dde3cf5cd0cc799fe13c2e",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_chandelier_upper_right.png",
+      "role": "glow",
+      "dimensions": [
+        34,
+        39
+      ],
+      "source_rect_xywh": [
+        866,
+        0,
+        34,
+        39
+      ],
+      "source_id": "chandelier_upper_right",
+      "depth": "moderate",
+      "rendering_order": 27,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        884,
+        20
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5294117647058824,
+        0.4871794871794872
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "69597f0bc2bdb92733522ac2962a2f26ffb6cc3259c64dd4fe87d31ed27860da",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_chandelier_upper_left.png",
+      "role": "glow",
+      "dimensions": [
+        55,
+        39
+      ],
+      "source_rect_xywh": [
+        667,
+        0,
+        55,
+        39
+      ],
+      "source_id": "chandelier_upper_left",
+      "depth": "moderate",
+      "rendering_order": 28,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        681,
+        19
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.2545454545454545,
+        0.5128205128205128
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "51fb2a0911574a8ae1f9a0f60615e8215d10a816088aaf3e39b154f2a03b140d",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Glows/glow_chandelier_left.png",
+      "role": "glow",
+      "dimensions": [
+        69,
+        74
+      ],
+      "source_rect_xywh": [
+        620,
+        4,
+        69,
+        74
+      ],
+      "source_id": "chandelier_left",
+      "depth": "moderate",
+      "rendering_order": 29,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        636,
+        48
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.2318840579710145,
+        0.4054054054054054
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "slow_alpha_only",
+        "alpha_range": [
+          0.9,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          2.5,
+          5
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.1,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "7729db7de9da017d66467232f778224541a1db7674e72718d0d8b33a5f8a7fd1",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Simple soft illumination field; normal alpha, fixed position. No candle body or architecture pixels."
+    },
+    {
+      "filename": "PNG/Flames/flame_table_right_right.png",
+      "role": "flame",
+      "dimensions": [
+        23,
+        33
+      ],
+      "source_rect_xywh": [
+        2106,
+        549,
+        23,
+        33
+      ],
+      "source_id": "table_right_right",
+      "depth": "light_to_moderate",
+      "rendering_order": 30,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        2117,
+        581
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4782608695652174,
+        0.030303030303030276
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "b7f3d590c330a4c9eec45ed98d8cc92dce7c3e8f0b9d32954b92cdb9e480e2de",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_table_right_left.png",
+      "role": "flame",
+      "dimensions": [
+        23,
+        31
+      ],
+      "source_rect_xywh": [
+        2018,
+        510,
+        23,
+        31
+      ],
+      "source_id": "table_right_left",
+      "depth": "light_to_moderate",
+      "rendering_order": 31,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        2029,
+        540
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4782608695652174,
+        0.032258064516129004
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "3dc7487d70b2330da2cb2ee68b828306f21df5b9a77c9eb450aa0bcf430d3717",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_table_left_right.png",
+      "role": "flame",
+      "dimensions": [
+        23,
+        28
+      ],
+      "source_rect_xywh": [
+        520,
+        465,
+        23,
+        28
+      ],
+      "source_id": "table_left_right",
+      "depth": "light_to_moderate",
+      "rendering_order": 32,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        531,
+        493
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4782608695652174,
+        0
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "30557d4945c37f6df3c324666c85bb9a19f63e6b21e97999f1fd0c1b5c51e7a6",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_table_left_center.png",
+      "role": "flame",
+      "dimensions": [
+        24,
+        29
+      ],
+      "source_rect_xywh": [
+        484,
+        445,
+        24,
+        29
+      ],
+      "source_id": "table_left_center",
+      "depth": "light_to_moderate",
+      "rendering_order": 33,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        496,
+        474
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "184b866c1b007c1193b9d730edf1460b7a71c813f572875e59c43d0b95446255",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_table_left_left.png",
+      "role": "flame",
+      "dimensions": [
+        23,
+        28
+      ],
+      "source_rect_xywh": [
+        447,
+        465,
+        23,
+        28
+      ],
+      "source_id": "table_left_left",
+      "depth": "light_to_moderate",
+      "rendering_order": 34,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        458,
+        493
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4782608695652174,
+        0
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "3f2919a5d15c967a21f4e1cfa07cea7b017cae2d02fcd11480c74728bbe7f550",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_right_outer.png",
+      "role": "flame",
+      "dimensions": [
+        28,
+        50
+      ],
+      "source_rect_xywh": [
+        2234,
+        197,
+        28,
+        50
+      ],
+      "source_id": "wall_right_outer",
+      "depth": "moderate",
+      "rendering_order": 35,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        2248,
+        246
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.020000000000000018
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "f516a3b789ad70f4fe0bd3e40f74de9765322753faddc69e2d3268f6b8c113e6",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_right_middle.png",
+      "role": "flame",
+      "dimensions": [
+        27,
+        35
+      ],
+      "source_rect_xywh": [
+        1944,
+        243,
+        27,
+        35
+      ],
+      "source_id": "wall_right_middle",
+      "depth": "moderate",
+      "rendering_order": 36,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1956,
+        277
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4444444444444444,
+        0.02857142857142858
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "f715afc45f44a6c03b0124a902d7ffa63b724b17b56e746d0dc8c1495534acce",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_right_inner.png",
+      "role": "flame",
+      "dimensions": [
+        60,
+        60
+      ],
+      "source_rect_xywh": [
+        1690,
+        290,
+        60,
+        60
+      ],
+      "source_id": "wall_right_inner",
+      "depth": "moderate_to_far",
+      "rendering_order": 37,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1718,
+        349
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4666666666666667,
+        0.01666666666666672
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "alpha_only",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "e65674799a437342108bc6585f2b34c20a2004b5507af1e5fa742037b256d95d",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Diffuse reconstructed emission; alpha only."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_right_arch.png",
+      "role": "flame",
+      "dimensions": [
+        80,
+        78
+      ],
+      "source_rect_xywh": [
+        1490,
+        296,
+        80,
+        78
+      ],
+      "source_id": "wall_right_arch",
+      "depth": "far",
+      "rendering_order": 38,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1529,
+        373
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4875,
+        0.012820512820512775
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "alpha_only",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "722013cacebe1286f44b75a72d53d3d42d2b8a991fdd4acabe57dae7d5877818",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Diffuse reconstructed emission; alpha only."
+    },
+    {
+      "filename": "PNG/Flames/flame_corridor_right.png",
+      "role": "flame",
+      "dimensions": [
+        59,
+        53
+      ],
+      "source_rect_xywh": [
+        1313,
+        383,
+        59,
+        53
+      ],
+      "source_id": "corridor_right",
+      "depth": "strong_far",
+      "rendering_order": 39,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1341,
+        435
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4745762711864407,
+        0.018867924528301883
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "alpha_only",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "45278927c0c4eedd5060d2d4b3f7a9303f6e1a0742d1c0dd6d00887d6a418bb6",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Diffuse reconstructed emission; alpha only."
+    },
+    {
+      "filename": "PNG/Flames/flame_corridor_left.png",
+      "role": "flame",
+      "dimensions": [
+        58,
+        53
+      ],
+      "source_rect_xywh": [
+        1082,
+        381,
+        58,
+        53
+      ],
+      "source_id": "corridor_left",
+      "depth": "strong_far",
+      "rendering_order": 40,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        1110,
+        433
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4827586206896552,
+        0.018867924528301883
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "alpha_only",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "619f4fa6609dc1214c908d91d69e5ca2dfee7a22f0a2ebd7cc767e3584c8aee1",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Diffuse reconstructed emission; alpha only."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_left_arch.png",
+      "role": "flame",
+      "dimensions": [
+        79,
+        78
+      ],
+      "source_rect_xywh": [
+        878,
+        296,
+        79,
+        78
+      ],
+      "source_id": "wall_left_arch",
+      "depth": "far",
+      "rendering_order": 41,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        916,
+        373
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4810126582278481,
+        0.012820512820512775
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "alpha_only",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "7b9d498d502abb01fcdaccbb2a532abf65398cfbeaf52ca839b4ca8c30f30291",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Diffuse reconstructed emission; alpha only."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_left_inner.png",
+      "role": "flame",
+      "dimensions": [
+        66,
+        64
+      ],
+      "source_rect_xywh": [
+        518,
+        306,
+        66,
+        64
+      ],
+      "source_id": "wall_left_inner",
+      "depth": "moderate_to_far",
+      "rendering_order": 42,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        551,
+        369
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.015625
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "alpha_only",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          1,
+          1
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0
+      },
+      "sha256": "87c2ac049f6b4a9f86855b60613de91399a0254a23e038f27f4b24455debcf16",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 128,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Diffuse reconstructed emission; alpha only."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_left_middle.png",
+      "role": "flame",
+      "dimensions": [
+        25,
+        29
+      ],
+      "source_rect_xywh": [
+        343,
+        270,
+        25,
+        29
+      ],
+      "source_id": "wall_left_middle",
+      "depth": "moderate",
+      "rendering_order": 43,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        357,
+        298
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.56,
+        0.03448275862068961
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "8b133dedce1127b6931b170ece089ec3f8882e100a95821a91216531040b0553",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_wall_left_outer.png",
+      "role": "flame",
+      "dimensions": [
+        26,
+        38
+      ],
+      "source_rect_xywh": [
+        68,
+        224,
+        26,
+        38
+      ],
+      "source_id": "wall_left_outer",
+      "depth": "moderate",
+      "rendering_order": 44,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        80,
+        261
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.46153846153846156,
+        0.02631578947368418
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "ae513a65d2425c88087f8d0e0b1ff5e309cb8cddf547873e60d41b7508046e91",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_chandelier_right.png",
+      "role": "flame",
+      "dimensions": [
+        24,
+        37
+      ],
+      "source_rect_xywh": [
+        908,
+        21,
+        24,
+        37
+      ],
+      "source_id": "chandelier_right",
+      "depth": "moderate",
+      "rendering_order": 45,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        920,
+        59
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        -0.027027027027026973
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "10bc9aeb0d1a996f5f7504bb4b6101ad4605537dd27a8f2567520e5e701ab884",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_chandelier_upper_right.png",
+      "role": "flame",
+      "dimensions": [
+        24,
+        21
+      ],
+      "source_rect_xywh": [
+        872,
+        0,
+        24,
+        21
+      ],
+      "source_id": "chandelier_upper_right",
+      "depth": "moderate",
+      "rendering_order": 46,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        884,
+        20
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.5,
+        0.04761904761904767
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "980bc57fd37a86421266decee810e51830873abb8381487ab0a19a0c57f5a0f9",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_chandelier_upper_left.png",
+      "role": "flame",
+      "dimensions": [
+        23,
+        19
+      ],
+      "source_rect_xywh": [
+        670,
+        0,
+        23,
+        19
+      ],
+      "source_id": "chandelier_upper_left",
+      "depth": "moderate",
+      "rendering_order": 47,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        681,
+        19
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4782608695652174,
+        0
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "98ebba32c795cc84be3508eae9e05f375bab3d4548285a2e010a5b9d30308213",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Flames/flame_chandelier_left.png",
+      "role": "flame",
+      "dimensions": [
+        24,
+        32
+      ],
+      "source_rect_xywh": [
+        625,
+        16,
+        24,
+        32
+      ],
+      "source_id": "chandelier_left",
+      "depth": "moderate",
+      "rendering_order": 48,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "wick_source_xy": [
+        636,
+        48
+      ],
+      "wick_pivot_normalized_bottom_left": [
+        0.4583333333333333,
+        0
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 1,
+      "alpha": "8-bit straight; RGB sRGB; four-pixel color dilation under transparent padding",
+      "animation": {
+        "type": "asynchronous_alpha_and_wick_pivot_scale",
+        "alpha_range": [
+          0.94,
+          1
+        ],
+        "scale_range": [
+          0.98,
+          1.02
+        ],
+        "max_translation_source_pixels": 0,
+        "period_seconds": [
+          0.7,
+          1.7
+        ],
+        "phase": "independent per source; no synchronized room pulse",
+        "maximum_alpha_delta": 0.06,
+        "maximum_scale_delta": 0.02
+      },
+      "sha256": "17dcd3baa3ac10c0181df24ba0cc1c182dcaf7f334314da4ff5df38870bf09ae",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 32,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      },
+      "source_location": "C:\\Users\\David\\Documents\\Codex\\2026-10-15\\cou\\outputs\\Spellstrike_Hall_of_Chronicles_Focus_Polish_v3\\Hall_of_Chronicles_Background_SoftFocus_v3.png at source_rect_xywh; local reconstruction as documented.",
+      "extraction_note": "Source-connected hot core and immediate halo; small silhouette/brightness differences possible."
+    },
+    {
+      "filename": "PNG/Particles/particle_dust_soft.png",
+      "role": "particle",
+      "dimensions": [
+        64,
+        64
+      ],
+      "source_rect_xywh": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "source_location": "New individual generated texture; no fixed scene position.",
+      "rendering_order": 100,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 0,
+      "animation": {
+        "type": "optional ParticleSystem; excluded from default reconstruction",
+        "max_alive": 12,
+        "size_source_pixels": [
+          1,
+          3
+        ],
+        "alpha_max": 0.15,
+        "velocity_source_pixels_per_second": [
+          1,
+          3
+        ]
+      },
+      "sha256": "66f407759e7f60ea252e7d49a56fd5b80bef4211c9b5da539f8b449219374f88",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      }
+    },
+    {
+      "filename": "PNG/Particles/particle_magic_blue_soft.png",
+      "role": "particle",
+      "dimensions": [
+        64,
+        64
+      ],
+      "source_rect_xywh": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "source_location": "New individual generated texture; no fixed scene position.",
+      "rendering_order": 100,
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "blend": "normal_straight_alpha_linear",
+      "default_opacity": 0,
+      "animation": {
+        "type": "optional ParticleSystem; excluded from default reconstruction",
+        "max_alive": 3,
+        "size_source_pixels": [
+          2,
+          4
+        ],
+        "alpha_max": 0.12,
+        "velocity_source_pixels_per_second": [
+          1,
+          3
+        ]
+      },
+      "sha256": "799e6551e2c5667c146e5cf218cc5d757f0d7246c7bcc81a1de5d4dbeec1eee6",
+      "recommended_import": {
+        "type": "Sprite (2D and UI), Single",
+        "mesh": "Full Rect",
+        "pixels_per_unit": 100,
+        "sRGB": true,
+        "alpha_source": "Input Texture Alpha",
+        "alpha_is_transparency": true,
+        "mipmaps": false,
+        "read_write": false,
+        "filter": "Bilinear",
+        "wrap": "Clamp",
+        "max_size": 64,
+        "android_compression_review_start": "ASTC6x6; test4x4 orRGBA32 for delicate alpha",
+        "runtime_verified": false
+      }
+    }
+  ],
+  "notes": [
+    "Broad static warm illumination and table reflections are retained.",
+    "Wide feathered local ImageGen donor repairs; approved pixels unchanged outside declared regions.",
+    "Near flames: connected hot-core emission masks above original wick; far lights: diffuse alpha-only emissions.",
+    "Warm and blue glows: simple soft illumination fields separated from base in linear light, not architecture correction patches.",
+    "All default reconstruction opacities are1. Optional particles default0 and are excluded from the reconstruction.",
+    "Two upper chandelier sources retain original top clipping.",
+    "Default reconstruction has small local differences from approved v3; no Unity/device validation."
+  ],
+  "source_sha256": "d207bcd5d4631f93c35262dcc21dbc2a83bd85ae6012e87b355e0d5f892cd578",
+  "ui_overlay_sha256": "0a49d13983d6282bf5ef7b44a2c960812cd067e7258937a8d81af0126b53f56e",
+  "source_location": "Latest approved v3, 2400x1080; exact source rectangles are top-left pixels.",
+  "fidelity": "Local candle/halo reconstruction, not pixel-perfect paint-layer recovery. See QUALITY_NOTES.md and QA_Report.json.",
+  "generation_mode": "Built-in ImageGen clean-plate reconstruction and individual particle generation; mechanical local assembly, alpha separation and cropping.",
+  "previews": [
+    {
+      "filename": "Preview/reconstructed_library.png",
+      "dimensions": [
+        2400,
+        1080
+      ],
+      "runtime_sprite": false,
+      "sha256": "c6ae79f173a29c4d7bed9625d9386bb634fbd954232b0b148be00a44a55fb455"
+    },
+    {
+      "filename": "Preview/stage_select_mockup.png",
+      "dimensions": [
+        2400,
+        1080
+      ],
+      "runtime_sprite": false,
+      "sha256": "6e4dbe0a3c5fa7110dfb5d3cab2b34acf578c001c7df7a1857b5553aadb6a41b"
+    },
+    {
+      "filename": "Preview/asset_contact_sheet.png",
+      "dimensions": [
+        1500,
+        1246
+      ],
+      "runtime_sprite": false,
+      "sha256": "ed1ae258baf72ca399ae1289083f4b60d23d03f0405a1d5a1dfe4e77620b6e7e"
+    }
+  ]
+}

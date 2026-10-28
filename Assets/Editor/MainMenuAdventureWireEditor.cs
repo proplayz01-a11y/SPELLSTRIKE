@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public static class MainMenuAdventureWireEditor
 {
-    private const string TargetSceneName = "StageSelectScene";
     private const string MainMenuScenePath = "Assets/Scenes/Main Menu Scene.unity";
 
     private static readonly string[] MainMenuPrefabPaths =
@@ -16,20 +15,50 @@ public static class MainMenuAdventureWireEditor
         "Assets/Sprites/Main Menu/Canvas.prefab"
     };
 
-    [MenuItem("SPELLSTRIKE/UI/Wire Main Menu Adventure To Stage Select")]
+    [MenuItem("SPELLSTRIKE/UI/Wire Main Menu Adventure First-Run Router")]
     public static void WireAdventureButtons()
     {
-        Scene scene = EditorSceneManager.OpenScene(MainMenuScenePath, OpenSceneMode.Single);
-        int sceneButtons = WireAdventureButtonsInRoot(Object.FindFirstObjectByType<Canvas>()?.gameObject);
+        if (EditorApplication.isPlayingOrWillChangePlaymode)
+        {
+            Debug.LogError("[MainMenu] Stop Play Mode before wiring Adventure routing.");
+            return;
+        }
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene openScene = SceneManager.GetSceneAt(i);
+            if (openScene.isDirty)
+            {
+                Debug.LogError(
+                    $"[MainMenu] Refusing to wire Adventure routing while '{openScene.name}' has unsaved changes. " +
+                    "Save or discard those changes explicitly first.");
+                return;
+            }
+        }
+
+        Scene scene = SceneManager.GetSceneByPath(MainMenuScenePath);
+        bool openedForSetup = !scene.IsValid() || !scene.isLoaded;
+        if (openedForSetup)
+            scene = EditorSceneManager.OpenScene(MainMenuScenePath, OpenSceneMode.Additive);
+
+        int sceneButtons = 0;
+        foreach (GameObject root in scene.GetRootGameObjects())
+            sceneButtons += WireAdventureButtonsInRoot(root);
+
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
+
+        if (openedForSetup)
+            EditorSceneManager.CloseScene(scene, true);
 
         int prefabButtons = 0;
         foreach (string prefabPath in MainMenuPrefabPaths)
             prefabButtons += WirePrefab(prefabPath);
 
         AssetDatabase.SaveAssets();
-        Debug.Log($"[MainMenu] Wired Adventure buttons to {TargetSceneName}. Scene buttons: {sceneButtons}. Prefab buttons: {prefabButtons}.");
+        Debug.Log(
+            $"[MainMenu] Wired Adventure buttons to the first-run router. " +
+            $"Scene buttons: {sceneButtons}. Prefab buttons: {prefabButtons}.");
     }
 
     private static int WirePrefab(string prefabPath)
@@ -59,7 +88,7 @@ public static class MainMenuAdventureWireEditor
                 continue;
 
             button.onClick = new Button.ButtonClickedEvent();
-            UnityEventTools.AddStringPersistentListener(button.onClick, handler.LoadScene, TargetSceneName);
+            UnityEventTools.AddPersistentListener(button.onClick, handler.LoadAdventure);
             EditorUtility.SetDirty(button);
             wiredCount++;
         }

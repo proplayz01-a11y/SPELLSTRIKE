@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1de40da4e925c4ab129168da2fc093, type: 3}
+  m_Name: Stage1_Vocabulary_Candidate
+  m_EditorClassIdentifier: Assembly-CSharp::StageVocabularyProfile
+  stageNumber: 1
+  words:
+  - wordId: stage1_mitigate
+    word: MITIGATE
+    encounterId: stage1_bramble_sprite
+    opportunityTiming: 1
+    successEffectId: mitigate_fragment_barrier
+    partOfSpeech: verb
+    definition: To reduce the seriousness or harmful effect of something.
+    contextSentence: The emergency plan helped mitigate the damage caused by the flood.
+    combatClue: Form the word that means to reduce a harmful effect.
+    challengeDistractorLetters: RONSLPUD
+    reviewQuestion: Which sentence correctly uses the word MITIGATE?
+    distractors: []
+    reviewChoices:
+    - sentence: The engineers installed drainage channels to mitigate the risk of flooding.
+      correct: 1
+      explanation: Mitigate correctly means to reduce the seriousness or harmful effect of a risk.
+    - sentence: The committee mitigated the report into three separate folders.
+      correct: 0
+      explanation: Mitigate does not mean to divide or organize something.
+    - sentence: The student mitigated the textbook by reading every chapter.
+      correct: 0
+      explanation: Mitigate does not mean to read or complete something.
+    - sentence: The chef mitigated the vegetables into the serving bowl.
+      correct: 0
+      explanation: Mitigate does not mean to transfer or place an object somewhere.
+  - wordId: stage1_fracture
+    word: FRACTURE
+    encounterId: stage1_stone_sentinel
+    opportunityTiming: 2
+    successEffectId: fracture_reinforced_stone
+    partOfSpeech: verb
+    definition: To break or crack something.
+    contextSentence: The heavy impact was strong enough to fracture the stone.
+    combatClue: Form the word that means to break or crack something.
+    challengeDistractorLetters: BLONISDM
+    reviewQuestion: Which sentence correctly uses the word FRACTURE?
+    distractors: []
+    reviewChoices:
+    - sentence: The force of the collision could fracture the reinforced stone.
+      correct: 1
+      explanation: Fracture correctly means to break or crack something.
+    - sentence: The nurse used a cast to fracture the patient's injured arm.
+      correct: 0
+      explanation: A cast supports an injury; fracture means to cause a break or crack.
+    - sentence: The editor fractured the spelling error in the final paragraph.
+      correct: 0
+      explanation: Fracture does not mean to correct or revise an error.
+    - sentence: The speaker fractured the audience by greeting them politely.
+      correct: 0
+      explanation: Fracture does not mean to greet or address people.
+  - wordId: stage1_nullify
+    word: NULLIFY
+    encounterId: stage1_cursed_jester
+    opportunityTiming: 1
+    successEffectId: nullify_jester_barrier
+    partOfSpeech: verb
+    definition: To make something ineffective by counteracting its effect.
+    contextSentence: The countermeasure helped nullify the harmful effect.
+    combatClue: Form the word that means to make an effect ineffective.
+    challengeDistractorLetters: ARETOSPDM
+    reviewQuestion: Which sentence correctly uses the word NULLIFY?
+    distractors: []
+    reviewChoices:
+    - sentence: The updated security patch can nullify the effect of the malicious code.
+      correct: 1
+      explanation: Nullify correctly means to make an effect ineffective or without force.
+    - sentence: The chef nullified the soup into four serving bowls.
+      correct: 0
+      explanation: Nullify does not mean to divide or serve something.
+    - sentence: The student nullified the article by reading it carefully.
+      correct: 0
+      explanation: Nullify does not mean to read or examine information.
+    - sentence: The courier nullified the package across the city.
+      correct: 0
+      explanation: Nullify does not mean to carry or deliver an object.
+  - wordId: stage1_liberate
+    word: LIBERATE
+    encounterId: stage1_hollow_knight
+    opportunityTiming: 4
+    successEffectId: liberate_bound_fragment
+    partOfSpeech: verb
+    definition: To free someone or something from confinement or control.
+    contextSentence: The rescue team worked to liberate the captives.
+    combatClue: Form the word that means to free something from control.
+    challengeDistractorLetters: CONFUSDM
+    reviewQuestion: Which sentence correctly uses the word LIBERATE?
+    distractors: []
+    reviewChoices:
+    - sentence: The rescue team worked to liberate the captives from the locked compound.
+      correct: 1
+      explanation: Liberate correctly means to free someone or something from confinement or control.
+    - sentence: The guard used additional chains to liberate the prisoner.
+      correct: 0
+      explanation: Adding restraints confines a prisoner; liberate means to set someone free.
+    - sentence: The technician liberated the computer by increasing its screen brightness.
+      correct: 0
+      explanation: Liberate does not mean to adjust a device setting.
+    - sentence: The chef liberated the vegetables in boiling water.
+      correct: 0
+      explanation: Liberate does not mean to cook or prepare food.

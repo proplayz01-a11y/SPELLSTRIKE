@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562b80ecc3c5b324cbabafcba7290401, type: 3}
+  m_Name: Prologue_Sequence
+  m_EditorClassIdentifier: Assembly-CSharp::StorySequenceProfile
+  sequenceId: prologue
+  completionKey: SpellStrike_PrologueCompleted
+  defaultNextSceneName: TutorialScene
+  allowSkip: 1
+  pages:
+  - pageId: prologue_page_01
+    pageSprite: {fileID: 21300000, guid: 7cb815cbf6499fd4cbaaec215edd52a9, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 01 artwork is unavailable."
+  - pageId: prologue_page_02
+    pageSprite: {fileID: 21300000, guid: 2360f247dbe6a3d46bb903cf0d473c89, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 02 artwork is unavailable."
+  - pageId: prologue_page_03
+    pageSprite: {fileID: 21300000, guid: 0be1dcb3d1861f249815b33a55ce632a, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 03 artwork is unavailable."
+  - pageId: prologue_page_04
+    pageSprite: {fileID: 21300000, guid: 7991700ad8a8f0d4f9c2703e1570188f, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 04 artwork is unavailable."
+  - pageId: prologue_page_05
+    pageSprite: {fileID: 21300000, guid: b2d472820491e694cb28811fa4efeb77, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 05 artwork is unavailable."
+  - pageId: prologue_page_06
+    pageSprite: {fileID: 21300000, guid: 9bf68155d89383647a3c7fe3d880a500, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 06 artwork is unavailable."
+  - pageId: prologue_page_07
+    pageSprite: {fileID: 21300000, guid: e3c8d55cde3da5b4aa3007090d09345e, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 07 artwork is unavailable."
+  - pageId: prologue_page_08
+    pageSprite: {fileID: 21300000, guid: 8e14f466a1785f241a485b41939c05d8, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 08 artwork is unavailable."
+  - pageId: prologue_page_09
+    pageSprite: {fileID: 21300000, guid: f4c6b047ea0e9854e8931ed24f2030ff, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 09 artwork is unavailable."
+  - pageId: prologue_page_10
+    pageSprite: {fileID: 21300000, guid: b50f5c4c335661449b496d0f63e8609f, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 10 artwork is unavailable."
+  - pageId: prologue_page_11
+    pageSprite: {fileID: 21300000, guid: e99659ac9c551e44db215886c5c7d295, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 11 artwork is unavailable."
+  - pageId: prologue_page_12
+    pageSprite: {fileID: 21300000, guid: 34afe1e693dd6934c99f89bcae7701ab, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 12 artwork is unavailable."
+  - pageId: prologue_page_13
+    pageSprite: {fileID: 21300000, guid: 0056810a75ca62849bd4bb977b8429c8, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 13 artwork is unavailable."
+  - pageId: prologue_page_14
+    pageSprite: {fileID: 21300000, guid: 1df355221c177d94093afe62b13f2d3a, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 14 artwork is unavailable."
+  - pageId: prologue_page_15
+    pageSprite: {fileID: 21300000, guid: 1953afec366e6fb46920a59db643bf43, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 15 artwork is unavailable."
+  - pageId: prologue_page_16
+    pageSprite: {fileID: 21300000, guid: ede7be33c0dd28644bb66ad4d8908fad, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 16 artwork is unavailable."
+  - pageId: prologue_page_17
+    pageSprite: {fileID: 21300000, guid: ffd81f221c4cd14498d34682082aa35c, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 17 artwork is unavailable."
+  - pageId: prologue_page_18
+    pageSprite: {fileID: 21300000, guid: ed18d04609b75dc4fa9c264feefacdb2, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 18 artwork is unavailable."
+  - pageId: prologue_page_19
+    pageSprite: {fileID: 21300000, guid: 921d01ae40a728d4a92144f6e0bbc286, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 19 artwork is unavailable."
+  - pageId: prologue_page_20
+    pageSprite: {fileID: 21300000, guid: dccc1a74e082664438b6bda385d7fb3a, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 20 artwork is unavailable."
+  - pageId: prologue_page_21
+    pageSprite: {fileID: 21300000, guid: 08c8db49b09a4a845bdd00eb3f1fab46, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 21 artwork is unavailable."
+  - pageId: prologue_page_22
+    pageSprite: {fileID: 21300000, guid: d9ef43f041dbe2348ae9ec696826980f, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 22 artwork is unavailable."
+  - pageId: prologue_page_23
+    pageSprite: {fileID: 21300000, guid: fc22da4ce3b1c9040bb2eba7bc6f275a, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 23 artwork is unavailable."
+  - pageId: prologue_page_24
+    pageSprite: {fileID: 21300000, guid: 31e754caaa199cf4e85289e82cdfb596, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 24 artwork is unavailable."
+  - pageId: prologue_page_25
+    pageSprite: {fileID: 21300000, guid: 93e150b600d51ab4188edcc13ecd14c8, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 25 artwork is unavailable."
+  - pageId: prologue_page_26
+    pageSprite: {fileID: 21300000, guid: ff69d0e0f456d6848b353b5e67e18a00, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 26 artwork is unavailable."
+  - pageId: prologue_page_27
+    pageSprite: {fileID: 21300000, guid: c6f18ab5a857b95438483cd8ea89bcb9, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 27 artwork is unavailable."
+  - pageId: prologue_page_28
+    pageSprite: {fileID: 21300000, guid: 5dea6640f68b10844b5838be9f814d40, type: 3}
+    optionalAudio: {fileID: 0}
+    minimumDisplayTime: 0.35
+    optionalNextSceneOverride: 
+    fallbackText: "PROLOGUE \xB7 THE AGE OF WORDS\nPage 28 artwork is unavailable."

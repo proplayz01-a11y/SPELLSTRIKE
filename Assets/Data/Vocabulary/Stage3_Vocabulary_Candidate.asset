@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1de40da4e925c4ab129168da2fc093, type: 3}
+  m_Name: Stage3_Vocabulary_Candidate
+  m_EditorClassIdentifier: Assembly-CSharp::StageVocabularyProfile
+  stageNumber: 3
+  words:
+  - wordId: stage3_scorched
+    word: SCORCHED
+    encounterId: stage3_sunbound_warden
+    opportunityTiming: 1
+    successEffectId: scorched_warden_gate
+    partOfSpeech: adjective
+    phoneticSpelling: "/sk\u0254\u02D0rt\u0283t/"
+    definition: Burned, dried, or damaged by intense heat.
+    contextSentence: The scorched ground cracked beneath the desert sun.
+    combatClue: Form the word that means burned or dried by intense heat.
+    challengeDistractorLetters: BLUNTIFY
+    reviewQuestion: Which sentence correctly uses the word SCORCHED?
+    distractors: []
+    reviewChoices:
+    - sentence: The scorched ground was dry and blackened by the intense heat.
+      correct: 1
+      explanation: SCORCHED is used correctly in this sentence.
+    - sentence: The map was scorched because the traveler folded it carefully.
+      correct: 0
+      explanation: This does not match the meaning of SCORCHED.
+    - sentence: The guard called the cool spring water scorched.
+      correct: 0
+      explanation: This does not match the meaning of SCORCHED.
+    - sentence: The merchant scorched the coins by counting them twice.
+      correct: 0
+      explanation: This does not match the meaning of SCORCHED.
+  - wordId: stage3_drought
+    word: DROUGHT
+    encounterId: stage3_desert_archer
+    opportunityTiming: 1
+    successEffectId: drought_archer_gate
+    partOfSpeech: noun
+    phoneticSpelling: "/dra\u028At/"
+    definition: A long period with little or no rainfall.
+    contextSentence: The village stored water to survive the severe drought.
+    combatClue: Form the word for a long period with very little rain.
+    challengeDistractorLetters: SANDCLIME
+    reviewQuestion: Which sentence correctly uses the word DROUGHT?
+    distractors: []
+    reviewChoices:
+    - sentence: The long drought left the wells nearly empty.
+      correct: 1
+      explanation: DROUGHT is used correctly in this sentence.
+    - sentence: The drought repaired the broken bridge before sunset.
+      correct: 0
+      explanation: This does not match the meaning of DROUGHT.
+    - sentence: A drought is a short burst of heavy rainfall.
+      correct: 0
+      explanation: This does not match the meaning of DROUGHT.
+    - sentence: The traveler used a drought to measure the distance between towns.
+      correct: 0
+      explanation: This does not match the meaning of DROUGHT.
+  - wordId: stage3_sand
+    word: SAND
+    encounterId: stage3_stone_golem
+    opportunityTiming: 1
+    successEffectId: sand_golem_gate
+    partOfSpeech: noun
+    phoneticSpelling: "/s\xE6nd/"
+    definition: Loose grains of rock or mineral found on beaches and in deserts.
+    contextSentence: Wind pushed the sand across the desert path.
+    combatClue: Form the word for loose grains of rock found across the desert.
+    challengeDistractorLetters: HEATROCKWIND
+    reviewQuestion: Which sentence correctly uses the word SAND?
+    distractors: []
+    reviewChoices:
+    - sentence: Strong wind carried sand across the desert floor.
+      correct: 1
+      explanation: SAND is used correctly in this sentence.
+    - sentence: Sand is a metal tool used to repair armor.
+      correct: 0
+      explanation: This does not match the meaning of SAND.
+    - sentence: The traveler used sand as another word for a mountain peak.
+      correct: 0
+      explanation: This does not match the meaning of SAND.
+    - sentence: Sand means a deep pool of fresh water beneath the ground.
+      correct: 0
+      explanation: This does not match the meaning of SAND.
+  - wordId: stage3_endure
+    word: ENDURE
+    encounterId: stage3_node4_riddle
+    opportunityTiming: 1
+    successEffectId: endure_riddle_gate
+    partOfSpeech: verb
+    phoneticSpelling: "/\u026An\u02C8d\u028Ar/"
+    definition: To continue through difficulty, pain, or hardship without giving
+      up.
+    contextSentence: The travelers had to endure the heat until nightfall.
+    combatClue: Form the word that means to continue through hardship without giving
+      up.
+    challengeDistractorLetters: SANDSTORMX
+    reviewQuestion: Which sentence correctly uses the word ENDURE?
+    distractors: []
+    reviewChoices:
+    - sentence: The travelers had to endure the desert heat and keep moving.
+      correct: 1
+      explanation: ENDURE is used correctly in this sentence.
+    - sentence: The traveler endured the map by placing it inside a bag.
+      correct: 0
+      explanation: This does not match the meaning of ENDURE.
+    - sentence: Endure means to avoid every difficult situation immediately.
+      correct: 0
+      explanation: This does not match the meaning of ENDURE.
+    - sentence: The merchant endured the coins by arranging them in a straight line.
+      correct: 0
+      explanation: This does not match the meaning of ENDURE.
