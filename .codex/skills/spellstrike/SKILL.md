@@ -17,6 +17,7 @@ Before auditing, planning, or editing, read:
 - `docs/DECISIONS.md`
 - `docs/TECH_DEBT.md`
 - `docs/CHANGELOG.md`
+- `docs/SPELLSTRIKE_MODEL_ROUTING_POLICY.md`
 
 Use these documents to determine current priority, architecture, known risks, and required documentation updates.
 
@@ -29,6 +30,18 @@ Use these documents to determine current priority, architecture, known risks, an
 5. Verify with targeted code checks and Unity manual-test instructions.
 6. Update project memory docs when the task changes project state.
 7. Stop after the requested layer unless the user explicitly asks to continue.
+
+## Unity Tool Safety
+
+- Never invoke Unity MCP or any `mcp__unity_mcp` tool for this repository, even
+  when the connection is available.
+- Inspect Unity assets and serialized scene files through the local filesystem.
+- Use visible Unity Editor control only when live scene inspection or manual
+  wiring is required.
+- Keep Unity changes small, undoable, and user-visible. Do not execute hidden C#
+  commands against the open Editor.
+- If a required Unity operation cannot be completed safely without Unity MCP,
+  stop and give the user exact manual steps instead.
 
 ## Architecture Rules
 

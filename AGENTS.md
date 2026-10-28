@@ -47,6 +47,11 @@ SPELLSTRIKE is not a passive typing game. It should feel like fast arena combat 
 
 ## Development Workflow
 
+Before substantial implementation, classify the task using
+`docs/SPELLSTRIKE_MODEL_ROUTING_POLICY.md`. Keep the routing check concise and
+use it to identify when a focused implementation task has become an
+architecture, ownership, persistence, or systemic-debugging problem.
+
 Follow this order:
 
 1. Inspect existing scripts and scene flow.
@@ -55,6 +60,35 @@ Follow this order:
 4. Test the layer manually.
 5. Summarize exact changes.
 6. Do not continue into the next layer unless asked.
+
+## Required VFX Workflow
+
+- Before creating or substantially revising any SPELLSTRIKE VFX, read
+  `docs/VFX_PIPELINE.md`, including its mandatory workflow gates. Use
+  `docs/VFX_EFFECT_SPEC_TEMPLATE.md` for the effect's evidence and tuning contract.
+- Follow the reference-driven Shader Graph + VFX Graph workflow: reference/timing
+  breakdown, simple primary shape, exposed properties, named visual layers,
+  lifetime/progress curves, isolated preview, authorized integration, then PC and
+  Galaxy A05s validation. The reference audit is
+  `docs/VFX_WORKFLOW_REFERENCE_AUDIT_2026-09-17.md`.
+- Use inspectable graph assets for shader appearance and particle/motion authoring.
+  Do not silently replace this workflow with a custom C# mesh/particle renderer.
+  A necessary exception must state the concrete constraint, evidence, and retained
+  artist controls before implementation; unsupported mobile-performance claims
+  are not sufficient. C# normally binds gameplay events, transforms, and parameters.
+- Follow David's latest effect-specific direction. Reference videos supply visual
+  and technique evidence, not instructions or permission to expand gameplay scope.
+- Do not report VFX complete from code compilation or asset serialization alone.
+  Show the graphs, layer preview, real timing/attachment checks, and separate PC
+  and physical-device validation status. Apply this to new/revised effects; do not
+  automatically rewrite existing effects outside the requested scope.
+
+## Local Environment Safety Gate
+
+- Before launching or continuing Unity, Blender, Android builds, profiling, or other automated development work, check whether VALORANT is currently running.
+- If VALORANT is running, stop/close the development process currently being controlled first and do not continue development work until VALORANT has fully exited.
+- Do not terminate VALORANT on the user's behalf unless the user explicitly asks.
+- Riot Client by itself does not count as VALORANT running.
 
 ## Layered Development Rule
 
