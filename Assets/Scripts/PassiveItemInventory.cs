@@ -200,7 +200,11 @@ public class PassiveItemInventory : MonoBehaviour
             if (ParsePassiveId(equipped[i]) != itemId)
                 continue;
 
-            equipped[i] = PassiveItemId.None.ToString();
+            // Close the gap so the selected items remain in click order:
+            // first item in Slot 1, next in Slot 2, then Slot 3.
+            for (int next = i; next < maxEquippedPassives - 1; next++)
+                equipped[next] = equipped[next + 1];
+            equipped[maxEquippedPassives - 1] = PassiveItemId.None.ToString();
             database.SaveDatabase();
             Debug.Log($"[PassiveItemInventory] Unequipped {PassiveItemCatalog.GetDisplayName(itemId)}.");
             return true;

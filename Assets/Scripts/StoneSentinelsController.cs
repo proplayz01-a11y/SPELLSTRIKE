@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
@@ -14,13 +15,17 @@ public class StoneSentinelsController : MonoBehaviour
         BeingHit,
         Dead,
         BoulderThrow,
-        JumpAttack
+        JumpAttack,
+        Counterspell
     }
 
     [Header("References")]
     public Transform player;
     public NavMeshAgent agent;
     public Animator animator;
+
+    [Header("Counterspell Facing")]
+    [SerializeField, Min(1f)] private float counterspellTurnSpeed = 210f;
 
     [Header("Death / Progression")]
 public MonoBehaviour deathReceiver;
@@ -43,6 +48,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     [Header("Movement")]
     public float walkSpeed = 2.5f;
+    [SerializeField, Min(0.05f)] private float accelerationTime = 0.5f;
 
     [Header("Ranges")]
     public float closeAttackRange = 3f;
@@ -86,7 +92,11 @@ public string deathMessage = "OnStoneSentinelDefeated";
     private Coroutine recoverCoroutine;
     private bool boulderThrowStarted = false;
     private bool potionDropResolved = false;
+    private bool vocabularyPaused = false;
 
+    public event Action BeingHitFinished;
+    public bool IsBattleStarted => battleStarted;
+    public bool IsVocabularyPaused => vocabularyPaused;
 
     private void Awake()
     {
@@ -108,7 +118,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
         {
             agent.updateRotation = false;
             agent.updatePosition = true;
-            agent.speed = walkSpeed;
+            EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
             agent.stoppingDistance = 0f;
             agent.autoBraking = true;
         }
@@ -131,6 +141,13 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
         if (!battleStarted) return;
         if (currentState == EnemyState.Dead) return;
+        if (vocabularyPaused)
+        {
+            if (player != null)
+                FaceTarget(player.position, counterspellTurnSpeed);
+
+            return;
+        }
         if (player == null) return;
 
         FaceTarget(player.position);
@@ -217,6 +234,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     public void OnCloseAttackHit()
     {
+        if (vocabularyPaused) return;
         if (player == null) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -227,6 +245,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     public void OnCloseAttackFinished()
     {
+        if (vocabularyPaused) return;
         EnterRecover();
     }
 
@@ -260,6 +279,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     public void OnBoulderThrow()
     {
+        if (vocabularyPaused) return;
         Debug.Log("[StoneSentinel] OnBoulderThrow fired. Hiding HeldBoulder.");
 
         if (heldBoulder != null)
@@ -299,6 +319,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     public void OnBoulderThrowFinished()
     {
+        if (vocabularyPaused) return;
         Debug.Log("[StoneSentinel] BoulderThrow finished -> Recover");
 
         boulderCooldownTimer = boulderCooldown;
@@ -354,6 +375,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     public void OnJumpAttackLeap()
     {
+        if (vocabularyPaused) return;
         if (jumpLeapStarted) return;
         if (player == null) return;
 
@@ -416,12 +438,14 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     public void OnJumpAttackFinished()
     {
+        if (vocabularyPaused) return;
         Debug.Log("[StoneSentinel] JumpAttack finished -> Recover");
         EnterRecover();
     }
 
     public void OnJumpAttackImpact()
     {
+        if (vocabularyPaused) return;
         if (player == null) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -441,20 +465,38 @@ public string deathMessage = "OnStoneSentinelDefeated";
 {
     if (currentState == EnemyState.Dead) return;
 
-    Debug.Log("[StoneSentinel] BeingHit finished -> Approach");
-
     closeAttackStarted = false;
     boulderThrowStarted = false;
     jumpAttackStarted = false;
     jumpLeapStarted = false;
 
+    BeingHitFinished?.Invoke();
+
+    if (vocabularyPaused)
+    {
+        currentState = EnemyState.Counterspell;
+        Debug.Log("[StoneSentinel] BeingHit finished while Counterspell remains active.");
+        return;
+    }
+
+    Debug.Log("[StoneSentinel] BeingHit finished -> Approach");
     currentState = EnemyState.Approach;
 }
 
-    public void TriggerBeingHit()
+public void TriggerBeingHit()
 {
     if (!battleStarted) return;
     if (currentState == EnemyState.Dead) return;
+    if (vocabularyPaused) return;
+
+    EnterBeingHit();
+}
+
+public void TriggerCounterspellBreakReaction()
+{
+    if (!battleStarted) return;
+    if (currentState == EnemyState.Dead) return;
+    if (!vocabularyPaused) return;
 
     EnterBeingHit();
 }
@@ -539,6 +581,73 @@ private void SnapToGround()
     
 }
 
+public void SetVocabularyPaused(bool paused)
+{
+    if (currentState == EnemyState.Dead)
+        return;
+
+    if (vocabularyPaused == paused)
+        return;
+
+    vocabularyPaused = paused;
+
+    if (paused)
+    {
+        if (recoverCoroutine != null)
+        {
+            StopCoroutine(recoverCoroutine);
+            recoverCoroutine = null;
+        }
+
+        if (jumpMoveCoroutine != null)
+        {
+            StopCoroutine(jumpMoveCoroutine);
+            jumpMoveCoroutine = null;
+            SnapToGround();
+        }
+
+        if (agent != null && agent.enabled)
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+        }
+
+        if (heldBoulder != null)
+            heldBoulder.SetActive(false);
+
+        closeAttackStarted = false;
+        boulderThrowStarted = false;
+        jumpAttackStarted = false;
+        jumpLeapStarted = false;
+        currentState = EnemyState.Counterspell;
+
+        if (animator != null)
+        {
+            animator.ResetTrigger("CloseAttack");
+            animator.ResetTrigger("BoulderThrow");
+            animator.ResetTrigger("JumpAttack");
+            animator.ResetTrigger("BeingHit");
+        }
+
+        Debug.Log("[StoneSentinel] Combat AI paused for Counterspell.");
+        return;
+    }
+
+    closeAttackStarted = false;
+    boulderThrowStarted = false;
+    jumpAttackStarted = false;
+    jumpLeapStarted = false;
+    currentState = EnemyState.Approach;
+
+    if (battleStarted && agent != null && agent.enabled)
+    {
+        agent.isStopped = false;
+        agent.ResetPath();
+    }
+
+    Debug.Log("[StoneSentinel] Counterspell ended - combat AI resumed.");
+}
+
 public void TriggerDeath()
 {
     if (currentState == EnemyState.Dead) return;
@@ -550,6 +659,7 @@ private void EnterDead()
 {
     currentState = EnemyState.Dead;
     battleStarted = false;
+    vocabularyPaused = false;
 
     if (agent != null && agent.enabled)
     {
@@ -630,6 +740,7 @@ private void TryDropPotionReward()
 
     private void EnterRecover()
     {
+        if (vocabularyPaused) return;
         currentState = EnemyState.Recover;
         agent.isStopped = true;
         agent.ResetPath();

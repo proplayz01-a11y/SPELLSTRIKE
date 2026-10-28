@@ -28,6 +28,22 @@ public static class PassiveItemCatalog
             shortName = "Attractor",
             description = "A gravity relic earned by completing the objective.",
             effectSummary = "Nearby world letter tiles slowly move toward the player."
+        },
+        new PassiveItemInfo
+        {
+            id = PassiveItemId.PurifyingPearl,
+            displayName = "Purifying Pearl",
+            shortName = "Pearl",
+            description = "A cleansing relic recovered from the Sunken Seas.",
+            effectSummary = "After a successful word attack, one random Locked or Cracked tile loses one additional debuff counter."
+        },
+        new PassiveItemInfo
+        {
+            id = PassiveItemId.TidecarvedShell,
+            displayName = "Tidecarved Shell",
+            shortName = "Shell",
+            description = "A resilient shell uncovered inside an ancient sea-worn boulder.",
+            effectSummary = "Steady Current: Reduces enemy knockback distance and stun duration by 25%."
         }
     };
 

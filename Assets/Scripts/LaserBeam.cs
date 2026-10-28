@@ -11,6 +11,7 @@ public class LaserBeam : MonoBehaviour
     public Gradient beamGradient;
 
     private int damage;
+    private bool applyImpactDamage = true;
 
     private void Awake()
     {
@@ -23,6 +24,20 @@ public class LaserBeam : MonoBehaviour
 
     public void Launch(Transform origin, Transform target, int damageAmount)
     {
+        LaunchInternal(origin, target, damageAmount, true);
+    }
+
+    public void LaunchVisualOnly(Transform origin, Transform target)
+    {
+        LaunchInternal(origin, target, 0, false);
+    }
+
+    private void LaunchInternal(
+        Transform origin,
+        Transform target,
+        int damageAmount,
+        bool shouldApplyImpactDamage)
+    {
         if (origin == null)
         {
             Debug.LogWarning("LaserBeam launched without an origin.");
@@ -30,7 +45,8 @@ public class LaserBeam : MonoBehaviour
             return;
         }
 
-        damage = Mathf.Max(1, damageAmount);
+        applyImpactDamage = shouldApplyImpactDamage;
+        damage = shouldApplyImpactDamage ? Mathf.Max(1, damageAmount) : 0;
         Vector3 startPoint = origin.position;
         Vector3 endPoint = startPoint + origin.forward * maxDistance;
 
@@ -66,14 +82,17 @@ public class LaserBeam : MonoBehaviour
                 if (lineRenderer != null)
                     lineRenderer.SetPosition(1, hit.point);
 
-                var damageable = hit.collider.GetComponentInParent<IDamageable>();
-                if (damageable != null)
+                if (applyImpactDamage)
                 {
-                    damageable.ApplyDamage(damage);
-                }
-                else
-                {
-                    hit.collider.SendMessage("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver);
+                    var damageable = hit.collider.GetComponentInParent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        damageable.ApplyDamage(damage);
+                    }
+                    else
+                    {
+                        hit.collider.SendMessage("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver);
+                    }
                 }
             }
         }

@@ -27,4 +27,14 @@ public static class PassiveRewardManager
     {
         return GrantPassiveReward(PassiveItemId.GreatAttractor, source);
     }
+
+    public static bool GrantStage2ObjectiveCompletionReward(string source)
+    {
+        return GrantPassiveReward(PassiveItemId.PurifyingPearl, source);
+    }
+
+    public static bool GrantTidecarvedShellReward(string source)
+    {
+        return GrantPassiveReward(PassiveItemId.TidecarvedShell, source);
+    }
 }

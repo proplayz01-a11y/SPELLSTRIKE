@@ -22,6 +22,19 @@ public class DictionaryManager : MonoBehaviour
     private readonly List<string> mediumWords = new List<string>();  // 6-9
     private readonly List<string> longWords = new List<string>();    // 10+
 
+    public static DictionaryManager EnsureInstance()
+    {
+        if (Instance != null)
+            return Instance;
+
+        DictionaryManager existing = FindFirstObjectByType<DictionaryManager>();
+        if (existing != null)
+            return existing;
+
+        GameObject dictionaryObject = new GameObject("DictionaryManager_AutoCreated");
+        return dictionaryObject.AddComponent<DictionaryManager>();
+    }
+
     [Serializable]
     public class GameplayWordData
     {
@@ -50,6 +63,8 @@ public class DictionaryManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            transform.SetParent(null, true);
+            DontDestroyOnLoad(gameObject);
             LoadDictionary();
         }
         else
@@ -60,6 +75,10 @@ public class DictionaryManager : MonoBehaviour
 
     private void LoadDictionary()
     {
+        if (cleanGameplayDictionaryFile == null)
+            cleanGameplayDictionaryFile =
+                Resources.Load<TextAsset>("clean_gameplay_dictionary");
+
         if (cleanGameplayDictionaryFile == null)
         {
             Debug.LogError("[DictionaryManager] No clean gameplay dictionary JSON assigned!");
@@ -156,18 +175,20 @@ public class DictionaryManager : MonoBehaviour
 
     public string GetRandomWordByLengthRange(int minLength, int maxLength)
     {
-        if (minLength == 3 && maxLength == 5 && shortWords.Count > 0)
-            return shortWords[UnityEngine.Random.Range(0, shortWords.Count)];
-
-        if (minLength == 6 && maxLength == 9 && mediumWords.Count > 0)
-            return mediumWords[UnityEngine.Random.Range(0, mediumWords.Count)];
-
-        if (minLength >= 10 && longWords.Count > 0)
-            return longWords[UnityEngine.Random.Range(0, longWords.Count)];
+        if (minLength > maxLength)
+            return "";
 
         List<string> candidates = new List<string>();
+        IEnumerable<string> source = words.Keys;
 
-        foreach (string word in words.Keys)
+        if (minLength >= 3 && maxLength <= 5)
+            source = shortWords;
+        else if (minLength >= 6 && maxLength <= 9)
+            source = mediumWords;
+        else if (minLength >= 10)
+            source = longWords;
+
+        foreach (string word in source)
         {
             if (word.Length >= minLength && word.Length <= maxLength)
                 candidates.Add(word);

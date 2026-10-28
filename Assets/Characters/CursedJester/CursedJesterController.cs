@@ -14,6 +14,7 @@ public class CursedJesterController : MonoBehaviour
 
     [Header("Movement")]
     public float walkSpeed = 3.0f;
+    [SerializeField, Min(0.05f)] private float accelerationTime = 0.5f;
     public float rotationSpeed = 360f;
 
     [Header("Basic Attack")]
@@ -91,7 +92,7 @@ public class CursedJesterController : MonoBehaviour
     {
         if (agent != null)
         {
-            agent.speed = walkSpeed;
+            EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
             agent.updateRotation = false;
             agent.updatePosition = true;
             agent.stoppingDistance = 0f;
@@ -121,7 +122,7 @@ public class CursedJesterController : MonoBehaviour
 
         if (agent != null)
         {
-            agent.speed = walkSpeed;
+            EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
             agent.isStopped = false;
             agent.ResetPath();
         }

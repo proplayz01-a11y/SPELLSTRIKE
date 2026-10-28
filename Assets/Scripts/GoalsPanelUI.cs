@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class GoalsPanelUI : MonoBehaviour
 {
+    public enum GoalsProfile
+    {
+        Auto,
+        Stage1,
+        Stage2
+    }
+
     [Header("Canvas References")]
     public GameObject objectivesCanvas;
     public Canvas targetCanvas;
@@ -13,6 +20,10 @@ public class GoalsPanelUI : MonoBehaviour
     public bool buildUIOnStart = true;
     public bool startOpen = false;
     public bool autoActivateInSampleScene = true;
+
+    [Header("Reusable Goal Profile")]
+    public GoalsProfile goalsProfile = GoalsProfile.Auto;
+    public Stage2ObjectiveTracker stage2ObjectiveTracker;
 
     [Header("Layout")]
     public Vector2 toggleButtonSize = new Vector2(96f, 42f);
@@ -48,6 +59,7 @@ public class GoalsPanelUI : MonoBehaviour
     private RectTransform uiRoot;
     private GameObject flyoutPanel;
     private Button toggleButton;
+    private Button exitButton;
     private TextMeshProUGUI fragmentSummaryText;
     private TextMeshProUGUI spiritSummaryText;
     private TextMeshProUGUI wordSummaryText;
@@ -60,23 +72,24 @@ public class GoalsPanelUI : MonoBehaviour
     private bool goal2Completed = false;
     private bool goal3Completed = false;
     private bool allGoalsRewardQueued = false;
+    private bool stage2Subscribed;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void RegisterSceneHook()
     {
         SceneManager.sceneLoaded -= HandleSceneLoaded;
         SceneManager.sceneLoaded += HandleSceneLoaded;
-        ActivateSampleSceneGoalsPanel(SceneManager.GetActiveScene());
+        ActivateSupportedSceneGoalsPanel(SceneManager.GetActiveScene());
     }
 
     private static void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        ActivateSampleSceneGoalsPanel(scene);
+        ActivateSupportedSceneGoalsPanel(scene);
     }
 
-    private static void ActivateSampleSceneGoalsPanel(Scene scene)
+    private static void ActivateSupportedSceneGoalsPanel(Scene scene)
     {
-        if (scene.name != "SampleScene")
+        if (scene.name != "SampleScene" && scene.name != "Stage2Scene")
             return;
 
         GoalsPanelUI[] panels = Resources.FindObjectsOfTypeAll<GoalsPanelUI>();
@@ -99,6 +112,8 @@ public class GoalsPanelUI : MonoBehaviour
     private void Start()
     {
         ResolveReferences();
+        ResolveStage2Tracker();
+        SubscribeToStage2Tracker();
         HideLegacyPanelIfNeeded();
 
         if (buildUIOnStart)
@@ -107,6 +122,11 @@ public class GoalsPanelUI : MonoBehaviour
         SetFlyoutOpen(startOpen);
         RefreshGoalTexts();
         EvaluateAllGoalsCompleted();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromStage2Tracker();
     }
 
     public void ToggleGoalsPanel()
@@ -183,6 +203,47 @@ public class GoalsPanelUI : MonoBehaviour
             objectiveManager = FindFirstObjectByType<ObjectiveManager>();
     }
 
+    private bool UsesStage2Profile()
+    {
+        if (goalsProfile == GoalsProfile.Stage2)
+            return true;
+
+        if (goalsProfile == GoalsProfile.Stage1)
+            return false;
+
+        return gameObject.scene.IsValid() && gameObject.scene.name == "Stage2Scene";
+    }
+
+    private void ResolveStage2Tracker()
+    {
+        if (!UsesStage2Profile() || stage2ObjectiveTracker != null)
+            return;
+
+        stage2ObjectiveTracker = FindFirstObjectByType<Stage2ObjectiveTracker>();
+        if (stage2ObjectiveTracker == null)
+            stage2ObjectiveTracker = gameObject.AddComponent<Stage2ObjectiveTracker>();
+    }
+
+    private void SubscribeToStage2Tracker()
+    {
+        if (!UsesStage2Profile() || stage2ObjectiveTracker == null || stage2Subscribed)
+            return;
+
+        stage2ObjectiveTracker.ProgressChanged += RefreshGoalTexts;
+        stage2ObjectiveTracker.AllObjectivesCompleted += RefreshGoalTexts;
+        stage2Subscribed = true;
+    }
+
+    private void UnsubscribeFromStage2Tracker()
+    {
+        if (!stage2Subscribed || stage2ObjectiveTracker == null)
+            return;
+
+        stage2ObjectiveTracker.ProgressChanged -= RefreshGoalTexts;
+        stage2ObjectiveTracker.AllObjectivesCompleted -= RefreshGoalTexts;
+        stage2Subscribed = false;
+    }
+
     private void HideLegacyPanelIfNeeded()
     {
         if (objectivesCanvas == null)
@@ -247,6 +308,17 @@ public class GoalsPanelUI : MonoBehaviour
         toggleRect.anchoredPosition = toggleButtonAnchoredPosition;
         toggleButton.onClick.AddListener(ToggleGoalsPanel);
 
+        // Stage gameplay currently has no authored route back to Stage Select.
+        // Keep the navigation control beside the existing Goals HUD so Stage 1 and
+        // Stage 2 receive the same exit path without editing either scene hierarchy.
+        exitButton = CreateButton(uiRoot, "ExitButton", "Exit", headerColor, toggleButtonSize);
+        RectTransform exitRect = exitButton.GetComponent<RectTransform>();
+        exitRect.anchorMin = new Vector2(0f, 1f);
+        exitRect.anchorMax = new Vector2(0f, 1f);
+        exitRect.pivot = new Vector2(0f, 1f);
+        exitRect.anchoredPosition = toggleButtonAnchoredPosition + new Vector2(0f, -(toggleButtonSize.y + 8f));
+        exitButton.onClick.AddListener(ExitToStageSelect);
+
         flyoutPanel = CreatePanel(uiRoot, "GoalsFlyout", panelColor, panelSize).gameObject;
         RectTransform flyoutRect = flyoutPanel.GetComponent<RectTransform>();
         flyoutRect.anchorMin = new Vector2(0f, 1f);
@@ -266,6 +338,12 @@ public class GoalsPanelUI : MonoBehaviour
         CreateGoalDetailRows(flyoutPanel.transform);
 
         objectivesCanvas = flyoutPanel;
+    }
+
+    private void ExitToStageSelect()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("StageSelectScene");
     }
 
     private void CreateSummaryRow(Transform parent)
@@ -426,6 +504,12 @@ public class GoalsPanelUI : MonoBehaviour
 
     private void RefreshGoalTexts()
     {
+        if (UsesStage2Profile())
+        {
+            RefreshStage2GoalTexts();
+            return;
+        }
+
         string goal1Prefix = goal1Completed ? "Check" : "[ ]";
         string goal2Prefix = goal2Completed ? "Check" : "[ ]";
         string goal3Prefix = goal3Completed ? "Check" : "[ ]";
@@ -473,8 +557,60 @@ public class GoalsPanelUI : MonoBehaviour
         }
     }
 
+    private void RefreshStage2GoalTexts()
+    {
+        if (stage2ObjectiveTracker == null)
+            return;
+
+        int fragments = stage2ObjectiveTracker.FragmentsCollected;
+        int fragmentTarget = stage2ObjectiveTracker.FragmentTarget;
+        int longWords = stage2ObjectiveTracker.TenLetterWordsCast;
+        int longWordTarget = stage2ObjectiveTracker.TenLetterWordTarget;
+        int requiredLongWordLength = stage2ObjectiveTracker.RequiredLongWordLength;
+        int words = stage2ObjectiveTracker.UniqueMaritimeWordsCast;
+        int wordTarget = stage2ObjectiveTracker.MaritimeWordTarget;
+
+        bool fragmentsDone = fragments >= fragmentTarget;
+        bool longWordDone = longWords >= longWordTarget;
+        bool wordsDone = words >= wordTarget;
+
+        SetGoalText(goal1Text, fragmentsDone, $"Collect\nFragments {fragments}/{fragmentTarget}");
+        SetGoalText(goal2Text, longWordDone, $"Cast\n{requiredLongWordLength}-Letter {longWords}/{longWordTarget}");
+        SetGoalText(goal3Text, wordsDone, $"Cast Sea\nWords {words}/{wordTarget}");
+
+        SetSummaryText(fragmentSummaryText, fragmentsDone, $"Fragments {fragments}/{fragmentTarget}");
+        SetSummaryText(spiritSummaryText, longWordDone, $"{requiredLongWordLength}-Letter {longWords}/{longWordTarget}");
+        SetSummaryText(wordSummaryText, wordsDone, $"Sea Words {words}/{wordTarget}");
+    }
+
+    private void SetGoalText(TextMeshProUGUI target, bool complete, string body)
+    {
+        if (target == null)
+            return;
+
+        target.text = $"{(complete ? "Check" : "[ ]")} {body}";
+        target.color = complete ? completedGoalColor : defaultGoalColor;
+    }
+
+    private void SetSummaryText(TextMeshProUGUI target, bool complete, string body)
+    {
+        if (target == null)
+            return;
+
+        target.text = body;
+        target.color = complete ? completedGoalColor : textColor;
+    }
+
     private void EvaluateAllGoalsCompleted()
     {
+        if (UsesStage2Profile())
+        {
+            if (objectiveManager != null && stage2ObjectiveTracker != null)
+                objectiveManager.allGoalsCompleted = stage2ObjectiveTracker.AllObjectivesComplete;
+
+            return;
+        }
+
         bool allDone = goal1Completed && goal2Completed && goal3Completed;
 
         if (objectiveManager != null)

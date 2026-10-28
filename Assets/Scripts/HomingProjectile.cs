@@ -9,10 +9,12 @@ public class HomingProjectile : MonoBehaviour
     private bool hasHit = false;
     private AttackController attackOwner;
     private string submittedWord = string.Empty;
+    private bool targetChallengeCast;
 
     void Start()
     {
-        FindNearestEnemy();
+        if (target == null)
+            FindNearestEnemy();
         if (target != null)
             Debug.Log("Projectile spawned. Target: " + target.name);
     }
@@ -22,7 +24,9 @@ public class HomingProjectile : MonoBehaviour
         int incomingDamage,
         int incomingWordLength = 0,
         AttackController owner = null,
-        string incomingWord = "")
+        string incomingWord = "",
+        bool isTargetChallengeCast = false,
+        Transform explicitTarget = null)
     {
         if (incomingDamage <= 0)
         {
@@ -33,6 +37,9 @@ public class HomingProjectile : MonoBehaviour
         damage = incomingDamage;
         wordLength = incomingWordLength;
         attackOwner = owner;
+        targetChallengeCast = isTargetChallengeCast;
+        if (explicitTarget != null)
+            target = explicitTarget;
         submittedWord = string.IsNullOrWhiteSpace(incomingWord)
             ? string.Empty
             : incomingWord.Trim().ToUpperInvariant();
@@ -42,8 +49,12 @@ public class HomingProjectile : MonoBehaviour
     void Update()
     {
         if (target == null || hasHit) return;
-        transform.LookAt(target);
-        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        var titan = target.GetComponent<TitanEarthbreakerController>();
+        Vector3 targetPosition = titan != null ? titan.SpellAimPosition : target.position;
+        Vector3 direction = targetPosition - transform.position;
+        if (direction.sqrMagnitude > 0.0001f)
+            transform.rotation = Quaternion.LookRotation(direction);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
 
     void FindNearestEnemy()
@@ -72,17 +83,69 @@ public class HomingProjectile : MonoBehaviour
         BrambleSpriteController brambleController = other.GetComponentInParent<BrambleSpriteController>();
         EnemyHealth enemyHealth = other.GetComponentInParent<EnemyHealth>();
         VocabularyBarrier vocabularyBarrier = other.GetComponentInParent<VocabularyBarrier>();
+        VocabularyWorldTarget worldTarget = other.GetComponentInParent<VocabularyWorldTarget>();
 
-        if (enemyController == null && brambleController == null && enemyHealth == null) return;
+        bool validWorldTargetImpact =
+            targetChallengeCast
+            && worldTarget != null
+            && worldTarget.CanBeTargeted;
+
+        if (enemyController == null
+            && brambleController == null
+            && enemyHealth == null
+            && !validWorldTargetImpact)
+        {
+            return;
+        }
 
         hasHit = true;
-        int resolvedDamage = vocabularyBarrier != null
-            ? vocabularyBarrier.ResolveHit(submittedWord, damage)
-            : damage;
+        bool matchedActiveChallengeBarrier =
+            !targetChallengeCast
+            || (attackOwner != null
+                && attackOwner.CanResolveTargetChallengeAgainst(vocabularyBarrier));
+        bool matchedExactTargetWord =
+            targetChallengeCast
+            && matchedActiveChallengeBarrier
+            && vocabularyBarrier != null
+            && vocabularyBarrier.TargetWord != null
+            && vocabularyBarrier.TargetWord.Matches(submittedWord);
+
+        int resolvedDamage;
+        if (targetChallengeCast && !matchedActiveChallengeBarrier)
+        {
+            resolvedDamage = 0;
+        }
+        else
+        {
+            resolvedDamage = vocabularyBarrier != null
+                ? vocabularyBarrier.ResolveHit(
+                    submittedWord,
+                    damage,
+                    targetChallengeCast)
+                : damage;
+        }
 
         Debug.Log("Projectile hit: " + other.name + " | Damage: " + resolvedDamage + " | Word length: " + wordLength + " | Word: " + submittedWord);
 
-        if (enemyController != null)
+        if (targetChallengeCast && !matchedActiveChallengeBarrier)
+        {
+            Debug.LogWarning(
+                "[HomingProjectile] Target Challenge projectile hit an unrelated or inactive barrier target. "
+                + "No damage was applied.");
+        }
+        else if (matchedExactTargetWord && resolvedDamage <= 0)
+        {
+            Debug.Log(
+                "[HomingProjectile] The exact target word broke the vocabulary barrier with a scripted zero-damage impact. "
+                + "Enemy health was not reduced.");
+        }
+        else if (targetChallengeCast && resolvedDamage <= 0)
+        {
+            Debug.Log(
+                "[HomingProjectile] The active vocabulary barrier absorbed the valid non-target spell. "
+                + "No enemy damage or hit reaction was applied.");
+        }
+        else if (enemyController != null)
         {
             // EnemyController supports (float damage, int wordLength)
             enemyController.TakeDamage(resolvedDamage, wordLength);
@@ -97,8 +160,17 @@ public class HomingProjectile : MonoBehaviour
             enemyHealth.TakeDamage(resolvedDamage);
         }
 
-        if (wordLength > 0 && attackOwner != null)
-            attackOwner.NotifySuccessfulAttackLanded();
+        if (targetChallengeCast && attackOwner != null)
+        {
+            attackOwner.NotifyTargetChallengeProjectileResolved(
+                submittedWord,
+                vocabularyBarrier,
+                matchedActiveChallengeBarrier);
+        }
+        else if (wordLength > 0 && attackOwner != null)
+        {
+            attackOwner.NotifySuccessfulAttackLanded(submittedWord);
+        }
 
         Destroy(gameObject);
     }

@@ -10,12 +10,11 @@ public class ArenaTile : MonoBehaviour
         {
             TileManager tm = Object.FindFirstObjectByType<TileManager>();
 
-            if (tm != null)
-            {
-                tm.CreateTileInPool(letter);
-            }
+            if (tm == null || tm.AreNormalCombatWorldPickupsSuspended)
+                return;
 
-            Destroy(gameObject);
+            if (tm.TryCollectNormalCombatWorldTile(letter))
+                Destroy(gameObject);
         }
     }
 }

@@ -35,7 +35,10 @@ public class GameData
     public int playerHealth = 100;
     public int playerMaxHealth = 100;
     public bool tutorialCompleted = false;
+    public bool stage2ObjectivesCompleted = false;
+    public int desertArcherRuneArrowCount = 0;
     public List<WordHistoryEntry> wordHistory = new List<WordHistoryEntry>();
+    public List<VocabularyAttemptRecord> vocabularyAttempts = new List<VocabularyAttemptRecord>();
     public List<StageProgressEntry> stageProgress = new List<StageProgressEntry>();
     public List<PotionInventoryEntry> potionInventory = new List<PotionInventoryEntry>();
     public List<string> ownedPassiveItems = new List<string>();
@@ -77,6 +80,12 @@ public class GameDatabaseManager : MonoBehaviour
         }
 
         Instance = this;
+        // Scene-authored managers in SampleScene/TutorialScene are children of
+        // _Managers. Unity only allows DontDestroyOnLoad on a root object.
+        // Detach this existing manager rather than spawning/replacing a second
+        // database owner, so pending progress remains available across scenes.
+        if (transform.parent != null)
+            transform.SetParent(null, true);
         DontDestroyOnLoad(gameObject);
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "spellstrike_save.json");
@@ -150,10 +159,12 @@ public class GameDatabaseManager : MonoBehaviour
             InitializeDefaultInventory();
 
         EnsurePassiveInventoryLists();
+        EnsureVocabularyAttemptList();
     }
 
     public void SaveDatabase()
     {
+        EnsureVocabularyAttemptList();
         SaveJsonDatabase();
         if (sqliteDatabase != null && sqliteDatabase.IsAvailable)
             SaveToSqlite();
@@ -177,6 +188,7 @@ public class GameDatabaseManager : MonoBehaviour
         sqliteDatabase.ExecuteNonQuery("CREATE TABLE IF NOT EXISTS player (key TEXT PRIMARY KEY, value TEXT)");
         sqliteDatabase.ExecuteNonQuery("CREATE TABLE IF NOT EXISTS potion_inventory (type INTEGER PRIMARY KEY, count INTEGER)");
         sqliteDatabase.ExecuteNonQuery("CREATE TABLE IF NOT EXISTS word_history (id INTEGER PRIMARY KEY AUTOINCREMENT, word TEXT, valid INTEGER, timestamp TEXT)");
+        sqliteDatabase.ExecuteNonQuery("CREATE TABLE IF NOT EXISTS vocabulary_attempts (id INTEGER PRIMARY KEY AUTOINCREMENT, stageNumber INTEGER, wordId TEXT, targetWord TEXT, activityType INTEGER, submittedResponse TEXT, correct INTEGER, firstAttempt INTEGER, attemptNumber INTEGER, timestampUtc TEXT)");
         sqliteDatabase.ExecuteNonQuery("CREATE TABLE IF NOT EXISTS stage_progress (id INTEGER PRIMARY KEY AUTOINCREMENT, stageIndex INTEGER, completed INTEGER, timestamp TEXT)");
         sqliteDatabase.ExecuteNonQuery("CREATE TABLE IF NOT EXISTS leaderboard (id INTEGER PRIMARY KEY AUTOINCREMENT, record TEXT)");
     }
@@ -189,6 +201,8 @@ public class GameDatabaseManager : MonoBehaviour
         Data.playerMaxHealth = LoadPlayerInt("playerMaxHealth", 100);
         Data.playerLevel = LoadPlayerInt("playerLevel", 1);
         Data.tutorialCompleted = LoadPlayerInt("tutorialCompleted", 0) == 1;
+        Data.stage2ObjectivesCompleted = LoadPlayerInt("stage2ObjectivesCompleted", 0) == 1;
+        Data.desertArcherRuneArrowCount = LoadPlayerInt("desertArcherRuneArrowCount", 0);
         Data.potionInventory = LoadPotionInventory();
         if (Data.potionInventory == null || Data.potionInventory.Count == 0)
             InitializeDefaultInventory();
@@ -197,6 +211,7 @@ public class GameDatabaseManager : MonoBehaviour
         Data.equippedPassiveItems = DeserializeStringList(LoadPlayerString("equippedPassiveItems", string.Empty));
         EnsurePassiveInventoryLists();
         Data.wordHistory = LoadWordHistory();
+        Data.vocabularyAttempts = LoadVocabularyAttempts();
         Data.stageProgress = LoadStageProgress();
         Data.leaderboard = LoadLeaderboard();
     }
@@ -208,6 +223,8 @@ public class GameDatabaseManager : MonoBehaviour
         SavePlayerInt("playerMaxHealth", Data.playerMaxHealth);
         SavePlayerInt("playerLevel", Data.playerLevel);
         SavePlayerInt("tutorialCompleted", Data.tutorialCompleted ? 1 : 0);
+        SavePlayerInt("stage2ObjectivesCompleted", Data.stage2ObjectivesCompleted ? 1 : 0);
+        SavePlayerInt("desertArcherRuneArrowCount", Mathf.Max(0, Data.desertArcherRuneArrowCount));
 
         sqliteDatabase.ExecuteNonQuery("DELETE FROM potion_inventory");
         foreach (var potion in Data.potionInventory)
@@ -223,6 +240,23 @@ public class GameDatabaseManager : MonoBehaviour
         foreach (var entry in Data.wordHistory)
         {
             sqliteDatabase.ExecuteNonQuery($"INSERT INTO word_history (word, valid, timestamp) VALUES ('{SqliteDatabase.Escape(entry.word)}', {(entry.valid ? 1 : 0)}, '{SqliteDatabase.Escape(entry.timestamp)}')");
+        }
+
+        sqliteDatabase.ExecuteNonQuery("DELETE FROM vocabulary_attempts");
+        foreach (VocabularyAttemptRecord attempt in Data.vocabularyAttempts)
+        {
+            sqliteDatabase.ExecuteNonQuery(
+                "INSERT INTO vocabulary_attempts "
+                + "(stageNumber, wordId, targetWord, activityType, submittedResponse, correct, firstAttempt, attemptNumber, timestampUtc) VALUES "
+                + $"({attempt.stageNumber}, "
+                + $"'{SqliteDatabase.Escape(attempt.wordId)}', "
+                + $"'{SqliteDatabase.Escape(attempt.targetWord)}', "
+                + $"{(int)attempt.activityType}, "
+                + $"'{SqliteDatabase.Escape(attempt.submittedResponse)}', "
+                + $"{(attempt.correct ? 1 : 0)}, "
+                + $"{(attempt.firstAttempt ? 1 : 0)}, "
+                + $"{attempt.attemptNumber}, "
+                + $"'{SqliteDatabase.Escape(attempt.timestampUtc)}')");
         }
 
         sqliteDatabase.ExecuteNonQuery("DELETE FROM stage_progress");
@@ -304,6 +338,51 @@ public class GameDatabaseManager : MonoBehaviour
         return list;
     }
 
+    private List<VocabularyAttemptRecord> LoadVocabularyAttempts()
+    {
+        List<VocabularyAttemptRecord> attempts = new List<VocabularyAttemptRecord>();
+        List<Dictionary<string, object>> rows = sqliteDatabase.ExecuteQuery(
+            "SELECT stageNumber, wordId, targetWord, activityType, submittedResponse, "
+            + "correct, firstAttempt, attemptNumber, timestampUtc "
+            + "FROM vocabulary_attempts ORDER BY id ASC");
+
+        foreach (Dictionary<string, object> row in rows)
+        {
+            int.TryParse(GetRowValue(row, "stageNumber", "1"), out int stageNumber);
+            int.TryParse(GetRowValue(row, "activityType", "0"), out int activityType);
+            int.TryParse(GetRowValue(row, "correct", "0"), out int correct);
+            int.TryParse(GetRowValue(row, "firstAttempt", "0"), out int firstAttempt);
+            int.TryParse(GetRowValue(row, "attemptNumber", "1"), out int attemptNumber);
+
+            attempts.Add(new VocabularyAttemptRecord
+            {
+                stageNumber = Mathf.Max(1, stageNumber),
+                wordId = GetRowValue(row, "wordId", string.Empty),
+                targetWord = GetRowValue(row, "targetWord", string.Empty),
+                activityType = Enum.IsDefined(typeof(VocabularyActivityType), activityType)
+                    ? (VocabularyActivityType)activityType
+                    : VocabularyActivityType.Teach,
+                submittedResponse = GetRowValue(row, "submittedResponse", string.Empty),
+                correct = correct == 1,
+                firstAttempt = firstAttempt == 1,
+                attemptNumber = Mathf.Max(1, attemptNumber),
+                timestampUtc = GetRowValue(row, "timestampUtc", string.Empty)
+            });
+        }
+
+        return attempts;
+    }
+
+    private static string GetRowValue(
+        Dictionary<string, object> row,
+        string key,
+        string fallback)
+    {
+        return row != null && row.TryGetValue(key, out object value) && value != null
+            ? value.ToString()
+            : fallback;
+    }
+
     private List<StageProgressEntry> LoadStageProgress()
     {
         var list = new List<StageProgressEntry>();
@@ -361,6 +440,27 @@ public class GameDatabaseManager : MonoBehaviour
             Data.equippedPassiveItems.RemoveAt(Data.equippedPassiveItems.Count - 1);
     }
 
+    public void EnsureVocabularyAttemptList()
+    {
+        Data ??= new GameData();
+        Data.vocabularyAttempts ??= new List<VocabularyAttemptRecord>();
+    }
+
+    public bool HasCompletedStage2Objectives()
+    {
+        return Data != null && Data.stage2ObjectivesCompleted;
+    }
+
+    public void MarkStage2ObjectivesCompleted()
+    {
+        Data ??= new GameData();
+        if (Data.stage2ObjectivesCompleted)
+            return;
+
+        Data.stage2ObjectivesCompleted = true;
+        SaveDatabase();
+    }
+
     private string SerializeStringList(List<string> values)
     {
         if (values == null || values.Count == 0)
@@ -387,6 +487,9 @@ public class GameDatabaseManager : MonoBehaviour
 
     public void RecordWordHistory(string word, bool valid)
     {
+        Data ??= new GameData();
+        Data.wordHistory ??= new List<WordHistoryEntry>();
+
         Data.wordHistory.Add(new WordHistoryEntry
         {
             word = word,
@@ -394,6 +497,54 @@ public class GameDatabaseManager : MonoBehaviour
             timestamp = DateTime.UtcNow.ToString("o")
         });
         isDirty = true;
+    }
+
+    public void RecordVocabularyAttempt(VocabularyAttemptRecord attempt)
+    {
+        if (attempt == null)
+            return;
+
+        EnsureVocabularyAttemptList();
+        Data.vocabularyAttempts.Add(new VocabularyAttemptRecord
+        {
+            stageNumber = Mathf.Max(1, attempt.stageNumber),
+            wordId = attempt.wordId ?? string.Empty,
+            targetWord = attempt.targetWord ?? string.Empty,
+            activityType = attempt.activityType,
+            submittedResponse = attempt.submittedResponse ?? string.Empty,
+            correct = attempt.correct,
+            firstAttempt = attempt.firstAttempt,
+            attemptNumber = Mathf.Max(1, attempt.attemptNumber),
+            timestampUtc = string.IsNullOrWhiteSpace(attempt.timestampUtc)
+                ? DateTime.UtcNow.ToString("o")
+                : attempt.timestampUtc
+        });
+        isDirty = true;
+    }
+
+    public IReadOnlyList<VocabularyAttemptRecord> GetVocabularyAttempts()
+    {
+        EnsureVocabularyAttemptList();
+        return Data.vocabularyAttempts;
+    }
+
+    [ContextMenu("Debug/Log Vocabulary Attempt History")]
+    public void LogVocabularyAttemptHistory()
+    {
+        EnsureVocabularyAttemptList();
+        Debug.Log($"[VocabularyPersistence] Stored attempts: {Data.vocabularyAttempts.Count}.", this);
+
+        int firstIndex = Mathf.Max(0, Data.vocabularyAttempts.Count - 10);
+        for (int i = firstIndex; i < Data.vocabularyAttempts.Count; i++)
+        {
+            VocabularyAttemptRecord attempt = Data.vocabularyAttempts[i];
+            Debug.Log(
+                $"[VocabularyPersistence] #{i + 1} Stage {attempt.stageNumber} | "
+                + $"{attempt.targetWord} | {attempt.activityType} | "
+                + $"Response: {attempt.submittedResponse} | Correct: {attempt.correct} | "
+                + $"Attempt: {attempt.attemptNumber} | {attempt.timestampUtc}",
+                this);
+        }
     }
 
     public void SaveStageProgress(int stageIndex, bool completed)
@@ -432,6 +583,25 @@ public class GameDatabaseManager : MonoBehaviour
     {
         var entry = Data.potionInventory.Find(p => p.type == type);
         return entry != null ? entry.count : 0;
+    }
+
+    public void AddDesertArcherRuneArrow(int amount = 1)
+    {
+        if (amount <= 0)
+            return;
+
+        if (Data == null)
+            Data = new GameData();
+
+        Data.desertArcherRuneArrowCount = Mathf.Max(
+            0,
+            Data.desertArcherRuneArrowCount + amount);
+        isDirty = true;
+    }
+
+    public int GetDesertArcherRuneArrowCount()
+    {
+        return Data != null ? Mathf.Max(0, Data.desertArcherRuneArrowCount) : 0;
     }
 
     public void AddLeaderboardEntry(string record)

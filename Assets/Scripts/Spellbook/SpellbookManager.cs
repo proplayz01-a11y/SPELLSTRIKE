@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellbookManager : MonoBehaviour
 {
+    public event Action EntriesChanged;
+
     private static SpellbookManager instance;
 
     public static SpellbookManager Instance
@@ -42,47 +45,97 @@ public class SpellbookManager : MonoBehaviour
             return;
 
         string normalizedWord = word.Trim().ToUpperInvariant();
+        GameDatabaseManager.EnsureInstance()
+            .RecordWordHistory(normalizedWord, true);
 
         if (entriesByWord.TryGetValue(normalizedWord, out SpellbookEntry existingEntry))
         {
             existingEntry.timesUsed++;
             Debug.Log($"[SpellbookManager] Existing word reused: {normalizedWord} | Times used: {existingEntry.timesUsed}");
             Debug.Log($"[SpellbookManager] Total spellbook entries: {entriesByWord.Count}");
+            EntriesChanged?.Invoke();
             return;
         }
 
-        if (DictionaryManager.Instance == null)
-        {
-            Debug.LogWarning("[SpellbookManager] DictionaryManager missing. Cannot record new spellbook entry.");
-            return;
-        }
-
-        string definition = DictionaryManager.Instance.GetDefinition(normalizedWord);
-        string rarity = DictionaryManager.Instance.GetRarity(normalizedWord);
-        int dictionaryLength = DictionaryManager.Instance.GetWordLength(normalizedWord);
-
-        if (string.IsNullOrWhiteSpace(definition) && string.IsNullOrWhiteSpace(rarity) && dictionaryLength <= 0)
-        {
-            Debug.LogWarning($"[SpellbookManager] Dictionary entry not found for valid word: {normalizedWord}");
-            return;
-        }
-
-        SpellbookEntry newEntry = new SpellbookEntry(
-            normalizedWord,
-            definition,
-            rarity,
-            dictionaryLength > 0 ? dictionaryLength : normalizedWord.Length,
-            1
-        );
-
+        DictionaryManager dictionary = DictionaryManager.EnsureInstance();
+        SpellbookEntry newEntry = CreateEntry(normalizedWord, 1, dictionary);
         entriesByWord.Add(normalizedWord, newEntry);
 
         Debug.Log($"[SpellbookManager] New word discovered: {normalizedWord} | Rarity: {newEntry.rarity} | Length: {newEntry.length}");
         Debug.Log($"[SpellbookManager] Total spellbook entries: {entriesByWord.Count}");
+        EntriesChanged?.Invoke();
+    }
+
+    public void RefreshFromPersistentHistory()
+    {
+        DictionaryManager dictionary = DictionaryManager.EnsureInstance();
+        GameDatabaseManager database = GameDatabaseManager.EnsureInstance();
+        Dictionary<string, int> usageCounts =
+            new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+        entriesByWord.Clear();
+
+        if (database.Data?.wordHistory != null)
+        {
+            foreach (WordHistoryEntry historyEntry in database.Data.wordHistory)
+            {
+                if (historyEntry == null
+                    || !historyEntry.valid
+                    || string.IsNullOrWhiteSpace(historyEntry.word))
+                {
+                    continue;
+                }
+
+                string normalizedWord =
+                    historyEntry.word.Trim().ToUpperInvariant();
+
+                if (usageCounts.TryGetValue(normalizedWord, out int count))
+                    usageCounts[normalizedWord] = count + 1;
+                else
+                    usageCounts.Add(normalizedWord, 1);
+            }
+        }
+
+        foreach (KeyValuePair<string, int> usage in usageCounts)
+        {
+            entriesByWord.Add(
+                usage.Key,
+                CreateEntry(usage.Key, usage.Value, dictionary));
+        }
+
+        EntriesChanged?.Invoke();
     }
 
     public IReadOnlyCollection<SpellbookEntry> GetAllEntries()
     {
         return entriesByWord.Values;
+    }
+
+    private static SpellbookEntry CreateEntry(
+        string normalizedWord,
+        int timesUsed,
+        DictionaryManager dictionary)
+    {
+        string definition = dictionary != null
+            ? dictionary.GetDefinition(normalizedWord)
+            : string.Empty;
+        string rarity = dictionary != null
+            ? dictionary.GetRarity(normalizedWord)
+            : string.Empty;
+        int dictionaryLength = dictionary != null
+            ? dictionary.GetWordLength(normalizedWord)
+            : 0;
+
+        if (string.IsNullOrWhiteSpace(definition))
+            definition = "Definition unavailable in the gameplay dictionary.";
+        if (string.IsNullOrWhiteSpace(rarity))
+            rarity = "unclassified";
+
+        return new SpellbookEntry(
+            normalizedWord,
+            definition,
+            rarity,
+            dictionaryLength > 0 ? dictionaryLength : normalizedWord.Length,
+            Mathf.Max(1, timesUsed));
     }
 }

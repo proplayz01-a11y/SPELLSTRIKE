@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SwordRewardPickup : MonoBehaviour
 {
@@ -29,14 +29,11 @@ public class SwordRewardPickup : MonoBehaviour
 
     private void Update()
     {
-        if (!isUnlocked) return;
-        if (isCollected) return;
-        if (!playerInRange) return;
+        if (!isUnlocked || isCollected || !playerInRange)
+            return;
 
         if (Input.GetKeyDown(interactKey))
-        {
-            CollectSwordManually();
-        }
+            TryCollectSword();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,9 +41,11 @@ public class SwordRewardPickup : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         playerInRange = true;
-
         if (isUnlocked && !isCollected)
-            Debug.Log($"[SwordRewardPickup] Press E to collect {itemName}.");
+        {
+            MobileStageControls.OfferInteraction(this, "COLLECT", TryCollectSword);
+            Debug.Log($"[SwordRewardPickup] {itemName} is in interaction range.");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -54,6 +53,7 @@ public class SwordRewardPickup : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         playerInRange = false;
+        MobileStageControls.ClearInteraction(this);
     }
 
     public void UnlockSwordPickup()
@@ -64,26 +64,25 @@ public class SwordRewardPickup : MonoBehaviour
 
         if (pickupCollider != null)
             pickupCollider.enabled = true;
+        if (playerInRange)
+            MobileStageControls.OfferInteraction(this, "COLLECT", TryCollectSword);
 
         Debug.Log($"[SwordRewardPickup] {itemName} is now collectable.");
     }
 
-    private void CollectSwordManually()
+    public void TryCollectSword()
     {
-        if (isCollected) return;
+        if (!isUnlocked || isCollected || !playerInRange)
+            return;
 
         isCollected = true;
-
+        MobileStageControls.ClearInteraction(this);
         Debug.Log($"[SwordRewardPickup] Collected {itemName}. Passive: +{damageBonusPercent}% word attack damage.");
 
         if (bossController != null)
-        {
             bossController.OnSwordRewardCollected();
-        }
         else
-        {
             Debug.LogWarning("[SwordRewardPickup] BossController reference missing.");
-        }
 
         HideSwordObject();
     }
@@ -93,9 +92,8 @@ public class SwordRewardPickup : MonoBehaviour
         if (isCollected) return;
 
         isCollected = true;
-
+        MobileStageControls.ClearInteraction(this);
         Debug.Log($"[SwordRewardPickup] Auto-granted {itemName}. Passive: +{damageBonusPercent}% word attack damage.");
-
         HideSwordObject();
     }
 
@@ -105,12 +103,13 @@ public class SwordRewardPickup : MonoBehaviour
             pickupCollider.enabled = false;
 
         if (swordRootToHide != null)
-        {
             swordRootToHide.SetActive(false);
-        }
         else
-        {
             gameObject.SetActive(false);
-        }
+    }
+
+    private void OnDisable()
+    {
+        MobileStageControls.ClearInteraction(this);
     }
 }

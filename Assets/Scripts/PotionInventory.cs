@@ -24,7 +24,11 @@ public class PotionInventory : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Debug.Log(
+                $"[PotionInventory] Duplicate component removed from '{gameObject.name}' " +
+                "without destroying its shared host GameObject.",
+                this);
+            Destroy(this);
             return;
         }
 
@@ -32,8 +36,6 @@ public class PotionInventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         GameDatabaseManager.EnsureInstance();
         EnsurePotionEntries();
-        ClampAllPotionCounts();
-        SyncLegacyPotionFields();
     }
 
     private void Start()

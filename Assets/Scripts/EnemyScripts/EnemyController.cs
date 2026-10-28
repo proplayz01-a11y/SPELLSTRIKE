@@ -669,7 +669,9 @@ public class EnemyController : MonoBehaviour
             : (currentState == EnemyState.Scouting ? scoutTimeRemaining : scoutTime);
         remainingScoutTime = Mathf.Max(0.1f, scoutBaseTime - hitScoutReduction);
 
+        float beforeDamage = currentHealth;
         currentHealth = Mathf.Max(0f, currentHealth - damage);
+        FloatingDamageNumbersV01.Show(this, beforeDamage - currentHealth);
         Debug.Log($"{name} took {damage} damage. HP: {currentHealth}/{maxHealth}");
 
         // Sync health bar UI

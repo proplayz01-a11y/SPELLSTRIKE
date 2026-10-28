@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class VocabularyTeachController : MonoBehaviour
 {
+    public event Action<VocabularyTeachController> TeachDismissed;
+
     private enum TeachState
     {
         Hidden,
@@ -23,6 +26,8 @@ public class VocabularyTeachController : MonoBehaviour
     [SerializeField] private GameObject panelRoot;
     [SerializeField] private TMP_Text wordText;
     [SerializeField] private TMP_Text partOfSpeechText;
+    [Tooltip("Optional dedicated pronunciation line. When absent, IPA falls back to the definition area.")]
+    [SerializeField] private TMP_Text pronunciationText;
     [SerializeField] private TMP_Text definitionText;
     [SerializeField] private TMP_Text contextText;
     [SerializeField] private TMP_Text instructionText;
@@ -30,6 +35,8 @@ public class VocabularyTeachController : MonoBehaviour
     [SerializeField] private Button primaryButton;
     [SerializeField] private TMP_Text primaryButtonLabel;
     [SerializeField] private Button hintButton;
+    [Tooltip("Optional full-panel transparent Button used for the approved click-anywhere presentation.")]
+    [SerializeField] private Button clickAnywhereButton;
 
     [Header("Gameplay References")]
     [SerializeField] private TileManager tileManager;
@@ -43,6 +50,9 @@ public class VocabularyTeachController : MonoBehaviour
     private TeachState state = TeachState.Hidden;
     private int hintLevel;
     private float previousTimeScale = 1f;
+    private bool attackWasLocked;
+    private bool recordCompletionOnDismiss = true;
+    private bool reviewPresentation;
 
     public bool TeachCompleted { get; private set; }
     public VocabularyWordData CurrentWord => profile != null ? profile.GetWord(wordIndex) : null;
@@ -57,6 +67,9 @@ public class VocabularyTeachController : MonoBehaviour
 
         if (hintButton != null)
             hintButton.onClick.AddListener(ShowNextHint);
+
+        if (clickAnywhereButton != null && clickAnywhereButton != primaryButton)
+            clickAnywhereButton.onClick.AddListener(OnPrimaryPressed);
     }
 
     private void Start()
@@ -93,19 +106,37 @@ public class VocabularyTeachController : MonoBehaviour
         }
     }
 
-    public void ShowTeach()
+    public bool ShowTeach()
+    {
+        return ShowPresentation(false, true);
+    }
+
+    public bool ShowReview()
+    {
+        return ShowPresentation(true, false);
+    }
+
+    private bool ShowPresentation(bool isReview, bool shouldRecordCompletion)
     {
         ResolveReferences();
         VocabularyWordData word = CurrentWord;
         if (word == null)
         {
             Debug.LogWarning("[VocabularyTeach] No vocabulary word is configured.", this);
-            return;
+            return false;
+        }
+
+        if (state != TeachState.Hidden)
+        {
+            Debug.LogWarning("[VocabularyTeach] Ignored Show request because the panel is already active.", this);
+            return false;
         }
 
         TeachCompleted = false;
         hintLevel = 0;
         state = TeachState.Presenting;
+        reviewPresentation = isReview;
+        recordCompletionOnDismiss = shouldRecordCompletion;
 
         if (pauseGameplayWhileTeaching)
         {
@@ -113,6 +144,7 @@ public class VocabularyTeachController : MonoBehaviour
             Time.timeScale = 0f;
         }
 
+        attackWasLocked = attackController != null && attackController.IsAttackInputLocked;
         attackController?.SetAttackInputLocked(true);
         if (panelRoot != null)
             panelRoot.SetActive(true);
@@ -121,20 +153,41 @@ public class VocabularyTeachController : MonoBehaviour
             wordText.text = word.Word;
         if (partOfSpeechText != null)
             partOfSpeechText.text = word.PartOfSpeech;
+
+        bool hasPronunciation = !string.IsNullOrWhiteSpace(word.PhoneticSpelling);
+        if (pronunciationText != null)
+        {
+            pronunciationText.gameObject.SetActive(hasPronunciation);
+            pronunciationText.text = hasPronunciation
+                ? $"Pronunciation (IPA): {word.PhoneticSpelling}"
+                : string.Empty;
+        }
+
         if (definitionText != null)
-            definitionText.text = word.Definition;
+        {
+            definitionText.text = hasPronunciation && pronunciationText == null
+                ? $"{word.Definition}\n\nPronunciation (IPA): {word.PhoneticSpelling}"
+                : word.Definition;
+        }
         if (contextText != null)
             contextText.text = $"Example: {word.ContextSentence}";
         if (instructionText != null)
             instructionText.text = requireGuidedReconstruction
                 ? "Study the word, its meaning, and how it is used."
-                : "Study the word before continuing to combat.";
+                : isReview
+                    ? "Review the word, then click anywhere to try again."
+                    : "Click anywhere to continue.";
         if (feedbackText != null)
             feedbackText.text = string.Empty;
 
         SetPrimaryButton(true, requireGuidedReconstruction ? "PRACTICE" : "CONTINUE");
         if (hintButton != null)
             hintButton.gameObject.SetActive(false);
+
+        if (clickAnywhereButton != null)
+            clickAnywhereButton.interactable = !requireGuidedReconstruction;
+
+        return true;
     }
 
     public void ShowNextHint()
@@ -207,9 +260,9 @@ public class VocabularyTeachController : MonoBehaviour
         state = TeachState.Hidden;
         TeachCompleted = true;
         tileManager?.ResetTileSelection();
-        attackController?.SetAttackInputLocked(false);
+        attackController?.SetAttackInputLocked(attackWasLocked);
 
-        if (session != null)
+        if (recordCompletionOnDismiss && session != null)
             session.RecordTeachCompleted(profile, CurrentWord);
 
         if (panelRoot != null)
@@ -219,7 +272,12 @@ public class VocabularyTeachController : MonoBehaviour
             Time.timeScale = previousTimeScale;
 
         onTeachCompleted?.Invoke();
-        Debug.Log($"[VocabularyTeach] Completed Teach for {CurrentWord?.Word}.", this);
+        TeachDismissed?.Invoke(this);
+        Debug.Log(
+            reviewPresentation
+                ? $"[VocabularyTeach] Closed review presentation for {CurrentWord?.Word}."
+                : $"[VocabularyTeach] Completed Teach for {CurrentWord?.Word}.",
+            this);
     }
 
     private void ResolveReferences()

@@ -15,6 +15,7 @@ public class CorsairPhantomController : MonoBehaviour
 
     [Header("Movement")]
     public float glideSpeed = 3f;
+    [SerializeField, Min(0.05f)] private float accelerationTime = 0.5f;
     public float rotationSpeed = 360f;
     public float stoppingDistance = 1.8f;
     public float attackRange = 8f;
@@ -385,13 +386,19 @@ public class CorsairPhantomController : MonoBehaviour
         if (agent == null)
             return;
 
-        agent.speed = glideSpeed;
+        EnemyNavMovement.ApplySpeed(agent, glideSpeed, accelerationTime);
         agent.stoppingDistance = stoppingDistance;
         agent.updateRotation = false;
     }
 
     private void ResolvePlayer()
     {
+        if (PersistentPlayerRoot.Instance != null)
+        {
+            player = PersistentPlayerRoot.Instance.transform;
+            return;
+        }
+
         if (player != null)
             return;
 
@@ -473,9 +480,13 @@ public class CorsairPhantomController : MonoBehaviour
         }
 
         agent.isStopped = false;
-        agent.speed = glideSpeed;
+        EnemyNavMovement.ApplySpeed(agent, glideSpeed, accelerationTime);
         agent.stoppingDistance = stoppingDistance;
-        agent.SetDestination(player.position);
+        if (!EnemyNavMovement.TrySetDestination(agent, player.position))
+        {
+            SetAnimatorSpeed(0f);
+            return;
+        }
 
         FaceTarget(player.position);
         SetAnimatorSpeed(agent.velocity.magnitude);
@@ -1093,7 +1104,8 @@ public class CorsairPhantomController : MonoBehaviour
             if (playerMovementStunRoutine != null)
                 StopCoroutine(playerMovementStunRoutine);
 
-            playerMovementStunRoutine = StartCoroutine(TemporaryDisablePlayerMovement(movementOfPlayer, ghostGlideStunDuration));
+            float reducedDuration = PassiveCrowdControlModifier.ModifyStun(ghostGlideStunDuration);
+            playerMovementStunRoutine = StartCoroutine(TemporaryDisablePlayerMovement(movementOfPlayer, reducedDuration));
             Log("[CorsairPhantom] Ghost Glide stunned player.");
         }
     }

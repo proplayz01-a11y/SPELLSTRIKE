@@ -22,6 +22,7 @@ public class StageNodeController : MonoBehaviour
     [Header("Objective UI")]
     [SerializeField] private GoalsPanelUI goalsPanelUI;
     [SerializeField] private int fragmentGoalIncrement = 1;
+    [SerializeField] private Stage2ObjectiveTracker stage2ObjectiveTracker;
 
     [Header("Scene Objects")]
     [SerializeField] private GameObject nextPathIndicator;
@@ -54,6 +55,9 @@ public class StageNodeController : MonoBehaviour
         {
             goalsPanelUI = FindFirstObjectByType<GoalsPanelUI>();
         }
+
+        if (stage2ObjectiveTracker == null)
+            stage2ObjectiveTracker = FindFirstObjectByType<Stage2ObjectiveTracker>();
 
         if (playerHealth == null)
         {
@@ -103,6 +107,10 @@ public class StageNodeController : MonoBehaviour
 
     public void OnFragmentCollected()
     {
+        if (stage2ObjectiveTracker == null)
+            stage2ObjectiveTracker = FindFirstObjectByType<Stage2ObjectiveTracker>();
+
+        stage2ObjectiveTracker?.RegisterFragmentCollected(nodeIndex);
         CompleteNode();
     }
 

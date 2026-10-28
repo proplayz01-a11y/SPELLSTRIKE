@@ -55,6 +55,7 @@ if (!stoneSentinel.gameObject.activeSelf)
     Debug.Log("[StoneSentinelTriggerEncounter] Stone Sentinel enabled.");
 }
 
+EnemyEncounterHUD.ShowFor(stoneSentinel);
 stoneSentinel.StartBattle();
 }
 

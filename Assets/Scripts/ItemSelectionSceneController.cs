@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -47,11 +48,17 @@ public class ItemSelectionSceneController : MonoBehaviour
     private RectTransform uiRoot;
     private PassiveItemInventory passiveInventory;
     private PotionInventory potionInventory;
+    private bool stageLoadInProgress;
 
     private TextMeshProUGUI stageTitleText;
     private TextMeshProUGUI potionCountsText;
     private readonly List<TextMeshProUGUI> equippedSlotTexts = new List<TextMeshProUGUI>();
+    private readonly List<Image> equippedSlotIcons = new List<Image>();
     private readonly List<PassiveRow> passiveRows = new List<PassiveRow>();
+
+    // Keep selected items clickable while subtly dimming the entire card,
+    // including its independently rendered gold frame and passive icon.
+    private const float EquippedRowOpacity = 0.64f;
 
     private class PassiveRow
     {
@@ -61,6 +68,8 @@ public class ItemSelectionSceneController : MonoBehaviour
         public TextMeshProUGUI titleText;
         public TextMeshProUGUI bodyText;
         public TextMeshProUGUI statusText;
+        public Image icon;
+        public CanvasGroup selectionFade;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
@@ -157,7 +166,10 @@ public class ItemSelectionSceneController : MonoBehaviour
         if (prebuiltUiRoot != null)
         {
             uiRoot = prebuiltUiRoot;
-            uiRoot.SetAsLastSibling();
+            // Respect the authored Canvas sibling order. Decorative foreground
+            // elements (such as the top ribbon) may intentionally sit after the
+            // prebuilt ItemSelection UI so they render in front. Reordering this
+            // root at runtime made Play Mode disagree with the Editor hierarchy.
             CachePrebuiltReferences();
             return;
         }
@@ -171,6 +183,7 @@ public class ItemSelectionSceneController : MonoBehaviour
     private void CachePrebuiltReferences()
     {
         equippedSlotTexts.Clear();
+        equippedSlotIcons.Clear();
         passiveRows.Clear();
 
         stageTitleText = FindUiComponent<TextMeshProUGUI>("WizardVaultContent/Body/StagePage/StageTitle");
@@ -178,13 +191,22 @@ public class ItemSelectionSceneController : MonoBehaviour
 
         for (int i = 1; i <= 3; i++)
         {
-            TextMeshProUGUI slotText = FindUiComponent<TextMeshProUGUI>($"WizardVaultContent/Body/ItemPage/EquippedSlots/EquippedSlot{i}/Text");
-            if (slotText != null)
-                equippedSlotTexts.Add(slotText);
+            string slotPath = $"WizardVaultContent/Body/ItemPage/EquippedSlots/EquippedSlot{i}";
+            Transform slot = uiRoot.Find(slotPath);
+            equippedSlotTexts.Add(slot == null ? null : FindChildComponent<TextMeshProUGUI>(slot, "Text"));
+
+            // Only the production Wizard's Vault uses the tall ornate cards.
+            // Leave the original/legacy short slots untouched.
+            equippedSlotIcons.Add(slot != null && slot.Find("ProductionSlotLabelBacking") != null
+                ? EnsureEquippedSlotIcon(slot)
+                : null);
         }
 
         foreach (PassiveItemInfo item in PassiveItemCatalog.GetAllItems())
-            CachePassiveRow(item);
+        {
+            if (!CachePassiveRow(item))
+                CreateMissingPrebuiltPassiveRow(item);
+        }
 
         Button backButton = FindUiComponent<Button>("WizardVaultContent/Footer/BackButton");
         if (backButton != null)
@@ -201,14 +223,14 @@ public class ItemSelectionSceneController : MonoBehaviour
         }
     }
 
-    private void CachePassiveRow(PassiveItemInfo item)
+    private bool CachePassiveRow(PassiveItemInfo item)
     {
         Button button = FindUiComponent<Button>($"WizardVaultContent/Body/ItemPage/PassiveList/PassiveListViewport/PassiveListContent/{item.id}Row");
         if (button == null)
             button = FindUiComponent<Button>($"WizardVaultContent/Body/ItemPage/PassiveList/{item.id}Row");
 
         if (button == null)
-            return;
+            return false;
 
         TextMeshProUGUI title = FindChildComponent<TextMeshProUGUI>(button.transform, "Title");
         TextMeshProUGUI body = FindChildComponent<TextMeshProUGUI>(button.transform, "Body");
@@ -225,8 +247,95 @@ public class ItemSelectionSceneController : MonoBehaviour
             background = button.GetComponent<Image>(),
             titleText = title,
             bodyText = body,
-            statusText = status
+            statusText = status,
+            icon = FindChildComponent<Image>(button.transform, "ProductionPassiveIcon"),
+            // Stage 4+ still uses the legacy scene. Only the production Vault
+            // has the separate framed artwork that needs whole-row fading.
+            selectionFade = button.transform.Find("ProductionPassiveRowArt") != null
+                ? GetOrAddSelectionFade(button.gameObject)
+                : null
         });
+
+        return true;
+    }
+
+    private static CanvasGroup GetOrAddSelectionFade(GameObject row)
+    {
+        CanvasGroup fade = row.GetComponent<CanvasGroup>();
+        if (fade == null)
+            fade = row.AddComponent<CanvasGroup>();
+        // Alpha is visual only. Clicking an equipped item still unequips it.
+        fade.interactable = true;
+        fade.blocksRaycasts = true;
+        return fade;
+    }
+
+    private static Image EnsureEquippedSlotIcon(Transform slot)
+    {
+        Transform existing = slot.Find("EquippedPassiveIcon");
+        RectTransform rect;
+        Image image;
+        if (existing != null)
+        {
+            rect = existing as RectTransform;
+            image = existing.GetComponent<Image>();
+        }
+        else
+        {
+            GameObject iconObject = new GameObject("EquippedPassiveIcon", typeof(RectTransform), typeof(Image));
+            rect = iconObject.GetComponent<RectTransform>();
+            rect.SetParent(slot, false);
+            image = iconObject.GetComponent<Image>();
+        }
+
+        if (rect == null || image == null)
+            return null;
+
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = new Vector2(130f, 130f);
+        rect.anchoredPosition = new Vector2(0f, 45f);
+        rect.SetAsFirstSibling(); // Keep live slot-name TMP on top of the icon.
+        image.type = Image.Type.Simple;
+        image.preserveAspect = true;
+        image.raycastTarget = false;
+        image.color = Color.white;
+
+        Transform fallback = rect.Find("FallbackInitial");
+        if (fallback == null)
+        {
+            GameObject labelObject = new GameObject("FallbackInitial", typeof(RectTransform), typeof(TextMeshProUGUI));
+            RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+            labelRect.SetParent(rect, false);
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = labelRect.offsetMax = Vector2.zero;
+            TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
+            label.fontSize = 75f;
+            label.fontStyle = FontStyles.Bold;
+            label.alignment = TextAlignmentOptions.Center;
+            label.color = new Color(0.96f, 0.79f, 0.43f, 1f);
+            label.raycastTarget = false;
+        }
+        rect.gameObject.SetActive(false);
+        return image;
+    }
+
+    private void CreateMissingPrebuiltPassiveRow(PassiveItemInfo item)
+    {
+        Transform rowParent = uiRoot.Find(
+            "WizardVaultContent/Body/ItemPage/PassiveList/PassiveListViewport/PassiveListContent");
+        if (rowParent == null)
+            rowParent = uiRoot.Find("WizardVaultContent/Body/ItemPage/PassiveList");
+
+        if (rowParent == null)
+        {
+            Debug.LogWarning($"[ItemSelection] Cannot create missing row for {item.displayName}; passive list was not found.");
+            return;
+        }
+
+        passiveRows.Add(CreatePassiveRow(rowParent, item));
+        Debug.Log($"[ItemSelection] Created missing catalog row for {item.displayName}.");
     }
 
     private T FindUiComponent<T>(string path) where T : Component
@@ -430,8 +539,12 @@ public class ItemSelectionSceneController : MonoBehaviour
         layout.childForceExpandHeight = true;
 
         equippedSlotTexts.Clear();
+        equippedSlotIcons.Clear();
         for (int i = 0; i < 3; i++)
+        {
             equippedSlotTexts.Add(CreateEquippedSlot(row, i + 1));
+            equippedSlotIcons.Add(null);
+        }
     }
 
     private TextMeshProUGUI CreateEquippedSlot(Transform parent, int slotNumber)
@@ -612,6 +725,38 @@ public class ItemSelectionSceneController : MonoBehaviour
         {
             PassiveItemId itemId = passiveInventory.GetEquippedPassive(i);
             string itemName = itemId == PassiveItemId.None ? "Empty" : PassiveItemCatalog.GetDisplayName(itemId);
+
+            // Reuse the exact sprite displayed on the matching passive row.
+            // Pearl/Shell have fallback initials until dedicated PNGs exist.
+            if (i < equippedSlotIcons.Count && equippedSlotIcons[i] != null)
+            {
+                Image icon = equippedSlotIcons[i];
+                Sprite sprite = null;
+                if (itemId != PassiveItemId.None)
+                {
+                    foreach (PassiveRow row in passiveRows)
+                    {
+                        if (row.itemId == itemId && row.icon != null)
+                        {
+                            sprite = row.icon.sprite;
+                            break;
+                        }
+                    }
+                }
+
+                icon.sprite = sprite;
+                icon.color = sprite == null ? Color.clear : Color.white;
+                Transform initialNode = icon.transform.Find("FallbackInitial");
+                if (initialNode != null)
+                {
+                    TextMeshProUGUI initial = initialNode.GetComponent<TextMeshProUGUI>();
+                    if (initial != null && itemId != PassiveItemId.None)
+                        initial.text = PassiveItemCatalog.GetDisplayName(itemId).Substring(0, 1);
+                    initialNode.gameObject.SetActive(itemId != PassiveItemId.None && sprite == null);
+                }
+                icon.gameObject.SetActive(itemId != PassiveItemId.None);
+            }
+
             if (equippedSlotTexts[i] == null)
                 continue;
 
@@ -678,16 +823,49 @@ public class ItemSelectionSceneController : MonoBehaviour
                 if (row.button != null)
                     row.button.interactable = true;
             }
+
+            if (row.selectionFade != null)
+                row.selectionFade.alpha = equipped ? EquippedRowOpacity : 1f;
         }
     }
 
     private void OnContinuePressed()
     {
+        if (stageLoadInProgress)
+            return;
+
+        stageLoadInProgress = true;
+
         GameDatabaseManager database = GameDatabaseManager.EnsureInstance();
         database.FlushSave();
 
         Debug.Log($"[ItemSelection] Continuing to {StageRunSelection.SelectedStageSceneName}.");
-        StageRunSelection.LoadSelectedStage();
+        StartCoroutine(LoadSelectedStageWithCleanup());
+    }
+
+    private IEnumerator LoadSelectedStageWithCleanup()
+    {
+        string sceneName = string.IsNullOrWhiteSpace(StageRunSelection.SelectedStageSceneName)
+            ? "SampleScene"
+            : StageRunSelection.SelectedStageSceneName;
+
+        // Stage 1 is substantially heavier than the menu scenes on Android. Release
+        // anything the outgoing UI no longer owns before allocating the gameplay scene.
+        yield return Resources.UnloadUnusedAssets();
+        System.GC.Collect();
+        yield return null;
+
+        Debug.Log($"[ItemSelection] Pre-load cleanup complete. Loading {sceneName} asynchronously.");
+        AsyncOperation load = SceneManager.LoadSceneAsync(sceneName);
+        if (load == null)
+        {
+            stageLoadInProgress = false;
+            Debug.LogError($"[ItemSelection] Failed to begin loading {sceneName}.");
+            yield break;
+        }
+
+        while (!load.isDone)
+            yield return null;
     }
 
     private void OnBackPressed()

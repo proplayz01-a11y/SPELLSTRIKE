@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FragmentPickup : MonoBehaviour
 {
     [Header("Fragment State")]
     private bool isLocked = true;
     private bool playerInRange = false;
+    private bool collected = false;
 
     [Header("Pickup Receiver")]
     public MonoBehaviour pickupReceiver;
@@ -13,18 +14,26 @@ public class FragmentPickup : MonoBehaviour
     public void SetLocked(bool locked)
     {
         isLocked = locked;
+
+        if (!isLocked && playerInRange && !collected)
+            MobileStageControls.OfferInteraction(this, "COLLECT", TryCollectFragment);
+        else if (isLocked)
+            MobileStageControls.ClearInteraction(this);
     }
 
     private void Update()
     {
-        if (playerInRange && !isLocked && Input.GetKeyDown(KeyCode.E))
-        {
-            CollectFragment();
-        }
+        if (playerInRange && !isLocked && !collected && Input.GetKeyDown(KeyCode.E))
+            TryCollectFragment();
     }
 
-    private void CollectFragment()
+    public void TryCollectFragment()
     {
+        if (isLocked || collected || !playerInRange)
+            return;
+
+        collected = true;
+        MobileStageControls.ClearInteraction(this);
         Debug.Log($"[FragmentPickup] Fragment collected: {gameObject.name}");
 
         if (pickupReceiver != null && !string.IsNullOrEmpty(pickupMessage))
@@ -45,6 +54,8 @@ public class FragmentPickup : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         playerInRange = true;
+        if (!isLocked && !collected)
+            MobileStageControls.OfferInteraction(this, "COLLECT", TryCollectFragment);
         Debug.Log("[FragmentPickup] Player entered fragment range.");
     }
 
@@ -53,6 +64,12 @@ public class FragmentPickup : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         playerInRange = false;
+        MobileStageControls.ClearInteraction(this);
         Debug.Log("[FragmentPickup] Player left fragment range.");
+    }
+
+    private void OnDisable()
+    {
+        MobileStageControls.ClearInteraction(this);
     }
 }

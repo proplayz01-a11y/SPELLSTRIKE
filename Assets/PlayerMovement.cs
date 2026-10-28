@@ -102,12 +102,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void ApplyStun(float duration)
     {
+        duration = PassiveCrowdControlModifier.ModifyStun(duration);
         stunTimer = Mathf.Max(stunTimer, Mathf.Max(duration, 0.01f));
         Debug.Log($"Stunned for {stunTimer:F2}s");
     }
 
     public void ApplyKnockback(Vector3 direction, float force)
     {
+        force = PassiveCrowdControlModifier.ModifyKnockback(force);
         Vector3 flatDirection = direction;
         flatDirection.y = 0f;
         if (flatDirection.sqrMagnitude < 0.01f)

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TileDebuffManager : MonoBehaviour
 {
+    public event System.Action<int> TilesPurifiedBySuccessfulAttack;
+
     [Header("References")]
     public Transform tilePoolPanel;
 
@@ -98,6 +100,8 @@ public class TileDebuffManager : MonoBehaviour
 
     public void ReduceTileDebuffCountersOnSuccessfulAttack()
     {
+        int purifiedCount = 0;
+
         foreach (Tile tile in GetActiveTileButtons())
         {
             if (tile.CurrentState != TileState.Locked && tile.CurrentState != TileState.Cracked)
@@ -105,12 +109,53 @@ public class TileDebuffManager : MonoBehaviour
 
             int nextCounter = Mathf.Max(0, tile.DebuffCounter - 1);
             if (nextCounter == 0)
+            {
                 tile.SetTileState(TileState.Normal);
+                purifiedCount++;
+            }
             else
                 tile.SetDebuffCounter(nextCounter);
         }
 
-        Debug.Log("[TileDebuff] Counters reduced after successful attack.");
+        if (IsPurifyingPearlEquipped())
+            purifiedCount += ApplyCleansingCurrent();
+
+        if (purifiedCount > 0)
+            TilesPurifiedBySuccessfulAttack?.Invoke(purifiedCount);
+
+        Debug.Log($"[TileDebuff] Counters reduced after successful attack. Fully purified: {purifiedCount}.");
+    }
+
+    private int ApplyCleansingCurrent()
+    {
+        List<Tile> candidates = new List<Tile>();
+        foreach (Tile tile in GetActiveTileButtons())
+        {
+            if (tile.CurrentState == TileState.Locked || tile.CurrentState == TileState.Cracked)
+                candidates.Add(tile);
+        }
+
+        if (candidates.Count == 0)
+            return 0;
+
+        Tile selectedTile = TakeRandomTile(candidates);
+        int nextCounter = Mathf.Max(0, selectedTile.DebuffCounter - 1);
+        if (nextCounter == 0)
+        {
+            selectedTile.SetTileState(TileState.Normal);
+            Debug.Log("[PurifyingPearl] Cleansing Current fully purified one random tile.");
+            return 1;
+        }
+
+        selectedTile.SetDebuffCounter(nextCounter);
+        Debug.Log($"[PurifyingPearl] Cleansing Current reduced one random {selectedTile.CurrentState} tile to {nextCounter}.");
+        return 0;
+    }
+
+    private bool IsPurifyingPearlEquipped()
+    {
+        PassiveItemInventory inventory = PassiveItemInventory.GetOrCreate();
+        return inventory != null && inventory.IsEquipped(PassiveItemId.PurifyingPearl);
     }
 
     public void RestoreBrokenTilesAfterEnemyDefeat()

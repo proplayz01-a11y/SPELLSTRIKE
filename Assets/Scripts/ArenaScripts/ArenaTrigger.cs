@@ -115,6 +115,7 @@ public class ArenaTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !triggered)
         {
             triggered = true;
+            EnemyEncounterHUD.ShowFor(brambleSprite);
             StartCoroutine(IntroSequence());
         }
     }
@@ -246,6 +247,7 @@ public class ArenaTrigger : MonoBehaviour
 
         // Battle starts
         battleStarted = true;
+        EnemyEncounterHUD.ShowFor(brambleSprite);
         if (TileSpawner.Instance != null)
         {
             TileSpawner.Instance.ConfigureArenaBounds(

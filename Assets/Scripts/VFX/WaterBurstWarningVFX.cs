@@ -187,16 +187,7 @@ public class WaterBurstWarningVFX : MonoBehaviour
 
     private Material CreateTransparentMaterial(string materialName, Color color)
     {
-        Material material = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-        if (material.shader == null)
-            material = new Material(Shader.Find("Sprites/Default"));
-
-        material.name = materialName;
-        material.color = color;
-        material.SetFloat("_Surface", 1f);
-        material.SetFloat("_Blend", 0f);
-        material.renderQueue = 3000;
-        return material;
+        return Stage2RuntimeVFXMaterialUtility.CreateMaterial(color, false, materialName);
     }
 
     private void SetRendererMaterial(GameObject target, Material material)

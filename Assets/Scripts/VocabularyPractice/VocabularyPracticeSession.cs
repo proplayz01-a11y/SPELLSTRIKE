@@ -65,6 +65,15 @@ public class VocabularyPracticeSession : MonoBehaviour
         CombatRetrievals = 0;
     }
 
+    public void EnsureCrossScenePersistence()
+    {
+        if (persistAcrossScenes)
+            return;
+
+        persistAcrossScenes = true;
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void RecordTeachCompleted(StageVocabularyProfile profile, VocabularyWordData word)
     {
         AddRecord(profile, word, VocabularyActivityType.Teach, word != null ? word.Word : string.Empty, true, false, 1);
@@ -122,7 +131,7 @@ public class VocabularyPracticeSession : MonoBehaviour
         bool firstAttempt,
         int attemptNumber)
     {
-        attempts.Add(new VocabularyAttemptRecord
+        VocabularyAttemptRecord record = new VocabularyAttemptRecord
         {
             stageNumber = profile != null ? profile.StageNumber : 1,
             wordId = word != null ? word.WordId : string.Empty,
@@ -133,6 +142,9 @@ public class VocabularyPracticeSession : MonoBehaviour
             firstAttempt = firstAttempt,
             attemptNumber = Mathf.Max(1, attemptNumber),
             timestampUtc = DateTime.UtcNow.ToString("o")
-        });
+        };
+
+        attempts.Add(record);
+        GameDatabaseManager.EnsureInstance()?.RecordVocabularyAttempt(record);
     }
 }

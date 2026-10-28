@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// SpellStrike — GrassSpawner.cs
 /// GPU Instanced Grass Spawner with Paint Mask Texture
-/// 
+///
 /// HOW TO USE:
 ///   1. Create empty GameObject, name it "GrassSpawner"
 ///   2. Attach this script
@@ -19,6 +19,11 @@ using UnityEngine;
 /// </summary>
 public class GrassSpawner : MonoBehaviour
 {
+    [Header("Runtime Generation")]
+    [SerializeField]
+    [Tooltip("Runtime grass generation is disabled by default for Stage 1 performance. Enable only for legacy visual testing.")]
+    private bool generateGrassAtRuntime = false;
+
     [Header("─── Required References ───────────────────")]
     [Tooltip("The grass blade prefab (LOD 0 from Illustrated Nature)")]
     public GameObject grassPrefab;
@@ -82,6 +87,7 @@ public class GrassSpawner : MonoBehaviour
 
     void Start()
     {
+        if (!generateGrassAtRuntime) return;
         if (!ValidateReferences()) return;
 
         // Calculate total bounds of the map from all child renderers
@@ -196,17 +202,14 @@ public class GrassSpawner : MonoBehaviour
             if (spawned % 200 == 0)
             {
                 if (logSpawnStats)
-                    Debug.Log($"[GrassSpawner] Spawned {spawned}/{grassCount}...");
+
                 yield return null;
             }
         }
 
         _spawned = true;
 
-        if (logSpawnStats)
-            Debug.Log($"[GrassSpawner] ✓ Done! Spawned: {spawned} blades | " +
-                      $"Attempts: {attempted} | " +
-                      $"Success rate: {(float)spawned / attempted * 100:F1}%");
+
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
@@ -249,6 +252,8 @@ public class GrassSpawner : MonoBehaviour
     /// </summary>
     public void RespawnGrass()
     {
+        if (!generateGrassAtRuntime) return;
+
         // Clear existing
         if (_grassContainer != null)
             Destroy(_grassContainer);

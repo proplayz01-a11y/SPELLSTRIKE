@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4595252081302457257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126821297906802125}
+  - component: {fileID: 47767187805016766}
+  m_Layer: 0
+  m_Name: RiptideImpact
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1126821297906802125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4595252081302457257}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47767187805016766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4595252081302457257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 156053e362c2bfa4b8f2e2f2b5be1bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RiptideEruptionVisual
+  phase: 1
+  visualRadius: 15
+  primaryColor: {r: 0.05, g: 0.9, b: 1, a: 0.88}
+  secondaryColor: {r: 0.02, g: 0.25, b: 0.65, a: 0.7}
+  foamColor: {r: 0.65, g: 0.95, b: 1, a: 0.9}
+  ringSegments: 64
+  ringWidth: 0.22
+  pulseAmount: 0.12
+  pulseSpeed: 3.5
+  burstCount: 42
+  eruptionHeight: 17.23
+  lifetime: 1.25

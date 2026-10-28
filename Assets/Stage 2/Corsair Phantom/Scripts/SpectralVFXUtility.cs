@@ -38,13 +38,7 @@ public static class SpectralVFXUtility
     /// </summary>
     public static Material CreateMaterial(Color color, bool additive)
     {
-        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
-        if (shader == null)
-            shader = Shader.Find("Sprites/Default");
-        if (shader == null)
-            shader = Shader.Find("Unlit/Color");
-
-        Material material = new Material(shader);
+        Material material = Stage2RuntimeVFXMaterialUtility.CreateMaterial(color, additive);
 
         if (material.HasProperty("_BaseColor"))
             material.SetColor("_BaseColor", color);

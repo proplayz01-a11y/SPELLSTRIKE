@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class WorldTile : MonoBehaviour
 {
+    public event System.Action<WorldTile> Collected;
+
     [Header("Letter Settings")]
     public char letter;
     public Material[] letterMaterials; // 0 = A, 1 = B ... 25 = Z
@@ -20,9 +22,11 @@ public class WorldTile : MonoBehaviour
     private FloatingTile floatingTile;
     private Transform player;
     private PassiveItemInventory passiveInventory;
+    private TileManager tileManager;
     private float nextPassiveCheckTime;
     private bool greatAttractorEquipped;
     private static bool loggedGreatAttractorActive;
+    private bool collectionInProgress;
 
     private void Awake()
     {
@@ -33,6 +37,10 @@ public class WorldTile : MonoBehaviour
     private void Update()
     {
         if (!enableGreatAttractorPull || IsInsideUiCanvas())
+            return;
+
+        ResolveTileManager();
+        if (tileManager != null && tileManager.AreNormalCombatWorldPickupsSuspended)
             return;
 
         RefreshPassiveStateIfNeeded();
@@ -97,6 +105,14 @@ public class WorldTile : MonoBehaviour
         player = playerObject != null ? playerObject.transform : null;
     }
 
+    private void ResolveTileManager()
+    {
+        if (tileManager != null && tileManager.gameObject.activeInHierarchy)
+            return;
+
+        tileManager = FindFirstObjectByType<TileManager>();
+    }
+
     private void PullTowardPlayer()
     {
         Vector3 current = floatingTile != null ? floatingTile.TargetPosition : transform.position;
@@ -127,18 +143,38 @@ public class WorldTile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player") || collectionInProgress)
             return;
 
-        TileManager tileManager = FindFirstObjectByType<TileManager>();
+        // A player rig can have more than one tagged collider. Destroy() is
+        // deferred until end-of-frame, so guard this world pickup before any
+        // UI insertion to prevent the same replacement letter being collected
+        // twice by overlapping OnTriggerEnter callbacks.
+        collectionInProgress = true;
+
+        ResolveTileManager();
         if (tileManager == null)
+        {
+            collectionInProgress = false;
             return;
+        }
 
-        int currentPool = tileManager.tilePoolPanel.childCount;
-        if (currentPool >= maxPoolCount)
-            return; // pool full
+        if (tileManager.AreNormalCombatWorldPickupsSuspended)
+        {
+            collectionInProgress = false;
+            return;
+        }
 
-        tileManager.CreateTileInPool(letter);
+        if (!tileManager.TryCollectNormalCombatWorldTile(letter, maxPoolCount))
+        {
+            collectionInProgress = false;
+            return;
+        }
+
+        if (TileSpawner.Instance != null)
+            TileSpawner.Instance.NotifyReplacementTileCollected(this);
+
+        Collected?.Invoke(this);
         Destroy(gameObject);
     }
 }

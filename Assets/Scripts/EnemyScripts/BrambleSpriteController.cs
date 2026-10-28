@@ -46,6 +46,7 @@ public class BrambleSpriteController : MonoBehaviour
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
+    [SerializeField, Min(0.05f)] private float accelerationTime = 0.5f;
 
     [Header("Navigation")]
     [SerializeField] private float navMeshSnapRadius = 12f;
@@ -84,6 +85,11 @@ public class BrambleSpriteController : MonoBehaviour
     private bool potionDropResolved = false;
     private bool navMeshWarningLogged = false;
 
+    private bool dormant = true;
+
+    public bool BattleStarted => battleStarted;
+    public bool IsDormant => dormant;
+
 
     // ─────────────────────────────────────────────
     //  AWAKE / START
@@ -107,7 +113,7 @@ public class BrambleSpriteController : MonoBehaviour
         {
             agent.updateRotation = false;   // We rotate manually via FaceTarget
             agent.updatePosition = true;
-            agent.speed = walkSpeed;
+            EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
             agent.stoppingDistance = 0f;
             agent.autoBraking = true;
             TryPlaceAgentOnNavMesh();
@@ -115,6 +121,9 @@ public class BrambleSpriteController : MonoBehaviour
 
         if (animator != null)
             animator.applyRootMotion = false;
+
+        if (!battleStarted)
+            SetDormant(true);
     }
 
     // ─────────────────────────────────────────────
@@ -344,10 +353,26 @@ public class BrambleSpriteController : MonoBehaviour
     // ─────────────────────────────────────────────
     //  START BATTLE
     // ─────────────────────────────────────────────
+    public void SetDormant(bool shouldBeDormant)
+    {
+        dormant = shouldBeDormant;
+
+        if (!dormant)
+            return;
+
+        battleStarted = false;
+        currentState = EnemyState.Approach;
+        StopAgent();
+
+        if (animator != null)
+            animator.SetFloat("Speed", 0f);
+    }
+
     public void StartBattle()
     {
         if (battleStarted) return;
 
+        dormant = false;
         battleStarted = true;
         currentState = EnemyState.Approach;
         potionDropResolved = false;
@@ -359,6 +384,33 @@ public class BrambleSpriteController : MonoBehaviour
         Debug.Log("[BrambleSprite] Battle started — entering Approach.");
     }
 
+    public void StartBattleDisturbed()
+    {
+        if (battleStarted || currentState == EnemyState.Dead)
+            return;
+
+        StartBattle();
+
+        if (!battleStarted)
+            return;
+
+        if (recoverCoroutine != null)
+        {
+            StopCoroutine(recoverCoroutine);
+            recoverCoroutine = null;
+        }
+
+        StopAgent();
+        closeAttackStarted = false;
+        closeAttack2Started = false;
+        thornThrowStarted = false;
+        beingHitStarted = false;
+        currentState = EnemyState.BeingHit;
+
+        Debug.Log(
+            $"[BrambleSprite] Barrier-break disturbance started at full health: {currentHealth}/{maxHealth}.");
+    }
+
     // ─────────────────────────────────────────────
     //  HEALTH / TAKE DAMAGE
     // ─────────────────────────────────────────────
@@ -367,7 +419,9 @@ public class BrambleSpriteController : MonoBehaviour
         if (currentState == EnemyState.Dead) return;
         if (!battleStarted) return;
 
+        float beforeDamage = currentHealth;
         currentHealth = Mathf.Max(0f, currentHealth - damage);
+        FloatingDamageNumbersV01.Show(this, beforeDamage - currentHealth);
         Debug.Log($"[BrambleSprite] Took {damage} dmg. HP: {currentHealth}/{maxHealth}");
 
         EnemyHealth enemyHealth = GetComponent<EnemyHealth>();

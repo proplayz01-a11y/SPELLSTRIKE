@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TileSpawner : MonoBehaviour
 {
+    public event System.Action<IReadOnlyList<WorldTile>> SpecificTilesSpawned;
+
     public static TileSpawner Instance;
 
     public GameObject worldTilePrefab;
@@ -17,9 +19,29 @@ public class TileSpawner : MonoBehaviour
     public LayerMask groundLayer;
     public Transform shrineCenter;
     public float shrineExclusionRadius = 3f;
+    [SerializeField, Min(1)] private int maximumSpawnAttemptsPerTile = 24;
+    [SerializeField, Min(0f)] private float groundSurfaceOffset = 0.1f;
+    [Tooltip("Reject spawn surfaces that are implausibly far above/below the active arena floor. Prevents props/ruins on the Ground layer from becoming tile spawn surfaces.")]
+    [SerializeField, Min(0.5f)] private float maximumSurfaceHeightDeltaFromArenaCenter = 8f;
+    [SerializeField] private bool allowDefaultLayerSpawnSurfaceFallback = true;
 
+    [Header("Startup")]
+    [SerializeField] private bool spawnInitialTilesInPool = true;
+
+    [Header("Replacement Budget")]
+    [SerializeField, Min(1)] private int maximumNormalCombatTileBudget = 16;
 
     private char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+    private readonly HashSet<WorldTile> pendingReplacementTiles = new HashSet<WorldTile>();
+
+    public int PendingReplacementTileCount
+    {
+        get
+        {
+            pendingReplacementTiles.RemoveWhere(tile => tile == null);
+            return pendingReplacementTiles.Count;
+        }
+    }
 
     private void Awake()
     {
@@ -28,12 +50,36 @@ public class TileSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (!spawnInitialTilesInPool)
+            return;
+
+        // TileManager is the sole owner of the playable UI Tile Pool. This
+        // spawner owns only world replacements once combat consumes UI tiles.
+        TileManager tileManager = FindFirstObjectByType<TileManager>();
+        if (tileManager != null && tileManager.prefillTilePoolOnStart)
+        {
+            Debug.Log(
+                "[TileSpawner] Startup UI-pool spawn skipped because TileManager owns Normal Combat prefill.",
+                this);
+            return;
+        }
+
         SpawnTilesInPool(16);
     }
 
 
 
     public void ConfigureArenaBounds(Transform center, float radius, Transform shrine, float exclusionRadius)
+    {
+        ConfigureArenaBounds(center, radius, shrine, exclusionRadius, groundLayer);
+    }
+
+    public void ConfigureArenaBounds(
+        Transform center,
+        float radius,
+        Transform shrine,
+        float exclusionRadius,
+        LayerMask spawnSurfaceLayers)
     {
         if (center != null)
             arenaCenter = center;
@@ -43,38 +89,84 @@ public class TileSpawner : MonoBehaviour
         shrineCenter = shrine;
         shrineExclusionRadius = Mathf.Max(0f, exclusionRadius);
 
+        if (spawnSurfaceLayers.value != 0)
+            groundLayer = spawnSurfaceLayers;
+
         Debug.Log(
             $"[TileSpawner] Configured arena: {(arenaCenter != null ? arenaCenter.name : "NULL")} | " +
             $"Radius: {arenaRadius} | " +
             $"Shrine: {(shrineCenter != null ? shrineCenter.name : "NULL")} | " +
-            $"Exclusion: {shrineExclusionRadius}"
+            $"Exclusion: {shrineExclusionRadius} | " +
+            $"Surface Mask: {groundLayer.value}"
         );
     }
 
-    private Vector3 GetRandomSpawnPosition()
+    private bool TryGetRandomSpawnPosition(out Vector3 spawnPosition)
     {
+        spawnPosition = default;
 
-        Vector3 centerPos = arenaCenter != null ? arenaCenter.position : Vector3.zero;
-        Vector2 randomCircle = Random.insideUnitCircle * arenaRadius;
-        Vector3 spawnPos = centerPos + new Vector3(randomCircle.x, 0f, randomCircle.y);
-
-        Vector3 rayOrigin = new Vector3(spawnPos.x, 500f, spawnPos.z);
-        Ray ray = new Ray(rayOrigin, Vector3.down);
-        Debug.Log($"Ray origin: {rayOrigin}");
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, groundLayer))
+        if (arenaCenter == null)
         {
-            if (shrineCenter != null &&
-                Vector3.Distance(hit.point, shrineCenter.position) < shrineExclusionRadius)
-            {
-                return Vector3.positiveInfinity;
-            }
-
-            Debug.Log($"Hit: {hit.point} on {hit.collider.gameObject.name}");
-            return hit.point;
+            Debug.LogError("[TileSpawner] Cannot spawn world tiles because Arena Center is not assigned.", this);
+            return false;
         }
 
-        return new Vector3(spawnPos.x, spawnY, spawnPos.z);
+        if (groundLayer.value == 0)
+        {
+            Debug.LogError("[TileSpawner] Cannot spawn world tiles because Ground Layer is empty.", this);
+            return false;
+        }
+
+        int attempts = Mathf.Max(1, maximumSpawnAttemptsPerTile);
+        Vector3 centerPosition = arenaCenter.position;
+
+        for (int attempt = 0; attempt < attempts; attempt++)
+        {
+            Vector2 randomCircle = Random.insideUnitCircle * arenaRadius;
+            Vector3 candidate = centerPosition + new Vector3(randomCircle.x, 0f, randomCircle.y);
+            Vector3 rayOrigin = new Vector3(candidate.x, centerPosition.y + 500f, candidate.z);
+
+            if (!Physics.Raycast(
+                    rayOrigin,
+                    Vector3.down,
+                    out RaycastHit hit,
+                    1000f,
+                    groundLayer,
+                    QueryTriggerInteraction.Ignore))
+            {
+                // The optimized Stage 1 GLB keeps its imported walkable map on
+                // Unity's Default layer. Preserve the authored Ground mask first,
+                // then fall back to Default only when Ground finds nothing.
+                // This fixes replacement tiles without changing the user's map
+                // collider or broadening the primary spawn mask.
+                int defaultLayerMask = 1 << LayerMask.NameToLayer("Default");
+                if (!allowDefaultLayerSpawnSurfaceFallback ||
+                    !Physics.Raycast(
+                        rayOrigin,
+                        Vector3.down,
+                        out hit,
+                        1000f,
+                        defaultLayerMask,
+                        QueryTriggerInteraction.Ignore))
+                    continue;
+            }
+
+            if (Mathf.Abs(hit.point.y - centerPosition.y) > maximumSurfaceHeightDeltaFromArenaCenter)
+                continue;
+
+            if (shrineCenter != null &&
+                Vector3.Distance(hit.point, shrineCenter.position) < shrineExclusionRadius)
+                continue;
+
+            spawnPosition = hit.point + Vector3.up * groundSurfaceOffset;
+            return true;
+        }
+
+        Debug.LogWarning(
+            $"[TileSpawner] No valid Ground position found after {attempts} attempts around " +
+            $"{arenaCenter.name} (radius {arenaRadius:0.##}).",
+            this);
+        return false;
     }
 
     public void SpawnSpecificTiles(List<char> letters)
@@ -83,13 +175,21 @@ public class TileSpawner : MonoBehaviour
         if (letters == null || letters.Count == 0)
             return;
 
+        TileManager tileManager = FindFirstObjectByType<TileManager>();
+        int ownedTileCount = tileManager != null ? tileManager.GetNormalCombatOwnedTileCount() : CountPoolTiles();
+        int pendingBeforeSpawn = PendingReplacementTileCount;
+        int availableReplacementSlots = Mathf.Max(
+            0,
+            maximumNormalCombatTileBudget - ownedTileCount - pendingBeforeSpawn);
+        int spawnCount = Mathf.Min(letters.Count, availableReplacementSlots);
+
         Debug.Log($"[TileSpawner] Spawning specific tiles around: {(arenaCenter != null ? arenaCenter.name : "NULL")}");
+        List<WorldTile> spawnedTiles = new List<WorldTile>(spawnCount);
 
-        foreach (char letter in letters)
+        for (int i = 0; i < spawnCount; i++)
         {
-            Vector3 spawnPos = GetRandomSpawnPosition();
-
-            if (spawnPos == Vector3.positiveInfinity)
+            char letter = letters[i];
+            if (!TryGetRandomSpawnPosition(out Vector3 spawnPos))
                 continue;
 
             GameObject tile = Instantiate(worldTilePrefab, spawnPos, Quaternion.identity);
@@ -105,21 +205,36 @@ public class TileSpawner : MonoBehaviour
 
             WorldTile tileScript = tile.GetComponent<WorldTile>();
             if (tileScript != null)
+            {
                 tileScript.SetLetter(letter);
+                pendingReplacementTiles.Add(tileScript);
+                spawnedTiles.Add(tileScript);
+            }
         }
+
+        if (spawnCount < letters.Count)
+        {
+            Debug.LogError(
+                $"[TileSpawner] Replacement budget blocked {letters.Count - spawnCount} tile(s). " +
+                $"Owned: {ownedTileCount} | Pending before spawn: {pendingBeforeSpawn} | " +
+                $"Budget: {maximumNormalCombatTileBudget}.",
+                this);
+        }
+
+        Debug.Log(
+            $"[TileSpawner] Spawned {spawnedTiles.Count}/{letters.Count} replacement tiles " +
+            $"inside {(arenaCenter != null ? arenaCenter.name : "NULL")}. " +
+            $"Owned + pending: {ownedTileCount + PendingReplacementTileCount}/{maximumNormalCombatTileBudget}.",
+            this);
+        SpecificTilesSpawned?.Invoke(spawnedTiles);
     }
 
     public void SpawnTiles(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            Vector3 spawnPos = GetRandomSpawnPosition();
-
-            if (spawnPos == Vector3.positiveInfinity)
-            {
-                i--;
+            if (!TryGetRandomSpawnPosition(out Vector3 spawnPos))
                 continue;
-            }
 
             GameObject tile = Instantiate(worldTilePrefab, spawnPos, Quaternion.identity);
 
@@ -134,8 +249,32 @@ public class TileSpawner : MonoBehaviour
 
             WorldTile tileScript = tile.GetComponent<WorldTile>();
             if (tileScript != null)
+            {
                 tileScript.AssignRandomLetter();
+                pendingReplacementTiles.Add(tileScript);
+            }
         }
+    }
+
+    public void NotifyReplacementTileCollected(WorldTile tile)
+    {
+        if (tile != null)
+            pendingReplacementTiles.Remove(tile);
+    }
+
+    private int CountPoolTiles()
+    {
+        if (tilePoolPanel == null)
+            return 0;
+
+        int count = 0;
+        for (int i = 0; i < tilePoolPanel.childCount; i++)
+        {
+            if (tilePoolPanel.GetChild(i).GetComponent<Tile>() != null)
+                count++;
+        }
+
+        return count;
     }
 
     public void SpawnTilesInPool(int amount)

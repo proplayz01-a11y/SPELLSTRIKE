@@ -39,6 +39,7 @@ public class BarnacleHuskController : MonoBehaviour
     public TileDebuffManager tileDebuffManager;
     public float waterBurstCooldown = 9f;
     public float waterBurstFirstCastDelay = 2.5f;
+    public float waterBurstCastRange = 14.2f;
     public float waterBurstWarningDelay = 1f;
     public float waterBurstHitRadius = 2.25f;
     public bool matchWarningVisualRadiusToHitRadius = true;
@@ -123,13 +124,7 @@ public class BarnacleHuskController : MonoBehaviour
     {
         agent ??= GetComponent<NavMeshAgent>();
         animator ??= GetComponent<Animator>();
-
-        if (player == null)
-        {
-            GameObject playerObj = GameObject.FindWithTag("Player");
-            if (playerObj != null)
-                player = playerObj.transform;
-        }
+        ResolvePlayer();
     }
 
     private void Start()
@@ -155,6 +150,12 @@ public class BarnacleHuskController : MonoBehaviour
     {
         if (battleStarted || isDead)
             return;
+
+        // Stage 2 can be loaded after a DDOL player already exists. During Awake,
+        // this enemy may briefly see the scene-local bootstrap player that is then
+        // destroyed as a duplicate. Always bind the surviving live Player again
+        // when combat actually begins.
+        ResolvePlayer();
 
         battleStarted = true;
         isAttacking = false;
@@ -196,6 +197,9 @@ public class BarnacleHuskController : MonoBehaviour
             return;
         }
 
+        if (battleStarted && player == null)
+            ResolvePlayer();
+
         if (!battleStarted || player == null)
         {
             SetAnimatorSpeed(0f);
@@ -210,6 +214,22 @@ public class BarnacleHuskController : MonoBehaviour
         }
 
         DecideAction();
+    }
+
+    private bool ResolvePlayer()
+    {
+        if (PersistentPlayerRoot.Instance != null)
+        {
+            player = PersistentPlayerRoot.Instance.transform;
+            return true;
+        }
+
+        if (player != null && player.gameObject.activeInHierarchy)
+            return true;
+
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        player = playerObj != null ? playerObj.transform : null;
+        return player != null;
     }
 
     private void DecideAction()
@@ -284,7 +304,11 @@ public class BarnacleHuskController : MonoBehaviour
         agent.isStopped = false;
         agent.speed = walkSpeed;
         agent.stoppingDistance = stoppingDistance;
-        agent.SetDestination(player.position);
+        if (!EnemyNavMovement.TrySetDestination(agent, player.position))
+        {
+            SetAnimatorSpeed(0f);
+            return;
+        }
 
         FaceTarget(player.position);
         SetAnimatorSpeed(agent.velocity.magnitude);
@@ -427,6 +451,7 @@ public class BarnacleHuskController : MonoBehaviour
             && !isCastingWaterBurst
             && !isBeingHit
             && !isDead
+            && GetFlatDistanceToPlayer() <= Mathf.Max(0.1f, waterBurstCastRange)
             && Time.time >= nextWaterBurstTime;
     }
 

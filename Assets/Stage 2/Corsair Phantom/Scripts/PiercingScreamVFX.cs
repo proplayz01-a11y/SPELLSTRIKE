@@ -418,13 +418,7 @@ public class PiercingScreamVFX : MonoBehaviour
 
     private Material CreateUnlitMaterial(Color color, bool additive)
     {
-        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
-        if (shader == null)
-            shader = Shader.Find("Sprites/Default");
-        if (shader == null)
-            shader = Shader.Find("Unlit/Color");
-
-        Material material = new Material(shader);
+        Material material = Stage2RuntimeVFXMaterialUtility.CreateMaterial(color, additive);
         ApplyColor(material, color);
 
         if (material.HasProperty("_Surface"))

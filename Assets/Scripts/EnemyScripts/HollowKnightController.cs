@@ -12,6 +12,7 @@ public class HollowKnightController : MonoBehaviour
     [Header("Movement Speeds")]
     public float walkSpeed = 12f;
     public float runSpeed = 27.04f;
+    [SerializeField, Min(0.05f)] private float accelerationTime = 0.5f;
 
     [Header("Ranges")]
     public float runRange = 80f;
@@ -153,7 +154,7 @@ if (isAttacking || isRecovering || isBeingHit)
             return;
         }
 
-        agent.speed = walkSpeed;
+        EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
         agent.stoppingDistance = stoppingDistance;
         agent.isStopped = true;
     }
@@ -285,11 +286,11 @@ ChasePlayer(distanceToPlayer);
 
         if (distanceToPlayer > runRange)
         {
-            agent.speed = walkSpeed;
+            EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
         }
         else
         {
-            agent.speed = runSpeed;
+            EnemyNavMovement.ApplySpeed(agent, runSpeed, accelerationTime);
         }
 
         agent.isStopped = false;
