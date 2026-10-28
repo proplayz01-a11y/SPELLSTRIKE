@@ -111,3 +111,15 @@ InitTestScene*.unity*
 
 # Generated solution files
 *.slnx
+
+# Local development helpers, downloaded models and temporary review output.
+# Keep these on the workstation; they are not game source assets.
+/.codex-tools/
+/tmp/
+/RecoveryBackups/
+/Mocap_V016_ColossalStomp_Workbench/
+/Mocap_V017_ColossalStomp_Force_Workbench/
+/_rodin_refs/
+/.env.local
+/stage2_chase_now.png
+/inspect_bow.py
