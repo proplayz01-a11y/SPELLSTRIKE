@@ -1,0 +1,23 @@
+{
+  "camera_name": "P08_CAMERA_01_VanderContemplation",
+  "loc": [
+    0.23141975700855255,
+    -8.623266220092773,
+    1.4925235509872437
+  ],
+  "rotation": [
+    1.4124101400375366,
+    -1.891378076379624e-08,
+    -0.5740795731544495
+  ],
+  "fov_vertical_deg": 22.99312603517156,
+  "lens": 59.0,
+  "sensor_width": 36.0,
+  "sensor_height": 24.0,
+  "frames": [
+    1,
+    192
+  ],
+  "fps": 24,
+  "scene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\LibraryShell\\LibraryStudyArchive_P08_VanderContemplates_v02_CinematicRefinement_v02.blend"
+}

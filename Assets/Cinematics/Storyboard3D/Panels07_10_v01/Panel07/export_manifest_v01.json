@@ -1,0 +1,11 @@
+[
+  {
+    "rig": "P07_YoungVan_Grief_Armature",
+    "child_meshes": [
+      "P07_YoungVan_OriginalTexturedBody"
+    ],
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panels07_10_UnityExport_20261027\\Panel07\\P07_YoungVan_Animated_v01.glb",
+    "size": 13262280,
+    "action": "P07_YoungVan_StillGriefSubtle_v01"
+  }
+]

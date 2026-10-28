@@ -1,0 +1,20 @@
+[
+  {
+    "rig": "P09_OlderVanAert_Seated_Rig",
+    "child_meshes": [
+      "P09_OlderVan_CanonicalSceneUsedMesh"
+    ],
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panels07_10_UnityExport_20261027\\Panel09\\P09_OlderVan_Animated_v01.glb",
+    "size": 4623344,
+    "action": "P09_OlderVan_SilentLongGrief_v02"
+  },
+  {
+    "rig": "P09_VanderPoel_GatewayStanding_Rig",
+    "child_meshes": [
+      "P09_VanderPoel_CanonicalBody"
+    ],
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panels07_10_UnityExport_20261027\\Panel09\\P09_VanderPoel_Animated_v01.glb",
+    "size": 5464400,
+    "action": "Armature|mixamo.com|Layer0"
+  }
+]

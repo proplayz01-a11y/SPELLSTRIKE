@@ -1,0 +1,22 @@
+{
+  "name": "P08_CAMERA_01_VanderContemplation",
+  "location": [
+    0.23999999463558197,
+    -8.609999656677246,
+    1.4900000095367432
+  ],
+  "rotation_euler": [
+    1.4124101400375366,
+    -1.891378076379624e-08,
+    -0.5740795731544495
+  ],
+  "lens_mm": 54.0,
+  "sensor_width_mm": 36.0,
+  "clip_end": 150.0,
+  "fps": 24,
+  "source_frames": [
+    1,
+    192
+  ],
+  "note": "Blender camera transform, validate Unity coordinate conversion before using"
+}

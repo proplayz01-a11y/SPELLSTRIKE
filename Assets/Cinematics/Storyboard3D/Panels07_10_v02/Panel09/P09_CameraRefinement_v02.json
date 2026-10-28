@@ -1,0 +1,23 @@
+{
+  "camera_name": "P09_CAMERA_01_OlderVanFore_VanderGateway",
+  "loc": [
+    -0.7993198037147522,
+    -10.215984344482422,
+    1.1498299837112427
+  ],
+  "rotation": [
+    1.5814244747161865,
+    3.842914431118061e-09,
+    0.04252753406763077
+  ],
+  "fov_vertical_deg": 30.51023740611555,
+  "lens": 44.0,
+  "sensor_width": 36.0,
+  "sensor_height": 24.0,
+  "frames": [
+    1,
+    192
+  ],
+  "fps": 24,
+  "scene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\LibraryShell\\LibraryStudyArchive_P09_DecadesLater_v03_CinematicRefinement_v02.blend"
+}

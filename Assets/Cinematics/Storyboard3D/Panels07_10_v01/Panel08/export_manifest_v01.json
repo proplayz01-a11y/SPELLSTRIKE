@@ -1,0 +1,11 @@
+[
+  {
+    "rig": "P08_VanderPoel_Thoughtful_Rig",
+    "child_meshes": [
+      "P08_VanderPoel_CanonicalTexturedBody"
+    ],
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panels07_10_UnityExport_20261027\\Panel08\\P08_VanderPoel_Animated_v01.glb",
+    "size": 5421656,
+    "action": "P08_VanderPoel_SeatedThoughtfulHandAtChin_v02"
+  }
+]

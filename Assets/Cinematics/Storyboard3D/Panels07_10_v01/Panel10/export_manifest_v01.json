@@ -1,0 +1,20 @@
+[
+  {
+    "rig": "P10_OlderVanAert_DreamConfession_Rig",
+    "child_meshes": [
+      "P10_OlderVan_CanonicalSceneUsedMesh"
+    ],
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panels07_10_UnityExport_20261027\\Panel10\\P10_OlderVan_Animated_v01.glb",
+    "size": 4643564,
+    "action": "P10_OlderVan_GentleDreamDisclosure_v01"
+  },
+  {
+    "rig": "P10_VanderPoel_AttentiveSeated_Rig",
+    "child_meshes": [
+      "P10_VanderPoel_CanonicalBody"
+    ],
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panels07_10_UnityExport_20261027\\Panel10\\P10_VanderPoel_Animated_v01.glb",
+    "size": 5503204,
+    "action": "P06_VanderPoel_SubtleListener_v02"
+  }
+]
