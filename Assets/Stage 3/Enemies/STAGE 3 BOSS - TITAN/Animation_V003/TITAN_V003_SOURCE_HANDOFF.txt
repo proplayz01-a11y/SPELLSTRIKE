@@ -1,0 +1,48 @@
+SPELLSTRIKE — TITAN HAMMERFIST KNEEL V003
+2026-10-10 | Production candidate; David visual approval required.
+
+SOURCE
+C:\Users\David\Documents\Codex\MocapLab\mixamo-llm-mocap\plates\titan_fist_targeted_20261010_v001\Titan_Fist_GVHMR_Raw_v001.blend
+Action: TitanFist_Right_GVHMR_Origin_v001
+V003 duplicates that action directly. Rejected v002 choreography was not used.
+
+DELIVERY
+Titan_Hammerfist_Kneel_v003.blend
+Titan_Hammerfist_Kneel_v003.fbx
+QA_FRONT.jpg / QA_SIDE.jpg / QA_THREE_QUARTER.jpg
+QA_SEQUENCE.mp4
+ANIMATION_EVENT_FRAMES.json
+FBX_ROUNDTRIP_VALIDATION_v003.json
+GEOMETRY_VALIDATION_v003.json
+VALIDATION_REPORT.md
+HIP_TRAJECTORY.csv
+
+SEQUENCE
+One forward advance -> right-knee drop plus right hammerfist -> brief hold -> stationary recovery.
+251 frames at 30 FPS. Original source range 1–239 retained.
+Original right shoulder/arm/forearm/wrist rotations preserved exactly through frame 112.
+
+KEY FRAMES
+Step starts 16; left foot plants 96; advance transfer ends 106.
+Knee descent 107; contact correction 113; front kneecap floor contact 133.
+ONE right-fist impact 134 (4.433333 s); hold ends 146; release 147.
+Feet flat 220; recovery and next animation-ready point 251.
+
+MEASUREMENTS
+Knee and fist floor clearance at impact: approximately 0.02 mm each at working scale.
+Elbow retains 37.85 degrees of bend.
+Hips advance 0.209 m; contact reach from initial hip projection 1.074 m.
+At a uniformly scaled 18 m model, reach is approximately 10.32 m.
+Original skeleton, five meshes, weights, UVs, textures, original actions and input files verified unchanged.
+All-frame geometry checks and FBX roundtrip passed.
+
+MOVEMENT / INTEGRATION
+Travel is baked on Hips. Do not silently normalize it in place.
+Use one movement owner; any scripted extraction must compensate the same displacement in the model.
+No Unity changes. The actual Colossal Heavy Walk CrossFade and root/NavMesh alignment still need a Unity test after approval.
+No runtime damage, hitbox or VFX was implemented. The single impact is metadata only.
+
+PRESENTATION
+New visible Blender GUI opened through CMD, candidate ready at frame 1.
+Other existing windows were not closed.
+See VALIDATION_REPORT.md for evidence, exact tolerances and limits.

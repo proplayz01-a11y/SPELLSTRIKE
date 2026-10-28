@@ -1,0 +1,30 @@
+{
+  "fps": 30,
+  "first_frame": 1,
+  "last_frame": 251,
+  "zero_based_time_formula": "(frame - 1) / 30",
+  "phase_frames": {
+    "advance_and_left_step_start": 16,
+    "left_foot_planted": 96,
+    "advance_weight_transfer_complete": 106,
+    "right_knee_descent_start": 107,
+    "source_arm_contact_correction_start": 113,
+    "right_kneecap_contact_and_lowest_pose": 133,
+    "right_fist_impact": 134,
+    "contact_hold_end": 146,
+    "fist_release": 147,
+    "feet_flat_after_recovery": 220,
+    "recovery_complete": 251,
+    "next_attack_animation_ready": 251
+  },
+  "damage_events": [
+    {
+      "name": "RightHammerfistImpact",
+      "frame": 134,
+      "time_seconds": 4.433333333333334,
+      "count": 1,
+      "unity_implemented": false
+    }
+  ],
+  "note": "Only animation timing metadata. No Unity gameplay event, damage, hitbox or VFX has been implemented."
+}

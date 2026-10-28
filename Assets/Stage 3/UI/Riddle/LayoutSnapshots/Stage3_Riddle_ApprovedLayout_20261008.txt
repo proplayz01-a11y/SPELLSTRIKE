@@ -1,0 +1,76 @@
+SPELLSTRIKE Stage 3 riddle: captured live Play Mode layout
+Source: copied RiddleChallengeRoot pasted into Stage3Scene Edit Mode
+Root transform is reparented on paste; its anchored size/offset
+must not overwrite the canonical stretch-to-parent HUD root.
+
+RiddleChallengeRoot
+  anchors (0.00, 0.00) (1.00, 1.00), pivot (0.50, 0.50)
+  anchoredPosition3D (1200.00, 1661.40, 0.00), sizeDelta (1333.33, 1370.01)
+  localScale (1.98, 1.98, 1.98), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame
+  anchors (0.50, 0.00) (0.50, 0.00), pivot (0.50, 0.00)
+  anchoredPosition3D (0.00, 90.00, 0.00), sizeDelta (760.00, 254.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/RiddleParchmentArt
+  anchors (0.50, 0.50) (0.50, 0.50), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 0.00, 0.00), sizeDelta (760.00, 254.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/RiddleDivider
+  anchors (0.50, 0.50) (0.50, 0.50), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, -67.90, 0.00), sizeDelta (92.00, 24.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/RiddleBody
+  anchors (0.20, 0.27) (0.80, 0.56), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, -3.00, 0.00), sizeDelta (0.00, 0.00)
+  localScale (0.85, 0.80, 0.80), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/Instruction
+  anchors (0.30, 0.08) (0.70, 0.19), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 14.90, 0.00), sizeDelta (0.00, 0.00)
+  localScale (0.48, 0.48, 0.48), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/FeedbackPopup
+  anchors (0.70, 0.42) (0.98, 0.58), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 0.00, 0.00), sizeDelta (0.00, 0.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/FeedbackPopup/Accent
+  anchors (0.00, 0.00) (0.03, 1.00), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 0.00, 0.00), sizeDelta (0.00, 0.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/FeedbackPopup/FeedbackTitle
+  anchors (0.12, 0.43) (0.94, 0.92), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 0.00, 0.00), sizeDelta (0.00, 0.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleBodyFrame/FeedbackPopup/FeedbackBody
+  anchors (0.12, 0.08) (0.94, 0.48), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 0.00, 0.00), sizeDelta (0.00, 0.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleTitlePlaqueBody
+  anchors (0.50, 0.00) (0.50, 0.00), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 292.00, 0.00), sizeDelta (460.00, 153.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleTitlePlaqueBody/Title
+  anchors (0.10, 0.34) (0.90, 0.72), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, -14.60, 0.00), sizeDelta (0.00, 0.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleTitlePlaqueBody/Subtitle
+  anchors (0.24, 0.12) (0.76, 0.34), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, 7.60, 0.00), sizeDelta (0.00, 0.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleProgressPlate
+  anchors (0.50, 0.00) (0.50, 0.00), pivot (0.50, 0.50)
+  anchoredPosition3D (284.70, 278.00, 0.00), sizeDelta (150.00, 75.00)
+  localScale (0.72, 0.72, 0.72), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleProgressPlate/ProgressText
+  anchors (0.12, 0.56) (0.88, 0.82), pivot (0.50, 0.50)
+  anchoredPosition3D (0.00, -3.40, 0.00), sizeDelta (0.00, 0.00)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+RiddleProgressPlate/ProgressActiveDot
+  anchors (0.50, 0.50) (0.50, 0.50), pivot (0.50, 0.50)
+  anchoredPosition3D (7.90, -7.00, 0.00), sizeDelta (8.50, 8.50)
+  localScale (1.00, 1.00, 1.00), rotation (0.00000, 0.00000, 0.00000, 1.00000)
+
+Canonical production RiddleChallengeRoot (taken from live Play Mode Inspector, NOT reparented copy):
+  anchorMin=(0,0); anchorMax=(1,1); pivot=(0.5,0.5)
+  left=0; right=0; top=-1008.005; bottom=237.9951; scale=(1.1,1.1,1.1)
+  prefab anchoredPosition=(0,623.00006); sizeDelta=(0,770.0099)
+  ProgressActiveDot position stays runtime-driven and was intentionally not committed.
+  Scene-owned normal combat HUD/TilePoolPanel was not altered.

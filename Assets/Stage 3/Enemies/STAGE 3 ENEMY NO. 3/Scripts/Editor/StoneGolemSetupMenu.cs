@@ -79,6 +79,7 @@ public static class StoneGolemSetupMenu
             new AnimationEvent { functionName = "OnStopSettled", time = 10f / 30f }
         });
         AnimationUtility.SetAnimationEvents(jump, new[] {
+            new AnimationEvent { functionName = "OnGroundSlamTakeoff", time = 46f / 30f },
             new AnimationEvent { functionName = "OnGroundSlamImpact", time = 68f / 30f },
             new AnimationEvent { functionName = "OnGroundSlamFinished", time = jump.length - 1f / 30f }
         });
