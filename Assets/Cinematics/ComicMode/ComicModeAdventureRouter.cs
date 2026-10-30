@@ -20,11 +20,12 @@ namespace Spellstrike.ComicMode
     public sealed class ComicModeAdventureRouter : MonoBehaviour
     {
         public const string CompletionKey = "SpellStrike_PrologueCompleted";
-        public const string CinematicScene = "Assets/Scenes/Cinematics/Prologue_Master_Sequence_P01_42_v06_DialogueContinuity.unity";
+        public const string CinematicScene = "Assets/Scenes/Cinematics/Prologue_Master_Sequence_P01_42_v07_SpellbookWalkPolish.unity";
         public const string TutorialScene = "TutorialScene";
         private static ComicModeAdventureRouter current;
         private Coroutine cinematicRoutine;
         private Canvas skipCanvas;
+        private Canvas cinematicLoadingCanvas;
         private GameObject confirmation;
         private bool finishing;
         private PlayableDirector cinematicMaster;
@@ -57,7 +58,36 @@ namespace Spellstrike.ComicMode
         private void BeginCinematic()
         {
             if (cinematicRoutine != null) return;
+            ShowCinematicLoading();
             cinematicRoutine = StartCoroutine(PlayCinematic());
+        }
+
+        // The master scene can take several seconds to import/load on mobile.
+        // Cover the underlying Main Menu while its asynchronous load is active.
+        // This is a loading state, not a second menu or a fake loading timer.
+        private void ShowCinematicLoading()
+        {
+            if (cinematicLoadingCanvas != null) return;
+            cinematicLoadingCanvas = ComicModeUi.MakeCanvas("PrologueCinematicLoading");
+            cinematicLoadingCanvas.transform.SetParent(transform, false);
+            cinematicLoadingCanvas.sortingOrder = 480;
+            ComicModeUi.Fill("LoadingBackdrop", cinematicLoadingCanvas.transform,
+                Vector2.zero, Vector2.one, new Color(0.015f, 0.023f, 0.046f, 1f));
+            ComicModeUi.Label("LoadingTitle", cinematicLoadingCanvas.transform,
+                new Vector2(0.10f, 0.48f), new Vector2(0.90f, 0.62f),
+                "OPENING THE PROLOGUE", 42, TextAlignmentOptions.Center,
+                new Color(0.93f, 0.82f, 0.57f));
+            ComicModeUi.Label("LoadingSubtitle", cinematicLoadingCanvas.transform,
+                new Vector2(0.16f, 0.39f), new Vector2(0.84f, 0.49f),
+                "Preparing the cinematic...", 26, TextAlignmentOptions.Center,
+                new Color(0.82f, 0.85f, 0.93f));
+        }
+
+        private void HideCinematicLoading()
+        {
+            if (cinematicLoadingCanvas == null) return;
+            Destroy(cinematicLoadingCanvas.gameObject);
+            cinematicLoadingCanvas = null;
         }
 
         private IEnumerator PlayCinematic()
@@ -65,15 +95,22 @@ namespace Spellstrike.ComicMode
             if (!Application.CanStreamedLevelBeLoaded(CinematicScene))
             {
                 Debug.LogError("[StoryMode] Animated 42-panel scene is not registered in the active Build Profile.");
+                HideCinematicLoading();
                 cinematicRoutine = null;
                 ShowChoice();
                 yield break;
             }
 
+            // Let the loading overlay render before starting this heavy master scene load.
+            // Two frame yields guarantee at least one fully presented loading frame.
+            Canvas.ForceUpdateCanvases();
+            yield return null;
+            yield return null;
             AsyncOperation load = SceneManager.LoadSceneAsync(CinematicScene, LoadSceneMode.Single);
             if (load == null)
             {
                 Debug.LogError("[StoryMode] Master scene load failed.");
+                HideCinematicLoading();
                 cinematicRoutine = null;
                 yield break;
             }
@@ -92,6 +129,7 @@ namespace Spellstrike.ComicMode
             if (master == null)
             {
                 Debug.LogError("[StoryMode] Cannot locate 42-panel master PlayableDirector in cinematic scene.");
+                HideCinematicLoading();
                 cinematicRoutine = null;
                 yield break;
             }
@@ -100,6 +138,7 @@ namespace Spellstrike.ComicMode
             panelStarts = BuildPanelStarts(master);
             CreateSkipUI();
             if (master.state != PlayState.Playing) master.Play();
+            HideCinematicLoading();
             while (!finishing && master != null && SceneManager.GetActiveScene().path == CinematicScene)
             {
                 // Stop states in Unity vary by wrap mode; end on completed duration,
@@ -136,7 +175,7 @@ namespace Spellstrike.ComicMode
             }
             // This is a runtime-only dialogue overlay. Keeping it under the
             // visible Skip controls maintains the full-screen swipe/tap zones.
-            if (SceneManager.GetActiveScene().name.Contains("v06"))
+            if (SceneManager.GetActiveScene().path == CinematicScene)
                 CreateDialogueOverlay(safe);
 
             Button skip = ComicModeUi.Button("CinematicSkip", safe,
@@ -350,6 +389,7 @@ namespace Spellstrike.ComicMode
         private void ExitToMenu()
         {
             if (cinematicRoutine != null) StopCoroutine(cinematicRoutine);
+            HideCinematicLoading();
             if (skipCanvas != null) Destroy(skipCanvas.gameObject);
             Destroy(gameObject);
         }
