@@ -10,9 +10,9 @@ Gameplay adapter: Assets/Scripts/Minigames/Modes/MinigamesSceneController.WordMa
 - Resources/WordMasterRoyal holds the approved UI sprite set and a separately fitted compact keyboard-frame sprite.
 - Slot, Normal, Gold, Silver, DarkGray, Red, and L_A through L_Z share the same 1024 x 1024 canvas and center.
 - Three layers form a guess cell: Holder, TileBase, LetterOverlay. One sprite set is reused across turns and A-Z buttons.
-- The alphabet keyboard is locked to A-M across the first row and N-Z across the second. Its center positions are 90 UI units horizontally and 86 vertically; each 112 x 112 canvas displays an approximately 88 x 82 pixel visible tile.
-- Each letter has an 86 x 79 invisible click target, ensuring all 26 keys remain individually selectable even though the PNG art is tightly spaced.
-- KeyboardFrameCompact.png is a 1570 x 260 three-piece, aspect-controlled crop of the approved Ornate Empty Fantasy UI Panel in Downloads. It retains both ornate end caps and the navy interior; no replacement artwork was generated. Runtime migration updates legacy serialized keyboard rectangles on scene load, without overwriting the scene or unrelated dirty edits.
+- Bookworm-style alphabet keyboard has a perfectly centered 13 x 2 arrangement: A-M first row, N-Z second row. Centers use 99 UI units horizontally and 92 vertically; 126 x 126 sprite canvases show approximately 99 x 92 visible pixels, making adjacent tiles nearly touch.
+- Letter overlays are rendered at 155 x 155 for bigger, legible Times New Roman Bold black 3D letters. Each tile has an invisible 96 x 90 hit target to prevent overlapping pointer regions, verified in Unity using actual EventSystem raycasts at all 26 centers (26/26 passed).
+- KeyboardFrameCompact.png is a 1570 x 220 three-piece, aspect-controlled crop of the approved Ornate Empty Fantasy UI Panel in Downloads. It preserves both compass end caps and navy interior; no replacement artwork was generated. Runtime migration updates legacy serialized keyboard rectangles on scene load without overwriting the scene or unrelated dirty edits.
 - Approved art sources were copied from Downloads, universal fit kit, and existing in-project Hall of Chronicles resources. Original source files remain unchanged.
 - Gold is correct slot, silver is valid letter in wrong slot, dark gray is missing, red is absent on keyboard.
 - Turns and Prize plaques use active-gold/inactive-gray visuals and pulsing overlays. Submit is disabled until a five-letter dictionary-valid guess exists.

@@ -103,11 +103,11 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         }
     }
 
-    // Locked Word Master keyboard reference:
+    // Bookworm-style dense Word Master keyboard reference:
     // A-M in row one, N-Z in row two, centered with tight edge-to-edge gaps.
     private static Vector2 GetCompactKeyPosition(int index)
     {
-        return new Vector2(((index % 13) - 6) * 90f, index < 13 ? 43f : -43f);
+        return new Vector2(((index % 13) - 6) * 99f, index < 13 ? 46f : -46f);
     }
 
     private static RectTransform CreateRect(string name, Transform parent, Vector2 center, Vector2 size)
@@ -269,7 +269,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
 
         tutorialArrow = CreateImage("TutorialArrow",layout,arrowSprite,new Vector2(-358,160),new Vector2(364,173)).gameObject;
 
-        RectTransform keyboard = CreateRect("Keyboard", layout, new Vector2(0,-319), new Vector2(1570,260));
+        RectTransform keyboard = CreateRect("Keyboard", layout, new Vector2(0,-312), new Vector2(1570,220));
         // Use the user's approved Ornate Empty Fantasy UI Panel directly.
         // Its artwork already has the complete navy center and gold details.
         // An opaque overlay would hide the compass corners and ornate border.
@@ -279,18 +279,18 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             int captured = i;
             char ch = (char)('A'+i);
             // The reference shows two compact, non-staggered lines of thirteen tiles.
-            // 112-unit tile canvas has an ~88-unit visible tile after alpha padding.
-            // 90-unit horizontal step leaves only ~2 pixels of visual separation.
+            // 126-unit canvas has a ~99x92-unit visible tile after alpha padding.
+            // 99-unit columns and 92-unit rows make adjacent tiles visually touch.
             Vector2 keyPosition = GetCompactKeyPosition(i);
-            RectTransform key = CreateRect("Key_"+ch,keyboard,keyPosition,new Vector2(112,112));
+            RectTransform key = CreateRect("Key_"+ch,keyboard,keyPosition,new Vector2(126,126));
             Image tile = CreateImage("Tile",key,normalSprite,Vector2.zero,key.sizeDelta,false);
             keyBase[i] = tile;
-            Image letter = CreateImage("Letter",key,letters[i],Vector2.zero,key.sizeDelta);
+            Image letter = CreateImage("Letter",key,letters[i],Vector2.zero,new Vector2(155,155));
             keyLetter[i] = letter;
             // The transparent PNG includes ~20% padding. Use a smaller hitbox
             // matching the visible tile so neighbouring compact keys never
             // steal each other's pointer events (including across both rows).
-            Image hitbox = CreateImage("Hitbox",key,null,Vector2.zero,new Vector2(86,79),true);
+            Image hitbox = CreateImage("Hitbox",key,null,Vector2.zero,new Vector2(96,90),true);
             hitbox.color=new Color(1f,1f,1f,.01f);
             Button button = MakeButton(hitbox, () => { if (!showingPause && controller != null) controller.RoyalPress(ch); });
             button.targetGraphic=tile;
@@ -405,11 +405,15 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         if(k!=null)
         {
             var keyboardRect=k as RectTransform;
-            if(keyboardRect!=null) keyboardRect.sizeDelta=new Vector2(1570,260);
+            if(keyboardRect!=null)
+            {
+                keyboardRect.sizeDelta=new Vector2(1570,220);
+                keyboardRect.anchoredPosition=new Vector2(0,-312);
+            }
             var ornateFrame=k.Find("KeyboardNavyFrame") as RectTransform;
             if(ornateFrame!=null)
             {
-                ornateFrame.sizeDelta=new Vector2(1570,260);
+                ornateFrame.sizeDelta=new Vector2(1570,220);
                 var ornateImage=ornateFrame.GetComponent<Image>();
                 if(ornateImage!=null)
                 {
@@ -431,11 +435,11 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             if(keyRect!=null)
             {
                 keyRect.anchoredPosition=GetCompactKeyPosition(i);
-                keyRect.sizeDelta=new Vector2(112,112);
+                keyRect.sizeDelta=new Vector2(126,126);
                 var tileRect=key.Find("Tile") as RectTransform;
                 var letterRect=key.Find("Letter") as RectTransform;
-                if(tileRect!=null)tileRect.sizeDelta=new Vector2(112,112);
-                if(letterRect!=null)letterRect.sizeDelta=new Vector2(112,112);
+                if(tileRect!=null)tileRect.sizeDelta=new Vector2(126,126);
+                if(letterRect!=null)letterRect.sizeDelta=new Vector2(155,155);
             }
             keyBase[i]=key?.Find("Tile")?.GetComponent<Image>();
             keyLetter[i]=key?.Find("Letter")?.GetComponent<Image>();
@@ -443,21 +447,21 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             if(keyLetter[i]!=null)keyLetter[i].raycastTarget=false;
 
             // Upgrade the older scene's full-size Button in Play Mode only.
-            // The invisible 86x79 hitbox fits within the visual tile's alpha
+            // The invisible 96x90 hitbox fits within the visual tile's alpha
             // bounds; graphics and hover transitions still use the Tile image.
             var oldButton=keyBase[i]!=null?keyBase[i].GetComponent<Button>():null;
             if(oldButton!=null)oldButton.enabled=false;
             var hit=key?.Find("Hitbox")?.GetComponent<Image>();
             if(hit==null && key!=null)
             {
-                hit=CreateImage("Hitbox",key,null,Vector2.zero,new Vector2(86,79),true);
+                hit=CreateImage("Hitbox",key,null,Vector2.zero,new Vector2(96,90),true);
                 hit.color=new Color(1f,1f,1f,.01f);
             }
             if(hit!=null)
             {
                 hit.raycastTarget=true;
                 var hitRect=hit.rectTransform;
-                hitRect.sizeDelta=new Vector2(86,79);
+                hitRect.sizeDelta=new Vector2(96,90);
                 var button=hit.GetComponent<Button>();
                 if(button==null)button=MakeButton(hit,null);
                 button.targetGraphic=keyBase[i];
