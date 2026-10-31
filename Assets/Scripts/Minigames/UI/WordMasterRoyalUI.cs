@@ -53,7 +53,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         if (assetsReady) return;
         backgroundSprite = Load("Background");
         boardSprite = Load("Board");
-        keyboardFrameSprite = Load("KeyboardFrame");
+        keyboardFrameSprite = Load("KeyboardFrameCompact");
         headerSprite = Load("Header");
         slotSprite = Load("Slot");
         normalSprite = Load("Normal");
@@ -101,6 +101,13 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             lastState = string.Empty;
             RefreshGameplay(true);
         }
+    }
+
+    // Locked Word Master keyboard reference:
+    // A-M in row one, N-Z in row two, centered with tight edge-to-edge gaps.
+    private static Vector2 GetCompactKeyPosition(int index)
+    {
+        return new Vector2(((index % 13) - 6) * 90f, index < 13 ? 43f : -43f);
     }
 
     private static RectTransform CreateRect(string name, Transform parent, Vector2 center, Vector2 size)
@@ -262,26 +269,31 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
 
         tutorialArrow = CreateImage("TutorialArrow",layout,arrowSprite,new Vector2(-358,160),new Vector2(364,173)).gameObject;
 
-        RectTransform keyboard = CreateRect("Keyboard", layout, new Vector2(0,-319), new Vector2(1590,218));
-        // Frame first; opaque navy inset above its old brown-tinted center, tiles above both.
-        CreateImage("KeyboardNavyFrame", keyboard, keyboardFrameSprite, Vector2.zero, keyboard.sizeDelta, false, true);
-        Image backing = CreateImage("KeyboardNavyBacking",keyboard,null,Vector2.zero,new Vector2(1536,196));
-        backing.color=new Color(.016f,.026f,.065f,1f);
-        Outline backingBorder=backing.gameObject.AddComponent<Outline>();
-        backingBorder.effectColor=new Color(.77f,.53f,.19f,.98f);
-        backingBorder.effectDistance=new Vector2(3f,-3f);
+        RectTransform keyboard = CreateRect("Keyboard", layout, new Vector2(0,-319), new Vector2(1570,260));
+        // Use the user's approved Ornate Empty Fantasy UI Panel directly.
+        // Its artwork already has the complete navy center and gold details.
+        // An opaque overlay would hide the compass corners and ornate border.
+        CreateImage("KeyboardNavyFrame", keyboard, keyboardFrameSprite, Vector2.zero, keyboard.sizeDelta);
         for (int i = 0; i < 26; i++)
         {
             int captured = i;
             char ch = (char)('A'+i);
-            float x = -630 + (i%13) * 105f;
-            float y = i < 13 ? 49f : -49f;
-            RectTransform key = CreateRect("Key_"+ch,keyboard,new Vector2(x,y),new Vector2(93,93));
-            Image tile = CreateImage("Tile",key,normalSprite,Vector2.zero,key.sizeDelta,true);
+            // The reference shows two compact, non-staggered lines of thirteen tiles.
+            // 112-unit tile canvas has an ~88-unit visible tile after alpha padding.
+            // 90-unit horizontal step leaves only ~2 pixels of visual separation.
+            Vector2 keyPosition = GetCompactKeyPosition(i);
+            RectTransform key = CreateRect("Key_"+ch,keyboard,keyPosition,new Vector2(112,112));
+            Image tile = CreateImage("Tile",key,normalSprite,Vector2.zero,key.sizeDelta,false);
             keyBase[i] = tile;
             Image letter = CreateImage("Letter",key,letters[i],Vector2.zero,key.sizeDelta);
             keyLetter[i] = letter;
-            Button button = MakeButton(tile, () => { if (!showingPause && controller != null) controller.RoyalPress(ch); });
+            // The transparent PNG includes ~20% padding. Use a smaller hitbox
+            // matching the visible tile so neighbouring compact keys never
+            // steal each other's pointer events (including across both rows).
+            Image hitbox = CreateImage("Hitbox",key,null,Vector2.zero,new Vector2(86,79),true);
+            hitbox.color=new Color(1f,1f,1f,.01f);
+            Button button = MakeButton(hitbox, () => { if (!showingPause && controller != null) controller.RoyalPress(ch); });
+            button.targetGraphic=tile;
             keyButton[i] = button;
         }
 
@@ -387,13 +399,73 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             }
         }
         var k=layout.Find("Keyboard");
+        // Migration for scenes serialized before the approved ornate panel was
+        // properly exposed. Runtime-only adjustment preserves other unsaved
+        // scene edits and does not require regenerating or copying textures.
+        if(k!=null)
+        {
+            var keyboardRect=k as RectTransform;
+            if(keyboardRect!=null) keyboardRect.sizeDelta=new Vector2(1570,260);
+            var ornateFrame=k.Find("KeyboardNavyFrame") as RectTransform;
+            if(ornateFrame!=null)
+            {
+                ornateFrame.sizeDelta=new Vector2(1570,260);
+                var ornateImage=ornateFrame.GetComponent<Image>();
+                if(ornateImage!=null)
+                {
+                    ornateImage.sprite=keyboardFrameSprite;
+                    ornateImage.type=Image.Type.Simple;
+                    ornateImage.color=Color.white;
+                }
+            }
+            var oldOpaqueBacking=k.Find("KeyboardNavyBacking");
+            if(oldOpaqueBacking!=null) oldOpaqueBacking.gameObject.SetActive(false);
+        }
         for(int i=0;i<26;i++)
         {
             char ch=(char)('A'+i);var key=k?.Find("Key_"+ch);
+            // The production scene already serialized a looser 93px/105px
+            // grid. Migrate only the key RectTransforms on load, without
+            // changing the saved scene or the approved source artwork.
+            var keyRect = key as RectTransform;
+            if(keyRect!=null)
+            {
+                keyRect.anchoredPosition=GetCompactKeyPosition(i);
+                keyRect.sizeDelta=new Vector2(112,112);
+                var tileRect=key.Find("Tile") as RectTransform;
+                var letterRect=key.Find("Letter") as RectTransform;
+                if(tileRect!=null)tileRect.sizeDelta=new Vector2(112,112);
+                if(letterRect!=null)letterRect.sizeDelta=new Vector2(112,112);
+            }
             keyBase[i]=key?.Find("Tile")?.GetComponent<Image>();
             keyLetter[i]=key?.Find("Letter")?.GetComponent<Image>();
-            keyButton[i]=keyBase[i]?.GetComponent<Button>();
-            if(keyButton[i]!=null){keyButton[i].onClick.RemoveAllListeners();char captured=ch;keyButton[i].onClick.AddListener(()=>{if(!showingPause&&controller!=null)controller.RoyalPress(captured);});}
+            if(keyBase[i]!=null)keyBase[i].raycastTarget=false;
+            if(keyLetter[i]!=null)keyLetter[i].raycastTarget=false;
+
+            // Upgrade the older scene's full-size Button in Play Mode only.
+            // The invisible 86x79 hitbox fits within the visual tile's alpha
+            // bounds; graphics and hover transitions still use the Tile image.
+            var oldButton=keyBase[i]!=null?keyBase[i].GetComponent<Button>():null;
+            if(oldButton!=null)oldButton.enabled=false;
+            var hit=key?.Find("Hitbox")?.GetComponent<Image>();
+            if(hit==null && key!=null)
+            {
+                hit=CreateImage("Hitbox",key,null,Vector2.zero,new Vector2(86,79),true);
+                hit.color=new Color(1f,1f,1f,.01f);
+            }
+            if(hit!=null)
+            {
+                hit.raycastTarget=true;
+                var hitRect=hit.rectTransform;
+                hitRect.sizeDelta=new Vector2(86,79);
+                var button=hit.GetComponent<Button>();
+                if(button==null)button=MakeButton(hit,null);
+                button.targetGraphic=keyBase[i];
+                button.onClick.RemoveAllListeners();
+                char captured=ch;
+                button.onClick.AddListener(()=>{if(!showingPause&&controller!=null)controller.RoyalPress(captured);});
+                keyButton[i]=button;
+            }
         }
         var ribbon=layout.Find("TitleRibbon");
         headerTitle=ribbon?.Find("WordMasterTitle")?.GetComponent<TextMeshProUGUI>();

@@ -1,4 +1,4 @@
-﻿# Word Master Royal UI | SPELLSTRIKE
+# Word Master Royal UI | SPELLSTRIKE
 
 Production scene: Assets/Scenes/WordMasterScene.unity (original scene GUID retained).
 Overlay canvas: WordMasterRoyalCanvas, sorting order 220, 2400 x 1080 reference resolution.
@@ -7,9 +7,12 @@ Gameplay adapter: Assets/Scripts/Minigames/Modes/MinigamesSceneController.WordMa
 
 ## Asset design
 
-- Resources/WordMasterRoyal holds 49 UI sprite PNGs and matching Unity import metadata.
+- Resources/WordMasterRoyal holds the approved UI sprite set and a separately fitted compact keyboard-frame sprite.
 - Slot, Normal, Gold, Silver, DarkGray, Red, and L_A through L_Z share the same 1024 x 1024 canvas and center.
 - Three layers form a guess cell: Holder, TileBase, LetterOverlay. One sprite set is reused across turns and A-Z buttons.
+- The alphabet keyboard is locked to A-M across the first row and N-Z across the second. Its center positions are 90 UI units horizontally and 86 vertically; each 112 x 112 canvas displays an approximately 88 x 82 pixel visible tile.
+- Each letter has an 86 x 79 invisible click target, ensuring all 26 keys remain individually selectable even though the PNG art is tightly spaced.
+- KeyboardFrameCompact.png is a 1570 x 260 three-piece, aspect-controlled crop of the approved Ornate Empty Fantasy UI Panel in Downloads. It retains both ornate end caps and the navy interior; no replacement artwork was generated. Runtime migration updates legacy serialized keyboard rectangles on scene load, without overwriting the scene or unrelated dirty edits.
 - Approved art sources were copied from Downloads, universal fit kit, and existing in-project Hall of Chronicles resources. Original source files remain unchanged.
 - Gold is correct slot, silver is valid letter in wrong slot, dark gray is missing, red is absent on keyboard.
 - Turns and Prize plaques use active-gold/inactive-gray visuals and pulsing overlays. Submit is disabled until a five-letter dictionary-valid guess exists.
@@ -25,6 +28,7 @@ Do not run a blanket minigame UI rebuild on WordMasterScene: the Royal overlay i
 ## Verified in Unity Editor Play Mode
 
 - 26 A-Z keyboard buttons, five guess rows, active Turns and Prize indicators
+- Compact keyboard Game View QA and raycast center validation: 26/26 buttons targeted correctly
 - Locked hint and repeated-letter solve using TRUTH
 - Full invalid dictionary word disables Submit
 - Gold, silver, missing and red keyboard states
