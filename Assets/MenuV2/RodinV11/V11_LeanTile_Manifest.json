@@ -1,0 +1,59 @@
+{
+  "version": "V11_LEAN_MOBILE_REVIEW",
+  "validation": "GLB structural 3+26 checks, actual Blender import+front/back WORDS QA",
+  "rarities": {
+    "Bronze": [
+      "A",
+      "D",
+      "E",
+      "H",
+      "I",
+      "N",
+      "O",
+      "R",
+      "S",
+      "T"
+    ],
+    "Silver": [
+      "B",
+      "C",
+      "F",
+      "G",
+      "L",
+      "M",
+      "P",
+      "U",
+      "W",
+      "Y"
+    ],
+    "Gold": [
+      "J",
+      "K",
+      "Qu",
+      "V",
+      "X",
+      "Z"
+    ]
+  },
+  "file_counts": {
+    "shared_rarity_bases": 3,
+    "black_letters": 26
+  },
+  "bytes": {
+    "shared_bases": 8983352,
+    "black_letters": 2407012,
+    "combined": 11390364
+  },
+  "sizes_mb": {
+    "shared_bases": 8.567,
+    "black_letters": 2.296,
+    "combined": 10.863
+  },
+  "textures": {
+    "bases": "5 embedded images per base; 1024x1024 front, 768x768 rear",
+    "letters": "zero embedded images"
+  },
+  "original_309mb_full_tile_set": "archive only, do not import",
+  "unity_tested": false,
+  "notes": "Shared source file sizes are not runtime GPU memory. Profile on Android and PC before claiming smooth performance."
+}
