@@ -73,8 +73,10 @@ public partial class MinigamesSceneController
                 return;
             }
 
-            if (TryConsumeWordMasterLockedLetterClick(currentSourceLetters[tileIndex]))
-                return;
+            // Locked gold positions are already filled into the guess automatically.
+            // Do not swallow clicks of the same letter: the target may contain that
+            // letter again in another position (e.g. TRUTH with a locked first T).
+            // The old consumption gate made duplicate-letter guesses need extra taps.
 
             int blankIndex = selectedTileIndexes.IndexOf(-1);
             if (blankIndex >= 0)

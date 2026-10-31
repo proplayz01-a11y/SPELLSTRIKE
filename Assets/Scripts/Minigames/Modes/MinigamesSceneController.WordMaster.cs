@@ -165,6 +165,7 @@ public partial class MinigamesSceneController
         if (status == WordMasterSession.GuessStatus.Solved)
         {
             score++;
+            RoyalAwardPrizeForSolvedTurn();
             SetFeedback("Solved. Clean guess.", goodColor);
         }
         else if (status == WordMasterSession.GuessStatus.GameOver)
@@ -649,7 +650,7 @@ public partial class MinigamesSceneController
             case 2:
                 return "2,500";
             case 3:
-                return "1,000";
+                return "1,500";
             default:
                 return "500";
         }
