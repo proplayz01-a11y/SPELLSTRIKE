@@ -23,10 +23,7 @@ public partial class MinigamesSceneController
 
         score = 0;
         roundsPlayed = 0;
-        spellItOutWordIndex = 0;
-        spellItOutActive = true;
-        spellItOutSessionWords.Clear();
-        spellItOutSessionCorrect.Clear();
+        spellingSession.Begin();
 
         StartNextSpellItOutWord();
         RefreshScoreText();
@@ -43,9 +40,7 @@ public partial class MinigamesSceneController
         int minLength = GetSpellItOutStageMinLength(spellItOutWordIndex);
         int maxLength = GetSpellItOutStageMaxLength(spellItOutWordIndex);
         PracticeEntry entry = GetRandomSpellItOutEntry(minLength, maxLength);
-        currentWord = entry.word;
-        currentDefinition = entry.definition;
-        spellItOutTimer = Mathf.Max(1f, spellItOutSecondsPerWord);
+        spellingSession.Present(entry.word, entry.definition, spellItOutSecondsPerWord);
         SetFeedback(string.Empty, lightTextColor);
 
         if (promptText != null)
@@ -66,8 +61,7 @@ public partial class MinigamesSceneController
 
         roundsPlayed++;
 
-        bool correct = answer == currentWord;
-        RecordSpellItOutWordResult(correct);
+        bool correct = spellingSession.RecordAnswer(answer);
 
         if (correct)
         {
@@ -90,7 +84,7 @@ public partial class MinigamesSceneController
             return;
 
         roundsPlayed++;
-        RecordSpellItOutWordResult(false);
+        spellingSession.Record(false);
         SetFeedback($"Time. Answer: {currentWord}", badColor);
         ClearTileSelection();
         RefreshScoreText();
@@ -99,16 +93,12 @@ public partial class MinigamesSceneController
 
     private void RecordSpellItOutWordResult(bool correct)
     {
-        string word = string.IsNullOrWhiteSpace(currentWord) ? "UNKNOWN" : currentWord;
-        spellItOutSessionWords.Add(word);
-        spellItOutSessionCorrect.Add(correct);
+        spellingSession.Record(correct);
     }
 
     private void AdvanceSpellItOutSession()
     {
-        spellItOutWordIndex++;
-
-        if (spellItOutWordIndex >= Mathf.Max(1, spellItOutTotalWords))
+        if (spellingSession.Advance(spellItOutTotalWords))
         {
             FinishSpellItOutSession("Complete");
             return;
@@ -119,7 +109,7 @@ public partial class MinigamesSceneController
 
     private void FinishSpellItOutSession(string title)
     {
-        spellItOutActive = false;
+        spellingSession.Finish();
         ClearTileSelection();
         UpdateTimerText();
         RefreshScoreText();

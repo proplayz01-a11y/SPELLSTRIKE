@@ -55,11 +55,8 @@ public partial class MinigamesSceneController
 
         if (excavationActive)
         {
-            excavationTimer -= Time.deltaTime;
-            if (excavationTimer <= 0f)
+            if (excavationSession.Tick(Time.deltaTime))
             {
-                excavationTimer = 0f;
-                excavationActive = false;
                 UpdateTimerText();
                 ShowMinigameResultOverlay("Time Up");
                 return;
@@ -70,10 +67,8 @@ public partial class MinigamesSceneController
 
         if (spellItOutActive)
         {
-            spellItOutTimer -= Time.deltaTime;
-            if (spellItOutTimer <= 0f)
+            if (spellingSession.Tick(Time.deltaTime))
             {
-                spellItOutTimer = 0f;
                 UpdateTimerText();
                 HandleSpellItOutWordTimeout();
                 return;

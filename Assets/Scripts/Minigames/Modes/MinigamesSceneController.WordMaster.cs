@@ -30,14 +30,7 @@ public partial class MinigamesSceneController
         score = 0;
         roundsPlayed = 0;
         excavationActive = false;
-        wordMasterTargetWord = string.Empty;
-        wordMasterTurn = 0;
-        wordMasterHintIndex = -1;
-        wordMasterSolved = false;
-        wordMasterHintPanelDismissed = false;
-        wordMasterLockedLetters = new char[Mathf.Max(0, wordMasterWordLength)];
-        wordMasterGuesses.Clear();
-        wordMasterGuessClues.Clear();
+        wordMasterSession.Begin(string.Empty, wordMasterWordLength, false);
         wordMasterKeyboardColors.Clear();
         selectedTileIndexes.Clear();
 
@@ -108,14 +101,7 @@ public partial class MinigamesSceneController
         if (tileInstructionText != null)
             tileInstructionText.gameObject.SetActive(false);
 
-        wordMasterTargetWord = GetRandomWordMasterTarget();
-        wordMasterTurn = 0;
-        wordMasterHintIndex = wordMasterUseStartHint ? 0 : -1;
-        wordMasterSolved = false;
-        wordMasterHintPanelDismissed = false;
-        ResetWordMasterLockedLetters();
-        wordMasterGuesses.Clear();
-        wordMasterGuessClues.Clear();
+        wordMasterSession.Begin(GetRandomWordMasterTarget(), wordMasterWordLength, wordMasterUseStartHint);
         wordMasterKeyboardColors.Clear();
 
         if (promptText != null)
@@ -138,14 +124,7 @@ public partial class MinigamesSceneController
         if (!missingTarget)
             return;
 
-        wordMasterTargetWord = GetRandomWordMasterTarget();
-        wordMasterTurn = 0;
-        wordMasterHintIndex = wordMasterUseStartHint ? 0 : -1;
-        wordMasterSolved = false;
-        wordMasterHintPanelDismissed = false;
-        ResetWordMasterLockedLetters();
-        wordMasterGuesses.Clear();
-        wordMasterGuessClues.Clear();
+        wordMasterSession.Begin(GetRandomWordMasterTarget(), wordMasterWordLength, wordMasterUseStartHint);
         wordMasterKeyboardColors.Clear();
 
         if (promptText != null)
@@ -157,63 +136,40 @@ public partial class MinigamesSceneController
 
     private void ResolveWordMasterGuess(string guess)
     {
-        if (wordMasterSolved)
+        WordMasterSession.GuessStatus status = wordMasterSession.Submit(
+            guess, wordMasterWordLength, wordMasterMaxTurns,
+            word => dictionary != null ? dictionary.IsValidWord(word) : IsFallbackValidWord(word),
+            out LetterClue[] clues);
+
+        switch (status)
         {
-            SetFeedback("Already solved. Start a new round.", goodColor);
-            return;
+            case WordMasterSession.GuessStatus.AlreadySolved:
+                SetFeedback("Already solved. Start a new round.", goodColor);
+                return;
+            case WordMasterSession.GuessStatus.OutOfTurns:
+                ShowWordMasterGameOver();
+                return;
+            case WordMasterSession.GuessStatus.WrongLength:
+                SetFeedback($"Build a {wordMasterWordLength}-letter guess first.", badColor);
+                return;
+            case WordMasterSession.GuessStatus.Incomplete:
+                SetFeedback("Fill every letter slot first.", badColor);
+                return;
+            case WordMasterSession.GuessStatus.NotInDictionary:
+                SetFeedback("Not in the dictionary.", badColor);
+                return;
         }
 
-        if (wordMasterTurn >= wordMasterMaxTurns)
-        {
-            SetFeedback("Game over. Try again.", badColor);
-            if (promptText != null)
-                promptText.text = "Game over. Try again.";
-
-            ShowMinigameResultOverlay("Game Over");
-            return;
-        }
-
-        if (guess.Length != wordMasterWordLength)
-        {
-            SetFeedback($"Build a {wordMasterWordLength}-letter guess first.", badColor);
-            return;
-        }
-
-        if (guess.Contains(" "))
-        {
-            SetFeedback("Fill every letter slot first.", badColor);
-            return;
-        }
-
-        bool validGuess = dictionary != null ? dictionary.IsValidWord(guess) : IsFallbackValidWord(guess);
-        if (!validGuess)
-        {
-            SetFeedback("Not in the dictionary.", badColor);
-            return;
-        }
-
-        LetterClue[] clues = EvaluateWordMasterGuess(guess, wordMasterTargetWord);
-        wordMasterGuesses.Add(guess);
-        wordMasterGuessClues.Add(clues);
-        LockWordMasterCorrectLetters(guess, clues);
         UpdateWordMasterKeyboard(guess, clues);
-
-        wordMasterTurn++;
         roundsPlayed = wordMasterTurn;
-
-        if (guess == wordMasterTargetWord || IsWordMasterFullyLocked())
+        if (status == WordMasterSession.GuessStatus.Solved)
         {
-            wordMasterSolved = true;
             score++;
             SetFeedback("Solved. Clean guess.", goodColor);
         }
-        else if (wordMasterTurn >= wordMasterMaxTurns)
+        else if (status == WordMasterSession.GuessStatus.GameOver)
         {
-            SetFeedback("Game over. Try again.", badColor);
-            if (promptText != null)
-                promptText.text = "Game over. Try again.";
-
-            ShowMinigameResultOverlay("Game Over");
+            ShowWordMasterGameOver();
         }
         else
         {
@@ -222,6 +178,14 @@ public partial class MinigamesSceneController
 
         ClearTileSelection();
         RefreshScoreText();
+    }
+
+    private void ShowWordMasterGameOver()
+    {
+        SetFeedback("Game over. Try again.", badColor);
+        if (promptText != null)
+            promptText.text = "Game over. Try again.";
+        ShowMinigameResultOverlay("Game Over");
     }
 
     private string GetRandomWordMasterTarget()

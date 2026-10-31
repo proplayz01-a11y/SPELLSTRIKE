@@ -28,11 +28,8 @@ public partial class MinigamesSceneController
         HideMinigameOverlays();
         score = 0;
         roundsPlayed = 0;
+        excavationSession.Begin(string.Empty, excavationRoundSeconds);
         excavationActive = false;
-        excavationSourceWord = string.Empty;
-        excavationTimer = excavationRoundSeconds;
-        foundExcavationWords.Clear();
-        foundExcavationWordsInOrder.Clear();
         selectedTileIndexes.Clear();
 
         if (selectionScreen != null)
@@ -73,11 +70,7 @@ public partial class MinigamesSceneController
         SetObjectActive(optionsRoot, true);
         SetTilePickerVisible(true);
 
-        excavationSourceWord = GetRandomWordExcavationSourceWord();
-        excavationTimer = excavationRoundSeconds;
-        excavationActive = true;
-        foundExcavationWords.Clear();
-        foundExcavationWordsInOrder.Clear();
+        excavationSession.Begin(GetRandomWordExcavationSourceWord(), excavationRoundSeconds);
 
         if (promptText != null)
             promptText.text = "Find smaller valid words before time runs out.";
@@ -93,42 +86,30 @@ public partial class MinigamesSceneController
 
     private void ResolveExcavationAnswer(string answer)
     {
-        if (!excavationActive)
+        WordExcavationSession.SubmissionStatus status = excavationSession.Submit(
+            answer, excavationMinimumWordLength,
+            word => dictionary != null ? dictionary.IsValidWord(word) : IsFallbackValidWord(word),
+            excavationRoundSeconds, out int points);
+        switch (status)
         {
-            SetFeedback("Start a new round first.", badColor);
-            return;
+            case WordExcavationSession.SubmissionStatus.Inactive:
+                SetFeedback("Start a new round first.", badColor);
+                return;
+            case WordExcavationSession.SubmissionStatus.TooShort:
+                SetFeedback($"Use at least {excavationMinimumWordLength} letters.", badColor);
+                return;
+            case WordExcavationSession.SubmissionStatus.Duplicate:
+                SetFeedback("Already found.", badColor);
+                return;
+            case WordExcavationSession.SubmissionStatus.CannotBuild:
+                SetFeedback("Those letters are not all available.", badColor);
+                return;
+            case WordExcavationSession.SubmissionStatus.InvalidWord:
+                SetFeedback("Not in the dictionary.", badColor);
+                return;
         }
 
-        if (answer.Length < excavationMinimumWordLength)
-        {
-            SetFeedback($"Use at least {excavationMinimumWordLength} letters.", badColor);
-            return;
-        }
-
-        if (foundExcavationWords.Contains(answer))
-        {
-            SetFeedback("Already found.", badColor);
-            return;
-        }
-
-        if (!CanBuildWordFromSource(answer, excavationSourceWord))
-        {
-            SetFeedback("Those letters are not all available.", badColor);
-            return;
-        }
-
-        bool valid = dictionary != null ? dictionary.IsValidWord(answer) : IsFallbackValidWord(answer);
-        if (!valid)
-        {
-            SetFeedback("Not in the dictionary.", badColor);
-            return;
-        }
-
-        foundExcavationWords.Add(answer);
-        foundExcavationWordsInOrder.Add(answer);
-        int points = WordExcavationRules.GetPoints(answer.Length);
-        score += points;
-        ApplyWordExcavationTimeBonus(answer);
+        score = excavationSession.Score;
         roundsPlayed = foundExcavationWords.Count;
         SetFeedback($"+{points} points", goodColor);
         ClearTileSelection();

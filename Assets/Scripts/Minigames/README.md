@@ -1,13 +1,15 @@
 # SPELLSTRIKE Minigames Architecture
 
-## Compatibility-first refactor
+## Compatibility-first architecture (Phase 2)
 
 `MinigamesSceneController.cs` is still the original Unity `MonoBehaviour` with
 its original `.meta` GUID and serialized fields. All existing scene components
 and Inspector references remain valid. Its methods are grouped into **partial
 class** files while individual gameplay rules are extracted into plain C#
-classes. This is an intermediate architecture, not a claim that every mode
-already has an independent controller.
+classes. Gameplay state and transitions now live in independent session models.
+Scene-facing view construction still uses partial MonoBehaviour files to avoid
+breaking existing serialized UI references; the pure models do not require a
+Unity scene.
 
 | Location | Responsibility |
 | --- | --- |
@@ -21,6 +23,10 @@ already has an independent controller.
 | `UI/MinigamesSceneController.EditableUI.cs` | Shared Unity UI creation, caching and layout |
 | `Modes/WordMasterGuessRules.cs` | Pure duplicate-letter-aware guess evaluation |
 | `Modes/WordExcavationRules.cs` | Pure letter inventory, score and time-bonus rules |
+| `Modes/WordMasterSession.cs` | Target, locked letters, guesses, turns, win/loss attempt validation |
+| `Modes/SpellItOutSession.cs` | Timed word rounds and correct/missed history |
+| `Modes/WordExcavationSession.cs` | Source inventory, valid unique finds, score and time bonus |
+| `Core/MinigameTileSelection.cs` | Source letters and selected tile indices |
 
 ## Guardrails
 
@@ -43,3 +49,28 @@ already has an independent controller.
   Excavation scoring/time bonuses, and Main Menu/build-index preservation.
 - **Not yet validated:** complete Play Mode smoke test of all five scenes,
   full minigame UI redesign, or Android performance.
+
+## Separation boundary
+
+The `MinigamesSceneController` owns Unity lifecycle, scene routing, widget
+references and feedback. It delegates round decisions to `WordMasterSession`,
+`SpellItOutSession`, and `WordExcavationSession`. Existing private names in
+the controller now forward to these models for scene compatibility.
+
+The remaining partial mode files contain board rendering, dictionary candidate
+selection and view synchronization, not the source of truth for session state.
+The dedicated dictionary loading/definition curation can be extracted in a
+later safe iteration without changing gameplay semantics.
+
+## Phase 2 regression verification
+
+- Standalone `WordMasterSession`, `SpellItOutSession`,
+  `WordExcavationSession` and `MinigameTileSelection` compile in Unity.
+- **28 in-editor assertions passed**, including Word Master five-turn win/loss,
+  dictionary validation, locked hints and repeated guesses; Spell It Out
+  timeout/correct/missed history; Excavation duplicate/inventory/reward/timer
+  behavior; and unchanged Main Menu/Build Settings.
+- The original scene-facing MonoBehaviour and its public serialized
+  configuration remain in place; no minigame scene assets were rewritten.
+- Full Play Mode navigation, visual acceptance and Android profiling remain
+  explicitly scheduled for Phase 3, not inferred from unit tests.

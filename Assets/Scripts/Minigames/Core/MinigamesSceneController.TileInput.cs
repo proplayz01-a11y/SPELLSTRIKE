@@ -44,11 +44,7 @@ public partial class MinigamesSceneController
 
     private void ConfigureTilePicker(string sourceLetters)
     {
-        currentSourceLetters = string.IsNullOrWhiteSpace(sourceLetters)
-            ? new char[0]
-            : sourceLetters.ToUpperInvariant().ToCharArray();
-
-        selectedTileIndexes.Clear();
+        tileSelection.Configure(sourceLetters);
         if (currentMode == MinigameMode.WordMaster)
             wordMasterConsumedLockedInputPositions.Clear();
 

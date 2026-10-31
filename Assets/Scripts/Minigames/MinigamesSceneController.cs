@@ -118,38 +118,45 @@ public partial class MinigamesSceneController : MonoBehaviour
     private Button spellItOutButton;
     private Button wordExcavationButton;
     private readonly List<Button> optionButtons = new List<Button>();
-    private readonly List<int> selectedTileIndexes = new List<int>();
-    private readonly HashSet<int> wordMasterConsumedLockedInputPositions = new HashSet<int>();
+    // Owned by plain C# models. The scene-facing partial MonoBehaviour is a
+    // compatibility adapter for existing serialized Unity scenes and UI.
+    private readonly MinigameTileSelection tileSelection = new MinigameTileSelection();
+    private readonly WordMasterSession wordMasterSession = new WordMasterSession();
+    private readonly SpellItOutSession spellingSession = new SpellItOutSession();
+    private readonly WordExcavationSession excavationSession = new WordExcavationSession();
+
+    private List<int> selectedTileIndexes => tileSelection.SelectedIndices;
+    private HashSet<int> wordMasterConsumedLockedInputPositions => wordMasterSession.ConsumedHintPositions;
     private readonly List<PracticeEntry> spellItOutCuratedEntries = new List<PracticeEntry>();
-    private readonly List<string> spellItOutSessionWords = new List<string>();
-    private readonly List<bool> spellItOutSessionCorrect = new List<bool>();
-    private char[] currentSourceLetters = new char[0];
-    private char[] wordMasterLockedLetters = new char[0];
+    private List<string> spellItOutSessionWords => spellingSession.Words;
+    private List<bool> spellItOutSessionCorrect => spellingSession.Correct;
+    private char[] currentSourceLetters { get => tileSelection.SourceLetters; set => tileSelection.SourceLetters = value; }
+    private char[] wordMasterLockedLetters { get => wordMasterSession.LockedLetters; set => wordMasterSession.LockedLetters = value; }
     private int lastSourceTileClickFrame = -1;
     private int lastSourceTileClickIndex = -1;
 
-    private string currentWord = string.Empty;
-    private string currentDefinition = string.Empty;
-    private string wordMasterTargetWord = string.Empty;
-    private string excavationSourceWord = string.Empty;
-    private float excavationTimer;
+    private string currentWord { get => spellingSession.Word; set => spellingSession.Word = value; }
+    private string currentDefinition { get => spellingSession.Definition; set => spellingSession.Definition = value; }
+    private string wordMasterTargetWord { get => wordMasterSession.TargetWord; set => wordMasterSession.TargetWord = value; }
+    private string excavationSourceWord { get => excavationSession.SourceWord; set => excavationSession.SourceWord = value; }
+    private float excavationTimer { get => excavationSession.SecondsLeft; set => excavationSession.SecondsLeft = value; }
     private int score;
     private int roundsPlayed;
-    private int wordMasterTurn;
-    private int wordMasterHintIndex = -1;
-    private int spellItOutWordIndex;
-    private float spellItOutTimer;
-    private bool wordMasterSolved;
-    private bool wordMasterHintPanelDismissed;
-    private bool spellItOutActive;
-    private bool excavationActive;
+    private int wordMasterTurn { get => wordMasterSession.Turn; set => wordMasterSession.Turn = value; }
+    private int wordMasterHintIndex { get => wordMasterSession.HintIndex; set => wordMasterSession.HintIndex = value; }
+    private int spellItOutWordIndex { get => spellingSession.WordIndex; set => spellingSession.WordIndex = value; }
+    private float spellItOutTimer { get => spellingSession.SecondsLeft; set => spellingSession.SecondsLeft = value; }
+    private bool wordMasterSolved { get => wordMasterSession.Solved; set => wordMasterSession.Solved = value; }
+    private bool wordMasterHintPanelDismissed { get => wordMasterSession.HintDismissed; set => wordMasterSession.HintDismissed = value; }
+    private bool spellItOutActive { get => spellingSession.Active; set => spellingSession.Active = value; }
+    private bool excavationActive { get => excavationSession.Active; set => excavationSession.Active = value; }
     private bool minigamePaused;
     private bool resultOverlayShowing;
     private bool spellItOutCuratedEntriesLoaded;
-    private readonly HashSet<string> foundExcavationWords = new HashSet<string>();
-    private readonly List<string> foundExcavationWordsInOrder = new List<string>();
-    private readonly List<string> wordMasterGuesses = new List<string>();
-    private readonly List<LetterClue[]> wordMasterGuessClues = new List<LetterClue[]>();
+    private HashSet<string> foundExcavationWords => excavationSession.FoundWords;
+    private List<string> foundExcavationWordsInOrder => excavationSession.FoundWordsInOrder;
+    private List<string> wordMasterGuesses => wordMasterSession.Guesses;
+    private List<LetterClue[]> wordMasterGuessClues => wordMasterSession.GuessClues;
     private readonly Dictionary<char, Color> wordMasterKeyboardColors = new Dictionary<char, Color>();
 
     private struct PracticeEntry
