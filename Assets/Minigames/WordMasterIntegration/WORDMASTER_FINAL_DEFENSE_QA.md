@@ -63,3 +63,14 @@ Visual captures on the project PC:
 - Temp/WordMasterContextHintQA/WM_Turn3_DarkHints.png
 - Temp/WordMasterContextHintQA/WM_InvalidWord_CompactHint.png
 - Temp/WordMasterContextHintQA/WM_InvalidWord_ExpandedFinal.png
+
+
+## Click-anywhere hint dismissal QA (November 1, 2026)
+
+- First-letter Hint visibly prompts: Click anywhere to continue. The entire 2400x1080 transparent click shield consumes the first click, dismisses the tutorial hint, and does not select the keyboard letter underneath.
+- Confirmed the next click on the same A key **does** select the letter. This test used the Unity EventSystem `IPointerClickHandler` pathway, not only a direct Button callback.
+- After submitting REAPS against RAYED, the Turn and Prize cards appear together. One click on their shared shield dismisses both immediately, and they stay dismissed for that turn.
+- Clicking directly on the Prize Hint frame also dismisses it and the Turn Hint, preserving mouse-hover detail display until dismissal.
+- Invalid-word warnings persist until dismissed, rather than timing out. Dismissal leaves the invalid word untouched and exposes the board for correction; changing to a new invalid guess may show another warning.
+- During hints, desktop keyboard input is gated, and the transparent button consumes Android taps without accidentally submitting. Physical Android touchscreen QA remains pending.
+- The approved fantasy hint artwork, player input, dictionary, and scoring remain unchanged. Hints are runtime-only overlays; no scene edits were included.

@@ -52,14 +52,17 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private int previouslyRenderedTurn=-1;
     private readonly Image[] victoryStars = new Image[3];
     private Sprite victoryStarSprite;
-    // Non-blocking Bookworm reference callouts. Built at runtime for both the
-    // current serialized scene and the full UI builder path.
+    // Bookworm reference callouts. Built at runtime for both the current
+    // serialized scene and the full UI builder path. Clicks are intercepted
+    // while a hint is visible, so input never leaks into gameplay.
     private readonly GameObject[] infoPanels = new GameObject[3];
     private readonly TextMeshProUGUI[] infoBodies = new TextMeshProUGUI[3];
     private readonly bool[] infoExpanded = new bool[3];
     private readonly bool[] infoPinned = new bool[3];
+    private readonly bool[] infoDismissed = new bool[3];
+    private string lastInvalidGuess = string.Empty;
+    private Button dismissAnywhereButton;
     private int infoTurn = -1;
-    private float infoTurnShownAt;
     private bool infoPreviousStartHint;
     private const int InfoTurns = 0, InfoPrize = 1, InfoInvalid = 2;
 
@@ -118,7 +121,9 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             if (pauseGroup != null) pauseGroup.SetActive(false);
             lastState = string.Empty;
             EnsureInfoPanels();
+            EnsureDismissAnywhereButton();
             RefreshGameplay(true);
+            RefreshInfoPanels();
         }
     }
 
@@ -597,7 +602,12 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         // On Android there is no hover. Tapping the plaque or hint toggles
         // the detailed explanation without changing the guess/score.
         var tap=new EventTrigger.Entry {eventID=EventTriggerType.PointerClick};
-        tap.callback.AddListener(_=>{infoPinned[index]=!infoPinned[index];});
+        tap.callback.AddListener(_=>
+        {
+            if(infoPanels[index]!=null && infoPanels[index].activeInHierarchy)
+                DismissVisibleHints();
+            else infoPinned[index]=!infoPinned[index];
+        });
         trigger.triggers.Add(tap);
     }
 
@@ -652,6 +662,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         {
             if(complete)infoTurn=-1; // replay also works after a first-turn victory
             for(int i=0;i<infoPanels.Length;i++)infoPanels[i].SetActive(false);
+            UpdateDismissShield(false);
             return;
         }
         bool justRestartedHint=controller.RoyalShowHint && !infoPreviousStartHint;
@@ -661,40 +672,47 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         if(infoTurn!=turn)
         {
             infoTurn=turn;
-            infoTurnShownAt=Time.unscaledTime;
             for(int i=0;i<infoExpanded.Length;i++)
             {
                 infoExpanded[i]=false;
                 infoPinned[i]=false;
+                infoDismissed[i]=false;
             }
+            lastInvalidGuess=string.Empty;
         }
         bool initialHint=controller.RoyalShowHint;
         bool tileClueActive=!string.IsNullOrEmpty(contextualClue);
         string guess=controller.RoyalGuess(turn);
         bool filled=guess.Length==controller.RoyalLength && guess.IndexOf(' ')<0;
         bool invalid=filled && !controller.RoyalCanSubmit;
-        if(!invalid)infoPinned[InfoInvalid]=false;
-        // Reveal the turn/prize concepts briefly each turn; afterwards they
-        // can still be inspected by hovering their plaques or hint panels.
-        // Leave the brief callouts visible long enough for reading; hovering
-        // the plaque or the card extends them for the detailed explanation.
-        bool recent=Time.unscaledTime-infoTurnShownAt<18f;
+        if(!invalid)
+        {
+            infoPinned[InfoInvalid]=false;
+            lastInvalidGuess=string.Empty;
+        }
+        else if(lastInvalidGuess!=guess)
+        {
+            lastInvalidGuess=guess;
+            infoDismissed[InfoInvalid]=false;
+        }
+        // Bookworm behavior: the hint persists until a click/tap.
         bool turnExpanded=infoExpanded[InfoTurns]||infoPinned[InfoTurns];
         bool prizeExpanded=infoExpanded[InfoPrize]||infoPinned[InfoPrize];
         bool invalidExpanded=infoExpanded[InfoInvalid]||infoPinned[InfoInvalid];
-        bool showTurn=!initialHint && !tileClueActive && (recent || turnExpanded);
-        bool showPrize=!initialHint && !tileClueActive && (recent || prizeExpanded);
-        bool showInvalid=invalid;
+        bool showTurn=!initialHint && !tileClueActive && !infoDismissed[InfoTurns];
+        bool showPrize=!initialHint && !tileClueActive && !infoDismissed[InfoPrize];
+        bool showInvalid=invalid && !infoDismissed[InfoInvalid];
         infoPanels[InfoTurns].SetActive(showTurn);
         infoPanels[InfoPrize].SetActive(showPrize);
         infoPanels[InfoInvalid].SetActive(showInvalid);
+        UpdateDismissShield(initialHint || showTurn || showPrize || showInvalid);
         float rowY=109f-turn*92f+110f;
         var turnRect=infoPanels[InfoTurns].GetComponent<RectTransform>();
         turnRect.anchoredPosition=new Vector2(-740,Mathf.Clamp(rowY-175f,-260f,130f));
         infoBodies[InfoTurns].fontSize=turnExpanded?25:27;
         infoBodies[InfoTurns].text=turnExpanded
             ? "Figure out the mystery word in <color=#E33B30>5 turns or less</color> to win!"
-            : "<color=#E33B30>Turn "+(turn+1)+" of 5</color>\n<size=22>(mouse over for details...)</size>";
+            : "<color=#E33B30>Turn "+(turn+1)+" of 5</color>\n<size=19>Hover for details. Click to continue.</size>";
 
         var prizeRect=infoPanels[InfoPrize].GetComponent<RectTransform>();
         prizeRect.anchoredPosition=new Vector2(745,Mathf.Clamp(rowY+140f,45f,330f));
@@ -702,14 +720,67 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         infoBodies[InfoPrize].text=prizeExpanded
             ? "Solve the word now to earn <color=#FFDC70>"+Prizes[Mathf.Clamp(turn,0,4)].ToString("N0")+
               "</color> points! The prize gets smaller after each wrong guess."
-            : "<color=#E33B30>Win on this turn, win this prize!</color>";
+            : "<color=#E33B30>Win on this turn, win this prize!</color>\n<size=19>Click anywhere to continue.</size>";
 
         var invalidRect=infoPanels[InfoInvalid].GetComponent<RectTransform>();
         invalidRect.anchoredPosition=new Vector2(-215,-297);
         infoBodies[InfoInvalid].fontSize=invalidExpanded?22:27;
         infoBodies[InfoInvalid].text=invalidExpanded
             ? "Oops! <color=#E33B30>Not a valid word.</color>\nSubmit stays disabled.\nClick a placed tile to <color=#E33B30>remove</color> it,\nthen keep trying."
-            : "<color=#E33B30>Disabled: invalid word.</color>\n<size=22>(mouse over for details...)</size>";
+            : "<color=#E33B30>Disabled: invalid word.</color>\n<size=19>Hover for details. Click to continue.</size>";
+    }
+
+    private void EnsureDismissAnywhereButton()
+    {
+        if(!Application.isPlaying || layout==null || dismissAnywhereButton!=null)return;
+        Image shield=CreateImage("ClickAnywhereToDismissHints",layout,null,
+            Vector2.zero,new Vector2(2400,1080),true);
+        shield.color=new Color(1f,1f,1f,.001f);
+        dismissAnywhereButton=MakeButton(shield,DismissVisibleHints);
+        dismissAnywhereButton.transition=Selectable.Transition.None;
+        dismissAnywhereButton.gameObject.SetActive(false);
+    }
+
+    private void UpdateDismissShield(bool show)
+    {
+        if(dismissAnywhereButton==null)EnsureDismissAnywhereButton();
+        if(dismissAnywhereButton==null)return;
+        bool newlyActivated=show && !dismissAnywhereButton.gameObject.activeSelf;
+        dismissAnywhereButton.gameObject.SetActive(show);
+        if(!show)return;
+        // Shield consumes the click before it reaches a tile or Submit.
+        // The existing popup cards stay above it for hover explanations.
+        dismissAnywhereButton.transform.SetAsLastSibling();
+        for(int i=0;i<infoPanels.Length;i++)
+            if(infoPanels[i]!=null && infoPanels[i].activeSelf)
+                infoPanels[i].transform.SetAsLastSibling();
+        if(newlyActivated)Canvas.ForceUpdateCanvases();
+    }
+
+    private void DismissVisibleHints()
+    {
+        if(showingPause || controller==null || !controller.RoyalReady)return;
+        if(controller.RoyalShowHint)
+        {
+            controller.RoyalDismissHint();
+            // One click clears the starting hint without immediately opening
+            // another mandatory popup for that same turn.
+            infoDismissed[InfoTurns]=true;
+            infoDismissed[InfoPrize]=true;
+        }
+        for(int i=0;i<infoPanels.Length;i++)
+            if(infoPanels[i]!=null && infoPanels[i].activeSelf)
+            {
+                infoDismissed[i]=true;
+                infoExpanded[i]=false;
+                infoPinned[i]=false;
+            }
+        HideContextClue();
+        if(dismissAnywhereButton!=null)
+            dismissAnywhereButton.gameObject.SetActive(false);
+        lastState=string.Empty;
+        RefreshGameplay(true);
+        RefreshInfoPanels();
     }
 
     private void BindTileHover(Image holder,int row,int col)
@@ -753,7 +824,8 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private void HandleDesktopKeyboard()
     {
 #if ENABLE_LEGACY_INPUT_MANAGER
-        if(showingPause || controller==null || !controller.RoyalReady
+        if(showingPause || (dismissAnywhereButton!=null && dismissAnywhereButton.gameObject.activeSelf)
+           || controller==null || !controller.RoyalReady
            || controller.RoyalSolved || controller.RoyalGameOver || Application.isMobilePlatform)return;
         // Type letters and press Return/Backspace without requiring a mouse.
         foreach(char ch in Input.inputString)
@@ -886,7 +958,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         // The original hint card is used for the first letter and the
         // detailed per-tile clues. Other explanations use contextual popups.
         if(hintGroup!=null)hintGroup.SetActive(controller.RoyalShowHint ||
-            !string.IsNullOrEmpty(contextualClue) || turn==0);
+            !string.IsNullOrEmpty(contextualClue));
         if(tutorialArrow!=null)tutorialArrow.SetActive(controller.RoyalShowHint);
         if(hintTitle!=null)hintTitle.text=!string.IsNullOrEmpty(contextualClue)?"Tile clue":controller.RoyalShowHint?"Hint!":"Clues";
         if(hintMessage!=null)
@@ -899,7 +971,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             else if(controller.RoyalShowHint)
             {
                 hintMessage.fontSize=33;
-                hintMessage.text="<color=#B52B26>"+controller.RoyalHintLetter+"</color> is the first letter\nof the mystery word!";
+                hintMessage.text="<color=#B52B26>"+controller.RoyalHintLetter+"</color> is the first letter\nof the mystery word!\n<size=20>Click anywhere to continue.</size>";
             }
             else
             {
