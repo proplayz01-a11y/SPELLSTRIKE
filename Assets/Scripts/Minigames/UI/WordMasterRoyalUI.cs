@@ -3,6 +3,8 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 // Dedicated royal UI for Word Master only. All authoritative game rules remain
 // in MinigamesSceneController/WordMasterSession.
@@ -11,7 +13,7 @@ using UnityEngine.UI;
 public sealed class WordMasterRoyalUI : MonoBehaviour
 {
     private const string ResourcesRoot = "WordMasterRoyal/";
-    private static readonly int[] Prizes = { 10000, 5000, 2500, 1500, 500 };
+    private static readonly int[] Prizes = { 10000, 5000, 2500, 1000, 500 };
     private static readonly Color NavyInk = new Color(0.10f, 0.11f, 0.16f, 1f);
     private static readonly Color Ivory = new Color(1f, .95f, .84f, 1f);
 
@@ -30,6 +32,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private readonly TextMeshProUGUI[] turnText = new TextMeshProUGUI[5];
     private readonly TextMeshProUGUI[] prizeText = new TextMeshProUGUI[5];
     private readonly Image[] keyLetter = new Image[26];
+    private readonly TextMeshProUGUI[] wrongMarks = new TextMeshProUGUI[5];
 
     private Sprite backgroundSprite, boardSprite, keyboardFrameSprite, headerSprite;
     private Sprite slotSprite, normalSprite, goldSprite, silverSprite, graySprite, redSprite;
@@ -45,6 +48,10 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private bool showingPause;
     private string lastState = string.Empty;
     private bool assetsReady;
+    private string contextualClue = string.Empty;
+    private int previouslyRenderedTurn=-1;
+    private readonly Image[] victoryStars = new Image[3];
+    private Sprite victoryStarSprite;
 
     private static Sprite Load(string name) => Resources.Load<Sprite>(ResourcesRoot + name);
 
@@ -55,6 +62,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         boardSprite = Load("Board");
         keyboardFrameSprite = Load("KeyboardFrameCompact");
         headerSprite = Load("Header");
+        victoryStarSprite=Load("VictoryStar");
         slotSprite = Load("Slot");
         normalSprite = Load("Normal");
         goldSprite = Load("Gold");
@@ -240,6 +248,10 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             prizeGlow[row] = CreateImage("PrizeGlow", prize.transform, prizeGlowSprite, Vector2.zero, new Vector2(152,80));
             prizeText[row] = CreateText("PrizeNumber", prize.transform, Prizes[row].ToString("N0"),
                 Vector2.zero, new Vector2(140,66), 27, NavyInk);
+            // Bookworm's clear red X appears beside each forfeited prize.
+            wrongMarks[row] = CreateText("WrongCross", line, "X", new Vector2(470,0),
+                new Vector2(76,84), 72, new Color(.86f,.06f,.045f,1f));
+            wrongMarks[row].gameObject.SetActive(false);
         }
 
         Image ribbon = CreateImage("TitleRibbon", layout, headerSprite, new Vector2(75, 463), new Vector2(848, 151));
@@ -325,6 +337,12 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             new Action[] { () => { if(controller!=null) controller.RoyalRestart(); }, () => { if(controller!=null)controller.RoyalExitToModeSelect(); }, () => { if(controller!=null) controller.RoyalExitToMainMenu(); } });
         resultTitle = resultGroup.transform.Find("Dialog/PopupTitle")?.GetComponent<TextMeshProUGUI>();
         resultMessage = resultGroup.transform.Find("Dialog/PopupMessage")?.GetComponent<TextMeshProUGUI>();
+        for(int i=0;i<victoryStars.Length;i++)
+        {
+            victoryStars[i]=CreateImage("VictoryStar_"+i,resultGroup.transform.Find("Dialog"),
+                victoryStarSprite,new Vector2((i-1)*120,295),new Vector2(74,74));
+            victoryStars[i].gameObject.SetActive(false);
+        }
         pauseGroup.SetActive(false);
         resultGroup.SetActive(false);
         SetEditPreview();
@@ -391,6 +409,11 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             prizeGlow[row]=prizePlaque[row]?.transform.Find("PrizeGlow")?.GetComponent<Image>();
             turnText[row]=turnPlaque[row]?.transform.Find("TurnNumber")?.GetComponent<TextMeshProUGUI>();
             prizeText[row]=prizePlaque[row]?.transform.Find("PrizeNumber")?.GetComponent<TextMeshProUGUI>();
+            wrongMarks[row]=line.Find("WrongCross")?.GetComponent<TextMeshProUGUI>();
+            // Older serialized scenes get this light-weight overlay at runtime.
+            if(wrongMarks[row]==null && Application.isPlaying)
+                wrongMarks[row]=CreateText("WrongCross",line,"X",new Vector2(470,0),
+                    new Vector2(76,84),72,new Color(.86f,.06f,.045f,1f));
             for(int col=0;col<5;col++)
             {
                 var cell=line.Find("Slot"+(col+1));
@@ -398,7 +421,18 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
                 tileLetter[row,col]=cell?.Find("LetterOverlay")?.GetComponent<Image>();
                 var holder=cell?.Find("Holder")?.GetComponent<Image>();
                 var b=holder!=null?holder.GetComponent<Button>():null;
-                if(b!=null){b.onClick.RemoveAllListeners();int captured=col;b.onClick.AddListener(()=>{if(!showingPause&&controller!=null&&boundRow==controller.RoyalTurn)controller.RoyalRemoveAt(captured);});}
+                if(b!=null)
+                {
+                    b.onClick.RemoveAllListeners();
+                    int captured=col;
+                    b.onClick.AddListener(()=>
+                    {
+                        if(showingPause || controller==null)return;
+                        if(boundRow==controller.RoyalTurn)controller.RoyalRemoveAt(captured);
+                        else ShowContextClue(boundRow,captured);
+                    });
+                }
+                if(holder!=null)BindTileHover(holder,boundRow,col);
             }
         }
         var k=layout.Find("Keyboard");
@@ -501,6 +535,14 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         resultGroup=layout.Find("RoyalResult")?.gameObject;
         resultTitle=resultGroup?.transform.Find("Dialog/PopupTitle")?.GetComponent<TextMeshProUGUI>();
         resultMessage=resultGroup?.transform.Find("Dialog/PopupMessage")?.GetComponent<TextMeshProUGUI>();
+        for(int i=0;i<victoryStars.Length;i++)
+        {
+            victoryStars[i]=resultGroup?.transform.Find("Dialog/VictoryStar_"+i)?.GetComponent<Image>();
+            if(victoryStars[i]==null && resultGroup!=null && Application.isPlaying)
+                victoryStars[i]=CreateImage("VictoryStar_"+i,resultGroup.transform.Find("Dialog"),
+                    victoryStarSprite,new Vector2((i-1)*120,295),new Vector2(74,74));
+            if(victoryStars[i]!=null)victoryStars[i].sprite=victoryStarSprite;
+        }
         BindPopupButtons(pauseGroup, new Action[]{()=>SetPauseVisible(false),()=>{SetPauseVisible(false);if(controller!=null)controller.RoyalRestart();},()=>{if(controller!=null)controller.RoyalExitToModeSelect();}});
         BindPopupButtons(resultGroup,new Action[]{()=>{if(controller!=null)controller.RoyalRestart();},()=>{if(controller!=null)controller.RoyalExitToModeSelect();},()=>{if(controller!=null)controller.RoyalExitToMainMenu();}});
     }
@@ -518,8 +560,73 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         }
     }
 
+    private void BindTileHover(Image holder,int row,int col)
+    {
+        if(holder==null || !Application.isPlaying)return;
+        var trigger=holder.GetComponent<EventTrigger>();
+        if(trigger==null)trigger=holder.gameObject.AddComponent<EventTrigger>();
+        if(trigger.triggers==null)trigger.triggers=new List<EventTrigger.Entry>();
+        trigger.triggers.Clear();
+        var enter=new EventTrigger.Entry { eventID=EventTriggerType.PointerEnter };
+        enter.callback.AddListener(_=>ShowContextClue(row,col));
+        trigger.triggers.Add(enter);
+        var exit=new EventTrigger.Entry { eventID=EventTriggerType.PointerExit };
+        exit.callback.AddListener(_=>HideContextClue());
+        trigger.triggers.Add(exit);
+    }
+
+    private void ShowContextClue(int row,int col)
+    {
+        if(controller==null || !controller.RoyalReady || showingPause)return;
+        if(row>=controller.RoyalTurn)return;
+        int clue=controller.RoyalCellState(row,col);
+        string word=controller.RoyalGuess(row);
+        if(col<0 || col>=word.Length)return;
+        string meaning=clue==2?"Gold: correct letter and exact position."
+            :clue==3?"Silver: the letter is in the word, but elsewhere."
+            :clue==4?"Gray: this letter is not in the mystery word."
+            :string.Empty;
+        contextualClue=string.IsNullOrEmpty(meaning)?string.Empty:
+            word[col]+": "+meaning;
+        lastState=string.Empty;
+    }
+
+    private void HideContextClue()
+    {
+        if(string.IsNullOrEmpty(contextualClue))return;
+        contextualClue=string.Empty;
+        lastState=string.Empty;
+    }
+
+    private void HandleDesktopKeyboard()
+    {
+#if ENABLE_LEGACY_INPUT_MANAGER
+        if(showingPause || controller==null || !controller.RoyalReady
+           || controller.RoyalSolved || controller.RoyalGameOver || Application.isMobilePlatform)return;
+        // Type letters and press Return/Backspace without requiring a mouse.
+        foreach(char ch in Input.inputString)
+        {
+            if(ch=='\b')
+            {
+                string current=controller.RoyalGuess(controller.RoyalTurn);
+                for(int i=current.Length-1;i>=0;i--)
+                    if(controller.RoyalCellState(controller.RoyalTurn,i)==1)
+                    { controller.RoyalRemoveAt(i); break; }
+            }
+            else if(ch=='\r' || ch=='\n')
+            {
+                if(controller.RoyalCanSubmit)controller.RoyalSubmit();
+            }
+            else if(ch>='a'&&ch<='z'||ch>='A'&&ch<='Z')
+                controller.RoyalPress(char.ToUpperInvariant(ch));
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))SetPauseVisible(true);
+#endif
+    }
+
     private void SetPauseVisible(bool show)
     {
+        HideContextClue();
         showingPause=show;
         if(pauseGroup!=null)pauseGroup.SetActive(show);
     }
@@ -527,8 +634,17 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private void Update()
     {
         if(!Application.isPlaying || controller==null || !controller.RoyalReady)return;
+        HandleDesktopKeyboard();
         RefreshGameplay(false);
         float pulse=.5f+.5f*Mathf.Sin(Time.unscaledTime*3.5f);
+        for(int i=0;i<victoryStars.Length;i++)
+        {
+            var star=victoryStars[i];
+            if(star==null || !star.gameObject.activeSelf)continue;
+            float shimmer=.5f+.5f*Mathf.Sin(Time.unscaledTime*3f+i*.85f);
+            star.color=new Color(1f,1f,1f,.73f+.27f*shimmer);
+            star.rectTransform.localScale=Vector3.one*(.97f+.05f*shimmer);
+        }
         for(int row=0;row<5;row++)
         {
             bool active=row==controller.RoyalTurn && !controller.RoyalSolved && !controller.RoyalGameOver;
@@ -553,13 +669,17 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             for(int col=0;col<5;col++)sb.Append(controller.RoyalCellState(row,col));
         }
         for(char ch='A';ch<='Z';ch++)sb.Append(controller.RoyalKeyState(ch));
-        sb.Append('|').Append(controller.RoyalFeedback);
+        sb.Append('|').Append(controller.RoyalFeedback).Append('|').Append(contextualClue);
         return sb.ToString();
     }
 
     private void RefreshGameplay(bool force)
     {
         if(controller==null || !controller.RoyalReady)return;
+        // Dismiss stale hover guidance when a new round replaces the last one.
+        if(previouslyRenderedTurn>0 && controller.RoyalTurn==0)
+            contextualClue=string.Empty;
+        previouslyRenderedTurn=controller.RoyalTurn;
         string state=ComputeState();
         if(!force && state==lastState)return;
         lastState=state;
@@ -574,7 +694,15 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             if(turnGlow[row]!=null)turnGlow[row].gameObject.SetActive(active);
             if(prizeGlow[row]!=null)prizeGlow[row].gameObject.SetActive(active);
             if(turnText[row]!=null)turnText[row].color=active?NavyInk:Ivory;
-            if(prizeText[row]!=null)prizeText[row].color=active?NavyInk:Ivory;
+            if(prizeText[row]!=null)
+            {
+                prizeText[row].color=active?NavyInk:Ivory;
+                // Existing scenes were serialized with the previous 1,500
+                // artwork label. Update TMP from the authoritative prize table.
+                prizeText[row].text=Prizes[row].ToString("N0");
+            }
+            if(wrongMarks[row]!=null)
+                wrongMarks[row].gameObject.SetActive(row<turn && (!controller.RoyalSolved || row<turn-1));
 
             string guess=controller.RoyalGuess(row);
             for(int col=0;col<5;col++)
@@ -587,7 +715,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
                 tile.gameObject.SetActive(visible);
                 letter.gameObject.SetActive(visible);
                 if(!visible)continue;
-                tile.sprite=code==2?goldSprite:code==3?silverSprite:code==4?graySprite:normalSprite;
+                tile.sprite=code==2?goldSprite:code==3?silverSprite:code==4?graySprite:normalSprite; // 5 = frozen ivory
                 letter.sprite=letters[guess[col]-'A'];
             }
         }
@@ -597,15 +725,22 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             var baseImage=keyBase[i];
             if(baseImage==null)continue;
             int status=controller.RoyalKeyState((char)('A'+i));
-            baseImage.sprite=status==3?goldSprite:status==2?silverSprite:status==1?redSprite:normalSprite;
+            // Bookworm leaves usable keyboard letters ivory. Only eliminated
+            // letters turn red; gold and silver belong on the guess board.
+            baseImage.sprite=status==1?redSprite:normalSprite;
             if(keyButton[i]!=null)keyButton[i].interactable=!complete && !showingPause;
         }
         if(hintGroup!=null)hintGroup.SetActive(true);
         if(tutorialArrow!=null)tutorialArrow.SetActive(controller.RoyalShowHint);
-        if(hintTitle!=null)hintTitle.text=controller.RoyalShowHint?"Hint!":"Clues";
+        if(hintTitle!=null)hintTitle.text=!string.IsNullOrEmpty(contextualClue)?"Tile clue":controller.RoyalShowHint?"Hint!":"Clues";
         if(hintMessage!=null)
         {
-            if(controller.RoyalShowHint)
+            if(!string.IsNullOrEmpty(contextualClue))
+            {
+                hintMessage.fontSize=27;
+                hintMessage.text=contextualClue;
+            }
+            else if(controller.RoyalShowHint)
             {
                 hintMessage.fontSize=33;
                 hintMessage.text="<color=#B52B26>"+controller.RoyalHintLetter+"</color> is the first letter\nof the mystery word!";
@@ -638,8 +773,12 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             {
                 if(resultTitle!=null)resultTitle.text=controller.RoyalSolved?"VICTORY!":"GAME OVER";
                 if(resultMessage!=null)resultMessage.text=controller.RoyalSolved
-                    ? "Mystery word solved!\nPrize: "+Prizes[Mathf.Clamp(turn-1,0,4)].ToString("N0")
-                    : "The mystery word was "+controller.RoyalEndWord+".";
+                    ? "Mystery word: "+controller.RoyalEndWord+"\nPrize: "+Prizes[Mathf.Clamp(turn-1,0,4)].ToString("N0")
+                      +"   Score: "+controller.RoyalPrizePoints.ToString("N0")+"\nWords solved: "+controller.RoyalWordsSolved
+                    : "The mystery word was "+controller.RoyalEndWord+"\nScore: "+controller.RoyalPrizePoints.ToString("N0")
+                      +"   Words solved: "+controller.RoyalWordsSolved;
+                for(int i=0;i<victoryStars.Length;i++)
+                    if(victoryStars[i]!=null)victoryStars[i].gameObject.SetActive(controller.RoyalSolved);
             }
         }
     }

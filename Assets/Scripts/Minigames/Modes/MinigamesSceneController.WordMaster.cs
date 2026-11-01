@@ -138,7 +138,7 @@ public partial class MinigamesSceneController
     {
         WordMasterSession.GuessStatus status = wordMasterSession.Submit(
             guess, wordMasterWordLength, wordMasterMaxTurns,
-            word => dictionary != null ? dictionary.IsValidWord(word) : IsFallbackValidWord(word),
+            IsWordMasterValidGuess,
             out LetterClue[] clues);
 
         switch (status)
@@ -197,6 +197,36 @@ public partial class MinigamesSceneController
 
         string[] fallbackTargets = { "SPELL", "OCEAN", "MAGIC" };
         return fallbackTargets[Random.Range(0, fallbackTargets.Length)];
+    }
+
+    // Word Master accepts the existing gameplay dictionary plus its compact,
+    // five-letter definitions supplement. Other minigames keep their existing
+    // validation rules. Source: the project's word_definitions.json, exported
+    // once to a compact 20 KB text asset instead of parsing 9 MB every round.
+    private static HashSet<string> wordMasterAdditionalValidWords;
+    private bool IsWordMasterValidGuess(string candidate)
+    {
+        if(string.IsNullOrWhiteSpace(candidate)||candidate.Length!=wordMasterWordLength)
+            return false;
+        for(int i=0;i<candidate.Length;i++)
+            if(candidate[i]<'A'||candidate[i]>'Z')return false;
+        if(dictionary!=null && dictionary.IsValidWord(candidate))return true;
+        if(dictionary==null && IsFallbackValidWord(candidate))return true;
+        if(wordMasterAdditionalValidWords==null)
+        {
+            wordMasterAdditionalValidWords=new HashSet<string>(StringComparer.Ordinal);
+            TextAsset supplement=Resources.Load<TextAsset>("WordMasterRoyal/AcceptedSupplementalWords");
+            if(supplement!=null)
+            {
+                foreach(string raw in supplement.text.Split(new[]{'\n','\r'},StringSplitOptions.RemoveEmptyEntries))
+                {
+                    string word=raw.Trim().ToUpperInvariant();
+                    if(word.Length==5)wordMasterAdditionalValidWords.Add(word);
+                }
+            }
+            else Debug.LogWarning("[WordMaster] Supplemental word list not found.");
+        }
+        return wordMasterAdditionalValidWords.Contains(candidate);
     }
 
     private LetterClue[] EvaluateWordMasterGuess(string guess, string target)
@@ -650,7 +680,7 @@ public partial class MinigamesSceneController
             case 2:
                 return "2,500";
             case 3:
-                return "1,500";
+                return "1,000";
             default:
                 return "500";
         }

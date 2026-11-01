@@ -21,7 +21,12 @@ public partial class MinigamesSceneController
 
     public void SelectSourceTile(int tileIndex)
     {
-        if (Time.frameCount == lastSourceTileClickFrame && tileIndex == lastSourceTileClickIndex)
+        // In Word Master, repeated letters are legal and may be entered twice
+        // in a single keyboard frame. Preserve the old guard for the other
+        // modes, where duplicate event dispatch is a separate concern.
+        if (currentMode != MinigameMode.WordMaster
+            && Time.frameCount == lastSourceTileClickFrame
+            && tileIndex == lastSourceTileClickIndex)
             return;
 
         lastSourceTileClickFrame = Time.frameCount;

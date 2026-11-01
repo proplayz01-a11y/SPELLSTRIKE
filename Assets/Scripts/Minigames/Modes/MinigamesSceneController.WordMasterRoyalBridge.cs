@@ -18,7 +18,7 @@ public partial class MinigamesSceneController
     // Score tracks prize points; the existing score field counts solved words.
     private void RoyalAwardPrizeForSolvedTurn()
     {
-        int[] prizes = { 10000, 5000, 2500, 1500, 500 };
+        int[] prizes = { 10000, 5000, 2500, 1000, 500 };
         int index = Mathf.Clamp(wordMasterTurn - 1, 0, prizes.Length - 1);
         royalPrizePoints += prizes[index];
     }
@@ -37,7 +37,7 @@ public partial class MinigamesSceneController
                 return feedback;
             string guess = GetWordMasterCurrentGuess();
             if (guess.Length == wordMasterWordLength && guess.IndexOf(' ') < 0
-                && !(dictionary != null ? dictionary.IsValidWord(guess) : IsFallbackValidWord(guess)))
+                && !(IsWordMasterValidGuess(guess)))
                 return "Not in dictionary.";
             return feedback;
         }
@@ -59,7 +59,7 @@ public partial class MinigamesSceneController
         return string.Empty;
     }
 
-    // Board code: 0 empty; 1 normal/current; 2 gold; 3 silver; 4 dark-gray.
+    // Board code: 0 empty; 1 normal; 2 gold; 3 silver; 4 missing; 5 frozen ivory.
     public int RoyalCellState(int row, int col)
     {
         if (row < 0 || row >= wordMasterMaxTurns || col < 0 || col >= wordMasterWordLength)
@@ -77,7 +77,9 @@ public partial class MinigamesSceneController
 
         if (row == wordMasterTurn && !wordMasterSolved)
         {
-            if (IsWordMasterLockedPosition(col)) return 2;
+            // A frozen/clued letter is automatically carried forward. It stays
+            // ivory in the active row; its previous guess retains gold.
+            if (IsWordMasterLockedPosition(col)) return 5;
             string guess = GetWordMasterCurrentGuess();
             return col < guess.Length && guess[col] >= 'A' && guess[col] <= 'Z' ? 1 : 0;
         }
@@ -114,7 +116,7 @@ public partial class MinigamesSceneController
                 return false;
             string guess = GetWordMasterCurrentGuess();
             return guess.Length == wordMasterWordLength && guess.IndexOf(' ') < 0
-                && (dictionary != null ? dictionary.IsValidWord(guess) : IsFallbackValidWord(guess));
+                && (IsWordMasterValidGuess(guess));
         }
     }
 

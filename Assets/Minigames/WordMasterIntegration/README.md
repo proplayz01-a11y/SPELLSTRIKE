@@ -17,7 +17,7 @@ Gameplay adapter: Assets/Scripts/Minigames/Modes/MinigamesSceneController.WordMa
 - Gold is correct slot, silver is valid letter in wrong slot, dark gray is missing, red is absent on keyboard.
 - Turns and Prize plaques use active-gold/inactive-gray visuals and pulsing overlays. Submit is disabled until a five-letter dictionary-valid guess exists.
 - Tutorial hint arrow targets the initially locked tile. After submission the ornate panel displays clues.
-- Score accumulates turn prizes (10,000 / 5,000 / 2,500 / 1,500 / 500), Words counts solved rounds.
+- Score accumulates turn prizes (10,000 / 5,000 / 2,500 / 1,000 / 500), Words counts solved rounds. Crossed-out prizes show a red X after an unsuccessful guess.
 
 ## Behavior / ownership
 
@@ -38,3 +38,13 @@ Do not run a blanket minigame UI rebuild on WordMasterScene: the Royal overlay i
 - 2400 x 1080 Android-reference Game View screenshot checked with all assets
 
 Physical Galaxy A05s profiling and APK build were not run. On-device layout and framerate need separate acceptance testing.
+
+
+## Final defense gameplay integration (November 1, 2026)
+
+- Starting-letter hint plus contextual on-hover/on-tap clues for previously submitted slots.
+- Gold correct-position letters carry into the next turn as frozen ivory tiles. Silver indicates a letter elsewhere, dark-gray is absent. Only eliminated letters turn red on the A-Z keyboard.
+- The Word Master-only 20 KB word supplement is exported from the project's existing word_definitions.json. It adds 2,905 dictionary entries without changing other minigames. This includes RAKER, used in the supplied Bookworm reference recording.
+- Invalid words keep Submit disabled and show dictionary feedback. Players can remove and replace letters by clicking occupied current-row slots.
+- Victory and Game Over screens reveal the mystery word, points, solved count, and options to replay, select another minigame, or return to the Main Menu. Victory uses three small pulsing sprite stars.
+- See WORDMASTER_FINAL_DEFENSE_QA.md for tests, reference recording, screenshot paths, and device-validation limitations.
