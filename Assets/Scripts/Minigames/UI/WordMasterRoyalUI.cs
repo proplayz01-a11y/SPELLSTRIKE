@@ -191,14 +191,15 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             new Color(0f, .016f, .037f, .27f);
 
         board = CreateRect("Board", layout, new Vector2(75, 110), new Vector2(1230, 845));
-        CreateImage("ParchmentBoard", board, boardSprite, Vector2.zero, board.sizeDelta, false, true);
+        Image parchmentImage = CreateImage("ParchmentBoard", board, boardSprite, new Vector2(0,-34), board.sizeDelta, false, true);
+        parchmentImage.rectTransform.localScale = new Vector3(.98f,1.23f,1f);
         CreateText("Instructions", board,
             "Guess the hidden 5-letter word.\nGold = right spot. Silver = right letter.",
             new Vector2(0, 228), new Vector2(860, 75), 28, NavyInk, false);
         CreateImage("ParchmentDivider", board, null, new Vector2(0, 171), new Vector2(790, 2)).color =
             new Color(.62f, .37f, .16f, .56f);
-        CreateText("TurnsHeader", board, "Turns", new Vector2(-390, 147), new Vector2(155, 48), 31, NavyInk);
-        CreateText("PrizeHeader", board, "Prize", new Vector2(356, 147), new Vector2(166, 48), 31, NavyInk);
+        CreateText("TurnsHeader", board, "Turns", new Vector2(-366, 192), new Vector2(155, 48), 31, NavyInk);
+        CreateText("PrizeHeader", board, "Prize", new Vector2(356, 199), new Vector2(166, 48), 31, NavyInk);
 
         const float rowTop = 109f;
         const float rowStep = 92f;
@@ -252,7 +253,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         CreateImage("ScoreDivider",scoreboard,null,new Vector2(0,1),new Vector2(310,2)).color =
             new Color(.57f,.38f,.18f,.64f);
 
-        RectTransform hint = CreateRect("HintPanelGroup", layout, new Vector2(-812, 66), new Vector2(560,308));
+        RectTransform hint = CreateRect("HintPanelGroup", layout, new Vector2(-795, 66), new Vector2(560,308));
         hintGroup = hint.gameObject;
         CreateImage("HintParchment", hint, hintSprite, Vector2.zero, hint.sizeDelta);
         hintGlow = CreateImage("HintOutsideGlow", hint, hintGlowSprite, Vector2.zero, hint.sizeDelta);
@@ -269,11 +270,12 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
 
         tutorialArrow = CreateImage("TutorialArrow",layout,arrowSprite,new Vector2(-358,160),new Vector2(364,173)).gameObject;
 
-        RectTransform keyboard = CreateRect("Keyboard", layout, new Vector2(0,-312), new Vector2(1570,220));
+        RectTransform keyboard = CreateRect("Keyboard", layout, new Vector2(0,-318), new Vector2(1570,220));
         // Use the user's approved Ornate Empty Fantasy UI Panel directly.
         // Its artwork already has the complete navy center and gold details.
         // An opaque overlay would hide the compass corners and ornate border.
-        CreateImage("KeyboardNavyFrame", keyboard, keyboardFrameSprite, Vector2.zero, keyboard.sizeDelta);
+        Image frameArt = CreateImage("KeyboardNavyFrame", keyboard, keyboardFrameSprite, Vector2.zero, keyboard.sizeDelta);
+        frameArt.rectTransform.localScale = new Vector3(.92f,1.26f,1f);
         for (int i = 0; i < 26; i++)
         {
             int captured = i;
@@ -286,6 +288,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             Image tile = CreateImage("Tile",key,normalSprite,Vector2.zero,key.sizeDelta,false);
             keyBase[i] = tile;
             Image letter = CreateImage("Letter",key,letters[i],Vector2.zero,new Vector2(155,155));
+            letter.rectTransform.localScale = new Vector3(.75f,.75f,.75f);
             keyLetter[i] = letter;
             // The transparent PNG includes ~20% padding. Use a smaller hitbox
             // matching the visible tile so neighbouring compact keys never
@@ -297,7 +300,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             keyButton[i] = button;
         }
 
-        Image submitImage = CreateImage("SubmitButton", layout, submitSprite, new Vector2(-215,-476),new Vector2(354,102),true);
+        Image submitImage = CreateImage("SubmitButton", layout, submitSprite, new Vector2(-215,-492),new Vector2(354,102),true);
         submitButton = MakeButton(submitImage, () => { if(!showingPause && controller!=null) controller.RoyalSubmit(); });
         submitButton.transition = Selectable.Transition.SpriteSwap;
         SpriteState submitState = submitButton.spriteState;
@@ -307,7 +310,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         submitState.disabledSprite = submitDisabledSprite;
         submitButton.spriteState = submitState;
 
-        MakeButton(CreateImage("MenuButton",layout,menuSprite,new Vector2(215,-476),new Vector2(354,102),true),
+        MakeButton(CreateImage("MenuButton",layout,menuSprite,new Vector2(215,-491.8f),new Vector2(354,102),true),
             () => SetPauseVisible(true));
         feedbackLabel = CreateText("Feedback", layout, string.Empty, new Vector2(-815,-135),
             new Vector2(520,130), 29, Ivory, false);
@@ -408,12 +411,13 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             if(keyboardRect!=null)
             {
                 keyboardRect.sizeDelta=new Vector2(1570,220);
-                keyboardRect.anchoredPosition=new Vector2(0,-312);
+                keyboardRect.anchoredPosition=new Vector2(0,-318);
             }
             var ornateFrame=k.Find("KeyboardNavyFrame") as RectTransform;
             if(ornateFrame!=null)
             {
                 ornateFrame.sizeDelta=new Vector2(1570,220);
+                ornateFrame.localScale=new Vector3(.92f,1.26f,1f);
                 var ornateImage=ornateFrame.GetComponent<Image>();
                 if(ornateImage!=null)
                 {
@@ -439,7 +443,11 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
                 var tileRect=key.Find("Tile") as RectTransform;
                 var letterRect=key.Find("Letter") as RectTransform;
                 if(tileRect!=null)tileRect.sizeDelta=new Vector2(126,126);
-                if(letterRect!=null)letterRect.sizeDelta=new Vector2(155,155);
+                if(letterRect!=null)
+                {
+                    letterRect.sizeDelta=new Vector2(155,155);
+                    letterRect.localScale=new Vector3(.75f,.75f,.75f);
+                }
             }
             keyBase[i]=key?.Find("Tile")?.GetComponent<Image>();
             keyLetter[i]=key?.Find("Letter")?.GetComponent<Image>();
