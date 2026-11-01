@@ -74,3 +74,19 @@ Visual captures on the project PC:
 - Invalid-word warnings persist until dismissed, rather than timing out. Dismissal leaves the invalid word untouched and exposes the board for correction; changing to a new invalid guess may show another warning.
 - During hints, desktop keyboard input is gated, and the transparent button consumes Android taps without accidentally submitting. Physical Android touchscreen QA remains pending.
 - The approved fantasy hint artwork, player input, dictionary, and scoring remain unchanged. Hints are runtime-only overlays; no scene edits were included.
+
+## Plaque-anchored directional arrow QA (November 1, 2026)
+
+- Replaced fixed Turn and Prize arrow positions/rotations with actual RectTransform-based targets. Arrow tip pivot is aligned inside the outer-facing edge of the *active* plaque, with the sprite rotated and scaled to connect from the hint card.
+- Reused approved Arrow.png and Hint popup art; the shaft renders behind the card, so no new artwork or scene changes were necessary.
+- Moved only the Prize hint popup slightly to the right to leave enough space for its visible arrow. The popup size and board/layout were not widened.
+- Live Play Mode Turn 2 after submitting REAPS against RAYED: both cards visible and both arrow tips landed exactly on Turn 2 and Prize 5,000 plaque edges; visual screenshot inspected.
+- Programmatically checked all 5 possible turn indices and both active plaques (10 targets) against their actual screen-space world positions: 10/10 passed with 0.0000 Unity-unit tip-position error; each tip was inside its intended plaque rect.
+- Turn 5 simulated active index visual screenshot inspected. This test changes the test-only Play Mode session turn, not the serialized scene or a live scored match.
+- Click anywhere regression while the hint shield was active: the UI pointer click targeted the Hint frame, did not modify the guess, and revealed the keyboard hitbox after dismissal.
+- Active Game View measured 2400 x 1080; physical Android screen/device QA and frame-rate measurements were not performed.
+
+Local project QA screenshots:
+- Temp/WordMasterArrowQA/Before_Turn2_ArrowAlignment.png
+- Temp/WordMasterArrowQA/After_Turn2_PlaqueAnchored.png
+- Temp/WordMasterArrowQA/After_Turn5_PlaqueAnchored.png

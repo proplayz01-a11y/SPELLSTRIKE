@@ -633,11 +633,13 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             title.raycastTarget=false;
             infoBodies[i]=CreateText("HintBody",group,string.Empty,new Vector2(0,-24),
                 new Vector2(426,123),27,new Color(.99f,.95f,.85f,1f),false);
-            Vector2 arrowPosition=i==InfoTurns?new Vector2(218,126):
-                i==InfoPrize?new Vector2(-205,-120):new Vector2(0,-123);
-            var point=CreateImage("HintDirection",group,arrowSprite,arrowPosition,
+            var point=CreateImage("HintDirection",group,arrowSprite,
+                i==InfoInvalid?new Vector2(0,-123):Vector2.zero,
                 new Vector2(155,68));
-            point.rectTransform.localRotation=Quaternion.Euler(0,0,i==InfoTurns?90f:-90f);
+            if(i==InfoInvalid)
+                point.rectTransform.localRotation=Quaternion.Euler(0,0,-90f);
+            else
+                point.rectTransform.SetAsFirstSibling(); // shaft begins behind Hint frame
             point.raycastTarget=false;
             infoPanels[i]=group.gameObject;
             group.gameObject.SetActive(false);
@@ -715,7 +717,10 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             : "<color=#E33B30>Turn "+(turn+1)+" of 5</color>\n<size=19>Hover for details. Click to continue.</size>";
 
         var prizeRect=infoPanels[InfoPrize].GetComponent<RectTransform>();
-        prizeRect.anchoredPosition=new Vector2(745,Mathf.Clamp(rowY+140f,45f,330f));
+        // Give the Prize arrow a little space outside the board edge while
+        // keeping the same approved, compact popup dimensions.
+        prizeRect.anchoredPosition=new Vector2(825,Mathf.Clamp(rowY+140f,45f,330f));
+        AlignPlaqueArrows(turn);
         infoBodies[InfoPrize].fontSize=prizeExpanded?25:27;
         infoBodies[InfoPrize].text=prizeExpanded
             ? "Solve the word now to earn <color=#FFDC70>"+Prizes[Mathf.Clamp(turn,0,4)].ToString("N0")+
@@ -728,6 +733,59 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         infoBodies[InfoInvalid].text=invalidExpanded
             ? "Oops! <color=#E33B30>Not a valid word.</color>\nSubmit stays disabled.\nClick a placed tile to <color=#E33B30>remove</color> it,\nthen keep trying."
             : "<color=#E33B30>Disabled: invalid word.</color>\n<size=19>Hover for details. Click to continue.</size>";
+    }
+
+    // Arrow.png is a diagonal, right/up arrow. Its pointed tip lies near
+    // (0.91, 0.75) in image UV space, with its tail near (0.04, 0.15).
+    // Set the arrow's pivot to that tip, then position that pivot directly
+    // on the *current* Turn or Prize plaque. No fixed 90-degree rotations or
+    // approximate row offsets: local transforms and scaling work in both
+    // Screen Space Overlay and on 2400 x 1080 Android Game View.
+    private void AlignPlaqueArrows(int currentTurn)
+    {
+        int row=Mathf.Clamp(currentTurn,0,4);
+        AlignPlaqueArrow(InfoTurns,turnPlaque[row],true);
+        AlignPlaqueArrow(InfoPrize,prizePlaque[row],false);
+    }
+
+    private void AlignPlaqueArrow(int index,Image targetImage,bool isTurns)
+    {
+        var popup=infoPanels[index]?.GetComponent<RectTransform>();
+        var pointer=popup?.Find("HintDirection") as RectTransform;
+        var target=targetImage?.rectTransform;
+        if(popup==null || pointer==null || target==null)return;
+
+        // Target inside the outer-facing edge, so the arrow points AT the
+        // plaque without obscuring its turn number or prize amount.
+        float edgeX=isTurns?target.rect.xMin+12f:target.rect.xMax-12f;
+        Vector3 targetWorld=target.TransformPoint(
+            new Vector3(edgeX,target.rect.center.y,0f));
+        Vector3 localTip=popup.InverseTransformPoint(targetWorld);
+
+        // Tail starts behind the nearest edge of the approved Hint card.
+        // Only the shaft outside the panel remains visible.
+        Vector2 tail=isTurns
+            ?new Vector2(popup.rect.xMax-26f,popup.rect.yMax-40f)
+            :new Vector2(popup.rect.xMin+128f,popup.rect.yMin+55f);
+        Vector2 direction=(Vector2)localTip-tail;
+        if(direction.sqrMagnitude<1f)return;
+
+        const float width=155f, height=68f;
+        const float tipX=.91f, tipY=.75f;
+        Vector2 spriteVector=new Vector2((tipX-.04f)*width,
+            (tipY-.15f)*height);
+        float length=spriteVector.magnitude;
+        float scaledLength=direction.magnitude/length;
+        float intendedAngle=Mathf.Atan2(direction.y,direction.x)*Mathf.Rad2Deg;
+        float spriteAngle=Mathf.Atan2(spriteVector.y,spriteVector.x)*Mathf.Rad2Deg;
+
+        pointer.anchorMin=pointer.anchorMax=new Vector2(.5f,.5f);
+        pointer.pivot=new Vector2(tipX,tipY);
+        pointer.sizeDelta=new Vector2(width,height)*scaledLength;
+        pointer.localRotation=Quaternion.Euler(0f,0f,intendedAngle-spriteAngle);
+        pointer.anchoredPosition=(Vector2)localTip;
+        // Behind frame & text, but visible along the gap to its target.
+        if(pointer.GetSiblingIndex()!=0)pointer.SetAsFirstSibling();
     }
 
     private void EnsureDismissAnywhereButton()
