@@ -18,6 +18,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private static readonly Color Ivory = new Color(1f, .95f, .84f, 1f);
 
     [SerializeField] private MinigamesSceneController controller;
+    [SerializeField] private TMP_FontAsset cinzelFont;
 
     private readonly Sprite[] letters = new Sprite[26];
     private readonly Image[,] tileBase = new Image[5, 5];
@@ -38,7 +39,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private Sprite approvedWordMasterRibbonSprite;
     private const string StageSelectBackdropPrefab = "StageSelectAnimatedBackdrop";
     private Sprite slotSprite, normalSprite, goldSprite, silverSprite, graySprite, redSprite;
-    private Sprite hintSprite, hintGlowSprite, arrowSprite, submitSprite, submitHoverSprite, submitDisabledSprite, menuSprite;
+    private Sprite hintSprite, mainHintSprite, hintGlowSprite, arrowSprite, submitSprite, submitHoverSprite, submitDisabledSprite, menuSprite;
     private Sprite turnActiveSprite, turnInactiveSprite, prizeActiveSprite, prizeInactiveSprite, turnGlowSprite, prizeGlowSprite;
 
     private RectTransform layout;
@@ -85,7 +86,11 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         silverSprite = Load("Silver");
         graySprite = Load("DarkGray");
         redSprite = Load("Red");
-        hintSprite = Load("Hint");
+        // The approved ornate art already has an opaque charcoal interior.
+        // Aspect-fitted variants preserve its stars and center crest without
+        // stretching them when used by the two different hint sizes.
+        hintSprite = Load("HintDarkOrnatePopup") ?? Load("Hint");
+        mainHintSprite = Load("HintDarkOrnateMain") ?? hintSprite;
         hintGlowSprite = Load("HintGlow");
         arrowSprite = Load("Arrow");
         submitSprite = Load("Submit");
@@ -115,8 +120,11 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         else
             BindExisting();
 
-        // A sprite-only skin swap: keep the existing gameplay layout, board,
-        // buttons, score panels, Hint logic and serialized scene untouched.
+        ApplyApprovedHintSkin();
+        ApplyCinzelToWordMasterTexts();
+
+        // Keep the approved layout, board, buttons and game rules intact.
+        // The ribbon, hint artwork and Cinzel typography are visual-only.
         ApplyApprovedWordMasterRibbon();
         if (Application.isPlaying)
             EnsureStageSelectAnimatedBackground();
@@ -153,6 +161,48 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         TextMeshProUGUI oldTitle = ribbon.Find("WordMasterTitle")?.GetComponent<TextMeshProUGUI>();
         if (oldTitle != null)
             oldTitle.enabled = false;
+    }
+
+    private void ApplyApprovedHintSkin()
+    {
+        if (hintGroup == null || mainHintSprite == null)
+            return;
+
+        // Update the already serialized WordMasterScene as well as a fresh
+        // BuildLayout instance. Never insert a second background panel.
+        Transform root = hintGroup.transform;
+        Image artwork = root.Find("HintParchment")?.GetComponent<Image>();
+        if (artwork != null)
+        {
+            artwork.sprite = mainHintSprite;
+            artwork.type = Image.Type.Simple;
+            artwork.preserveAspect = false;
+            artwork.color = Color.white;
+            artwork.raycastTarget = false;
+        }
+
+        // These were decorations for the old pale parchment; the new PNG
+        // already includes its black interior and complete gold border.
+        if (hintGlow != null) hintGlow.enabled = false;
+        Image divider = root.Find("HintDivider")?.GetComponent<Image>();
+        if (divider != null) divider.enabled = false;
+
+        if (hintTitle != null) hintTitle.color = new Color(1f, .82f, .43f, 1f);
+        if (hintMessage != null) hintMessage.color = Ivory;
+        var closeX = root.Find("HintCloseX");
+        if (closeX != null) closeX.gameObject.SetActive(false);
+    }
+
+    private void ApplyCinzelToWordMasterTexts()
+    {
+        if (layout == null || cinzelFont == null)
+            return;
+
+        // Tile letters are artwork, not TMP; all other Word Master labels
+        // share the approved Cinzel asset without changing other scenes.
+        foreach (TextMeshProUGUI label in layout.GetComponentsInChildren<TextMeshProUGUI>(true))
+            if (label != null && label.font != cinzelFont)
+                label.font = cinzelFont;
     }
 
     private void EnsureStageSelectAnimatedBackground()
@@ -201,6 +251,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             if (pauseGroup != null) pauseGroup.SetActive(false);
             lastState = string.Empty;
             EnsureInfoPanels();
+            ApplyCinzelToWordMasterTexts();
             EnsureDismissAnywhereButton();
             RefreshGameplay(true);
             RefreshInfoPanels();
@@ -239,11 +290,12 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         return image;
     }
 
-    private static TextMeshProUGUI CreateText(string name, Transform parent, string contents,
+    private TextMeshProUGUI CreateText(string name, Transform parent, string contents,
         Vector2 center, Vector2 size, float fontSize, Color color, bool bold = true)
     {
         RectTransform rect = CreateRect(name, parent, center, size);
         var text = rect.gameObject.AddComponent<TextMeshProUGUI>();
+        if (cinzelFont != null) text.font = cinzelFont;
         text.fontSize = fontSize;
         text.text = contents;
         text.alignment = TextAlignmentOptions.Center;
@@ -373,12 +425,12 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
 
         RectTransform hint = CreateRect("HintPanelGroup", layout, new Vector2(-795, 66), new Vector2(560,308));
         hintGroup = hint.gameObject;
-        CreateImage("HintParchment", hint, hintSprite, Vector2.zero, hint.sizeDelta);
+        CreateImage("HintParchment", hint, mainHintSprite, Vector2.zero, hint.sizeDelta);
         hintGlow = CreateImage("HintOutsideGlow", hint, hintGlowSprite, Vector2.zero, hint.sizeDelta);
-        hintTitle = CreateText("HintTitle", hint, "Hint!", new Vector2(0, 77), new Vector2(490,72), 56, NavyInk);
+        hintTitle = CreateText("HintTitle", hint, "Hint!", new Vector2(0, 77), new Vector2(490,72), 56, new Color(1f,.82f,.43f,1f));
         CreateImage("HintDivider", hint, null, new Vector2(0, 27), new Vector2(355, 2)).color = new Color(.55f,.36f,.21f,.70f);
         hintMessage = CreateText("HintMessage", hint, "The first letter is revealed!", new Vector2(0,-33),
-            new Vector2(455,110), 33, NavyInk, false);
+            new Vector2(455,110), 33, Ivory, false);
         Image dismissImage = CreateImage("DismissHint",hint, null,new Vector2(235,119),new Vector2(45,35));
         dismissImage.color = new Color(1f, 1f, 1f, .01f);
         MakeButton(dismissImage, () => {
@@ -702,13 +754,8 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             var artwork=CreateImage("ApprovedHintFrame",group,hintSprite,Vector2.zero,group.sizeDelta,true);
             artwork.color=Color.white;
             BindInfoHover(artwork,i);
-            // The approved hint border has a light parchment interior.
-            // A non-interactive dark inset restores the high-contrast
-            // Bookworm-inspired black/gold presentation without changing art.
-            Image darkInset=CreateImage("DarkHintInterior",group,null,
-                new Vector2(0,-2),new Vector2(437,153));
-            darkInset.color=new Color(.07f,.075f,.085f,.96f);
-            darkInset.raycastTarget=false;
+            // The approved artwork includes the charcoal body. No extra
+            // DarkHintInterior or black overlay is needed (or permitted).
             var title=CreateText("HintTitle",group,"Hint!",new Vector2(0,50),new Vector2(415,50),39,
                 new Color(1f,.81f,.38f,1f));
             title.raycastTarget=false;
@@ -1124,7 +1171,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         var hintDismiss=hintGroup!=null?hintGroup.transform.Find("DismissHint"):null;
         if(hintDismiss!=null)hintDismiss.gameObject.SetActive(controller.RoyalShowHint);
         var hintClose=hintGroup!=null?hintGroup.transform.Find("HintCloseX"):null;
-        if(hintClose!=null)hintClose.gameObject.SetActive(controller.RoyalShowHint);
+        if(hintClose!=null)hintClose.gameObject.SetActive(false);
         if(feedbackLabel!=null)
             feedbackLabel.text=string.Empty;
         if(scoreLabel!=null)
