@@ -141,10 +141,12 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         image.color = Color.white;
         image.raycastTarget = false;
 
-        // Give the baked lettering more vertical presence than the old
-        // plain Header sprite, while staying clear of the board instructions.
-        ribbon.anchoredPosition = new Vector2(75f, 445f);
+        // Exact author-approved Play Mode placement (2026-11-01).
+        // Mirror the persisted Edit Mode RectTransform, including the user's
+        // nonuniform XY/Z scaling; never reset their approved proportions.
+        ribbon.anchoredPosition = new Vector2(75f, 446.73f);
         ribbon.sizeDelta = new Vector2(970f, 182f);
+        ribbon.localScale = new Vector3(.91f, 1.59f, .81f);
 
         // The approved asset already contains the correct gold serif WORD
         // MASTER lettering. Hide the old TMP overlay to prevent ghost text.
@@ -297,7 +299,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         parchmentImage.rectTransform.localScale = new Vector3(.98f,1.23f,1f);
         CreateText("Instructions", board,
             "Guess the hidden 5-letter word.\nGold = right spot. Silver = right letter.",
-            new Vector2(0, 228), new Vector2(860, 75), 28, NavyInk, false);
+            new Vector2(0, 205), new Vector2(860, 75), 28, NavyInk, false);
         CreateImage("ParchmentDivider", board, null, new Vector2(0, 171), new Vector2(790, 2)).color =
             new Color(.62f, .37f, .16f, .56f);
         CreateText("TurnsHeader", board, "Turns", new Vector2(-366, 192), new Vector2(155, 48), 31, NavyInk);
@@ -358,7 +360,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             wrongMarks[row].gameObject.SetActive(false);
         }
 
-        Image ribbon = CreateImage("TitleRibbon", layout, headerSprite, new Vector2(75, 463), new Vector2(848, 151));
+        Image ribbon = CreateImage("TitleRibbon", layout, headerSprite, new Vector2(75, 446.73f), new Vector2(970, 182));
         headerTitle = CreateText("WordMasterTitle", ribbon.transform, "WORD MASTER", new Vector2(0, 8),
             new Vector2(735,90), 58, new Color(.99f, .84f, .42f, 1f));
 

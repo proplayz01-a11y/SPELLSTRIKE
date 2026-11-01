@@ -108,3 +108,14 @@ Final visual evidence saved on project PC:
 - Temp/WordMasterStageSelectArtQA/After_WordMaster_Ribbon_AnimatedStageSelectBackground.png
 - Temp/WordMasterStageSelectArtQA/Header_Size_970x182_Y445.png
 - Temp/WordMasterStageSelectArtQA/Final_ApprovedWordMasterBanner_StageSelectAnimatedBackground.png
+
+
+## Play Mode positions persisted to Edit Mode (November 1, 2026)
+
+- Inspected 417 live Word Master UI RectTransforms and compared 306 matching objects against the serialized WordMasterScene; only two normal UI elements differed: TitleRibbon and Board/Instructions. Runtime popup/animated background objects were not used as Edit Mode layout sources.
+- User-approved Play Mode TitleRibbon placement captured exactly: anchored position (75, 446.73), size (970,182), local scale (0.91, 1.59, 0.81), zero rotation. Board/Instructions anchored position changed from (0,228) to (0,205).
+- Saved both RectTransforms into WordMasterScene in Edit Mode. The actual WordMasterFantasyBanner sprite is assigned to the scene Image; its duplicate WordMasterTitle TMP text is disabled in Edit Mode too.
+- Updated both WordMasterRoyalUI runtime skin defaults and BuildLayout defaults to match; repeated Play Mode QA confirmed the same positions, scales, artwork, and Stage Select ambient background. After exiting Play Mode, Edit Mode inspection confirmed all values persisted and the scene was saved.
+- The scene had thousands of unrelated pre-existing worktree changes. Git index staged ONLY the six explicitly approved scene changes via an audited, targeted patch; unrelated dirty scene work remains unstaged and preserved.
+- Before modifying the scene, its bytes and source script and a TSV snapshot of all 417 Play Mode transforms were backed up under Downloads/WORD MASTER/EDITMODE_POSITION_PERSIST_20261101_1658.
+- Screenshots: Temp/WordMasterRibbonPositionsQA/UserApproved_PlayMode_RibbonBeforePersistence.png and Temp/WordMasterRibbonPositionsQA/Persisted_Ribbon_PlayMode_Verification.png.
