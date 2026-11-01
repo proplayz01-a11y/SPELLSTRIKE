@@ -240,7 +240,17 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
                 tile.gameObject.SetActive(false);
                 letter.gameObject.SetActive(false);
                 if (slot != null)
-                    MakeButton(slot, () => { if (!showingPause && controller != null && capturedRow == controller.RoyalTurn) controller.RoyalRemoveAt(capturedCol); });
+                {
+                    MakeButton(slot, () =>
+                    {
+                        if (showingPause || controller == null) return;
+                        if (capturedRow == controller.RoyalTurn)
+                            controller.RoyalRemoveAt(capturedCol);
+                        else
+                            ShowContextClue(capturedRow, capturedCol);
+                    });
+                    BindTileHover(slot, capturedRow, capturedCol);
+                }
             }
 
             Image prize = CreateImage("PrizePlaque", line, prizeInactiveSprite, new Vector2(356,0), new Vector2(152,80));

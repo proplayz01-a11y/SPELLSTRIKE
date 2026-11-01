@@ -25,6 +25,9 @@ Primary behavior reference: Videos/Screen Recordings/Screen Recording 2026-11-01
 | Game Over reveals target word and replay/mode/menu options | Passed |
 | Victory awards points and shows sprite stars | Passed |
 | Contextual tile hover gives explanatory clue | Passed |
+| Dismiss initial hint and show it again on a new round | Passed |
+| Paused via Menu and resumed through Resume | Passed |
+| Prize 4 label retained as 1,000 in saved Edit Mode scene | Passed |
 | Result > Mode Select > Word Master navigation | Passed |
 | Result > Main Menu navigation | Passed, canonical GUID and build slot unchanged |
 | Screen-space UI at 2400 x 1080, active Android build target | Passed in Editor |
