@@ -35,6 +35,8 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private readonly TextMeshProUGUI[] wrongMarks = new TextMeshProUGUI[5];
 
     private Sprite backgroundSprite, boardSprite, keyboardFrameSprite, headerSprite;
+    private Sprite approvedWordMasterRibbonSprite;
+    private const string StageSelectBackdropPrefab = "StageSelectAnimatedBackdrop";
     private Sprite slotSprite, normalSprite, goldSprite, silverSprite, graySprite, redSprite;
     private Sprite hintSprite, hintGlowSprite, arrowSprite, submitSprite, submitHoverSprite, submitDisabledSprite, menuSprite;
     private Sprite turnActiveSprite, turnInactiveSprite, prizeActiveSprite, prizeInactiveSprite, turnGlowSprite, prizeGlowSprite;
@@ -75,6 +77,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         boardSprite = Load("Board");
         keyboardFrameSprite = Load("KeyboardFrameCompact");
         headerSprite = Load("Header");
+        approvedWordMasterRibbonSprite = Load("WordMasterFantasyBanner");
         victoryStarSprite=Load("VictoryStar");
         slotSprite = Load("Slot");
         normalSprite = Load("Normal");
@@ -111,6 +114,81 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             BuildLayout();
         else
             BindExisting();
+
+        // A sprite-only skin swap: keep the existing gameplay layout, board,
+        // buttons, score panels, Hint logic and serialized scene untouched.
+        ApplyApprovedWordMasterRibbon();
+        if (Application.isPlaying)
+            EnsureStageSelectAnimatedBackground();
+    }
+
+    private void ApplyApprovedWordMasterRibbon()
+    {
+        if (layout == null || approvedWordMasterRibbonSprite == null)
+            return;
+
+        RectTransform ribbon = layout.Find("TitleRibbon") as RectTransform;
+        if (ribbon == null)
+            return;
+
+        Image image = ribbon.GetComponent<Image>();
+        if (image == null)
+            return;
+
+        image.sprite = approvedWordMasterRibbonSprite;
+        image.type = Image.Type.Simple;
+        image.preserveAspect = false; // match the existing wide Stage Select ribbon treatment
+        image.color = Color.white;
+        image.raycastTarget = false;
+
+        // Give the baked lettering more vertical presence than the old
+        // plain Header sprite, while staying clear of the board instructions.
+        ribbon.anchoredPosition = new Vector2(75f, 445f);
+        ribbon.sizeDelta = new Vector2(970f, 182f);
+
+        // The approved asset already contains the correct gold serif WORD
+        // MASTER lettering. Hide the old TMP overlay to prevent ghost text.
+        TextMeshProUGUI oldTitle = ribbon.Find("WordMasterTitle")?.GetComponent<TextMeshProUGUI>();
+        if (oldTitle != null)
+            oldTitle.enabled = false;
+    }
+
+    private void EnsureStageSelectAnimatedBackground()
+    {
+        if (layout == null || layout.Find(StageSelectBackdropPrefab) != null)
+            return;
+
+        // This prefab is an isolated copy of Stage Select's original
+        // HallOfChronicles LibraryBackground: base 2400x1080 artwork,
+        // 39 flickering light/candle layers and runtime golden dust.
+        GameObject source = Resources.Load<GameObject>(ResourcesRoot + StageSelectBackdropPrefab);
+        if (source == null)
+        {
+            Debug.LogWarning("[WordMasterRoyalUI] Stage Select animated background prefab unavailable; keeping existing backdrop.");
+            return;
+        }
+
+        GameObject backdrop = Instantiate(source, layout, false);
+        backdrop.name = StageSelectBackdropPrefab;
+        RectTransform rect = backdrop.transform as RectTransform;
+        if (rect != null)
+        {
+            rect.anchorMin = rect.anchorMax = new Vector2(.5f, .5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = new Vector2(2400f, 1080f);
+            rect.localScale = Vector3.one;
+        }
+        backdrop.transform.SetAsFirstSibling();
+
+        // Disable only the old static background Image. Its GameObject and
+        // every unrelated Word Master object remain intact.
+        Image staticBackdrop = layout.Find("LibraryBackdrop")?.GetComponent<Image>();
+        if (staticBackdrop != null)
+            staticBackdrop.enabled = false;
+
+        HallOfChroniclesAmbient ambience = backdrop.GetComponent<HallOfChroniclesAmbient>();
+        if (ambience == null || !ambience.IsAnimating)
+            Debug.LogWarning("[WordMasterRoyalUI] Stage Select backdrop instantiated but flicker animation is disabled.");
     }
 
     private void Start()
@@ -372,6 +450,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         pauseGroup.SetActive(false);
         resultGroup.SetActive(false);
         SetEditPreview();
+        ApplyApprovedWordMasterRibbon();
         lastState = string.Empty;
     }
 

@@ -90,3 +90,21 @@ Local project QA screenshots:
 - Temp/WordMasterArrowQA/Before_Turn2_ArrowAlignment.png
 - Temp/WordMasterArrowQA/After_Turn2_PlaqueAnchored.png
 - Temp/WordMasterArrowQA/After_Turn5_PlaqueAnchored.png
+
+
+## Stage Select ribbon and animated Hall of Chronicles background (November 1, 2026)
+
+- Imported the approved PNG from Downloads/WORD MASTER/Word Master Fantasy Banner.png as the WordMasterFantasyBanner 2172x724 RGBA UI sprite. The original Downloads source artwork was not modified. Import settings: Single Sprite, uncompressed, no mipmaps, alpha transparency.
+- Reused Stage Select's original LibraryBackground hierarchy and its HallOfChroniclesAmbient component as an isolated StageSelectAnimatedBackdrop.prefab. Extracted without modifying or saving the original StageSelect scene. The copy carries 40 background Images, 39 animated glow/flame bindings, and animate=true. The Stage Select Book-only visibility guard reference was cleared.
+- The existing Hall of Chronicles golden-dust runtime effect is retained (36 non-interactive floating sprites), as are the existing candle flicker and accent effects. No static imitation or new animation algorithm was introduced.
+- WordMasterRoyalUI applies only the art swap at runtime. It disables the old static LibraryBackdrop Image only after instantiating the animated backdrop, which renders behind the dim layer, board, keyboard, hints, and menu buttons. Gameplay, turns, prizes, dictionary, scoring, and menus are unchanged.
+- The new baked serif WORD MASTER lettering is used; the old TitleRibbon TMP label is disabled to prevent double printing. Final banner dimensions are 970 x 182 at (75,445) on the 2400x1080 canvas and were visually inspected for board instruction clearance.
+- In Android-target Unity Game View, the cloned background instantiates with IsAnimating=true, 39 animation layer bindings, golden dust active, and the old static image hidden. Five independently moving candle flames changed alpha and Y scale between runtime samples, confirming actual animation.
+- Click-anywhere Hint regression: after a single click, both Hint and shield dismissed with the in-progress word unchanged. All 26 of 26 keyboard hitboxes were still top EventSystem raycast targets, and 0 background Images captured mouse/touch raycasts.
+- The Unity script compilation completed with zero new errors. Physical Android FPS and touchscreen QA remain pending.
+- Both the Stage Select scene and the protected Main Menu V11 scene were untouched. The dirty WordMasterScene was preserved and not saved, overwritten, or staged by this integration. Assets and UI script initialize the look automatically in Play Mode and builds.
+
+Final visual evidence saved on project PC:
+- Temp/WordMasterStageSelectArtQA/After_WordMaster_Ribbon_AnimatedStageSelectBackground.png
+- Temp/WordMasterStageSelectArtQA/Header_Size_970x182_Y445.png
+- Temp/WordMasterStageSelectArtQA/Final_ApprovedWordMasterBanner_StageSelectAnimatedBackground.png
