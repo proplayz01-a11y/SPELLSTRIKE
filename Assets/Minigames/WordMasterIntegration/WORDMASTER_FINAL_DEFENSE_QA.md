@@ -45,3 +45,21 @@ Primary behavior reference: Videos/Screen Recordings/Screen Recording 2026-11-01
 Editor Play Mode tests were run on the Android build target at 2400 x 1080. No APK was built or installed, and physical Samsung Galaxy A05s performance, hardware touch accuracy and framerate have NOT been validated. An existing unrelated Unity Remote requirements check error was observed; no Word Master C# compilation errors appeared. A physical device acceptance pass is still recommended before claiming Android performance validation.
 
 The implementation reuses approved Royal Word Master sprite art from Downloads/WORD MASTER; a small procedural five-point star sprite replaces a missing-font glyph on the victory popup. Existing scene edits outside the Word Master layout were kept out of the focused source control changes.
+
+
+## Bookworm contextual hint follow-up, 2026-11-01
+
+Reference: user screenshots of Bookworm's turn, prize and invalid-word hint cards.
+
+- Reused the existing approved Hint sprite as the gold frame; added a non-interactive dark inset for readable ivory text, with compact sizing and directional pointers.
+- Turns and Prize hints show the current turn and the authoritative prize value, then reveal detailed explanations on hover. Tapping either plaque or its visible hint toggles the details for Android users who cannot hover.
+- A complete dictionary-invalid guess shows a compact red Submit-disabled explanation; hovering or tapping reveals how to remove placed tiles and try another word.
+- No dictionary, turn, prize, scoring, or level navigation logic was changed by the contextual hints. Popups are runtime UI-only and deliberately do not write unrelated scene hierarchy changes.
+- Confirmed Turn 3 of 5 and the 2,500-point prize popup after the RAYED / REAPS / RATES sequence.
+- Confirmed TZQXJ is invalid, Submit disabled, expanded explanation readable, invalid popup hidden after removing tiles, then TRUTH accepted and victory awarded.
+- Unity compilation: zero new script errors. The 2400x1080 Android-target Game View was inspected, but Android device touch/performance has not been tested.
+
+Visual captures on the project PC:
+- Temp/WordMasterContextHintQA/WM_Turn3_DarkHints.png
+- Temp/WordMasterContextHintQA/WM_InvalidWord_CompactHint.png
+- Temp/WordMasterContextHintQA/WM_InvalidWord_ExpandedFinal.png

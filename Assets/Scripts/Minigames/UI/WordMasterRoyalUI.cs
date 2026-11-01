@@ -52,6 +52,16 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
     private int previouslyRenderedTurn=-1;
     private readonly Image[] victoryStars = new Image[3];
     private Sprite victoryStarSprite;
+    // Non-blocking Bookworm reference callouts. Built at runtime for both the
+    // current serialized scene and the full UI builder path.
+    private readonly GameObject[] infoPanels = new GameObject[3];
+    private readonly TextMeshProUGUI[] infoBodies = new TextMeshProUGUI[3];
+    private readonly bool[] infoExpanded = new bool[3];
+    private readonly bool[] infoPinned = new bool[3];
+    private int infoTurn = -1;
+    private float infoTurnShownAt;
+    private bool infoPreviousStartHint;
+    private const int InfoTurns = 0, InfoPrize = 1, InfoInvalid = 2;
 
     private static Sprite Load(string name) => Resources.Load<Sprite>(ResourcesRoot + name);
 
@@ -107,6 +117,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             showingPause = false;
             if (pauseGroup != null) pauseGroup.SetActive(false);
             lastState = string.Empty;
+            EnsureInfoPanels();
             RefreshGameplay(true);
         }
     }
@@ -570,6 +581,137 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         }
     }
 
+    private void BindInfoHover(Image image, int index)
+    {
+        if(image==null)return;
+        image.raycastTarget=true;
+        var trigger=image.GetComponent<EventTrigger>();
+        if(trigger==null)trigger=image.gameObject.AddComponent<EventTrigger>();
+        if(trigger.triggers==null)trigger.triggers=new List<EventTrigger.Entry>();
+        var enter=new EventTrigger.Entry {eventID=EventTriggerType.PointerEnter};
+        enter.callback.AddListener(_=>{infoExpanded[index]=true;});
+        trigger.triggers.Add(enter);
+        var exit=new EventTrigger.Entry {eventID=EventTriggerType.PointerExit};
+        exit.callback.AddListener(_=>{infoExpanded[index]=false;});
+        trigger.triggers.Add(exit);
+        // On Android there is no hover. Tapping the plaque or hint toggles
+        // the detailed explanation without changing the guess/score.
+        var tap=new EventTrigger.Entry {eventID=EventTriggerType.PointerClick};
+        tap.callback.AddListener(_=>{infoPinned[index]=!infoPinned[index];});
+        trigger.triggers.Add(tap);
+    }
+
+    private void EnsureInfoPanels()
+    {
+        if(!Application.isPlaying || layout==null || infoPanels[0]!=null)return;
+        string[] names={"TurnsInfoPopup","PrizeInfoPopup","InvalidSubmitPopup"};
+        for(int i=0;i<names.Length;i++)
+        {
+            var group=CreateRect(names[i],layout,Vector2.zero,new Vector2(490,228));
+            var artwork=CreateImage("ApprovedHintFrame",group,hintSprite,Vector2.zero,group.sizeDelta,true);
+            artwork.color=Color.white;
+            BindInfoHover(artwork,i);
+            // The approved hint border has a light parchment interior.
+            // A non-interactive dark inset restores the high-contrast
+            // Bookworm-inspired black/gold presentation without changing art.
+            Image darkInset=CreateImage("DarkHintInterior",group,null,
+                new Vector2(0,-2),new Vector2(437,153));
+            darkInset.color=new Color(.07f,.075f,.085f,.96f);
+            darkInset.raycastTarget=false;
+            var title=CreateText("HintTitle",group,"Hint!",new Vector2(0,50),new Vector2(415,50),39,
+                new Color(1f,.81f,.38f,1f));
+            title.raycastTarget=false;
+            infoBodies[i]=CreateText("HintBody",group,string.Empty,new Vector2(0,-24),
+                new Vector2(426,123),27,new Color(.99f,.95f,.85f,1f),false);
+            Vector2 arrowPosition=i==InfoTurns?new Vector2(218,126):
+                i==InfoPrize?new Vector2(-205,-120):new Vector2(0,-123);
+            var point=CreateImage("HintDirection",group,arrowSprite,arrowPosition,
+                new Vector2(155,68));
+            point.rectTransform.localRotation=Quaternion.Euler(0,0,i==InfoTurns?90f:-90f);
+            point.raycastTarget=false;
+            infoPanels[i]=group.gameObject;
+            group.gameObject.SetActive(false);
+        }
+        for(int row=0;row<5;row++)
+        {
+            // Plaques are read-only informational targets. Their glow and
+            // number are child graphics, and do not intercept pointer input.
+            int id=row;
+            BindInfoHover(turnPlaque[id],InfoTurns);
+            BindInfoHover(prizePlaque[id],InfoPrize);
+        }
+        var submitGraphic=submitButton?.GetComponent<Image>();
+        BindInfoHover(submitGraphic,InfoInvalid);
+    }
+
+    private void RefreshInfoPanels()
+    {
+        if(infoPanels[0]==null || controller==null)return;
+        bool complete=controller.RoyalSolved || controller.RoyalGameOver;
+        if(complete || showingPause)
+        {
+            if(complete)infoTurn=-1; // replay also works after a first-turn victory
+            for(int i=0;i<infoPanels.Length;i++)infoPanels[i].SetActive(false);
+            return;
+        }
+        bool justRestartedHint=controller.RoyalShowHint && !infoPreviousStartHint;
+        infoPreviousStartHint=controller.RoyalShowHint;
+        if(justRestartedHint)infoTurn=-1;
+        int turn=controller.RoyalTurn;
+        if(infoTurn!=turn)
+        {
+            infoTurn=turn;
+            infoTurnShownAt=Time.unscaledTime;
+            for(int i=0;i<infoExpanded.Length;i++)
+            {
+                infoExpanded[i]=false;
+                infoPinned[i]=false;
+            }
+        }
+        bool initialHint=controller.RoyalShowHint;
+        bool tileClueActive=!string.IsNullOrEmpty(contextualClue);
+        string guess=controller.RoyalGuess(turn);
+        bool filled=guess.Length==controller.RoyalLength && guess.IndexOf(' ')<0;
+        bool invalid=filled && !controller.RoyalCanSubmit;
+        if(!invalid)infoPinned[InfoInvalid]=false;
+        // Reveal the turn/prize concepts briefly each turn; afterwards they
+        // can still be inspected by hovering their plaques or hint panels.
+        // Leave the brief callouts visible long enough for reading; hovering
+        // the plaque or the card extends them for the detailed explanation.
+        bool recent=Time.unscaledTime-infoTurnShownAt<18f;
+        bool turnExpanded=infoExpanded[InfoTurns]||infoPinned[InfoTurns];
+        bool prizeExpanded=infoExpanded[InfoPrize]||infoPinned[InfoPrize];
+        bool invalidExpanded=infoExpanded[InfoInvalid]||infoPinned[InfoInvalid];
+        bool showTurn=!initialHint && !tileClueActive && (recent || turnExpanded);
+        bool showPrize=!initialHint && !tileClueActive && (recent || prizeExpanded);
+        bool showInvalid=invalid;
+        infoPanels[InfoTurns].SetActive(showTurn);
+        infoPanels[InfoPrize].SetActive(showPrize);
+        infoPanels[InfoInvalid].SetActive(showInvalid);
+        float rowY=109f-turn*92f+110f;
+        var turnRect=infoPanels[InfoTurns].GetComponent<RectTransform>();
+        turnRect.anchoredPosition=new Vector2(-740,Mathf.Clamp(rowY-175f,-260f,130f));
+        infoBodies[InfoTurns].fontSize=turnExpanded?25:27;
+        infoBodies[InfoTurns].text=turnExpanded
+            ? "Figure out the mystery word in <color=#E33B30>5 turns or less</color> to win!"
+            : "<color=#E33B30>Turn "+(turn+1)+" of 5</color>\n<size=22>(mouse over for details...)</size>";
+
+        var prizeRect=infoPanels[InfoPrize].GetComponent<RectTransform>();
+        prizeRect.anchoredPosition=new Vector2(745,Mathf.Clamp(rowY+140f,45f,330f));
+        infoBodies[InfoPrize].fontSize=prizeExpanded?25:27;
+        infoBodies[InfoPrize].text=prizeExpanded
+            ? "Solve the word now to earn <color=#FFDC70>"+Prizes[Mathf.Clamp(turn,0,4)].ToString("N0")+
+              "</color> points! The prize gets smaller after each wrong guess."
+            : "<color=#E33B30>Win on this turn, win this prize!</color>";
+
+        var invalidRect=infoPanels[InfoInvalid].GetComponent<RectTransform>();
+        invalidRect.anchoredPosition=new Vector2(-215,-297);
+        infoBodies[InfoInvalid].fontSize=invalidExpanded?22:27;
+        infoBodies[InfoInvalid].text=invalidExpanded
+            ? "Oops! <color=#E33B30>Not a valid word.</color>\nSubmit stays disabled.\nClick a placed tile to <color=#E33B30>remove</color> it,\nthen keep trying."
+            : "<color=#E33B30>Disabled: invalid word.</color>\n<size=22>(mouse over for details...)</size>";
+    }
+
     private void BindTileHover(Image holder,int row,int col)
     {
         if(holder==null || !Application.isPlaying)return;
@@ -647,6 +789,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         HandleDesktopKeyboard();
         RefreshGameplay(false);
         float pulse=.5f+.5f*Mathf.Sin(Time.unscaledTime*3.5f);
+        RefreshInfoPanels();
         for(int i=0;i<victoryStars.Length;i++)
         {
             var star=victoryStars[i];
@@ -740,7 +883,10 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
             baseImage.sprite=status==1?redSprite:normalSprite;
             if(keyButton[i]!=null)keyButton[i].interactable=!complete && !showingPause;
         }
-        if(hintGroup!=null)hintGroup.SetActive(true);
+        // The original hint card is used for the first letter and the
+        // detailed per-tile clues. Other explanations use contextual popups.
+        if(hintGroup!=null)hintGroup.SetActive(controller.RoyalShowHint ||
+            !string.IsNullOrEmpty(contextualClue) || turn==0);
         if(tutorialArrow!=null)tutorialArrow.SetActive(controller.RoyalShowHint);
         if(hintTitle!=null)hintTitle.text=!string.IsNullOrEmpty(contextualClue)?"Tile clue":controller.RoyalShowHint?"Hint!":"Clues";
         if(hintMessage!=null)
