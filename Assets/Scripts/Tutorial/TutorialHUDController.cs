@@ -76,8 +76,11 @@ public sealed class TutorialHUDController : MonoBehaviour
 #endif
         if (keyboardPrompt != null)
             keyboardPrompt.SetActive(!useMobileControls);
+
+        // Movement is taught by the actual on-screen joystick. The old
+        // "DRAG TO MOVE" text block overlaps the gameplay HUD on phones.
         if (mobilePrompt != null)
-            mobilePrompt.SetActive(useMobileControls);
+            mobilePrompt.SetActive(false);
     }
 
     public void ShowTileLessonImage(bool visible)
@@ -88,23 +91,23 @@ public sealed class TutorialHUDController : MonoBehaviour
 
     public void PointAt(RectTransform target)
     {
-        if (animatedPointer == null)
-            return;
+        // Historic tutorial scenes have an unassigned animatedPointer.
+        // Always use one Word Master art-backed overlay, not a TMP glyph.
+        // It follows UI targets even when they live in the persistent HUD's
+        // separate Canvas; the original pointer is hidden to prevent doubles.
+        if (animatedPointer != null)
+            animatedPointer.SetActive(false);
 
+        TutorialGuidedArrowOverlay pointer = GetComponent<TutorialGuidedArrowOverlay>();
         if (target == null)
         {
-            animatedPointer.SetActive(false);
+            if (pointer != null)
+                pointer.Hide();
             return;
         }
 
-        animatedPointer.SetActive(true);
-        RectTransform pointerRect = animatedPointer.transform as RectTransform;
-        if (pointerRect != null)
-        {
-            pointerRect.SetParent(target, false);
-            pointerRect.anchorMin = new Vector2(0.5f, 1f);
-            pointerRect.anchorMax = new Vector2(0.5f, 1f);
-            pointerRect.anchoredPosition = new Vector2(0f, 36f);
-        }
+        if (pointer == null)
+            pointer = gameObject.AddComponent<TutorialGuidedArrowOverlay>();
+        pointer.Show(target);
     }
 }
