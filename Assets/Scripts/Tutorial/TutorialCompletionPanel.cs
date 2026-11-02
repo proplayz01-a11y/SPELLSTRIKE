@@ -14,6 +14,8 @@ public sealed class TutorialCompletionPanel : MonoBehaviour
     private float previousTimeScale = 1f;
     private bool ownsPause;
     private bool navigating;
+    private TutorialCompletionBookMotion bookMotion;
+    private Material[] ownedTextMaterials;
 
     public static void Show()
     {
@@ -43,6 +45,29 @@ public sealed class TutorialCompletionPanel : MonoBehaviour
         gameObject.AddComponent<GraphicRaycaster>();
         canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
+        // The approved v02 presentation uses scene-serialized references, so
+        // only the actually used sprites enter the player build. Do not change
+        // completion state, persistence, pause or destination ownership here.
+        TutorialCompletionVisualAssets art =
+            FindFirstObjectByType<TutorialCompletionVisualAssets>(FindObjectsInactive.Include);
+        if (art != null && art.PanelFrame != null)
+        {
+            bookMotion = TutorialCompletionArtBuilder.Build(
+                transform, art, ContinueToStageSelect, ReturnToMainMenu,
+                out ownedTextMaterials);
+        }
+        else
+        {
+            Debug.LogWarning("[TutorialCompletion] Missing scene artwork references; showing legacy UI.", this);
+            BuildLegacyPresentation();
+        }
+
+        if (EventSystem.current == null)
+            new GameObject("TutorialCompletionEventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
+    }
+
+    private void BuildLegacyPresentation()
+    {
         Image backdrop = Rect("Backdrop", transform, Vector2.zero, Vector2.one).AddComponent<Image>();
         backdrop.color = new Color(0.005f, 0.009f, 0.02f, 0.86f);
 
@@ -98,9 +123,6 @@ public sealed class TutorialCompletionPanel : MonoBehaviour
             new Vector2(0.92f, 0.28f),
             new Color(0.12f, 0.16f, 0.23f, 1f));
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
-
-        if (EventSystem.current == null)
-            new GameObject("TutorialCompletionEventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
     }
 
     private void ShowPanel()
@@ -110,6 +132,7 @@ public sealed class TutorialCompletionPanel : MonoBehaviour
         Time.timeScale = 0f;
         ownsPause = true;
         StopAllCoroutines();
+        bookMotion?.Restart();
         StartCoroutine(FadeIn());
     }
 
@@ -149,7 +172,17 @@ public sealed class TutorialCompletionPanel : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private void OnDestroy() => RestoreTimeScale();
+    private void OnDisable() => RestoreTimeScale();
+
+    private void OnDestroy()
+    {
+        RestoreTimeScale();
+        if (ownedTextMaterials != null)
+        {
+            foreach (Material material in ownedTextMaterials)
+                if (material != null) Destroy(material);
+        }
+    }
 
     private void RestoreTimeScale()
     {

@@ -108,10 +108,32 @@ public class Tile : MonoBehaviour
 
     private void UpdateVisual()
     {
+        // The Rodin UI sprite already contains its actual 3D black letter.
+        // Do not draw a second TMP/legacy letter on top of the baked mesh.
+        // Debuff counter/lock/crack overlays are separate and remain active.
+        RodinTileCatalog rodin = RodinTileCatalog.Load();
+        Image image = GetComponent<Image>();
+        Sprite rodinSprite = rodin != null ? rodin.GetSprite(letter) : null;
+        if (image != null && rodinSprite != null)
+        {
+            image.sprite = rodinSprite;
+            image.type = Image.Type.Simple;
+            image.preserveAspect = true;
+            if (textTMP != null) textTMP.enabled = false;
+            if (letterText != null) letterText.enabled = false;
+            return;
+        }
+
         if (textTMP != null)
+        {
+            textTMP.enabled = true;
             textTMP.text = letter.ToString();
+        }
         if (letterText != null)
+        {
+            letterText.enabled = true;
             letterText.text = letter.ToString();
+        }
     }
 
     private void PrepareDebuffCounterText()

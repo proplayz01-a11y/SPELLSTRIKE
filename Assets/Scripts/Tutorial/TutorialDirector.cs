@@ -469,7 +469,7 @@ public sealed class TutorialDirector : MonoBehaviour
         hud.SetObjectives(
             $"Form {requiredWord} from the Tile Pool",
             $"Select {expectedLetter} next.");
-        hud.SetDialogue($"Build the word in order: {GetGuidedProgress(requiredWord, nextIndex)}");
+        hud.SetDialogue($"Build the word in order: {GetGuidedProgress(requiredWord, nextIndex)}", true);
     }
 
     private static string GetGuidedProgress(string requiredWord, int selectedCount)
@@ -729,7 +729,7 @@ public sealed class TutorialDirector : MonoBehaviour
 
         hud?.SetObjectives("HEALTH LESSON: OPEN YOUR BAG",
             "Click or tap the highlighted Bag button.");
-        hud?.SetDialogue("Your HP is low. Open your Bag to find a Health Potion.");
+        hud?.SetDialogue("Your HP is low. Open your Bag to find a Health Potion.", true);
         healthHint?.Show(guidedBagButton.transform as RectTransform,
             "OPEN YOUR BAG", "Click the gold-highlighted Bag button.");
 
@@ -743,7 +743,7 @@ public sealed class TutorialDirector : MonoBehaviour
         int countBeforePotion = inventory.GetCount(PotionType.Health);
         hud?.SetObjectives("HEALTH LESSON: USE A HEALTH POTION",
             "Select the highlighted H potion inside your Bag.");
-        hud?.SetDialogue("Health Potions restore 40% of your maximum HP.");
+        hud?.SetDialogue("Health Potions restore 40% of your maximum HP.", true);
         healthHint?.Show(guidedHealthPotionButton.transform as RectTransform,
             "HEALTH POTION", "Click the H potion to restore your HP.");
 
@@ -1096,7 +1096,7 @@ public sealed class TutorialDirector : MonoBehaviour
                 hud.SetObjectives(
                     $"{openingWord.ToUpperInvariant()} formed",
                     "Press STRIKE to cast your word.");
-                hud.SetDialogue("Your word is valid and ready to become a spell.");
+                hud.SetDialogue("Your word is valid and ready to become a spell.", true);
                 if (attackController != null && attackController.attackButton != null)
                 {
                     hud.PointAt(

@@ -105,6 +105,18 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
 
     private void Awake()
     {
+        // One shared A-Z sprite set replaces the old UI tile art across
+        // tutorial, regular stages, the WordBar and target-challenge pools.
+        // These sprites are renders of the actual Rodin V11 3D models.
+        RodinTileCatalog rodin = RodinTileCatalog.Load();
+        if (rodin != null && rodin.IsComplete)
+        {
+            if (letterSpritesUI == null || letterSpritesUI.Length != 26)
+                letterSpritesUI = new Sprite[26];
+            for (int i = 0; i < 26; i++)
+                letterSpritesUI[i] = rodin.GetSprite((char)('A' + i));
+        }
+
         Scene owningScene = gameObject.scene;
         if (IsPersistentCombatScene(owningScene.name))
         {
@@ -2218,12 +2230,22 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
 
         int columns = 8;
         int rows = 2;
-        float spacing = 5f;
+        // Rodin V11 artwork is square. Keep neighboring tile bevels almost
+        // touching, just like Word Master, instead of stretching each UI
+        // image into a wide/short cell with large visual gaps.
+        const float spacing = 2f;
+        // Match the responsive rack's ornament-safe interior on PC and
+        // during the startup frame before mobile layout takes ownership.
+        // Fractions correspond to 72/720 horizontal and 23/190 vertical.
+        float endcapSafeInset = panelWidth * 0.10f;
+        float railSafeInset = panelHeight * (23f / 190f);
+        float widthPerTile = (panelWidth - 2f * endcapSafeInset
+            - spacing * (columns - 1)) / columns;
+        float heightPerTile = (panelHeight - 2f * railSafeInset
+            - spacing * (rows - 1)) / rows;
+        float squareCell = Mathf.Max(1f, Mathf.Floor(Mathf.Min(widthPerTile, heightPerTile)));
 
-        float cellWidth = (panelWidth - (spacing * (columns - 1)) - 20f) / columns;
-        float cellHeight = (panelHeight - (spacing * (rows - 1)) - 10f) / rows;
-
-        tilePoolGrid.cellSize = new Vector2(cellWidth, cellHeight);
+        tilePoolGrid.cellSize = new Vector2(squareCell, squareCell);
         tilePoolGrid.spacing = new Vector2(spacing, spacing);
         tilePoolGrid.padding.left = 10;
         tilePoolGrid.padding.right = 10;
@@ -2231,6 +2253,7 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
         tilePoolGrid.padding.bottom = 5;
         tilePoolGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         tilePoolGrid.constraintCount = columns;
+        tilePoolGrid.childAlignment = TextAnchor.MiddleCenter;
     }
 
     private void SetWordBarPanelGrid()
@@ -2243,13 +2266,26 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
 
         int tileCount = Mathf.Max(1, wordBarTiles.Count);
         float spacing = wordBarSpacing;
-        float cellHeight = panelHeight - (wordBarPaddingTop + wordBarPaddingBottom);
+        // Selected Rodin tiles keep a square silhouette at every word length.
+        // The panel's vertical slack belongs around the row, not inside tiles.
+        float availableCellHeight = panelHeight - (wordBarPaddingTop + wordBarPaddingBottom);
 
         float usableWidth = panelWidth - (wordBarPaddingLeft + wordBarPaddingRight);
+        RectTransform ornateFrame = wordBarPanel.Find("WordBar_OrnateFrame") as RectTransform;
+        if (ornateFrame != null)
+        {
+            const float frameSideClearance = 70f;
+            float frameVisualWidth = ornateFrame.rect.width * Mathf.Abs(ornateFrame.localScale.x);
+            usableWidth = Mathf.Min(usableWidth,
+                Mathf.Max(1f, frameVisualWidth - 2f * frameSideClearance));
+        }
         float maxWidthPerTile = (usableWidth - (spacing * (tileCount - 1))) / tileCount;
-        float cellWidth = Mathf.Clamp(maxWidthPerTile, wordBarMinCellWidth, wordBarBaseCellWidth);
+        float cellWidth = Mathf.Min(
+            Mathf.Clamp(maxWidthPerTile, wordBarMinCellWidth, wordBarBaseCellWidth),
+            Mathf.Max(24f, maxWidthPerTile),
+            Mathf.Max(1f, availableCellHeight));
 
-        wordBarGrid.cellSize = new Vector2(cellWidth, cellHeight);
+        wordBarGrid.cellSize = new Vector2(cellWidth, cellWidth);
         wordBarGrid.spacing = new Vector2(spacing, spacing);
         wordBarGrid.padding.left = wordBarPaddingLeft;
         wordBarGrid.padding.right = wordBarPaddingRight;

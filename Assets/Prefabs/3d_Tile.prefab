@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3237180575181242700}
   - component: {fileID: 6203029750121796017}
   - component: {fileID: 3864145992315229884}
+  - component: {fileID: 8494730099554541337}
   m_Layer: 0
   m_Name: 3d_Tile
   m_TagString: Untagged
@@ -242,3 +243,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8494730099554541337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163850309031711670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb5dc60313c4be4eb2103d78699e40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RodinWorldTileVisual
+  worldVisualScale: 1.35
+  castShadows: 0

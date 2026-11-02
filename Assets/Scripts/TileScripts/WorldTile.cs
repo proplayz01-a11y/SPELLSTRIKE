@@ -73,6 +73,13 @@ public class WorldTile : MonoBehaviour
 
     private void ApplyMaterial()
     {
+        // Gameplay's canonical Rodin V11 presentation is a separate child
+        // model; never replace its shared PBR materials with the old 26-way
+        // letter-material system. Keep the legacy fallback until QA is done.
+        RodinWorldTileVisual rodin = GetComponent<RodinWorldTileVisual>();
+        if (rodin != null && rodin.ApplyLetter(letter))
+            return;
+
         if (letterMaterials == null || letterMaterials.Length != 26)
         {
             Debug.LogWarning("Assign 26 letter materials in inspector!");

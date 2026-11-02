@@ -47,6 +47,16 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
     private static readonly Vector3 MobileWordBarScale = new(0.97f, 0.86f, 0.77f);
     private static readonly Vector3 MobileAttackScale = new(1.08f, 1.067727f, 1.067727f);
 
+    [Header("Tutorial Objective Panel (editable in Inspector)")]
+    [Tooltip("Position relative to the top-center safe area. Y=0 touches the top; negative Y moves down.")]
+    [SerializeField] private Vector2 objectivePanelPosition = new(0f, -4f);
+    [Tooltip("Width in reference-canvas units. Height automatically preserves the 1920:819 artwork ratio.")]
+    [Min(100f)] [SerializeField] private float objectivePanelWidth = 680f;
+
+    [Header("Tutorial GUIDE Banner")]
+    [Tooltip("GUIDE width in reference-canvas units. Height maintains the approved 2053:766 artwork ratio.")]
+    [SerializeField, Min(100f)] private float guidePanelWidth = 650f;
+
     private RectTransform tutorialSafeArea;
     private RectTransform objectivePanel;
     private RectTransform guideDialogue;
@@ -473,23 +483,25 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             tutorialSafeArea.localScale = Vector3.one;
         }
 
-        // Objective stays top-center. Its width is intentionally fixed in reference-space;
-        // wider phones reveal more game world rather than inflating this card.
+        // Keep the approved 1920x819 objective artwork uniformly scaled. This is
+        // the runtime authority for the scene-authored card dimensions.
+        // Wider phones reveal more world rather than stretching the ornaments.
         SetFixedRect(
             objectivePanel,
             anchor: new Vector2(0.5f, 1f),
             pivot: new Vector2(0.5f, 1f),
-            position: new Vector2(0f, -24f),
-            size: new Vector2(620f, 176f));
+            position: objectivePanelPosition,
+            size: new Vector2(objectivePanelWidth, objectivePanelWidth * 819f / 1920f));
 
-        // Put GUIDE in a stable upper-left band. Bottom-anchored absolute Y values drifted
-        // when the logical Canvas height changed under wider aspect ratios.
+        // GUIDE uses one uniform 2053x766 canvas for both decorative layers.
+        // The existing HUD controller still owns the whole-panel slide/fade;
+        // keep its resting -24px X inset and right anchor unchanged.
         SetFixedRect(
             guideDialogue,
-            anchor: new Vector2(0f, 0.68f),
-            pivot: new Vector2(0f, 0.5f),
-            position: new Vector2(24f, 0f),
-            size: new Vector2(570f, 150f));
+            anchor: new Vector2(1f, 0.68f),
+            pivot: new Vector2(1f, 0.5f),
+            position: new Vector2(-24f, 0f),
+            size: new Vector2(guidePanelWidth, guidePanelWidth * 766f / 2053f));
 
         if (IsMobilePresentation)
         {
@@ -606,12 +618,17 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             // reproduce the approved A05s Play Mode composition rather than stretching
             // the rack as phones get wider.
             Vector2 mobilePoolSize = new(MobilePoolWidth, MobilePoolHeight);
+            // Align the tile grid's vertical center with the decorative frame.
+            // Both have the same mobile Y scale; using separate bottom offsets
+            // (62.1 vs 56.7) pushed the tiles into the top rail and left more
+            // space at the bottom, despite equal GridLayoutGroup padding.
+            const float mobilePoolFrameBottomOffset = 56.7f;
 
             SetFixedRect(
                 tilePoolPanelDesign,
                 new Vector2(safeCenterX, safeMin.y),
                 new Vector2(0.5f, 0f),
-                new Vector2(0f, 56.7f),
+                new Vector2(0f, mobilePoolFrameBottomOffset),
                 mobilePoolSize);
             SetLocalScale(tilePoolPanelDesign, MobilePoolFrameScale);
 
@@ -619,7 +636,7 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
                 tilePoolPanel,
                 new Vector2(safeCenterX, safeMin.y),
                 new Vector2(0.5f, 0f),
-                new Vector2(0f, 62.1f),
+                new Vector2(0f, mobilePoolFrameBottomOffset),
                 mobilePoolSize);
             SetLocalScale(tilePoolPanel, MobilePoolScale);
 
@@ -783,28 +800,38 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
         if (tilePoolGrid != null && tilePoolPanel != null)
         {
             const int columns = 8;
+            const int rows = 2;
             const int paddingLeft = 10;
             const int paddingRight = 10;
-            const int paddingTop = 21;
-            const int paddingBottom = 5;
-            const float spacingX = 5.92f;
-            const float spacingY = 5f;
-            const float cellWidth = 71.17f;
-            const float cellHeight = 66.2f;
+            const int paddingTop = 12;
+            const int paddingBottom = 12;
+            const float spacingX = 2f;
+            const float spacingY = 2f;
+            // The compass ornaments protrude into both ends of the rack.
+            // The prior 77-unit cells ran into them. Reserve a clear inset
+            // around the 8x2 group, then let MiddleCenter split that margin
+            // evenly. Keep the Word Master-style 2-unit tile-to-tile gap.
+            const float endcapSafeInset = 72f;
+            const float railSafeInset = 23f;
+            float cellSide = Mathf.Max(1f, Mathf.Floor(Mathf.Min(
+                (tilePoolPanel.rect.width - 2f * endcapSafeInset
+                    - spacingX * (columns - 1)) / columns,
+                (tilePoolPanel.rect.height - 2f * railSafeInset
+                    - spacingY * (rows - 1)) / rows)));
 
             tilePoolGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             tilePoolGrid.constraintCount = columns;
             tilePoolGrid.startAxis = GridLayoutGroup.Axis.Horizontal;
             tilePoolGrid.startCorner = GridLayoutGroup.Corner.UpperLeft;
             tilePoolGrid.childAlignment = TextAnchor.MiddleCenter;
-            tilePoolGrid.cellSize = new Vector2(cellWidth, cellHeight);
+            tilePoolGrid.cellSize = new Vector2(cellSide, cellSide);
             tilePoolGrid.spacing = new Vector2(spacingX, spacingY);
             tilePoolGrid.padding.left = paddingLeft;
             tilePoolGrid.padding.right = paddingRight;
             tilePoolGrid.padding.top = paddingTop;
             tilePoolGrid.padding.bottom = paddingBottom;
 
-            ApplyTileTypography(tilePoolPanel, Mathf.Min(cellWidth, cellHeight));
+            ApplyTileTypography(tilePoolPanel, cellSide);
             LayoutRebuilder.ForceRebuildLayoutImmediate(tilePoolPanel);
         }
 
@@ -813,7 +840,7 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             int tileCount = Mathf.Max(1, CountActiveTileChildren(wordBarPanel));
             const int paddingX = 12;
             const int paddingY = 8;
-            const float spacingX = 6f;
+            const float spacingX = 2f;
 
             // Align the row inside the frame's inner artwork (not its tall
             // top-center ornament). Grid MiddleCenter splits padding differences
@@ -826,18 +853,28 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
                 centeredBottomPadding += Mathf.RoundToInt(innerArtCenterY * 2f);
             }
 
-            float usableWidth = wordBarPanel.rect.width
-                - (paddingX * 2f)
+            // The ornate frame is wider than the playable navy interior.
+            // Keep long words out of its compass/star endcaps, even at 16
+            // letters, while letting short words use full-size square tiles.
+            const float frameSideClearance = 70f;
+            float playableWidth = wordBarPanel.rect.width - (paddingX * 2f);
+            if (frame != null)
+            {
+                float frameVisualWidth = frame.rect.width * Mathf.Abs(frame.localScale.x);
+                playableWidth = Mathf.Min(playableWidth,
+                    Mathf.Max(1f, frameVisualWidth - 2f * frameSideClearance));
+            }
+            float usableWidth = playableWidth
                 - (spacingX * Mathf.Max(0, tileCount - 1));
             float usableHeight = wordBarPanel.rect.height - (paddingY * 2f);
             float availableCellSize = Mathf.Clamp(
                 Mathf.Min(usableWidth / tileCount, usableHeight),
                 24f,
                 74f);
-            // WordBar ONLY: its selected tiles should sit with breathing room
-            // inside the ornate frame, without shrinking the source TilePool
-            // tiles. Retain the 24-unit legibility floor for long words.
-            const float wordBarOnlyTileScale = 0.83f;
+            // Use nearly the full available square so selected tiles form
+            // a compact, tightly joined row like Word Master. Retain the
+            // long-word size floor and existing responsive width calculation.
+            const float wordBarOnlyTileScale = 0.95f;
             float cellSize = Mathf.Max(24f, availableCellSize * wordBarOnlyTileScale);
 
             wordBarGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;

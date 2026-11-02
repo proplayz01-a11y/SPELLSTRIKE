@@ -16,6 +16,51 @@ public sealed class TutorialHUDController : MonoBehaviour
     [SerializeField] private TMP_Text secondaryObjectiveText;
     [SerializeField] private TMP_Text dialogueText;
 
+    [Header("Guide slide notification")]
+    [SerializeField, Min(0f)] private float guideReadSeconds = 4f;
+    [SerializeField, Min(0.05f)] private float guideSlideInSeconds = 0.4f;
+    [SerializeField, Min(0.05f)] private float guideSlideOutSeconds = 0.45f;
+    private RectTransform guidePanel;
+    private CanvasGroup guideCanvas;
+    private float guideElapsed;
+    private float guideVisibility;
+    private bool guideHeld;
+    private bool guideHasMessage;
+    private string lastGuideMessage;
+
+    private void Awake()
+    {
+        if (dialogueText == null) return;
+        guidePanel = dialogueText.GetComponentInParent<RectTransform>();
+        while (guidePanel != null && guidePanel.name != "GuideDialogue")
+            guidePanel = guidePanel.parent as RectTransform;
+        if (guidePanel == null) return;
+        guideCanvas = guidePanel.GetComponent<CanvasGroup>();
+        if (guideCanvas == null) guideCanvas = guidePanel.gameObject.AddComponent<CanvasGroup>();
+        guideCanvas.blocksRaycasts = false;
+        guideCanvas.interactable = false;
+        guideVisibility = 0f;
+        guideCanvas.alpha = 0f;
+    }
+
+    private void LateUpdate()
+    {
+        if (guidePanel == null || guideCanvas == null) return;
+        if (guideHasMessage && !guideHeld) guideElapsed += Time.unscaledDeltaTime;
+        bool show = guideHasMessage && (guideHeld || guideElapsed < guideReadSeconds);
+        float duration = show ? guideSlideInSeconds : guideSlideOutSeconds;
+        guideVisibility = Mathf.MoveTowards(guideVisibility, show ? 1f : 0f,
+            Time.unscaledDeltaTime / duration);
+        float eased = guideVisibility * guideVisibility * (3f - 2f * guideVisibility);
+        guideCanvas.alpha = eased;
+        // Keep the responsive layout's right anchor and safe-area position intact.
+        // Offset only the rendered child graphics so responsive layout refreshes
+        // cannot pull the notification back on-screen.
+        float offscreenDistance = guidePanel.rect.width + 80f;
+        guidePanel.anchoredPosition = new Vector2(-24f + offscreenDistance * (1f - eased),
+            guidePanel.anchoredPosition.y);
+    }
+
     [Header("Progress")]
     [SerializeField] private UnityEngine.UI.Image[] progressPips;
     [SerializeField] private Color completedPipColor = new(0.95f, 0.68f, 0.20f, 1f);
@@ -63,10 +108,18 @@ public sealed class TutorialHUDController : MonoBehaviour
         }
     }
 
-    public void SetDialogue(string message)
+    public void SetDialogue(string message, bool holdUntilNextInstruction = false)
     {
         if (dialogueText != null)
             dialogueText.text = message;
+        bool hasMessage = !string.IsNullOrWhiteSpace(message);
+        if (lastGuideMessage != message || guideHeld != holdUntilNextInstruction)
+        {
+            guideElapsed = 0f;
+            lastGuideMessage = message;
+        }
+        guideHasMessage = hasMessage;
+        guideHeld = holdUntilNextInstruction;
     }
 
     public void SetPlatformPrompts(bool useMobileControls)
