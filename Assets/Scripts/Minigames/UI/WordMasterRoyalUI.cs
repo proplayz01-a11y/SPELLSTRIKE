@@ -37,7 +37,8 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
 
     private Sprite backgroundSprite, boardSprite, keyboardFrameSprite, headerSprite;
     private Sprite approvedWordMasterRibbonSprite;
-    private const string StageSelectBackdropPrefab = "StageSelectAnimatedBackdrop";
+    private const string TentBackdropPrefabPath = "MinigameTent/WordMasterTentBackdrop";
+    private const string TentBackdropObjectName = "WordMasterTentBackdrop";
     private Sprite slotSprite, normalSprite, goldSprite, silverSprite, graySprite, redSprite;
     private Sprite hintSprite, mainHintSprite, hintGlowSprite, arrowSprite, submitSprite, submitHoverSprite, submitDisabledSprite, menuSprite;
     private Sprite turnActiveSprite, turnInactiveSprite, prizeActiveSprite, prizeInactiveSprite, turnGlowSprite, prizeGlowSprite;
@@ -127,7 +128,7 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
         // The ribbon, hint artwork and Cinzel typography are visual-only.
         ApplyApprovedWordMasterRibbon();
         if (Application.isPlaying)
-            EnsureStageSelectAnimatedBackground();
+            EnsureFinalTentBackground();
     }
 
     private void ApplyApprovedWordMasterRibbon()
@@ -205,42 +206,52 @@ public sealed class WordMasterRoyalUI : MonoBehaviour
                 label.font = cinzelFont;
     }
 
-    private void EnsureStageSelectAnimatedBackground()
+    private void EnsureFinalTentBackground()
     {
-        if (layout == null || layout.Find(StageSelectBackdropPrefab) != null)
+        if (layout == null)
             return;
 
-        // This prefab is an isolated copy of Stage Select's original
-        // HallOfChronicles LibraryBackground: base 2400x1080 artwork,
-        // 39 flickering light/candle layers and runtime golden dust.
-        GameObject source = Resources.Load<GameObject>(ResourcesRoot + StageSelectBackdropPrefab);
-        if (source == null)
+        // Share the actual approved Minigame Selection tent, including its
+        // native lantern sway, candle flames and local warm light animation.
+        // A serialized prefab instance is supported for edit-mode previews;
+        // dynamically built Word Master layouts receive the same prefab here.
+        Transform existing = layout.Find(TentBackdropObjectName);
+        if (existing == null)
         {
-            Debug.LogWarning("[WordMasterRoyalUI] Stage Select animated background prefab unavailable; keeping existing backdrop.");
-            return;
+            GameObject source = Resources.Load<GameObject>(TentBackdropPrefabPath);
+            if (source == null)
+            {
+                Debug.LogError("[WordMasterRoyalUI] Finalized tent background prefab is missing; keeping the current background.");
+                return;
+            }
+
+            GameObject backdrop = Instantiate(source, layout, false);
+            backdrop.name = TentBackdropObjectName;
+            RectTransform rect = backdrop.transform as RectTransform;
+            if (rect != null)
+            {
+                rect.anchorMin = rect.anchorMax = new Vector2(.5f, .5f);
+                rect.anchoredPosition = Vector2.zero;
+                rect.sizeDelta = new Vector2(2400f, 1351f);
+                rect.localScale = Vector3.one;
+            }
+            backdrop.transform.SetAsFirstSibling();
+            existing = backdrop.transform;
         }
 
-        GameObject backdrop = Instantiate(source, layout, false);
-        backdrop.name = StageSelectBackdropPrefab;
-        RectTransform rect = backdrop.transform as RectTransform;
-        if (rect != null)
-        {
-            rect.anchorMin = rect.anchorMax = new Vector2(.5f, .5f);
-            rect.anchoredPosition = Vector2.zero;
-            rect.sizeDelta = new Vector2(2400f, 1080f);
-            rect.localScale = Vector3.one;
-        }
-        backdrop.transform.SetAsFirstSibling();
-
-        // Disable only the old static background Image. Its GameObject and
-        // every unrelated Word Master object remain intact.
+        // Disable only the old library image. Do not touch the board,
+        // hint panels, tiles, keyboard or game controller.
         Image staticBackdrop = layout.Find("LibraryBackdrop")?.GetComponent<Image>();
         if (staticBackdrop != null)
+        {
             staticBackdrop.enabled = false;
+            staticBackdrop.raycastTarget = false;
+        }
 
-        HallOfChroniclesAmbient ambience = backdrop.GetComponent<HallOfChroniclesAmbient>();
-        if (ambience == null || !ambience.IsAnimating)
-            Debug.LogWarning("[WordMasterRoyalUI] Stage Select backdrop instantiated but flicker animation is disabled.");
+        ModeSelectBackgroundAmbientMotion ambience =
+            existing.GetComponentInChildren<ModeSelectBackgroundAmbientMotion>(true);
+        if (ambience == null || !ambience.enabled)
+            Debug.LogWarning("[WordMasterRoyalUI] Finalized tent backdrop exists but its ambient motion is unavailable.");
     }
 
     private void Start()
