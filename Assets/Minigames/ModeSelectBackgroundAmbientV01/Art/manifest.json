@@ -1,0 +1,490 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "path": "C:/Users/David/PROTOTYPE/SPELLSTRIKE/Assets/Minigames/ModeSelectWorkbench/TentInteriorApproved.png",
+    "sha256": "bd8d8fdb7f1f80ce0638a3925d1a105407369bcb0cbf3809650d1156dc6595fd",
+    "width": 1672,
+    "height": 941
+  },
+  "generatedCleanPlate": {
+    "path": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-1b43f372-06de-46a6-be3b-a89904747481.png",
+    "sha256": "53584537e209d3904d376ca6938510d9bf3f10db45abaa32fd791c7f84c1b948",
+    "use": "Generated cloth gradients color-harmonized to original native boundary lighting, adopted only under the local removal mask; generated pixels outside that mask are discarded.",
+    "harmonization": {
+      "method": "Generated cloth gradients inside the exact local adoption support; original RGB fixed boundary. No pixels outside support are altered.",
+      "iterations": 730,
+      "maximumFinalUpdate": 0.014926910400390625
+    }
+  },
+  "coordinateConvention": {
+    "origin": "Source top-left; +x right, +y down.",
+    "rectangles": "[x,y,width,height], with right/bottom exclusive.",
+    "paths": "Absolute native source coordinates, SVG syntax. Body outlines are manual trace guides, not certified final alpha mattes.",
+    "manualOutlineAccuracyPixels": 2,
+    "cropPivotToUnity": "For crop [x,y,w,h] and native pivot [px,py], normalized bottom-left pivot = [(px-x)/w,1-(py-y)/h].",
+    "important": "Preserve source RGB inside opaque prop interiors. Matte/ring holes/soft edges require local alpha work; rectangular crops are not usable cutouts."
+  },
+  "assets": [
+    {
+      "kind": "cleanPlate",
+      "name": "TentInterior_CleanPlate",
+      "file": "TentInterior_CleanPlate.png",
+      "crop": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "pivotSource": [
+        836,
+        470.5
+      ],
+      "opaqueRgb": true
+    },
+    {
+      "kind": "lantern",
+      "name": "Lantern_Left",
+      "file": "Lantern_Left.png",
+      "crop": [
+        296,
+        0,
+        113,
+        220
+      ],
+      "pivotSource": [
+        348,
+        0
+      ],
+      "phase": 0.07,
+      "period": 9.2,
+      "maximumAngleDegrees": 2.2,
+      "includes": "Original body, finial, main top chain and main suspension ring only",
+      "secondaryAttachmentSource": [
+        307,
+        82
+      ],
+      "pixelEvidence": {
+        "bounds": [
+          302,
+          0,
+          100,
+          214
+        ],
+        "nonzeroPixels": 11024,
+        "sourceRgbMismatchesAtNonzeroAlpha": 0,
+        "nonzeroAlphaPixelsOutsideExportCrop": 0,
+        "rgbaChannels": 4,
+        "realTransparency": true
+      }
+    },
+    {
+      "kind": "chain",
+      "name": "Chain_Left",
+      "file": "Chain_Left.png",
+      "crop": [
+        298,
+        0,
+        21,
+        90
+      ],
+      "pivotSource": [
+        307,
+        0
+      ],
+      "attachNative": [
+        307,
+        82
+      ],
+      "parentLanternName": "Lantern_Left",
+      "phase": 0.07,
+      "period": 9.2,
+      "includes": "Only native secondary chain-link pixels; link openings remain transparent",
+      "runtimeContract": "Pin pivotSource at the original upper anchor; scale and rotate the secondary chain to follow the parent lantern attachment point.",
+      "pixelEvidence": {
+        "bounds": [
+          302,
+          0,
+          12,
+          88
+        ],
+        "nonzeroPixels": 409,
+        "sourceRgbMismatchesAtNonzeroAlpha": 0,
+        "nonzeroAlphaPixelsOutsideExportCrop": 0,
+        "rgbaChannels": 4,
+        "realTransparency": true
+      }
+    },
+    {
+      "kind": "lantern",
+      "name": "Lantern_Right",
+      "file": "Lantern_Right.png",
+      "crop": [
+        1275,
+        0,
+        111,
+        220
+      ],
+      "pivotSource": [
+        1328,
+        0
+      ],
+      "phase": 0.61,
+      "period": 10.7,
+      "maximumAngleDegrees": 2.2,
+      "includes": "Original body, finial, main top chain and main suspension ring only",
+      "secondaryAttachmentSource": [
+        1373,
+        82
+      ],
+      "pixelEvidence": {
+        "bounds": [
+          1280,
+          0,
+          98,
+          215
+        ],
+        "nonzeroPixels": 11457,
+        "sourceRgbMismatchesAtNonzeroAlpha": 0,
+        "nonzeroAlphaPixelsOutsideExportCrop": 0,
+        "rgbaChannels": 4,
+        "realTransparency": true
+      }
+    },
+    {
+      "kind": "chain",
+      "name": "Chain_Right",
+      "file": "Chain_Right.png",
+      "crop": [
+        1360,
+        0,
+        23,
+        90
+      ],
+      "pivotSource": [
+        1368,
+        0
+      ],
+      "attachNative": [
+        1373,
+        82
+      ],
+      "parentLanternName": "Lantern_Right",
+      "phase": 0.61,
+      "period": 10.7,
+      "includes": "Only native secondary chain-link pixels; link openings remain transparent",
+      "runtimeContract": "Pin pivotSource at the original upper anchor; scale and rotate the secondary chain to follow the parent lantern attachment point.",
+      "pixelEvidence": {
+        "bounds": [
+          1365,
+          0,
+          12,
+          77
+        ],
+        "nonzeroPixels": 374,
+        "sourceRgbMismatchesAtNonzeroAlpha": 0,
+        "nonzeroAlphaPixelsOutsideExportCrop": 0,
+        "rgbaChannels": 4,
+        "realTransparency": true
+      }
+    },
+    {
+      "kind": "flame",
+      "name": "Flame_LeftShort",
+      "file": "Flame_LeftShort.png",
+      "crop": [
+        222,
+        476,
+        18,
+        29
+      ],
+      "pivotSource": [
+        231,
+        504
+      ],
+      "phase": 0.19,
+      "period": 1.13,
+      "includes": "Native flame RGB only, manually traced antialiased/feathered silhouette",
+      "animationContract": "Keep wick-base pivot fixed; subtle local scale/lean/light modulation.",
+      "pixelEvidence": {
+        "bounds": [
+          226,
+          480,
+          10,
+          24
+        ],
+        "nonzeroPixels": 149,
+        "sourceRgbMismatchesAtNonzeroAlpha": 0,
+        "nonzeroAlphaPixelsOutsideExportCrop": 0,
+        "rgbaChannels": 4,
+        "realTransparency": true
+      }
+    },
+    {
+      "kind": "flame",
+      "name": "Flame_LeftTall",
+      "file": "Flame_LeftTall.png",
+      "crop": [
+        251,
+        449,
+        21,
+        33
+      ],
+      "pivotSource": [
+        261,
+        481
+      ],
+      "phase": 0.57,
+      "period": 1.37,
+      "includes": "Native flame RGB only, manually traced antialiased/feathered silhouette",
+      "animationContract": "Keep wick-base pivot fixed; subtle local scale/lean/light modulation.",
+      "pixelEvidence": {
+        "bounds": [
+          256,
+          453,
+          10,
+          28
+        ],
+        "nonzeroPixels": 192,
+        "sourceRgbMismatchesAtNonzeroAlpha": 0,
+        "nonzeroAlphaPixelsOutsideExportCrop": 0,
+        "rgbaChannels": 4,
+        "realTransparency": true
+      }
+    },
+    {
+      "kind": "flame",
+      "name": "Flame_Right",
+      "file": "Flame_Right.png",
+      "crop": [
+        1383,
+        484,
+        20,
+        34
+      ],
+      "pivotSource": [
+        1392,
+        516
+      ],
+      "phase": 0.83,
+      "period": 1.21,
+      "includes": "Native flame RGB only, manually traced antialiased/feathered silhouette",
+      "animationContract": "Keep wick-base pivot fixed; subtle local scale/lean/light modulation.",
+      "pixelEvidence": {
+        "bounds": [
+          1388,
+          488,
+          9,
+          28
+        ],
+        "nonzeroPixels": 177,
+        "sourceRgbMismatchesAtNonzeroAlpha": 0,
+        "nonzeroAlphaPixelsOutsideExportCrop": 0,
+        "rgbaChannels": 4,
+        "realTransparency": true
+      }
+    },
+    {
+      "kind": "glow",
+      "name": "WarmGlow",
+      "file": "WarmGlow.png",
+      "crop": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "pivotSource": [
+        32,
+        32
+      ],
+      "rgbaChannels": 4,
+      "source": "Code-native radial light mask only; no generated or duplicated prop artwork",
+      "suggestedBlend": "low-opacity additive or alpha light overlay"
+    }
+  ],
+  "verification": {
+    "assetPngCount": 9,
+    "changedCleanPlatePixels": 31515,
+    "adoptionMaskNonzeroPixels": 32753,
+    "changedCleanPlatePixelsOutsideAdoptionMask": 0,
+    "restCompositeChangedPixelsOutsideAdoptionMask": 0,
+    "restCompositeMeanAbsoluteChannelDifferenceInsideAdoptionMask": 2.1623973376484598,
+    "restCompositeMaximumChannelDifferenceInsideAdoptionMask": 170,
+    "sourceRgbPreservedInAllNonzeroAlphaCutoutPixels": true,
+    "independentDecodedPngSourceRgbMismatchCount": 0,
+    "cropOverflowPixels": 0,
+    "allTextureDimensionsAtMost2048": true,
+    "totalExportPixels": 1632583,
+    "estimatedRgba32BytesBeforeMipmaps": 6530332,
+    "diskPngChecks": [
+      {
+        "name": "TentInterior_CleanPlate",
+        "file": "TentInterior_CleanPlate.png",
+        "width": 1672,
+        "height": 941,
+        "channels": 3,
+        "hasAlpha": false,
+        "sha256": "cb66f6692b858886278b7fd821f6a604117973a85c30c8606ef9b4b67ec55f7f"
+      },
+      {
+        "name": "Lantern_Left",
+        "file": "Lantern_Left.png",
+        "width": 113,
+        "height": 220,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "1e5364b4467be96126c9dbab8f3c1fb35de2fd7534606ae7b4108cf1f0c72cf3",
+        "sourceRgbMismatches": 0,
+        "transparentPixels": 13836,
+        "nonzeroAlphaPixels": 11024,
+        "holeProbes": [
+          {
+            "source": [
+              349,
+              24
+            ],
+            "alpha": 0
+          }
+        ]
+      },
+      {
+        "name": "Chain_Left",
+        "file": "Chain_Left.png",
+        "width": 21,
+        "height": 90,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "b6adec4715ed64d3a31dfa8f5e3d1c95494b77ca35cbc7eab2705e35dd3e067d",
+        "sourceRgbMismatches": 0,
+        "transparentPixels": 1481,
+        "nonzeroAlphaPixels": 409,
+        "holeProbes": [
+          {
+            "source": [
+              307,
+              15
+            ],
+            "alpha": 0
+          },
+          {
+            "source": [
+              307,
+              32
+            ],
+            "alpha": 0
+          }
+        ]
+      },
+      {
+        "name": "Lantern_Right",
+        "file": "Lantern_Right.png",
+        "width": 111,
+        "height": 220,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "9d19cc25bb281b2918680de42f0dad6fad43679416560dcf511a2858902f75d1",
+        "sourceRgbMismatches": 0,
+        "transparentPixels": 12963,
+        "nonzeroAlphaPixels": 11457,
+        "holeProbes": [
+          {
+            "source": [
+              1328,
+              22
+            ],
+            "alpha": 0
+          }
+        ]
+      },
+      {
+        "name": "Chain_Right",
+        "file": "Chain_Right.png",
+        "width": 23,
+        "height": 90,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "ce9735862e55475a05b11f91baada01a7dc06865b377f8e122cec80b9a589eb0",
+        "sourceRgbMismatches": 0,
+        "transparentPixels": 1696,
+        "nonzeroAlphaPixels": 374,
+        "holeProbes": [
+          {
+            "source": [
+              1371,
+              17
+            ],
+            "alpha": 0
+          },
+          {
+            "source": [
+              1369,
+              36
+            ],
+            "alpha": 0
+          }
+        ]
+      },
+      {
+        "name": "Flame_LeftShort",
+        "file": "Flame_LeftShort.png",
+        "width": 18,
+        "height": 29,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "396ccc107968e49f4a6cce4dcc614a08a554e833e66da6e8916fe80b90cb3030",
+        "sourceRgbMismatches": 0,
+        "transparentPixels": 373,
+        "nonzeroAlphaPixels": 149,
+        "holeProbes": []
+      },
+      {
+        "name": "Flame_LeftTall",
+        "file": "Flame_LeftTall.png",
+        "width": 21,
+        "height": 33,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "147e8f7122a8aa756ab408fbd9b852e0201176236074ef909a8d68c979b68e4c",
+        "sourceRgbMismatches": 0,
+        "transparentPixels": 501,
+        "nonzeroAlphaPixels": 192,
+        "holeProbes": []
+      },
+      {
+        "name": "Flame_Right",
+        "file": "Flame_Right.png",
+        "width": 20,
+        "height": 34,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "e450eadfcc797ca929ddfc87e56c4689416cc6c2ed027cccfd0d7e02ffed3591",
+        "sourceRgbMismatches": 0,
+        "transparentPixels": 503,
+        "nonzeroAlphaPixels": 177,
+        "holeProbes": []
+      },
+      {
+        "name": "WarmGlow",
+        "file": "WarmGlow.png",
+        "width": 64,
+        "height": 64,
+        "channels": 4,
+        "hasAlpha": true,
+        "sha256": "d82af93ce8b7a5c4a15a57f7c8836f8aa2e30d2998fc19c27a192c5ed487eba0"
+      }
+    ]
+  },
+  "fidelityLimits": [
+    "Body/ring/chain/flame mattes are deterministic manual trace approximations, not recovered original layered alpha. Inspect the supplied light/dark contact sheet and moving edges before final approval.",
+    "Cutouts retain original RGB, including edge illumination from the original flattened background. Soft edge mattes can retain small colored fringes; no claim of pixel-perfect separation.",
+    "Local inpaint only replaces object silhouettes plus a small feathered margin. Broad baked warm illumination remains original and does not follow a moving prop.",
+    "Secondary chains must be pinned at their upper anchors and transformed to follow the corresponding animated body attachment; do not duplicate them inside the body sprite.",
+    "Rest composite is a native offline assembly check, not Unity runtime or Android verification."
+  ],
+  "qaFiles": [
+    "../Rest_Composite.png",
+    "../AdoptionMaskQA.png",
+    "../AdoptionMask_Overlay.png",
+    "../CutoutContactSheet.png"
+  ]
+}

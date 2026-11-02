@@ -1,0 +1,2687 @@
+{
+  "reference": {
+    "file": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+    "width": 1672,
+    "height": 941
+  },
+  "background": {
+    "file": "C:/Users/David/Downloads/MAIN MENU MODE SELECT ASSETS/Enchanted Compass Tent Interior.png",
+    "type": "Existing clean tent background; no UI copied from flattened reference"
+  },
+  "coordinateConvention": "Top-left pixels; alpha bbox is [x,y,width,height]. Card PNG canvas remains872x172 with transparent padding. Transform asset pixels through display then target scale/translation.",
+  "assets": [
+    {
+      "file": "MainPanel/MainBody_Empty.png",
+      "sha256": "3bd0326e0b3ae385cc60e424764dc2f68d9165a461b8c8fdfa92f5e3d187289c",
+      "width": 1448,
+      "height": 1086,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 223178,
+      "partialAlphaPixels": 53830,
+      "opaquePixels": 1295520,
+      "nonzeroPixels": 1349350,
+      "alphaBBoxXYWH": [
+        31,
+        34,
+        1387,
+        1009
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "MainPanel/MainBody_Empty.png",
+        "width": 1448,
+        "height": 1086,
+        "source": "C:\\Users\\David\\Downloads\\MAIN MENU MODE SELECT ASSETS\\Ornate Gold and Navy Parchment UI Frame.png",
+        "sourceBounds": [
+          0,
+          0,
+          1448,
+          1086
+        ],
+        "compositionOffset": null,
+        "method": "Existing separate approved source reused at native dimensions. Alpha below 16 removed, near opaque alpha normalized, remaining alpha slightly attenuated; RGB retained. Two-pixel canvas edge feather prevents clipping specks.",
+        "status": "reused separate source with alpha cleanup",
+        "removedLowAlphaPixels": 112039,
+        "limitations": "Separate source is a visually close reconstruction, not the same pixels as the flattened reference. Preserve native aspect ratio when placing.",
+        "alphaQA": {
+          "zero": 223178,
+          "partial": 53830,
+          "opaque": 1295520,
+          "visibleBounds": [
+            31,
+            34,
+            1418,
+            1043
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "asset-local pixels",
+      "nativeSourceCanvasOffset": null,
+      "display": {
+        "nativeGlobalOffset": [
+          311,
+          91
+        ],
+        "sourceCropXYWH": [
+          31,
+          34,
+          1387,
+          1009
+        ],
+        "displaySize": [
+          1050,
+          764
+        ],
+        "uniformScale": 0.757185332011893,
+        "scale": [
+          0.757185332011893,
+          0.757185332011893
+        ],
+        "rasterRounding": true
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": null,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "MainPanel/Header_SpellstrikeMiniGames.png",
+      "sha256": "207cfbf37d2e3728108f6520266f9ea9207739827e3cfdfdf639fb1ca192e7b3",
+      "width": 899,
+      "height": 196,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 83843,
+      "partialAlphaPixels": 6177,
+      "opaquePixels": 86184,
+      "nonzeroPixels": 92361,
+      "alphaBBoxXYWH": [
+        4,
+        5,
+        892,
+        191
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "MainPanel/Header_SpellstrikeMiniGames.png",
+        "width": 899,
+        "height": 196,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          389,
+          7,
+          899,
+          196
+        ],
+        "compositionOffset": [
+          389,
+          7
+        ],
+        "method": "Original reference RGB retained within dense manually traced antialiased ribbon/spool/crystal contour. Neutral soft shadow reconstructed. No typography rescale or font replacement.",
+        "status": "extracted; manually traced alpha and reconstructed shadow",
+        "polygon": [
+          [
+            5,
+            139
+          ],
+          [
+            15,
+            121
+          ],
+          [
+            25,
+            98
+          ],
+          [
+            29,
+            80
+          ],
+          [
+            29,
+            63
+          ],
+          [
+            28,
+            54
+          ],
+          [
+            39,
+            48
+          ],
+          [
+            56,
+            44
+          ],
+          [
+            80,
+            43
+          ],
+          [
+            100,
+            44
+          ],
+          [
+            119,
+            48
+          ],
+          [
+            144,
+            59
+          ],
+          [
+            149,
+            61
+          ],
+          [
+            229,
+            61
+          ],
+          [
+            239,
+            56
+          ],
+          [
+            251,
+            54
+          ],
+          [
+            260,
+            54
+          ],
+          [
+            278,
+            58
+          ],
+          [
+            298,
+            61
+          ],
+          [
+            319,
+            58
+          ],
+          [
+            331,
+            55
+          ],
+          [
+            339,
+            55
+          ],
+          [
+            345,
+            52
+          ],
+          [
+            339,
+            50
+          ],
+          [
+            353,
+            49
+          ],
+          [
+            367,
+            50
+          ],
+          [
+            376,
+            55
+          ],
+          [
+            389,
+            56
+          ],
+          [
+            401,
+            51
+          ],
+          [
+            402,
+            47
+          ],
+          [
+            399,
+            42
+          ],
+          [
+            393,
+            36
+          ],
+          [
+            404,
+            40
+          ],
+          [
+            413,
+            42
+          ],
+          [
+            420,
+            39
+          ],
+          [
+            416,
+            36
+          ],
+          [
+            429,
+            34
+          ],
+          [
+            438,
+            27
+          ],
+          [
+            443,
+            16
+          ],
+          [
+            447,
+            5
+          ],
+          [
+            451,
+            15
+          ],
+          [
+            456,
+            25
+          ],
+          [
+            465,
+            31
+          ],
+          [
+            478,
+            34
+          ],
+          [
+            478,
+            38
+          ],
+          [
+            488,
+            43
+          ],
+          [
+            499,
+            38
+          ],
+          [
+            507,
+            35
+          ],
+          [
+            502,
+            43
+          ],
+          [
+            499,
+            48
+          ],
+          [
+            500,
+            51
+          ],
+          [
+            512,
+            56
+          ],
+          [
+            524,
+            56
+          ],
+          [
+            536,
+            51
+          ],
+          [
+            551,
+            49
+          ],
+          [
+            560,
+            50
+          ],
+          [
+            548,
+            55
+          ],
+          [
+            544,
+            58
+          ],
+          [
+            563,
+            61
+          ],
+          [
+            606,
+            61
+          ],
+          [
+            624,
+            56
+          ],
+          [
+            635,
+            54
+          ],
+          [
+            646,
+            56
+          ],
+          [
+            657,
+            61
+          ],
+          [
+            751,
+            61
+          ],
+          [
+            776,
+            50
+          ],
+          [
+            795,
+            46
+          ],
+          [
+            814,
+            43
+          ],
+          [
+            837,
+            43
+          ],
+          [
+            854,
+            46
+          ],
+          [
+            868,
+            53
+          ],
+          [
+            868,
+            60
+          ],
+          [
+            862,
+            77
+          ],
+          [
+            865,
+            100
+          ],
+          [
+            874,
+            122
+          ],
+          [
+            893,
+            139
+          ],
+          [
+            885,
+            147
+          ],
+          [
+            871,
+            154
+          ],
+          [
+            855,
+            159
+          ],
+          [
+            832,
+            160
+          ],
+          [
+            815,
+            159
+          ],
+          [
+            802,
+            157
+          ],
+          [
+            807,
+            144
+          ],
+          [
+            817,
+            137
+          ],
+          [
+            772,
+            143
+          ],
+          [
+            759,
+            164
+          ],
+          [
+            701,
+            155
+          ],
+          [
+            626,
+            150
+          ],
+          [
+            540,
+            148
+          ],
+          [
+            521,
+            151
+          ],
+          [
+            502,
+            160
+          ],
+          [
+            495,
+            155
+          ],
+          [
+            482,
+            158
+          ],
+          [
+            485,
+            170
+          ],
+          [
+            472,
+            166
+          ],
+          [
+            458,
+            178
+          ],
+          [
+            447,
+            193
+          ],
+          [
+            437,
+            180
+          ],
+          [
+            423,
+            167
+          ],
+          [
+            413,
+            170
+          ],
+          [
+            413,
+            161
+          ],
+          [
+            407,
+            154
+          ],
+          [
+            394,
+            155
+          ],
+          [
+            390,
+            160
+          ],
+          [
+            372,
+            153
+          ],
+          [
+            350,
+            147
+          ],
+          [
+            270,
+            150
+          ],
+          [
+            201,
+            156
+          ],
+          [
+            135,
+            164
+          ],
+          [
+            121,
+            143
+          ],
+          [
+            91,
+            137
+          ],
+          [
+            95,
+            158
+          ],
+          [
+            80,
+            160
+          ],
+          [
+            58,
+            159
+          ],
+          [
+            38,
+            154
+          ],
+          [
+            18,
+            148
+          ]
+        ],
+        "limitations": "Fine ornament contour and shadow alpha estimated from flattened source; portions of folded gold/cream ribbon undersides are source retained. The separate 2172x724 banner source was inspected but not used because its proportions differ.",
+        "edgeCleanup": "Residual purple curtain pixels suppressed only within four pixels of the traced silhouette. Subpixel contour alpha remains estimated.",
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "asset-local pixels",
+      "nativeSourceCanvasOffset": [
+        389,
+        7
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          389,
+          7
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": null,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "MainPanel/Button_MainMenu.png",
+      "sha256": "66eeb14f0c11dbc70b859d362693fbc12eac99be96bbb45ed6d863dbd36c01b1",
+      "width": 395,
+      "height": 83,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 6137,
+      "partialAlphaPixels": 2158,
+      "opaquePixels": 24490,
+      "nonzeroPixels": 26648,
+      "alphaBBoxXYWH": [
+        5,
+        7,
+        387,
+        74
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "MainPanel/Button_MainMenu.png",
+        "width": 395,
+        "height": 83,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          639,
+          730,
+          395,
+          83
+        ],
+        "compositionOffset": [
+          639,
+          730
+        ],
+        "method": "Source RGB inside manually traced antialiased polygon; transparent outside; subtle neutral shadow reconstructed independently. No rectangular parchment patch.",
+        "status": "extracted with reconstructed shadow",
+        "polygon": [
+          [
+            6,
+            40
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            30,
+            7
+          ],
+          [
+            359,
+            7
+          ],
+          [
+            368,
+            19
+          ],
+          [
+            389,
+            41
+          ],
+          [
+            373,
+            60
+          ],
+          [
+            363,
+            76
+          ],
+          [
+            31,
+            77
+          ],
+          [
+            19,
+            61
+          ]
+        ],
+        "alphaQA": {
+          "zero": 6137,
+          "partial": 2158,
+          "opaque": 24490,
+          "visibleBounds": [
+            5,
+            7,
+            392,
+            81
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "asset-local pixels",
+      "nativeSourceCanvasOffset": [
+        639,
+        730
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          639,
+          730
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": null,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordMaster/WM_01_Base.png",
+      "sha256": "bd701ea5c6ddda574ef26e5d1f09058977d7705587efc1f3afff7c6a64f7137f",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 20798,
+      "partialAlphaPixels": 6294,
+      "opaquePixels": 122892,
+      "nonzeroPixels": 129186,
+      "alphaBBoxXYWH": [
+        4,
+        6,
+        864,
+        159
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_01_Base.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          4,
+          6,
+          868,
+          165
+        ],
+        "nonzeroPixels": 129186,
+        "sourceRect": [
+          400,
+          203,
+          872,
+          172
+        ],
+        "method": "Native reference frame and inner trim; generated empty-card parchment cropped and fitted only inside the traced inner edge. Reconstructed right-side map detail attenuated against a low-pass parchment field to maintain faint reference hierarchy. Icon-contaminated top/lower straight rim bands repaired by interpolating clean adjacent native row colors. Neutral subtle external shadow.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-0da80d19-2aa2-4ef2-ba50-2830b0175cd2.png",
+        "nativeRimCleanup": [
+          {
+            "x": 146,
+            "y": 6,
+            "width": 37,
+            "height": 25
+          },
+          {
+            "x": 50,
+            "y": 136,
+            "width": 226,
+            "height": 13
+          }
+        ],
+        "outerContour": "M 41 10 L 425 10 L 436 6 L 447 10 L 832 10 C 835 21 846 28 865 34 L 865 131 C 847 137 838 145 832 156 L 444 156 L 436 159 L 428 156 L 41 156 C 36 144 24 136 7 132 L 7 35 C 25 29 37 21 41 10 Z",
+        "innerContour": "M 47 25 L 825 25 C 830 37 838 42 848 45 L 848 122 C 837 126 831 132 826 141 L 46 141 C 41 130 34 127 24 123 L 24 46 C 35 41 42 35 47 25 Z",
+        "uncertainty": "Hidden parchment reconstructed; faint map detail differs from flattened source. Local straight rim texture is interpolated from the same native frame to remove flattened source icon/glow fragments.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 0,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordMaster/WM_02_GoldReflectionMask.png",
+      "sha256": "7849dd1de7b410f4f6565706aff30a2abc5d4d53f9acb1ecc5f15ba974d3cc8d",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 139488,
+      "partialAlphaPixels": 8307,
+      "opaquePixels": 2189,
+      "nonzeroPixels": 10496,
+      "alphaBBoxXYWH": [
+        9,
+        10,
+        854,
+        149
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": true,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_02_GoldReflectionMask.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          9,
+          10,
+          863,
+          159
+        ],
+        "nonzeroPixels": 10496,
+        "status": "source-aligned analytic bevel matte clipped to finalized base",
+        "sourceRect": [
+          400,
+          203,
+          872,
+          172
+        ],
+        "bevelPath": "M 42 13.5 L 832 13.5 C 835 24.5 846 31.5 860 35.5 L 860 128.7 C 847 133.7 837 142.7 832 153.7 L 442 153.7 L 436 156.7 L 430 153.7 L 41 153.7 C 36 141.7 26 134.7 12 129.7 L 12 36.5 C 27 31.5 37 23.5 42 13.5 Z",
+        "finalizedBaseDependency": "WordMaster/WM_01_Base.png",
+        "baseSupportThreshold": 192,
+        "notes": "Narrow curved outer gold bevel only. Grayscale white RGB with reflectivity in alpha. Mask alpha multiplied by finalized base alpha and zeroed where base alpha is below 192. No full rectangular glow; WM green trim excluded.",
+        "metadataFile": "work/source_effects_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": false,
+      "cardNormalZIndex": null,
+      "effectOnly": true,
+      "maskSampling": {
+        "channel": "alpha",
+        "formula": "reflectivity = texture.a",
+        "rgb": "White grayscale; alpha contains edge reflectivity. Do not sample RGB without alpha.",
+        "usage": "Effect-only overlay; animate travel/timing/blending in Unity, preserve visible static gold frame."
+      }
+    },
+    {
+      "file": "WordMaster/WM_03_GreenAura.png",
+      "sha256": "e9a8ed82f71154c238834018fd8d0ad3f33c1c66a1464816bc203b03a347e5c7",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 129824,
+      "partialAlphaPixels": 20160,
+      "opaquePixels": 0,
+      "nonzeroPixels": 20160,
+      "alphaBBoxXYWH": [
+        34,
+        25,
+        239,
+        115
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_03_GreenAura.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          34,
+          25,
+          273,
+          140
+        ],
+        "nonzeroPixels": 20160,
+        "method": "Reconstructed isolated illustration from built-in imagegen edit; source alpha preserved with low-alpha fringe suppression, native-size fitting.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-b38af63e-6401-4428-aacc-508eaa1d1401.png",
+        "generatedTrim": {
+          "left": 47,
+          "top": 31,
+          "width": 1797,
+          "height": 738
+        },
+        "placement": [
+          34,
+          20,
+          239,
+          125
+        ],
+        "opacity": 0.63,
+        "uncertainty": "Underlying paint reconstructed; original blotch contours cannot be recovered from flattened book overlap.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 1,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordMaster/WM_04_Spellbook.png",
+      "sha256": "0186134126d6e9419ed396a72cb3fb40310c6acc5eb632c775ae9f1ff1087f46",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 140570,
+      "partialAlphaPixels": 1489,
+      "opaquePixels": 7925,
+      "nonzeroPixels": 9414,
+      "alphaBBoxXYWH": [
+        75,
+        77,
+        188,
+        68
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_04_Spellbook.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          75,
+          77,
+          263,
+          145
+        ],
+        "nonzeroPixels": 9414,
+        "method": "Reconstructed isolated illustration from built-in imagegen edit; source alpha preserved with low-alpha fringe suppression, native-size fitting.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-64513fff-2f11-4476-8759-0b064e1e2480.png",
+        "generatedTrim": {
+          "left": 86,
+          "top": 129,
+          "width": 1601,
+          "height": 651
+        },
+        "placement": [
+          75,
+          77,
+          188,
+          68
+        ],
+        "opacity": 1,
+        "uncertainty": "Purple-cover open book reconstructed without magic overlay; page details and thickness differ from original.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 2,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordMaster/WM_05_MagicStar.png",
+      "sha256": "96a61ddc59c23c2b83df1daaa82c111c38fa85527fe391c8833dc2818d5458fb",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 147344,
+      "partialAlphaPixels": 1902,
+      "opaquePixels": 738,
+      "nonzeroPixels": 2640,
+      "alphaBBoxXYWH": [
+        125,
+        16,
+        82,
+        86
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_05_MagicStar.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          125,
+          16,
+          207,
+          102
+        ],
+        "nonzeroPixels": 2640,
+        "status": "source-guided reconstructed geometric star, approximate",
+        "sourceRect": [
+          400,
+          203,
+          872,
+          172
+        ],
+        "notes": "Original star/circle/ray positions traced. Reconstructed clean geometry and restrained warm glow remove source book/ring/aura contamination; not exact recovered source alpha.",
+        "metadataFile": "work/source_effects_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 4,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordMaster/WM_06_MagicRings.png",
+      "sha256": "ae2b4f0b6c03903ef4b73bab9cebf1abd6cbe09e8bd781eef4410d2f439a8c10",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 148404,
+      "partialAlphaPixels": 1580,
+      "opaquePixels": 0,
+      "nonzeroPixels": 1580,
+      "alphaBBoxXYWH": [
+        98,
+        50,
+        135,
+        35
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_06_MagicRings.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          98,
+          50,
+          233,
+          85
+        ],
+        "nonzeroPixels": 1580,
+        "status": "source-guided reconstructed complete orbit rings, approximate",
+        "sourceRect": [
+          400,
+          203,
+          872,
+          172
+        ],
+        "notes": "Original orbit position traced; uniform sampled gold/cream palette and restrained glow. Two complete thin elliptical centerlines reconstruct hidden arcs, including star intersections, for independent animation. Contains no star/ray shapes or page content. Render the star above rings. Not a pixel-perfect source-alpha recovery.",
+        "metadataFile": "work/source_effects_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 3,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordMaster/WM_07_Text.png",
+      "sha256": "0e3f8b6857cab0dc722a2d9911cafb4ebedee5672f0b40d4f690927f2e2d215e",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 142834,
+      "partialAlphaPixels": 5084,
+      "opaquePixels": 2066,
+      "nonzeroPixels": 7150,
+      "alphaBBoxXYWH": [
+        281,
+        46,
+        469,
+        69
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_07_Text.png",
+        "width": 872,
+        "height": 172,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          400,
+          203,
+          872,
+          172
+        ],
+        "compositionOffset": [
+          400,
+          203
+        ],
+        "method": "Original dark letter ink retained via local parchment-color unmatting and connected dark-core mask; no font substitution. Original divider retained with antialiased manual polygon.",
+        "status": "extracted; alpha estimated",
+        "text": [
+          "WORD MASTER",
+          "Guess the hidden word from gold and silver clues."
+        ],
+        "limitations": "Parchment and the faint cream halo around title strokes removed. Very fine antialias edge pixels are estimated; exact layered typography cannot be recovered from flattened source.",
+        "regions": [
+          [
+            310,
+            38,
+            623,
+            82
+          ],
+          [
+            312,
+            87,
+            760,
+            115
+          ]
+        ],
+        "alphaQA": {
+          "zero": 142834,
+          "partial": 5084,
+          "opaque": 2066,
+          "visibleBounds": [
+            281,
+            46,
+            750,
+            115
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 5,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordMaster/WM_08_Arrow.png",
+      "sha256": "db48d20fb86fb3c25433945df550fb4215982abc21e61237e764125ee7d3d4c2",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 147616,
+      "partialAlphaPixels": 458,
+      "opaquePixels": 1910,
+      "nonzeroPixels": 2368,
+      "alphaBBoxXYWH": [
+        775,
+        60,
+        56,
+        52
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordMaster/WM_08_Arrow.png",
+        "width": 872,
+        "height": 172,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          400,
+          203,
+          872,
+          172
+        ],
+        "compositionOffset": [
+          400,
+          203
+        ],
+        "method": "Source RGB inside manually traced antialiased polygon; transparent outside; subtle neutral shadow reconstructed independently. No rectangular parchment patch.",
+        "status": "extracted with reconstructed shadow",
+        "polygon": [
+          [
+            776,
+            70
+          ],
+          [
+            786,
+            60
+          ],
+          [
+            810,
+            60
+          ],
+          [
+            828,
+            84
+          ],
+          [
+            810,
+            108
+          ],
+          [
+            787,
+            108
+          ],
+          [
+            776,
+            98
+          ]
+        ],
+        "alphaQA": {
+          "zero": 147616,
+          "partial": 458,
+          "opaque": 1910,
+          "visibleBounds": [
+            775,
+            60,
+            831,
+            112
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        203
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          203
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 6,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "SpellItOut/SIO_01_Base.png",
+      "sha256": "3183d137d660504a4b054fb0d6246ba8d6019db841063006bfb8fadfed4a336e",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 20798,
+      "partialAlphaPixels": 6294,
+      "opaquePixels": 122892,
+      "nonzeroPixels": 129186,
+      "alphaBBoxXYWH": [
+        4,
+        2,
+        864,
+        159
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "SpellItOut/SIO_01_Base.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          4,
+          2,
+          868,
+          161
+        ],
+        "nonzeroPixels": 129186,
+        "sourceRect": [
+          400,
+          375,
+          872,
+          172
+        ],
+        "method": "Native reference frame and inner trim; generated empty-card parchment cropped and fitted only inside the traced inner edge. Reconstructed right-side map detail attenuated against a low-pass parchment field to maintain faint reference hierarchy. Icon-contaminated top/lower straight rim bands repaired by interpolating clean adjacent native row colors. Neutral subtle external shadow.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-f391f9ba-9690-499a-aecd-fa0d5e8b4c82.png",
+        "nativeRimCleanup": [
+          {
+            "x": 75,
+            "y": 132,
+            "width": 174,
+            "height": 12
+          }
+        ],
+        "outerContour": "M 41 6 L 425 6 L 436 2 L 447 6 L 832 6 C 835 17 846 24 865 30 L 865 127 C 847 133 838 141 832 152 L 444 152 L 436 155 L 428 152 L 41 152 C 36 140 24 132 7 128 L 7 31 C 25 25 37 17 41 6 Z",
+        "innerContour": "M 47 21 L 825 21 C 830 33 838 38 848 41 L 848 118 C 837 122 831 128 826 137 L 46 137 C 41 126 34 123 24 119 L 24 42 C 35 37 42 31 47 21 Z",
+        "uncertainty": "Hidden parchment reconstructed; faint map detail differs from flattened source. Local straight rim texture is interpolated from the same native frame to remove flattened source icon/glow fragments.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        375
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          375
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 0,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "SpellItOut/SIO_02_GoldReflectionMask.png",
+      "sha256": "48897de44cc9819280a6816e176e238ac81bb8bc526b8b0961022dec5fdb458e",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 138780,
+      "partialAlphaPixels": 9460,
+      "opaquePixels": 1744,
+      "nonzeroPixels": 11204,
+      "alphaBBoxXYWH": [
+        9,
+        6,
+        854,
+        149
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": true,
+      "sourceAttribution": {
+        "file": "SpellItOut/SIO_02_GoldReflectionMask.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          9,
+          6,
+          863,
+          155
+        ],
+        "nonzeroPixels": 11204,
+        "status": "source-aligned analytic bevel matte clipped to finalized base",
+        "sourceRect": [
+          400,
+          375,
+          872,
+          172
+        ],
+        "bevelPath": "M 42 9 L 832 9 C 835 20 846 27 860 31 L 860 124.30000000000001 C 847 129.3 837 138.3 832 149.3 L 442 149.3 L 436 152.3 L 430 149.3 L 41 149.3 C 36 137.3 26 130.3 12 125.30000000000001 L 12 32 C 27 27 37 19 42 9 Z",
+        "finalizedBaseDependency": "SpellItOut/SIO_01_Base.png",
+        "baseSupportThreshold": 192,
+        "notes": "Narrow curved outer gold bevel only. Grayscale white RGB with reflectivity in alpha. Mask alpha multiplied by finalized base alpha and zeroed where base alpha is below 192. No full rectangular glow; WM green trim excluded.",
+        "metadataFile": "work/source_effects_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        375
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          375
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": false,
+      "cardNormalZIndex": null,
+      "effectOnly": true,
+      "maskSampling": {
+        "channel": "alpha",
+        "formula": "reflectivity = texture.a",
+        "rgb": "White grayscale; alpha contains edge reflectivity. Do not sample RGB without alpha.",
+        "usage": "Effect-only overlay; animate travel/timing/blending in Unity, preserve visible static gold frame."
+      }
+    },
+    {
+      "file": "SpellItOut/SIO_03_MagicalGlow.png",
+      "sha256": "dc39ab831a09b505994725a405aa9ae5b8bdee28a0a33dcb8f07c282c077d261",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 131218,
+      "partialAlphaPixels": 18766,
+      "opaquePixels": 0,
+      "nonzeroPixels": 18766,
+      "alphaBBoxXYWH": [
+        35,
+        25,
+        237,
+        115
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "SpellItOut/SIO_03_MagicalGlow.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          35,
+          25,
+          272,
+          140
+        ],
+        "nonzeroPixels": 18766,
+        "method": "Reconstructed isolated illustration from built-in imagegen edit; source alpha preserved with low-alpha fringe suppression, native-size fitting.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-65e0fbf9-4e30-4087-a33a-f146f859d980.png",
+        "generatedTrim": {
+          "left": 74,
+          "top": 58,
+          "width": 2028,
+          "height": 618
+        },
+        "placement": [
+          35,
+          18,
+          237,
+          126
+        ],
+        "opacity": 0.6,
+        "uncertainty": "Golden cloud/trails reconstructed without letter tiles. No 2D tile replacement.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        375
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          375
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 1,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "SpellItOut/SIO_04_Text.png",
+      "sha256": "67a3a857895370bbf3a37c75210ffa6fa367ced57a4efdf8a2d0079059b09be9",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 144313,
+      "partialAlphaPixels": 4104,
+      "opaquePixels": 1567,
+      "nonzeroPixels": 5671,
+      "alphaBBoxXYWH": [
+        281,
+        40,
+        384,
+        75
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "SpellItOut/SIO_04_Text.png",
+        "width": 872,
+        "height": 172,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          400,
+          375,
+          872,
+          168
+        ],
+        "compositionOffset": [
+          400,
+          375
+        ],
+        "method": "Original dark letter ink retained via local parchment-color unmatting and connected dark-core mask; no font substitution. Original divider retained with antialiased manual polygon.",
+        "status": "extracted; alpha estimated",
+        "text": [
+          "SPELL IT OUT",
+          "Build the word from jumbled tiles."
+        ],
+        "limitations": "Parchment and the faint cream halo around title strokes removed. Very fine antialias edge pixels are estimated; exact layered typography cannot be recovered from flattened source.",
+        "regions": [
+          [
+            312,
+            35,
+            625,
+            80
+          ],
+          [
+            314,
+            84,
+            690,
+            115
+          ]
+        ],
+        "alphaQA": {
+          "zero": 144313,
+          "partial": 4104,
+          "opaque": 1567,
+          "visibleBounds": [
+            281,
+            40,
+            665,
+            115
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        375
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          375
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 2,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "SpellItOut/SIO_05_Arrow.png",
+      "sha256": "0a91529095b37799e52dc2c6a8ea5829b6687ad9989c58791465b78020778faa",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 147616,
+      "partialAlphaPixels": 458,
+      "opaquePixels": 1910,
+      "nonzeroPixels": 2368,
+      "alphaBBoxXYWH": [
+        775,
+        56,
+        56,
+        52
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "SpellItOut/SIO_05_Arrow.png",
+        "width": 872,
+        "height": 172,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          400,
+          375,
+          872,
+          168
+        ],
+        "compositionOffset": [
+          400,
+          375
+        ],
+        "method": "Source RGB inside manually traced antialiased polygon; transparent outside; subtle neutral shadow reconstructed independently. No rectangular parchment patch.",
+        "status": "extracted with reconstructed shadow",
+        "polygon": [
+          [
+            776,
+            66
+          ],
+          [
+            786,
+            56
+          ],
+          [
+            810,
+            56
+          ],
+          [
+            828,
+            80
+          ],
+          [
+            810,
+            104
+          ],
+          [
+            787,
+            104
+          ],
+          [
+            776,
+            94
+          ]
+        ],
+        "alphaQA": {
+          "zero": 147616,
+          "partial": 458,
+          "opaque": 1910,
+          "visibleBounds": [
+            775,
+            56,
+            831,
+            108
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        375
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          375
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 3,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordExcavation/WE_01_Base.png",
+      "sha256": "6424566c990f5b1675ddfd9605eb24b305a94a707c71e364e3583cbe559499dc",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 19934,
+      "partialAlphaPixels": 6300,
+      "opaquePixels": 123750,
+      "nonzeroPixels": 130050,
+      "alphaBBoxXYWH": [
+        4,
+        3,
+        864,
+        160
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_01_Base.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          4,
+          3,
+          868,
+          163
+        ],
+        "nonzeroPixels": 130050,
+        "sourceRect": [
+          400,
+          543,
+          872,
+          172
+        ],
+        "method": "Native reference frame and inner trim; generated empty-card parchment cropped and fitted only inside the traced inner edge. Reconstructed right-side map detail attenuated against a low-pass parchment field to maintain faint reference hierarchy. Icon-contaminated top/lower straight rim bands repaired by interpolating clean adjacent native row colors. Neutral subtle external shadow.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-bd1756b0-5b12-4ff7-a812-e58922760341.png",
+        "nativeRimCleanup": [
+          {
+            "x": 100,
+            "y": 15,
+            "width": 82,
+            "height": 10
+          },
+          {
+            "x": 50,
+            "y": 135,
+            "width": 226,
+            "height": 9
+          }
+        ],
+        "outerContour": "M 41 7 L 425 7 L 436 3 L 447 7 L 832 7 C 835 18 846 25 865 31 L 865 129 C 847 135 838 143 832 154 L 444 154 L 436 157 L 428 154 L 41 154 C 36 142 24 134 7 130 L 7 32 C 25 26 37 18 41 7 Z",
+        "innerContour": "M 47 22 L 825 22 C 830 34 838 39 848 42 L 848 120 C 837 124 831 130 826 139 L 46 139 C 41 128 34 125 24 121 L 24 43 C 35 38 42 32 47 22 Z",
+        "uncertainty": "Hidden parchment reconstructed; faint map detail differs from flattened source. Local straight rim texture is interpolated from the same native frame to remove flattened source icon/glow fragments.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 0,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordExcavation/WE_02_GoldReflectionMask.png",
+      "sha256": "b3a8e1ec7c49ecc5dca8987bb32e439dfd3f44a31955f3975233d6431074ca8d",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 138580,
+      "partialAlphaPixels": 9609,
+      "opaquePixels": 1795,
+      "nonzeroPixels": 11404,
+      "alphaBBoxXYWH": [
+        9,
+        7,
+        854,
+        150
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": true,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_02_GoldReflectionMask.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          9,
+          7,
+          863,
+          157
+        ],
+        "nonzeroPixels": 11404,
+        "status": "source-aligned analytic bevel matte clipped to finalized base",
+        "sourceRect": [
+          400,
+          543,
+          872,
+          172
+        ],
+        "bevelPath": "M 42 10 L 832 10 C 835 21 846 28 860 32 L 860 126.30000000000001 C 847 131.3 837 140.3 832 151.3 L 442 151.3 L 436 154.3 L 430 151.3 L 41 151.3 C 36 139.3 26 132.3 12 127.30000000000001 L 12 33 C 27 28 37 20 42 10 Z",
+        "finalizedBaseDependency": "WordExcavation/WE_01_Base.png",
+        "baseSupportThreshold": 192,
+        "notes": "Narrow curved outer gold bevel only. Grayscale white RGB with reflectivity in alpha. Mask alpha multiplied by finalized base alpha and zeroed where base alpha is below 192. No full rectangular glow; WM green trim excluded.",
+        "metadataFile": "work/source_effects_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": false,
+      "cardNormalZIndex": null,
+      "effectOnly": true,
+      "maskSampling": {
+        "channel": "alpha",
+        "formula": "reflectivity = texture.a",
+        "rgb": "White grayscale; alpha contains edge reflectivity. Do not sample RGB without alpha.",
+        "usage": "Effect-only overlay; animate travel/timing/blending in Unity, preserve visible static gold frame."
+      }
+    },
+    {
+      "file": "WordExcavation/WE_03_MagicalGlow.png",
+      "sha256": "8eb788479cfef2805c8a94f674c49879eb9693290a890cb6e09cbbfc01d91855",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 130086,
+      "partialAlphaPixels": 19898,
+      "opaquePixels": 0,
+      "nonzeroPixels": 19898,
+      "alphaBBoxXYWH": [
+        30,
+        25,
+        244,
+        115
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_03_MagicalGlow.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          30,
+          25,
+          274,
+          140
+        ],
+        "nonzeroPixels": 19898,
+        "method": "Reconstructed isolated illustration from built-in imagegen edit; source alpha preserved with low-alpha fringe suppression, native-size fitting.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-a75f5001-7ac0-4a96-abff-3e6958fa0df7.png",
+        "generatedTrim": {
+          "left": 87,
+          "top": 50,
+          "width": 2008,
+          "height": 620
+        },
+        "placement": [
+          30,
+          18,
+          244,
+          125
+        ],
+        "opacity": 0.56,
+        "uncertainty": "Excavation aura reconstructed; ray shapes and cloud contours differ.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 1,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordExcavation/WE_04_Pickaxe.png",
+      "sha256": "91742bae07bcc656e8cc4dbba851e022a7e69ac4d22b25405c87ae55b32e844f",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 145593,
+      "partialAlphaPixels": 628,
+      "opaquePixels": 3763,
+      "nonzeroPixels": 4391,
+      "alphaBBoxXYWH": [
+        77,
+        15,
+        126,
+        121
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_04_Pickaxe.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          77,
+          15,
+          203,
+          136
+        ],
+        "nonzeroPixels": 4391,
+        "method": "Source-preserving native-pixel extraction through manually traced anti-aliased object silhouette.",
+        "sourceRect": [
+          400,
+          543,
+          872,
+          172
+        ],
+        "silhouette": [
+          "M101 24 C117 13 135 13 155 23 L160 20 L179 30 L176 39 C188 50 199 70 203 82 C187 67 175 60 165 55 L164 57 L160 55 L159 48 L153 45 L148 47 L145 40 C129 31 114 27 101 25 Z",
+          "M145 42 L158 49 L155 55 L149 61 L106 125 Q100 136 90 136 Q77 135 77 126 L79 119 L137 52 L138 48 Z"
+        ],
+        "uncertainty": "Hand-traced boundary, subject to subpixel contour error. Source shading remains; no generated replacement or added inlay used.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 3,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordExcavation/WE_05_RocksAndLetter.png",
+      "sha256": "0dd6e67c8d50cad6d16d6e0c3916941557d411cb1d81b1a9ef0b5640aadf738f",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 137416,
+      "partialAlphaPixels": 2212,
+      "opaquePixels": 10356,
+      "nonzeroPixels": 12568,
+      "alphaBBoxXYWH": [
+        47,
+        47,
+        227,
+        94
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_05_RocksAndLetter.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          47,
+          47,
+          274,
+          141
+        ],
+        "nonzeroPixels": 12568,
+        "method": "Reconstructed isolated illustration from built-in imagegen edit; source alpha preserved with low-alpha fringe suppression, native-size fitting.",
+        "reconstructionSource": "C:/Users/David/.codex/generated_images/01a1978f-7aaf-7d13-99a4-9b7ea036515b/exec-335d95de-efc9-487c-85c8-846006055996.png",
+        "generatedTrim": {
+          "left": 310,
+          "top": 28,
+          "width": 1564,
+          "height": 664
+        },
+        "placement": [
+          47,
+          47,
+          227,
+          94
+        ],
+        "opacity": 1,
+        "uncertainty": "Occluded rock pile reconstructed; extra small rubble and crystal facets differ. Includes crystal shard, excludes independent sparse sparkles.",
+        "metadataFile": "work/reconstruction_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 2,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordExcavation/WE_06_Sparkles.png",
+      "sha256": "cfdd026e78c64ea7607a2db6aab6815cfee0d78b7260bd69899521290637ab45",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 149900,
+      "partialAlphaPixels": 84,
+      "opaquePixels": 0,
+      "nonzeroPixels": 84,
+      "alphaBBoxXYWH": [
+        84,
+        26,
+        148,
+        61
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_06_Sparkles.png",
+        "dimensions": [
+          872,
+          172
+        ],
+        "alphaBounds": [
+          84,
+          26,
+          232,
+          87
+        ],
+        "nonzeroPixels": 84,
+        "status": "partial source speck recovery with chromatic alpha matte",
+        "sourceRect": [
+          400,
+          543,
+          872,
+          172
+        ],
+        "notes": "Free-floating sparks only. Broad glow, pickaxe, rocks, A letter and gem edges excluded. Occluded/unseparable sparks not invented.",
+        "metadataFile": "work/source_effects_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 4,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordExcavation/WE_07_Text.png",
+      "sha256": "aa41a5259a9c4ac6ec84feb1dadae3923ad5a2d6d8d2befc98255fa9e6351ee6",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 142138,
+      "partialAlphaPixels": 5610,
+      "opaquePixels": 2236,
+      "nonzeroPixels": 7846,
+      "alphaBBoxXYWH": [
+        281,
+        41,
+        453,
+        74
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_07_Text.png",
+        "width": 872,
+        "height": 172,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          400,
+          543,
+          872,
+          168
+        ],
+        "compositionOffset": [
+          400,
+          543
+        ],
+        "method": "Original dark letter ink retained via local parchment-color unmatting and connected dark-core mask; no font substitution. Original divider retained with antialiased manual polygon.",
+        "status": "extracted; alpha estimated",
+        "text": [
+          "WORD EXCAVATION",
+          "Find smaller words inside a longer word."
+        ],
+        "limitations": "Parchment and the faint cream halo around title strokes removed. Very fine antialias edge pixels are estimated; exact layered typography cannot be recovered from flattened source.",
+        "regions": [
+          [
+            310,
+            34,
+            714,
+            81
+          ],
+          [
+            311,
+            84,
+            753,
+            115
+          ]
+        ],
+        "alphaQA": {
+          "zero": 142138,
+          "partial": 5610,
+          "opaque": 2236,
+          "visibleBounds": [
+            281,
+            41,
+            734,
+            115
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 5,
+      "effectOnly": false,
+      "maskSampling": null
+    },
+    {
+      "file": "WordExcavation/WE_08_Arrow.png",
+      "sha256": "d27fdd72b7ddfbbec0f5b16b515af666f0c1687d32cd45954cdb8d71575d7aae",
+      "width": 872,
+      "height": 172,
+      "format": "png",
+      "hasAlpha": true,
+      "zeroAlphaPixels": 147616,
+      "partialAlphaPixels": 458,
+      "opaquePixels": 1910,
+      "nonzeroPixels": 2368,
+      "alphaBBoxXYWH": [
+        775,
+        56,
+        56,
+        52
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grayscaleRGB": false,
+      "sourceAttribution": {
+        "file": "WordExcavation/WE_08_Arrow.png",
+        "width": 872,
+        "height": 172,
+        "source": "C:/Users/David/Downloads/Spellstrike Mini-Games Selection.png",
+        "sourceBounds": [
+          400,
+          543,
+          872,
+          168
+        ],
+        "compositionOffset": [
+          400,
+          543
+        ],
+        "method": "Source RGB inside manually traced antialiased polygon; transparent outside; subtle neutral shadow reconstructed independently. No rectangular parchment patch.",
+        "status": "extracted with reconstructed shadow",
+        "polygon": [
+          [
+            776,
+            66
+          ],
+          [
+            786,
+            56
+          ],
+          [
+            810,
+            56
+          ],
+          [
+            828,
+            80
+          ],
+          [
+            810,
+            104
+          ],
+          [
+            787,
+            104
+          ],
+          [
+            776,
+            94
+          ]
+        ],
+        "alphaQA": {
+          "zero": 147616,
+          "partial": 458,
+          "opaque": 1910,
+          "visibleBounds": [
+            775,
+            56,
+            831,
+            108
+          ],
+          "cornerAlpha": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "metadataFile": "work/source_assets_metadata.json"
+      },
+      "canvasSpace": "card-local source pixels",
+      "nativeSourceCanvasOffset": [
+        400,
+        543
+      ],
+      "display": {
+        "nativeGlobalOffset": [
+          400,
+          543
+        ],
+        "canvas": [
+          872,
+          172
+        ],
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "normalCompositionIncluded": true,
+      "cardNormalZIndex": 6,
+      "effectOnly": false,
+      "maskSampling": null
+    }
+  ],
+  "normalCompositionOrder": [
+    "MainPanel/MainBody_Empty.png",
+    "WordMaster/WM_01_Base.png",
+    "WordMaster/WM_03_GreenAura.png",
+    "WordMaster/WM_04_Spellbook.png",
+    "WordMaster/WM_06_MagicRings.png",
+    "WordMaster/WM_05_MagicStar.png",
+    "WordMaster/WM_07_Text.png",
+    "WordMaster/WM_08_Arrow.png",
+    "SpellItOut/SIO_01_Base.png",
+    "SpellItOut/SIO_03_MagicalGlow.png",
+    "SpellItOut/SIO_04_Text.png",
+    "SpellItOut/SIO_05_Arrow.png",
+    "WordExcavation/WE_01_Base.png",
+    "WordExcavation/WE_03_MagicalGlow.png",
+    "WordExcavation/WE_05_RocksAndLetter.png",
+    "WordExcavation/WE_04_Pickaxe.png",
+    "WordExcavation/WE_06_Sparkles.png",
+    "WordExcavation/WE_07_Text.png",
+    "WordExcavation/WE_08_Arrow.png",
+    "MainPanel/Header_SpellstrikeMiniGames.png",
+    "MainPanel/Button_MainMenu.png"
+  ],
+  "cardLayerOrder": [
+    {
+      "card": "Word Master",
+      "offset": [
+        400,
+        203
+      ],
+      "orderBottomToTop": [
+        "WM_01_Base.png",
+        "WM_03_GreenAura.png",
+        "WM_04_Spellbook.png",
+        "WM_06_MagicRings.png",
+        "WM_05_MagicStar.png",
+        "WM_07_Text.png",
+        "WM_08_Arrow.png"
+      ],
+      "excludedEffectMask": "WM_02_GoldReflectionMask.png"
+    },
+    {
+      "card": "Spell It Out",
+      "offset": [
+        400,
+        375
+      ],
+      "orderBottomToTop": [
+        "SIO_01_Base.png",
+        "SIO_03_MagicalGlow.png",
+        "SIO_04_Text.png",
+        "SIO_05_Arrow.png"
+      ],
+      "excludedEffectMask": "SIO_02_GoldReflectionMask.png"
+    },
+    {
+      "card": "Word Excavation",
+      "offset": [
+        400,
+        543
+      ],
+      "orderBottomToTop": [
+        "WE_01_Base.png",
+        "WE_03_MagicalGlow.png",
+        "WE_05_RocksAndLetter.png",
+        "WE_04_Pickaxe.png",
+        "WE_06_Sparkles.png",
+        "WE_07_Text.png",
+        "WE_08_Arrow.png"
+      ],
+      "excludedEffectMask": "WE_02_GoldReflectionMask.png"
+    }
+  ],
+  "targetLayout": {
+    "canvas": [
+      2400,
+      1080
+    ],
+    "uniformScale": 1.1477151965993624,
+    "idealTranslateX": 240.51009564293304,
+    "translateY": 0,
+    "roundedRasterWidth": 1919,
+    "roundedRasterLeft": 240,
+    "backgroundUniformCover": {
+      "source": "C:/Users/David/Downloads/MAIN MENU MODE SELECT ASSETS/Enchanted Compass Tent Interior.png",
+      "scale": 1.4354066985645932,
+      "scaledSizeBeforeCrop": [
+        2400,
+        1350.7177033492824
+      ],
+      "centerVerticalCropEachSide": 135.3588516746412,
+      "method": "Clean background uniformly cover-cropped independently of UI. No mirrored props or UI stretch. Target crop is preview-only and differs from native framing."
+    }
+  },
+  "knownDifferences": [
+    "Main body uses existing empty-panel source; its ornament/frame proportions and faint mountain/map art differ from the flattened reference. Visible alpha bounds uniformly contained within1084x764, yielding1050x764 at311,91 after raster rounding.",
+    "Header extracted from native approved reference at389,7; its hand-traced alpha contour and reconstructed shadow are estimated. No typography squash.",
+    "Hidden card parchment, green aura, book, warm glows and rocks reconstructed; detailed source-provenance records identify changes.",
+    "Spell It Out letter tiles intentionally omitted for integration with existing V11 3D tile assets.",
+    "Star/rings reconstructed from source-guided shapes; source ink/button/arrow/pickaxe boundaries use estimated alpha.",
+    "Target2400x1080 background uses a preview-only uniform cover crop; the native1672x941 Full Composition retains original clean-backdrop framing."
+  ],
+  "acceptanceStatus": "Technical package and reassembly evidence only. Not a claim of exact visual match, final artwork approval, Unity integration, or device performance."
+}
