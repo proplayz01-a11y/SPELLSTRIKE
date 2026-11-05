@@ -12520,18 +12520,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PersistentHUDRoot
       objectReference: {fileID: 0}
-    - target: {fileID: 1856557683243756508, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856557683243756508, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.6510222
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856557683243756508, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.6510222
-      objectReference: {fileID: 0}
     - target: {fileID: 4097743929302574583, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4289915135
@@ -12551,22 +12539,6 @@ PrefabInstance:
     - target: {fileID: 7035257562677522734, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
-      objectReference: {fileID: 0}
-    - target: {fileID: 7475485116830403115, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7475485116830403115, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 7475485116830403115, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 7475485116830403115, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7528130293752359395, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
       propertyPath: m_Pivot.x

@@ -79,11 +79,11 @@ MonoBehaviour:
   currentStage: 1
   attackController: {fileID: 0}
   tileUIPrefab: {fileID: 8755606867422912862, guid: bfe4257d06ead2b4399f6e7d79413569, type: 3}
-  wordBarBaseCellWidth: 76.5
+  wordBarBaseCellWidth: 66.5
   wordBarMinCellWidth: 45
-  wordBarSpacing: 0.15
-  wordBarPaddingLeft: 10
-  wordBarPaddingRight: 10
-  wordBarPaddingTop: 5
-  wordBarPaddingBottom: 5
+  wordBarSpacing: 2.4
+  wordBarPaddingLeft: 9
+  wordBarPaddingRight: 12
+  wordBarPaddingTop: 8
+  wordBarPaddingBottom: 8
   wordBarMinFontScale: 0.72

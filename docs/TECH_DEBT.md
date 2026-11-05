@@ -332,3 +332,21 @@ Before adding a new entry:
 ------------------------------------------------------------------------
 
 *Last Updated:* 2026-07-15
+
+## Tile Pool partial-row slot alignment runtime QA - 2026-11-05
+
+The GridLayoutGroup and runtime writers now keep partially filled Tile Pools anchored to designated wells. Static prefab/scene serialization confirms the new alignment and compensated slot-origin insets, but actual selection sequences (16, 8, and fewer remaining tiles), returning tiles from the Word Bar, shuffle/repopulation, Stage 1-to-4 transitions, and physical Galaxy A05s presentation have not yet been visually verified. Do not remove this QA item based on compilation or YAML inspection alone.
+
+## Play Mode HUD live-authoring persistence - 2026-11-04
+
+The standalone Live HUD Editor pauses responsive layout and TileManager grid writers so live RectTransform/GridLayoutGroup tuning remains visible in Game View. Timestamped JSON snapshot capture has now been exercised successfully on 2026-11-05 and the approved snapshot was applied to PersistentGameplayHUD.prefab. Future Play Mode snapshots remain review-only and do not auto-overwrite the prefab. After any future tuning session, verify the capture and explicitly apply accepted values after Play Mode exits. Word Bar columns/cell width intentionally remain dynamic by selected tile count.
+
+## Canonical persistent HUD transition and visual QA - 2026-11-05
+
+The production Stage 1-4 scenes now reference `Assets/Prefabs/PersistentGameplayHUD.prefab`. Stage 1/2 legacy scene-authored roots are renamed and inactive but retained with their full hierarchy until runtime scene-transition/rebind checks prove all consumers no longer depend on their serialized object IDs. TutorialScene continues to use its canonical prefab plus `TutorialPersistentHudBridge`; isolated optimization/reference scenes intentionally retain aligned copies.
+
+Scene YAML validation confirms prefab GUID, prefab-instance root and SceneRoots references, but it does not prove Unity deserialization, layout rebuilds, rendering, or singleton timing. Open the production Stage 1/2/3/4 scenes and Tutorial in Unity; verify exactly one active persistent HUD at runtime, check Stage 1->2 and later transitions, confirm TileManager/TileSpawner/AttackController rebinding and 16-tile ownership, then smoke-test tile move/return, long Word Bar strings, STRIKE hitbox and safe-area behavior in a 2400x1080 Game View. Physical Samsung Galaxy A05s validation remains pending.
+
+The six `PotionBagTooltipTrigger` references on HPotionSlot, PPotionSlot, UPotionSlot, Slot1PassiveSlot, Slot2PassiveSlot and Slot3PassiveSlot have been restored by extracting the original class into `Assets/Scripts/PotionBagTooltipTrigger.cs` and assigning a standalone MonoScript GUID. The six components were retained; no potion/passive logic or slot hierarchy was removed. Unity reimport/domain reload completed and static checks show no missing-script (`m_Script: {fileID: 0}`) references remain in the canonical prefab. Play Mode hover/hold, potion-use, passive display and physical-device QA are still pending.
+
+The Live HUD Editor source now passes the local .NET editor-assembly build with zero compiler errors. Unity Editor runtime interaction and snapshot authoring still require manual QA; physical Android validation remains open.

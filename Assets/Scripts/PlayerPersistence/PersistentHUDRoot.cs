@@ -8,6 +8,10 @@ public sealed class PersistentHUDRoot : MonoBehaviour
 {
     private const int PersistentHudSortingOrder = 5;
 
+    [Header("Combat Panel Fill Opacity")]
+    [SerializeField, Range(0f, 1f)] private float wordBarFillOpacity = 1f;
+    [SerializeField, Range(0f, 1f)] private float tilePoolFillOpacity = 1f;
+
     public static PersistentHUDRoot Instance { get; private set; }
 
     private Canvas[] ownedCanvases;
@@ -16,6 +20,8 @@ public sealed class PersistentHUDRoot : MonoBehaviour
     private Button attackButton;
     private Transform tilePoolPanel;
     private Transform wordBarPanel;
+    private Image wordBarFillImage;
+    private Image tilePoolFillImage;
     private TutorialResponsiveLayout responsiveLayout;
     private MobileStageControls mobileStageControls;
     private EnemyHealth boundEnemyHealth;
@@ -27,6 +33,11 @@ public sealed class PersistentHUDRoot : MonoBehaviour
     public Button AttackButton => attackButton;
     public Transform TilePoolPanel => tilePoolPanel;
     public Transform WordBarPanel => wordBarPanel;
+    public float WordBarFillOpacity => wordBarFillOpacity;
+    public float TilePoolFillOpacity => tilePoolFillOpacity;
+    public TutorialResponsiveLayout ResponsiveLayout => responsiveLayout;
+    public bool IsLiveHudLayoutEditing => responsiveLayout != null
+        && responsiveLayout.IsLiveHudEditingPaused;
 
     private void Awake()
     {
@@ -92,6 +103,9 @@ public sealed class PersistentHUDRoot : MonoBehaviour
             .FirstOrDefault(button => button.name == "AttackButton");
         tilePoolPanel = FindDescendant(transform, "TilePoolPanel");
         wordBarPanel = FindDescendant(transform, "WordBarPanel");
+        wordBarFillImage = FindDescendant(transform, "WordBar_OrnateBackdrop")?.GetComponent<Image>();
+        tilePoolFillImage = FindDescendant(transform, "TilePoolPanelDesign (1)")?.GetComponent<Image>();
+        ApplyPanelFillOpacity();
 
         Canvas combatCanvas = attackButton != null
             ? attackButton.GetComponentInParent<Canvas>(true)
@@ -195,6 +209,51 @@ public sealed class PersistentHUDRoot : MonoBehaviour
             if (canvas != null)
                 canvas.enabled = visible;
         }
+    }
+
+    public void SetWordBarFillOpacity(float opacity)
+    {
+        wordBarFillOpacity = Mathf.Clamp01(opacity);
+        ApplyFillOpacity(wordBarFillImage, wordBarFillOpacity);
+    }
+
+    public void SetTilePoolFillOpacity(float opacity)
+    {
+        tilePoolFillOpacity = Mathf.Clamp01(opacity);
+        ApplyFillOpacity(tilePoolFillImage, tilePoolFillOpacity);
+    }
+
+    private void ApplyPanelFillOpacity()
+    {
+        ApplyFillOpacity(wordBarFillImage, wordBarFillOpacity);
+        ApplyFillOpacity(tilePoolFillImage, tilePoolFillOpacity);
+    }
+
+    private static void ApplyFillOpacity(Image image, float opacity)
+    {
+        if (image == null)
+            return;
+
+        // Only the fill Image is adjustable. Keep the supplied source tint white
+        // so alpha remains a direct, linear 0..1 control over the PNG.
+        image.color = new Color(1f, 1f, 1f, Mathf.Clamp01(opacity));
+        image.raycastTarget = false;
+    }
+
+    private void OnValidate()
+    {
+        wordBarFillOpacity = Mathf.Clamp01(wordBarFillOpacity);
+        tilePoolFillOpacity = Mathf.Clamp01(tilePoolFillOpacity);
+
+        if (!gameObject.scene.IsValid())
+            return;
+
+        if (wordBarFillImage == null)
+            wordBarFillImage = FindDescendant(transform, "WordBar_OrnateBackdrop")?.GetComponent<Image>();
+        if (tilePoolFillImage == null)
+            tilePoolFillImage = FindDescendant(transform, "TilePoolPanelDesign (1)")?.GetComponent<Image>();
+
+        ApplyPanelFillOpacity();
     }
 
     public void RefreshPersistentPresentation()

@@ -210,3 +210,41 @@ Stage 1 is already working and should not be destabilized.
 
 ### Consequences
 Future migration can happen after Stage 2–5 architecture is proven.
+
+## DEC-029 - Use One Persistent Combat HUD Prefab Across Production Stages
+**Date:** 2026-11-05
+**Status:** Accepted; canonical prefab instances authored for production Stages 1-4; runtime transition validation pending
+
+### Decision
+Use `Assets/Prefabs/PersistentGameplayHUD.prefab` as the sole combat-HUD authoring
+source and the one runtime HUD owner for each production gameplay scene. Each
+production scene contains one canonical prefab instance. Its `PersistentHUDRoot`
+singleton persists the complete Canvas hierarchy with `DontDestroyOnLoad` and
+rejects newly loaded duplicate instances. `PersistentPlayerRoot` rebinds the
+active stage's player health, `TileManager`, `TileSpawner`, and `AttackController`
+to the retained HUD after each scene load.
+
+Tutorial-only objectives/dialogue remain scene-owned. Stage 1 and Stage 2 keep
+their former scene-authored HUD hierarchies only as renamed, inactive fallbacks
+until regression checks prove that all serialized consumers have been rebound;
+remove those fallback objects only in a separately backed-up cleanup pass.
+
+### Reason
+A single persistent HUD prevents Tile Pool, Word Bar, STRIKE, health, potion, and
+mobile presentation from drifting between stages. Existing `PersistentHUDRoot`
+and `PersistentPlayerRoot` lifecycle code already provides the singleton and
+scene-rebinding boundary needed to share the prefab safely.
+
+### Consequences
+- `SampleScene`, `Stage2Scene`, `Stage3Scene`, and `Stage4Scene` reference the
+  canonical prefab; Tutorial also uses it through its persistent HUD bridge.
+- The runtime singleton retains exactly one active HUD for the current run;
+  newly loaded copies are rejected while scene-owned combat systems rebind.
+- Stage 1/2 inactive legacy copies remain temporary technical debt, not active
+  HUD owners.
+- Isolated optimization/reference scenes may retain aligned copies without
+  becoming production runtime authorities.
+- YAML authoring checks do not replace Unity scene deserialization, Play Mode
+  scene-transition tests, or physical Galaxy A05s validation.
+
+---

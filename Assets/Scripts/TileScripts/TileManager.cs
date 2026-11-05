@@ -86,6 +86,17 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
     public bool HasStage3RiddleWords => !string.IsNullOrEmpty(stage3RiddleMainWord);
     public bool HasStage3VocabularyWords => !string.IsNullOrEmpty(stage3VocabularyMainWord);
 
+    /// <summary>
+    /// Read-only presentation query for the currently assembled Target Challenge answer.
+    /// Reuses the same authored target matcher used when the projectile impact is resolved.
+    /// </summary>
+    public bool IsActiveTargetChallengeAnswer(string candidate)
+    {
+        return currentMode == TilePoolMode.TargetChallenge
+               && activeTargetWord != null
+               && activeTargetWord.Matches(candidate);
+    }
+
     [Header("Vocabulary Target Challenge")]
     [SerializeField] private Color targetChallengeTileTint = new Color(0.58f, 0.92f, 1f, 1f);
     [SerializeField] private Color targetChallengeOutlineColor = new Color(1f, 0.72f, 0.16f, 1f);
@@ -94,13 +105,13 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
     [SerializeField, Min(0)] private int layer3DebugWordIndex;
 
     [Header("Word Bar Adaptive Layout")]
-    public float wordBarBaseCellWidth = 76.5f;
+    public float wordBarBaseCellWidth = 66.5f;
     public float wordBarMinCellWidth = 45f;
-    public float wordBarSpacing = 0.15f;
-    public int wordBarPaddingLeft = 10;
-    public int wordBarPaddingRight = 10;
-    public int wordBarPaddingTop = 5;
-    public int wordBarPaddingBottom = 5;
+    public float wordBarSpacing = 2.4f;
+    public int wordBarPaddingLeft = 9;
+    public int wordBarPaddingRight = 12;
+    public int wordBarPaddingTop = 8;
+    public int wordBarPaddingBottom = 8;
     [Range(0.5f, 1f)] public float wordBarMinFontScale = 0.72f;
 
     private void Awake()
@@ -2223,6 +2234,28 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
     private void SetTilePoolPanelGrid()
     {
         if (tilePoolGrid == null) return;
+        if (PersistentHUDRoot.Instance != null
+            && PersistentHUDRoot.Instance.IsLiveHudLayoutEditing)
+            return;
+
+        if (TutorialResponsiveLayout.IsMobilePresentation)
+        {
+            // Keep TileManager's tile-reparent/return recalculation aligned
+            // with the approved A05s mobile GridLayoutGroup values.
+            tilePoolGrid.cellSize = new Vector2(82.6f, 81.18f);
+            tilePoolGrid.spacing = new Vector2(2f, 3.5f);
+            // Compensated insets preserve the original full 8x2 slot origin;
+            // UpperLeft keeps any partial pool anchored to the first well.
+            tilePoolGrid.padding = new RectOffset(23, 23, 16, 12);
+            tilePoolGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            tilePoolGrid.constraintCount = 8;
+            tilePoolGrid.startAxis = GridLayoutGroup.Axis.Horizontal;
+            tilePoolGrid.startCorner = GridLayoutGroup.Corner.UpperLeft;
+            // Keep partial rows anchored to real slots. MiddleCenter would move the
+            // remaining row toward the middle after tiles are selected.
+            tilePoolGrid.childAlignment = TextAnchor.UpperLeft;
+            return;
+        }
 
         RectTransform rect = tilePoolPanel.GetComponent<RectTransform>();
         float panelWidth = rect.rect.width;
@@ -2247,18 +2280,27 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
 
         tilePoolGrid.cellSize = new Vector2(squareCell, squareCell);
         tilePoolGrid.spacing = new Vector2(spacing, spacing);
-        tilePoolGrid.padding.left = 10;
-        tilePoolGrid.padding.right = 10;
-        tilePoolGrid.padding.top = 5;
-        tilePoolGrid.padding.bottom = 5;
+        // Preserve the original full-grid first-slot coordinates while switching
+        // to UpperLeft. The initial 8x2 rack stays on its art wells, but partial
+        // pools compact from the first slot instead of centering in the panel.
+        float fullGridWidth = columns * squareCell + spacing * (columns - 1);
+        float fullGridHeight = rows * squareCell + spacing * (rows - 1);
+        int slotLeftInset = Mathf.RoundToInt(10f + (panelWidth - 20f - fullGridWidth) * 0.5f);
+        int slotTopInset = Mathf.RoundToInt(5f + (panelHeight - 10f - fullGridHeight) * 0.5f);
+        tilePoolGrid.padding = new RectOffset(slotLeftInset, slotLeftInset, slotTopInset, 5);
         tilePoolGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         tilePoolGrid.constraintCount = columns;
-        tilePoolGrid.childAlignment = TextAnchor.MiddleCenter;
+        tilePoolGrid.startAxis = GridLayoutGroup.Axis.Horizontal;
+        tilePoolGrid.startCorner = GridLayoutGroup.Corner.UpperLeft;
+        tilePoolGrid.childAlignment = TextAnchor.UpperLeft;
     }
 
     private void SetWordBarPanelGrid()
     {
         if (wordBarGrid == null) return;
+        if (PersistentHUDRoot.Instance != null
+            && PersistentHUDRoot.Instance.IsLiveHudLayoutEditing)
+            return;
 
         RectTransform rect = wordBarPanel.GetComponent<RectTransform>();
         float panelWidth = rect.rect.width;
@@ -2286,7 +2328,7 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
             Mathf.Max(1f, availableCellHeight));
 
         wordBarGrid.cellSize = new Vector2(cellWidth, cellWidth);
-        wordBarGrid.spacing = new Vector2(spacing, spacing);
+        wordBarGrid.spacing = new Vector2(spacing, 0f);
         wordBarGrid.padding.left = wordBarPaddingLeft;
         wordBarGrid.padding.right = wordBarPaddingRight;
         wordBarGrid.padding.top = wordBarPaddingTop;

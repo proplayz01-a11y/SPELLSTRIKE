@@ -39,12 +39,12 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
     private const float MobilePoolWidth = 720f;
     private const float MobilePoolHeight = 190f;
     private const float MobileWordBarWidth = 733.3334f;
-    private const float MobileWordBarHeight = 86f;
+    private const float MobileWordBarHeight = 89.7f;
 
     private static readonly Vector3 MobilePoolScale = new(0.83f, 0.83f, 0.83f);
-    private static readonly Vector3 MobilePoolFrameScale = new(0.89f, 0.83f, 0.83f);
-    private static readonly Vector3 MobilePoolBackdropScale = new(0.82f, 0.67f, 0.7946805f);
-    private static readonly Vector3 MobileWordBarScale = new(0.97f, 0.86f, 0.77f);
+    private static readonly Vector3 MobilePoolFrameScale = new(0.89f, 0.89f, 0.89f);
+    private static readonly Vector3 MobilePoolBackdropScale = new(0.89f, 0.89f, 0.89f);
+    private static readonly Vector3 MobileWordBarScale = new(1.02f, 0.97f, 0.85f);
     private static readonly Vector3 MobileAttackScale = new(1.08f, 1.067727f, 1.067727f);
 
     [Header("Tutorial Objective Panel (editable in Inspector)")]
@@ -53,6 +53,60 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
     [Tooltip("Width in reference-canvas units. Height automatically preserves the 1920:819 artwork ratio.")]
     [Min(100f)] [SerializeField] private float objectivePanelWidth = 680f;
 
+    [Header("Play Mode HUD Editing")]
+    [Tooltip("When enabled during Play Mode, pauses automatic responsive layout writes so you can edit HUD RectTransforms and GridLayoutGroups in the Inspector and see the changes live in the Game view. Play Mode edits are temporary and revert when Play Mode stops.")]
+    [SerializeField] private bool pauseResponsiveLayoutForLiveEditing;
+    [Tooltip("While live editing is paused, keep the Tile Pool frame/fill and Word Bar frame/fill aligned to the panel transforms. Disable this to edit the decorative layers independently.")]
+    [SerializeField] private bool autoAlignPanelArtworkDuringLiveEditing = true;
+public bool IsLiveHudEditingPaused => pauseResponsiveLayoutForLiveEditing;
+    public bool AutoAlignPanelArtworkDuringLiveEditing => autoAlignPanelArtworkDuringLiveEditing;
+    public RectTransform TilePoolPanelTransform => tilePoolPanel;
+    public RectTransform TilePoolFrameTransform => tilePoolPanelDesign;
+    public RectTransform TilePoolFillTransform => tilePoolPanelDesignOverlay;
+    public RectTransform WordBarPanelTransform => wordBarPanel;
+    public RectTransform WordBarFrameTransform =>
+        wordBarPanel != null ? wordBarPanel.Find("WordBar_OrnateFrame") as RectTransform : null;
+    public RectTransform WordBarFillTransform =>
+        wordBarPanel != null ? wordBarPanel.Find("WordBar_OrnateBackdrop") as RectTransform : null;
+    public RectTransform UiButtonsTransform => uiButtons;
+    public RectTransform AttackButtonTransform => attackButton;
+    public GridLayoutGroup TilePoolGrid => tilePoolGrid;
+    public GridLayoutGroup WordBarGrid => wordBarGrid;
+
+    public void SetLiveHudEditing(bool enabled)
+    {
+        pauseResponsiveLayoutForLiveEditing = enabled;
+        if (!enabled)
+            ForceRefresh();
+        else
+            RefreshLiveHudPreview();
+    }
+
+    public void SetAutoAlignPanelArtworkDuringLiveEditing(bool enabled)
+    {
+        autoAlignPanelArtworkDuringLiveEditing = enabled;
+        if (pauseResponsiveLayoutForLiveEditing && enabled)
+            RefreshLiveHudPreview();
+    }
+
+    public void RefreshLiveHudPreview()
+    {
+        if (!Application.isPlaying || !pauseResponsiveLayoutForLiveEditing)
+            return;
+
+        if (autoAlignPanelArtworkDuringLiveEditing)
+        {
+            ApplyTilePoolArtworkLayout();
+            ApplyWordBarArtworkLayout();
+            ApplyMobileCombatLayering();
+        }
+
+        Canvas.ForceUpdateCanvases();
+        if (tilePoolPanel != null)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(tilePoolPanel);
+        if (wordBarPanel != null)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(wordBarPanel);
+    }
     [Header("Tutorial GUIDE Banner")]
     [Tooltip("GUIDE width in reference-canvas units. Height maintains the approved 2053:766 artwork ratio.")]
     [SerializeField, Min(100f)] private float guidePanelWidth = 650f;
@@ -244,7 +298,8 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
     private void OnEnable()
     {
         ResolveReferences();
-        ApplyLayout(force: true);
+        if (!pauseResponsiveLayoutForLiveEditing)
+            ApplyLayout(force: true);
     }
 
     private void Start()
@@ -252,16 +307,32 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
         // Run again after other Awake/OnEnable work so the final layout is authoritative
         // before TileManager's deferred UI initialization settles.
         ResolveReferences();
-        ApplyLayout(force: true);
+        if (!pauseResponsiveLayoutForLiveEditing)
+            ApplyLayout(force: true);
     }
 
     private void Update()
     {
+        if (pauseResponsiveLayoutForLiveEditing)
+            return;
+
         ApplyLayout(force: false);
     }
 
     private void LateUpdate()
     {
+        if (pauseResponsiveLayoutForLiveEditing)
+        {
+            if (autoAlignPanelArtworkDuringLiveEditing)
+            {
+                ApplyTilePoolArtworkLayout();
+                ApplyWordBarArtworkLayout();
+                ApplyMobileCombatLayering();
+            }
+
+            return;
+        }
+
         // TileManager recalculates its legacy grids after a deferred startup frame and again
         // whenever the word changes. Re-assert only the mobile grid geometry here so the
         // responsive layout remains authoritative without touching desktop behavior.
@@ -271,6 +342,9 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
 
     public void ForceRefresh()
     {
+        if (pauseResponsiveLayoutForLiveEditing)
+            return;
+
         resolved = false;
         ResolveReferences();
         ApplyLayout(force: true);
@@ -360,6 +434,98 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             message = "Android combat HUD Edit Preview synced from runtime layout " +
                 "(Match Height, WordBar, TilePool, Attack, HP and EXP canvases). " +
                 "Save the scene after reviewing.";
+            return true;
+        }
+        finally
+        {
+            if (temporaryHost != null)
+                UnityEngine.Object.DestroyImmediate(temporaryHost);
+        }
+    }
+
+    /// <summary>
+    /// Applies the same Android mobile HUD layout to the open PersistentGameplayHUD
+    /// Prefab Stage, so prefab authoring uses the exact layout authority as Play Mode.
+    /// This is an explicit editor action only; it never runs automatically on import.
+    /// </summary>
+    public static bool SyncAndroidPersistentHudPrefabPreview(
+        UnityEngine.SceneManagement.Scene scene, out string message)
+    {
+        var prefabStage = UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode
+            || !IsMobilePresentation
+            || prefabStage == null
+            || prefabStage.scene != scene
+            || prefabStage.assetPath != "Assets/Prefabs/PersistentGameplayHUD.prefab"
+            || !scene.IsValid()
+            || !scene.isLoaded)
+        {
+            message = "Open Assets/Prefabs/PersistentGameplayHUD.prefab in Prefab Mode, use Android Build Target, and exit Play Mode first.";
+            return false;
+        }
+
+        GameObject temporaryHost = null;
+        try
+        {
+            temporaryHost = new GameObject("__PersistentHudPrefabPreviewSync_Temporary");
+            temporaryHost.SetActive(false);
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
+                temporaryHost, scene);
+
+            var layout = temporaryHost.AddComponent<TutorialResponsiveLayout>();
+            layout.ResolveReferences();
+            if (!layout.resolved
+                || layout.tilePoolPanel == null
+                || layout.wordBarPanel == null
+                || layout.tilePoolPanelDesign == null
+                || layout.tilePoolPanelDesignOverlay == null
+                || layout.uiButtons == null
+                || layout.attackButton == null)
+            {
+                message = "The persistent HUD prefab is missing one or more required layout objects. Nothing was changed.";
+                return false;
+            }
+
+            UnityEditor.Undo.RegisterFullObjectHierarchyUndo(
+                layout.wordBarPanel.parent.gameObject,
+                "Sync Persistent HUD Android Edit Preview");
+
+            var objectsToRecord = new System.Collections.Generic.List<UnityEngine.Object>();
+            void Record(Component item)
+            {
+                if (item != null && !objectsToRecord.Contains(item))
+                    objectsToRecord.Add(item);
+            }
+
+            Record(layout.playerHealthBar);
+            Record(layout.enemyHealthBar);
+            Record(layout.tilePoolPanel);
+            Record(layout.tilePoolPanelDesign);
+            Record(layout.tilePoolPanelDesignOverlay);
+            Record(layout.wordBarPanel);
+            Record(layout.uiButtons);
+            Record(layout.attackButton);
+            Record(layout.tilePoolGrid);
+            Record(layout.wordBarGrid);
+            Record(layout.playerHealthScaler);
+            Record(layout.enemyHealthScaler);
+            Record(layout.combatScaler);
+            if (layout.tilePoolPanelDesign != null)
+                Record(layout.tilePoolPanelDesign.GetComponent<Image>());
+            if (layout.tilePoolPanelDesignOverlay != null)
+                Record(layout.tilePoolPanelDesignOverlay.GetComponent<Image>());
+
+            if (objectsToRecord.Count > 0)
+                UnityEditor.Undo.RecordObjects(
+                    objectsToRecord.ToArray(),
+                    "Sync Persistent HUD Android Edit Preview");
+
+            layout.ApplyLegacyCombatLayout(Vector2.zero, Vector2.one, 0.5f);
+            layout.ApplyMobileGridLayout();
+
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+            Canvas.ForceUpdateCanvases();
+            message = "PersistentGameplayHUD prefab now uses the Android Play Mode layout for Edit Mode preview. Save the Prefab Stage (Ctrl+S) to keep it.";
             return true;
         }
         finally
@@ -654,11 +820,10 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
                 wordBarPanel,
                 new Vector2(safeCenterX, safeMin.y),
                 new Vector2(0.5f, 0f),
-                new Vector2(0f, 215f),
+                new Vector2(0f, 215.56f),
                 new Vector2(MobileWordBarWidth, MobileWordBarHeight));
             SetLocalScale(wordBarPanel, MobileWordBarScale);
 
-            ApplyMobileCombatLayering();
         }
         else
         {
@@ -692,36 +857,65 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
                 new Vector2(DesignCanvasWidth, DesignCanvasHeight));
         }
 
+        ApplyTilePoolArtworkLayout();
         ApplyWordBarArtworkLayout();
+        ApplyMobileCombatLayering();
         ApplyAttackButtonLayout(safeMin, safeMax, safeCenterX);
+    }
+
+    private void ApplyTilePoolArtworkLayout()
+    {
+        if (tilePoolPanel == null || tilePoolPanelDesign == null || tilePoolPanelDesignOverlay == null)
+            return;
+
+        // The supplied Runtime sprites share one exact crop. Keep their
+        // RectTransforms aligned, outside TilePoolPanel, so the 16 live Tile
+        // children remain the only objects counted by the gameplay grid.
+        float width = tilePoolPanel.rect.width;
+        float height = width * (361f / 1460f);
+        Vector2 anchor = tilePoolPanel.anchorMin;
+        Vector2 pivot = tilePoolPanel.pivot;
+        Vector2 position = tilePoolPanel.anchoredPosition;
+        Vector2 artworkSize = new(width, height);
+
+        SetFixedRect(tilePoolPanelDesignOverlay, anchor, pivot, position, artworkSize);
+        SetFixedRect(tilePoolPanelDesign, anchor, pivot, position, artworkSize);
+
+        // Preserve the mobile frame's existing horizontal fit but make scaling
+        // uniform, as required by the paired source sprites.
+        Vector3 artworkScale = IsMobilePresentation
+            ? new Vector3(MobilePoolFrameScale.x, MobilePoolFrameScale.x, MobilePoolFrameScale.x)
+            : Vector3.one;
+        tilePoolPanelDesignOverlay.localScale = artworkScale;
+        tilePoolPanelDesign.localScale = artworkScale;
+
+        Image fill = tilePoolPanelDesignOverlay.GetComponent<Image>();
+        if (fill != null)
+            fill.raycastTarget = false;
+        Image frame = tilePoolPanelDesign.GetComponent<Image>();
+        if (frame != null)
+            frame.raycastTarget = false;
     }
 
     private void ApplyWordBarArtworkLayout()
     {
-        if (wordBarPanel == null)
+        if (wordBarPanel == null || tilePoolPanelDesign == null)
             return;
 
-        // Play Mode authoring: keep the user's individual frame/backdrop
-        // transforms on mobile instead of overwriting their serialized values.
-        // Desktop continues using its independent responsive art fit.
-        if (IsMobilePresentation
-            && wordBarPanel.Find("WordBar_OrnateFrame") != null
-            && wordBarPanel.Find("WordBar_OrnateBackdrop") != null)
-            return;
-
-        // The legacy PC WordBar is tall but has a compressed Y scale, whereas
-        // Android has a small RectTransform and nearly uniform scale. Size the
-        // two non-interactive visual children in *rendered* units so the new
-        // ornate artwork has the same silhouette on both platforms, without
-        // changing GridLayoutGroup/tile spacing or the approved parent layout.
-        // On desktop the legacy word bar has a wide 800x600-era RectTransform;
-        // mobile already uses a much tighter 733x86 rectangle. Use the frame's
-        // actual ornament proportions instead of filling the entire old Rect.
-        float widthFactor = IsMobilePresentation ? 0.38f : 0.34f;
-        float artworkWidth = wordBarPanel.rect.width * widthFactor;
-        float renderedWidth = artworkWidth * Mathf.Abs(wordBarPanel.localScale.x);
-        float verticalScale = Mathf.Max(0.001f, Mathf.Abs(wordBarPanel.localScale.y));
-        float artworkHeight = renderedWidth / (4f * verticalScale);
+        // Both panel sprites use the same 1870px source canvas. The Word Bar
+        // frame is 1648px wide and the Tile Pool frame is 1460px wide. Derive
+        // their rendered widths from the same pool scale so the 1.1288x ratio
+        // stays consistent on PC and mobile without stretching either sprite.
+        float tilePoolRenderedWidth = tilePoolPanelDesign.rect.width
+            * Mathf.Abs(tilePoolPanelDesign.localScale.x);
+        float wordBarParentScaleX = Mathf.Max(0.001f, Mathf.Abs(wordBarPanel.localScale.x));
+        float wordBarParentScaleY = Mathf.Max(0.001f, Mathf.Abs(wordBarPanel.localScale.y));
+        float artworkWidth = tilePoolRenderedWidth * (1648f / 1460f) / wordBarParentScaleX;
+        // WordBarPanel retains its existing non-uniform responsive scale. Compensate
+        // the local art rect height so the final rendered frame/fill pair remains
+        // uniformly scaled and matches the source 1648:168 aspect exactly.
+        float artworkHeight = artworkWidth * (168f / 1648f)
+            * (wordBarParentScaleX / wordBarParentScaleY);
         Vector2 artworkSize = new(artworkWidth, artworkHeight);
 
         SetWordBarArtworkRect("WordBar_OrnateBackdrop", artworkSize);
@@ -769,9 +963,10 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             // overwrite it with the legacy button scale on load.
             Image attackArt = attackButton != null
                 ? attackButton.GetComponent<Image>() : null;
-            if (attackArt == null || attackArt.sprite == null ||
-                attackArt.sprite.name != "StrikeButton_OrnateBlank")
-                SetLocalScale(attackButton, MobileAttackScale);
+            bool approvedStrikeArt = attackArt != null && attackArt.sprite != null
+                && (attackArt.sprite.name == "StrikeButton_OrnateBlank"
+                    || attackArt.sprite.name == "Strike_Approved_Crop");
+            SetLocalScale(attackButton, approvedStrikeArt ? Vector3.one : MobileAttackScale);
         }
         else
         {
@@ -799,48 +994,36 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
 
         if (tilePoolGrid != null && tilePoolPanel != null)
         {
+            // Approved A05s live-edit values. Keep the user's exact near-square
+            // Rodin cell size and slightly wider row gap instead of deriving
+            // a smaller square from the panel's original safe-inset formula.
             const int columns = 8;
-            const int rows = 2;
-            const int paddingLeft = 10;
-            const int paddingRight = 10;
-            const int paddingTop = 12;
-            const int paddingBottom = 12;
-            const float spacingX = 2f;
-            const float spacingY = 2f;
-            // The compass ornaments protrude into both ends of the rack.
-            // The prior 77-unit cells ran into them. Reserve a clear inset
-            // around the 8x2 group, then let MiddleCenter split that margin
-            // evenly. Keep the Word Master-style 2-unit tile-to-tile gap.
-            const float endcapSafeInset = 72f;
-            const float railSafeInset = 23f;
-            float cellSide = Mathf.Max(1f, Mathf.Floor(Mathf.Min(
-                (tilePoolPanel.rect.width - 2f * endcapSafeInset
-                    - spacingX * (columns - 1)) / columns,
-                (tilePoolPanel.rect.height - 2f * railSafeInset
-                    - spacingY * (rows - 1)) / rows)));
-
+            const float cellWidth = 82.6f;
+            const float cellHeight = 81.18f;
             tilePoolGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             tilePoolGrid.constraintCount = columns;
             tilePoolGrid.startAxis = GridLayoutGroup.Axis.Horizontal;
             tilePoolGrid.startCorner = GridLayoutGroup.Corner.UpperLeft;
-            tilePoolGrid.childAlignment = TextAnchor.MiddleCenter;
-            tilePoolGrid.cellSize = new Vector2(cellSide, cellSide);
-            tilePoolGrid.spacing = new Vector2(spacingX, spacingY);
-            tilePoolGrid.padding.left = paddingLeft;
-            tilePoolGrid.padding.right = paddingRight;
-            tilePoolGrid.padding.top = paddingTop;
-            tilePoolGrid.padding.bottom = paddingBottom;
+            // Keep partial rows anchored to real slots. MiddleCenter would move the
+            // remaining row toward the middle after tiles are selected.
+            tilePoolGrid.childAlignment = TextAnchor.UpperLeft;
+            tilePoolGrid.cellSize = new Vector2(cellWidth, cellHeight);
+            tilePoolGrid.spacing = new Vector2(2f, 3.5f);
+            // Compensated insets preserve the original full 8x2 slot origin;
+            // UpperLeft keeps any partial pool anchored to the first well.
+            tilePoolGrid.padding = new RectOffset(23, 23, 16, 12);
 
-            ApplyTileTypography(tilePoolPanel, cellSide);
+            ApplyTileTypography(tilePoolPanel, Mathf.Min(cellWidth, cellHeight));
             LayoutRebuilder.ForceRebuildLayoutImmediate(tilePoolPanel);
         }
 
         if (wordBarGrid != null && wordBarPanel != null)
         {
             int tileCount = Mathf.Max(1, CountActiveTileChildren(wordBarPanel));
-            const int paddingX = 12;
+            const int paddingLeft = 9;
+            const int paddingRight = 12;
             const int paddingY = 8;
-            const float spacingX = 2f;
+            const float spacingX = 2.4f;
 
             // Align the row inside the frame's inner artwork (not its tall
             // top-center ornament). Grid MiddleCenter splits padding differences
@@ -857,7 +1040,7 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             // Keep long words out of its compass/star endcaps, even at 16
             // letters, while letting short words use full-size square tiles.
             const float frameSideClearance = 70f;
-            float playableWidth = wordBarPanel.rect.width - (paddingX * 2f);
+            float playableWidth = wordBarPanel.rect.width - (paddingLeft + paddingRight);
             if (frame != null)
             {
                 float frameVisualWidth = frame.rect.width * Mathf.Abs(frame.localScale.x);
@@ -867,15 +1050,14 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             float usableWidth = playableWidth
                 - (spacingX * Mathf.Max(0, tileCount - 1));
             float usableHeight = wordBarPanel.rect.height - (paddingY * 2f);
-            float availableCellSize = Mathf.Clamp(
+            // The live-approved baseline is 66.5px. As the assembled word
+            // grows, preserve the existing fit calculation and shrink only
+            // enough to keep every selected tile inside the ornate endcaps.
+            const float approvedBaseCellSize = 66.5f;
+            float cellSize = Mathf.Clamp(
                 Mathf.Min(usableWidth / tileCount, usableHeight),
                 24f,
-                74f);
-            // Use nearly the full available square so selected tiles form
-            // a compact, tightly joined row like Word Master. Retain the
-            // long-word size floor and existing responsive width calculation.
-            const float wordBarOnlyTileScale = 0.95f;
-            float cellSize = Mathf.Max(24f, availableCellSize * wordBarOnlyTileScale);
+                approvedBaseCellSize);
 
             wordBarGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             wordBarGrid.constraintCount = tileCount;
@@ -884,8 +1066,8 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             wordBarGrid.childAlignment = TextAnchor.MiddleCenter;
             wordBarGrid.cellSize = new Vector2(cellSize, cellSize);
             wordBarGrid.spacing = new Vector2(spacingX, 0f);
-            wordBarGrid.padding.left = paddingX;
-            wordBarGrid.padding.right = paddingX;
+            wordBarGrid.padding.left = paddingLeft;
+            wordBarGrid.padding.right = paddingRight;
             wordBarGrid.padding.top = paddingY;
             wordBarGrid.padding.bottom = centeredBottomPadding;
 
@@ -1015,7 +1197,7 @@ public sealed class TutorialResponsiveLayout : MonoBehaviour
             return;
         }
 
-        // Approved mobile draw/input order:
+        // Approved combat HUD draw/input order on both desktop and mobile:
         // Word Bar -> glass backdrop -> tile buttons -> decorative border -> Attack.
         wordBarPanel.SetSiblingIndex(0);
         tilePoolPanelDesignOverlay.SetSiblingIndex(1);

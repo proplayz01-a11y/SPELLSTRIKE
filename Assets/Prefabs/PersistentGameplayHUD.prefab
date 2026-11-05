@@ -305,6 +305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7789257660028624012}
   - component: {fileID: 6679203454013238781}
+  - component: {fileID: 9031456752311678201}
   m_Layer: 0
   m_Name: PersistentGameplayHUD
   m_TagString: Untagged
@@ -341,6 +342,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429bc16afb60c4e4c8e79209e5e1d3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PersistentHUDRoot
+  wordBarFillOpacity: 0.84313726
+  tilePoolFillOpacity: 0.84313726
+--- !u!114 &9031456752311678201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489037850397745605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e708b2c723148f1a8aa2813e7e6e29a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::CombatHudWordReflection
+  sweepDuration: 1.05
+  strikeDelay: 0.16
+  maxOpacity: 0.28
+  sweepWidthFraction: 0.34
 --- !u!1 &580312375179817074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,7 +1969,7 @@ RectTransform:
   m_GameObject: {fileID: 2492332767301673800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.97, y: 0.86, z: 0.77}
+  m_LocalScale: {x: 1.02, y: 0.97, z: 0.85}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3636775503334567154}
@@ -1959,8 +1978,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 215}
-  m_SizeDelta: {x: 733.3334, y: 86}
+  m_AnchoredPosition: {x: 0, y: 215.56}
+  m_SizeDelta: {x: 733.3334, y: 89.7}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4024650081534019388
 CanvasRenderer:
@@ -2013,17 +2032,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 9
+    m_Right: 12
+    m_Top: 8
+    m_Bottom: 8
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 78.36, y: 71}
-  m_Spacing: {x: -26.5, y: 1089.6}
+  m_CellSize: {x: 66.5, y: 66.42}
+  m_Spacing: {x: 2.4, y: 0}
   m_Constraint: 1
-  m_ConstraintCount: 16
+  m_ConstraintCount: 11
 --- !u!114 &2031280732261598137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2190,7 +2209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2519548861774383493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: aa48fad036914d6bbd454c80b81102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PotionBagTooltipTrigger
 --- !u!1 &2520870630178468678
@@ -2438,7 +2457,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2575267021428266409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: aa48fad036914d6bbd454c80b81102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PotionBagTooltipTrigger
 --- !u!1 &2636741569393302474
@@ -2672,7 +2691,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2841020990577732366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -3293,7 +3312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 62.1}
+  m_AnchoredPosition: {x: 0, y: 56.7}
   m_SizeDelta: {x: 720, y: 190}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &9112671894986477567
@@ -3347,15 +3366,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 60
-    m_Bottom: 0
-  m_ChildAlignment: 1
+    m_Left: 23
+    m_Right: 23
+    m_Top: 16
+    m_Bottom: 12
+  m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 76.2, y: 21.51}
-  m_Spacing: {x: 38.1, y: 139.5}
+  m_CellSize: {x: 82.6, y: 81.18}
+  m_Spacing: {x: 2, y: 3.5}
   m_Constraint: 1
   m_ConstraintCount: 8
 --- !u!1 &3412276037924451473
@@ -3680,7 +3699,7 @@ RectTransform:
   m_GameObject: {fileID: 3867319307852832153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.67, y: 1.6510222, z: 1.6510222}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1773382317045154049}
@@ -3719,7 +3738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1230e70bcb2249959dd189ef256c9b95, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cbe360bb6e7243968842356cf80ce739, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4245,15 +4264,15 @@ RectTransform:
   m_GameObject: {fileID: 4275846860441057989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7, y: 4.65, z: 2.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1009394661040697269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.5}
-  m_SizeDelta: {x: 278.6667, y: 78.57753}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 709.13135, y: 76.01638}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5305959706058231070
 CanvasRenderer:
@@ -4276,14 +4295,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.84313726}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ad0709168ae7431bbf7d65564ac3550f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b2908c436bf8416c9685b094c3bd53c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4495,7 +4514,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4355938802857635811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: aa48fad036914d6bbd454c80b81102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PotionBagTooltipTrigger
 --- !u!1 &4541298961357847337
@@ -4676,15 +4695,15 @@ RectTransform:
   m_GameObject: {fileID: 4734428924979069831}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7, y: 4.65, z: 2.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1009394661040697269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.5}
-  m_SizeDelta: {x: 278.6667, y: 78.57753}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 709.13135, y: 76.01638}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &81161654952757696
 CanvasRenderer:
@@ -4714,7 +4733,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 284a3b413bab45f2a11a0884b8a463d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 629ee225de854401a0783b5052212a88, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5270,7 +5289,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5494735156638053613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: aa48fad036914d6bbd454c80b81102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PotionBagTooltipTrigger
 --- !u!1 &5712899543302422421
@@ -5742,7 +5761,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5976927691796631611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: aa48fad036914d6bbd454c80b81102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PotionBagTooltipTrigger
 --- !u!1 &6112302720342901424
@@ -7451,7 +7470,7 @@ RectTransform:
   m_GameObject: {fileID: 7904906003356876568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.89, y: 0.83, z: 0.83}
+  m_LocalScale: {x: 0.89, y: 0.89, z: 0.89}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5784916682577465955}
@@ -7459,7 +7478,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 56.7}
-  m_SizeDelta: {x: 720, y: 190}
+  m_SizeDelta: {x: 720, y: 178.02739}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &266823545260102984
 CanvasRenderer:
@@ -7489,7 +7508,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 81c8f6ea4422421bb35fe9d2072a149c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dba8d9ae07d942739d62398cac2d6ed6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7675,7 +7694,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7905959473399456422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: aa48fad036914d6bbd454c80b81102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PotionBagTooltipTrigger
 --- !u!1 &7983941355281390580
@@ -8124,15 +8143,15 @@ RectTransform:
   m_GameObject: {fileID: 8433568244127857779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.82, y: 0.67, z: 0.7946805}
+  m_LocalScale: {x: 0.89, y: 0.89, z: 0.89}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5784916682577465955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 74}
-  m_SizeDelta: {x: 720, y: 190}
+  m_AnchoredPosition: {x: 0, y: 56.7}
+  m_SizeDelta: {x: 720, y: 178.02739}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2194747931310426820
 CanvasRenderer:
@@ -8155,14 +8174,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.84313726}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 0d948a7af0c74cbebbe50a4b6e842cf4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
