@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="project://database/Assets/UI/SpellbookPrototype/SpellbookPrototype.uss" />
+  <ui:VisualElement class="screen">
+    <ui:VisualElement class="ambient-orb orb-left" />
+    <ui:VisualElement class="ambient-orb orb-right" />
+    <ui:VisualElement class="book-shell">
+      <ui:VisualElement class="top-rim" />
+      <ui:VisualElement class="header">
+        <ui:VisualElement class="brand-seal"><ui:Label text="✦" class="seal-glyph" /></ui:VisualElement>
+        <ui:VisualElement class="title-block">
+          <ui:Label text="THE LIVING GRIMOIRE" class="eyebrow" />
+          <ui:Label text="SPELLBOOK" class="main-title" />
+          <ui:Label text="A record of every word forged in battle." class="subtitle" />
+        </ui:VisualElement>
+        <ui:VisualElement class="header-right">
+          <ui:Label text="PLAYER ARCHIVE" class="archive-label" />
+          <ui:Label text="LIVE COMBAT RECORD" class="archive-value" />
+        </ui:VisualElement>
+      </ui:VisualElement>
+      <ui:VisualElement class="tab-row">
+        <ui:Button text="✧  LEXICON" class="tab-button tab-active" name="lexicon-tab" />
+        <ui:VisualElement class="tab-spacer" />
+        <ui:Label text="VALID WORDS RECORDED DURING COMBAT" class="tab-note" />
+      </ui:VisualElement>
+      <ui:VisualElement class="stats-row">
+        <ui:VisualElement class="stat-card">
+          <ui:Label text="WORDS DISCOVERED" class="stat-label" />
+          <ui:VisualElement class="stat-value-row"><ui:Label text="0" class="stat-value" name="unique-words-value" /><ui:Label text="WORDS" class="stat-unit" /></ui:VisualElement>
+          <ui:Label text="Unique valid combat words" class="stat-caption" />
+        </ui:VisualElement>
+        <ui:VisualElement class="stat-card">
+          <ui:Label text="COMBAT CASTS" class="stat-label" />
+          <ui:VisualElement class="stat-value-row"><ui:Label text="0" class="stat-value" name="combat-casts-value" /><ui:Label text="TOTAL" class="stat-unit" /></ui:VisualElement>
+          <ui:Label text="Recorded valid word uses" class="stat-caption" />
+        </ui:VisualElement>
+        <ui:VisualElement class="stat-card">
+          <ui:Label text="LONGEST WORD" class="stat-label" />
+          <ui:VisualElement class="stat-value-row"><ui:Label text="—" class="stat-value" name="longest-word-value" /><ui:Label text="LETTERS" class="stat-unit" /></ui:VisualElement>
+          <ui:Label text="Longest recorded entry" class="stat-caption" />
+        </ui:VisualElement>
+        <ui:VisualElement class="stat-card stat-card-accent">
+          <ui:Label text="MOST USED WORD" class="stat-label" />
+          <ui:Label text="—" class="milestone-value" name="most-used-word-value" />
+          <ui:Label text="No combat history yet" class="stat-caption" name="most-used-word-caption" />
+        </ui:VisualElement>
+      </ui:VisualElement>
+      <ui:VisualElement class="book-pages">
+        <ui:VisualElement class="left-page">
+          <ui:VisualElement class="page-heading-row">
+            <ui:VisualElement><ui:Label text="01  /  INDEX" class="page-kicker" /><ui:Label text="Word Catalogue" class="page-title" /></ui:VisualElement>
+            <ui:Label text="✧" class="page-star" />
+          </ui:VisualElement>
+          <ui:TextField label="" value="" class="search-field" name="word-search" />
+          <ui:Label text="SEARCH BY WORD OR MEANING" class="search-hint" />
+          <ui:Label text="RECORDED WORDS" class="section-label" />
+          <ui:VisualElement class="collection-list" name="word-list" />
+          <ui:Label text="Loading saved combat words…" class="empty-state" name="list-empty-state" />
+        </ui:VisualElement>
+        <ui:VisualElement class="page-gutter"><ui:VisualElement class="gutter-line" /></ui:VisualElement>
+        <ui:VisualElement class="right-page">
+          <ui:VisualElement class="detail-topline"><ui:Label text="02  /  WORD STUDY" class="page-kicker" /><ui:Label text="NO ENTRY SELECTED" class="entry-counter" name="entry-counter" /></ui:VisualElement>
+          <ui:VisualElement class="word-heading-row">
+            <ui:VisualElement class="word-heading"><ui:Label text="SELECT A WORD" class="word-title" name="word-title" /><ui:Label text="Recorded from valid combat words" class="pronunciation" name="word-subtitle" /></ui:VisualElement>
+            <ui:VisualElement class="rarity-badge"><ui:Label text="UNCLASSIFIED" class="rarity-text" name="rarity-text" /></ui:VisualElement>
+          </ui:VisualElement>
+          <ui:VisualElement class="gold-rule"><ui:VisualElement class="rule-diamond" /></ui:VisualElement>
+          <ui:VisualElement class="definition-block">
+            <ui:Label text="DEFINITION" class="section-label" />
+            <ui:Label text="Choose a recorded word from the index to view its gameplay dictionary definition." class="definition-text" name="definition-text" />
+          </ui:VisualElement>
+          <ui:VisualElement class="mastery-panel">
+            <ui:VisualElement class="mastery-header">
+              <ui:VisualElement><ui:Label text="COMBAT USAGE" class="section-label" /><ui:Label text="VALID WORD HISTORY" class="mastery-state" /></ui:VisualElement>
+              <ui:Label text="0" class="mastery-count" name="times-used-value" />
+            </ui:VisualElement>
+            <ui:VisualElement class="mastery-footer"><ui:Label text="TIMES RECORDED IN COMBAT" class="mastery-meta" name="usage-caption" /><ui:Label text="USAGE IS NOT A MASTERY SCORE" class="mastery-next" /></ui:VisualElement>
+          </ui:VisualElement>
+          <ui:VisualElement class="detail-bottom">
+            <ui:VisualElement class="detail-fact"><ui:Label text="WORD LENGTH" class="fact-label" /><ui:Label text="—" class="fact-value" name="word-length-value" /></ui:VisualElement>
+            <ui:VisualElement class="fact-divider" />
+            <ui:VisualElement class="detail-fact"><ui:Label text="RARITY" class="fact-label" /><ui:Label text="—" class="fact-value" name="word-rarity-value" /></ui:VisualElement>
+            <ui:VisualElement class="fact-divider" />
+            <ui:VisualElement class="detail-fact"><ui:Label text="COMBAT USES" class="fact-label" /><ui:Label text="—" class="fact-value" name="word-uses-value" /></ui:VisualElement>
+          </ui:VisualElement>
+        </ui:VisualElement>
+      </ui:VisualElement>
+      <ui:VisualElement class="footer">
+        <ui:Label text="✦  KNOWLEDGE IS YOUR STRONGEST SPELL." class="footer-motto" />
+        <ui:Label text="LIVE SAVE DATA  •  LEXICON PREVIEW" class="prototype-stamp" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>
