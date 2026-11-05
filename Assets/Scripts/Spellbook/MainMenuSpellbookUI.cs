@@ -88,6 +88,17 @@ public sealed class MainMenuSpellbookUI : MonoBehaviour
         if (!RefreshUnlockState())
             return;
 
+        // The approved UI Toolkit Spellbook is the live menu presentation.
+        // Keep this existing prefab entry point so the 3D book click does not
+        // need a second button or a scene transition.
+        SpellbookPrototypeController liveSpellbook =
+            FindFirstObjectByType<SpellbookPrototypeController>();
+        if (liveSpellbook != null)
+        {
+            liveSpellbook.OpenOverlay();
+            return;
+        }
+
         DictionaryManager.EnsureInstance();
         SpellbookManager spellbook = SpellbookManager.Instance;
         spellbook.RefreshFromPersistentHistory();

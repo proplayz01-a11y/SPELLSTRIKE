@@ -88,6 +88,7 @@
       <ui:VisualElement class="footer">
         <ui:Label text="✦  KNOWLEDGE IS YOUR STRONGEST SPELL." class="footer-motto" />
         <ui:Label text="LIVE SAVE DATA  •  LEXICON PREVIEW" class="prototype-stamp" />
+        <ui:Button text="←  BACK TO MENU" class="back-button" name="close-button" />
       </ui:VisualElement>
     </ui:VisualElement>
   </ui:VisualElement>

@@ -13,6 +13,7 @@ using UnityEngine.UIElements;
 public sealed class SpellbookPrototypeController : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDocument;
+    [SerializeField] private bool startHidden;
 
     private readonly List<SpellbookEntry> entries = new List<SpellbookEntry>();
     private readonly List<SpellbookEntry> filteredEntries = new List<SpellbookEntry>();
@@ -25,6 +26,8 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
     private Label listEmptyState;
     private TextField searchField;
     private TextField registeredSearchField;
+    private Button closeButton;
+    private Button registeredCloseButton;
     private Label uniqueWordsValue;
     private Label combatCastsValue;
     private Label longestWordValue;
@@ -74,6 +77,9 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
 
         if (registeredSearchField != null && searchChangedCallback != null)
             registeredSearchField.UnregisterValueChangedCallback(searchChangedCallback);
+
+        if (registeredCloseButton != null)
+            registeredCloseButton.clicked -= CloseOverlay;
     }
 
     private void Initialize()
@@ -122,6 +128,9 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
         if (registeredSearchField != null && searchChangedCallback != null)
             registeredSearchField.UnregisterValueChangedCallback(searchChangedCallback);
 
+        if (registeredCloseButton != null)
+            registeredCloseButton.clicked -= CloseOverlay;
+
         root = currentRoot;
         CacheVisualElements();
 
@@ -131,6 +140,15 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
             searchField.RegisterValueChangedCallback(searchChangedCallback);
             registeredSearchField = searchField;
         }
+
+        if (closeButton != null)
+        {
+            closeButton.clicked += CloseOverlay;
+            registeredCloseButton = closeButton;
+        }
+
+        if (startHidden)
+            root.style.display = DisplayStyle.None;
     }
 
     private void CacheVisualElements()
@@ -138,6 +156,7 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
         wordList = root.Q<VisualElement>("word-list");
         listEmptyState = root.Q<Label>("list-empty-state");
         searchField = root.Q<TextField>("word-search");
+        closeButton = root.Q<Button>("close-button");
         uniqueWordsValue = root.Q<Label>("unique-words-value");
         combatCastsValue = root.Q<Label>("combat-casts-value");
         longestWordValue = root.Q<Label>("longest-word-value");
@@ -194,6 +213,30 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
 
         UpdateSummaryMetrics();
         RebuildWordList(searchField != null ? searchField.value : string.Empty);
+    }
+
+    /// <summary>Shows the live Spellbook over the current menu without changing scenes.</summary>
+    public void OpenOverlay()
+    {
+        if (!initialized)
+            Initialize();
+
+        if (!initialized || root == null || spellbookManager == null)
+            return;
+
+        if (searchField != null)
+            searchField.value = string.Empty;
+
+        root.style.display = DisplayStyle.Flex;
+        spellbookManager.RefreshFromPersistentHistory();
+        RefreshFromManager();
+    }
+
+    /// <summary>Hides the Spellbook and leaves the existing menu scene untouched.</summary>
+    public void CloseOverlay()
+    {
+        if (root != null)
+            root.style.display = DisplayStyle.None;
     }
 
     private void UpdateSummaryMetrics()
