@@ -22,7 +22,7 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
 
     private SpellbookManager spellbookManager;
     private VisualElement root;
-    private VisualElement wordList;
+    private ScrollView wordList;
     private Label listEmptyState;
     private TextField searchField;
     private TextField registeredSearchField;
@@ -153,7 +153,7 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
 
     private void CacheVisualElements()
     {
-        wordList = root.Q<VisualElement>("word-list");
+        wordList = root.Q<ScrollView>("word-list");
         listEmptyState = root.Q<Label>("list-empty-state");
         searchField = root.Q<TextField>("word-search");
         closeButton = root.Q<Button>("close-button");
@@ -341,6 +341,19 @@ public sealed class SpellbookPrototypeController : MonoBehaviour
             nextSelection = filteredEntries[0];
 
         SelectEntry(nextSelection);
+
+        // Dynamic entries are added before UI Toolkit finishes the next layout
+        // pass. Reset after that pass so a newly opened or filtered catalogue
+        // always starts at the first alphabetical result, not its last item.
+        ScrollView currentWordList = wordList;
+        if (currentWordList != null)
+        {
+            currentWordList.schedule.Execute(() =>
+            {
+                if (currentWordList != null)
+                    currentWordList.scrollOffset = Vector2.zero;
+            }).ExecuteLater(0);
+        }
     }
 
     private static bool MatchesSearch(SpellbookEntry entry, string query)

@@ -2,8 +2,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="project://database/Assets/UI/SpellbookPrototype/SpellbookPrototype.uss" />
   <ui:VisualElement class="screen">
-    <ui:VisualElement class="ambient-orb orb-left" />
-    <ui:VisualElement class="ambient-orb orb-right" />
     <ui:VisualElement class="book-shell">
       <ui:VisualElement class="top-rim" />
       <ui:VisualElement class="header">
@@ -54,7 +52,7 @@
           <ui:TextField label="" value="" class="search-field" name="word-search" />
           <ui:Label text="SEARCH BY WORD OR MEANING" class="search-hint" />
           <ui:Label text="RECORDED WORDS" class="section-label" />
-          <ui:VisualElement class="collection-list" name="word-list" />
+          <ui:ScrollView class="collection-list" name="word-list" mode="Vertical" vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Hidden" />
           <ui:Label text="Loading saved combat words…" class="empty-state" name="list-empty-state" />
         </ui:VisualElement>
         <ui:VisualElement class="page-gutter"><ui:VisualElement class="gutter-line" /></ui:VisualElement>

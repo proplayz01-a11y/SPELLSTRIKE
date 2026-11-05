@@ -4,32 +4,14 @@
     padding: 18px;
     align-items: center;
     justify-content: center;
-    background-color: #071321;
+    background-color: rgba(0, 0, 0, 0);
     overflow: hidden;
 }
 
-.ambient-orb {
-    position: absolute;
-    width: 540px;
-    height: 540px;
-    border-radius: 270px;
-    opacity: 0.16;
-}
-.orb-left {
-    left: -240px;
-    top: 120px;
-    background-color: #1a7694;
-}
-.orb-right {
-    right: -230px;
-    bottom: -190px;
-    background-color: #ae7b2c;
-}
-
 .book-shell {
-    width: 96%;
-    max-width: 2080px;
-    height: 96%;
+    width: 90%;
+    max-width: 1780px;
+    height: 90%;
     padding: 16px 28px 12px 28px;
     background-color: #0b1b2c;
     border-width: 2px;
@@ -329,7 +311,32 @@
     flex-direction: column;
     flex-grow: 1;
     min-height: 0;
-    overflow-y: scroll;
+}
+
+.collection-list .unity-scroll-view__content-container {
+    flex-direction: column;
+}
+
+.collection-list .unity-scroll-view__vertical-scroller {
+    width: 12px;
+    margin-left: 4px;
+    background-color: rgba(153, 132, 92, 0.12);
+}
+
+.collection-list .unity-scroller__low-button,
+.collection-list .unity-scroller__high-button {
+    display: none;
+}
+
+.collection-list .unity-base-slider__tracker {
+    background-color: rgba(153, 132, 92, 0.26);
+    border-radius: 4px;
+}
+
+.collection-list .unity-base-slider__dragger {
+    min-height: 24px;
+    background-color: #a77e3e;
+    border-radius: 4px;
 }
 .word-entry {
     min-height: 34px;
