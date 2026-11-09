@@ -1,0 +1,31 @@
+{
+  "meshes": 1,
+  "triangles": 18070,
+  "height_m": 1.693356990814209,
+  "images": [
+    {
+      "name": "texture_diffuse",
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true
+    },
+    {
+      "name": "texture_metallic-texture_roughness",
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true
+    },
+    {
+      "name": "texture_normal",
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true
+    }
+  ]
+}

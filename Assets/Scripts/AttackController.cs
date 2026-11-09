@@ -381,6 +381,15 @@ public class AttackController : MonoBehaviour
                 pendingWord,
                 targetChallengeCastInProgress,
                 target);
+
+            if (currentAttackTrigger == "MediumAttack"
+                && !projectileScript.EnableMediumTwinVisuals())
+            {
+                Debug.LogWarning(
+                    "[AttackController] Medium Attack fell back to its single projectile visual because the twin-orb presentation could not be activated.",
+                    this);
+            }
+
             projectileReleasedForCurrentAttack = true;
         }
         else

@@ -1,0 +1,669 @@
+the effects graph has been around for a
+0:02
+while and many of you have been
+0:04
+requesting that I make a few tutorials
+0:06
+we did so I decided to recreate the
+0:08
+first visual effects story I made this
+0:11
+one but this time with unity the effects
+0:14
+graph and I end up with this but then I
+0:18
+started playing around make a few more
+0:20
+variations and I end up creating some
+0:23
+pretty cool orbs
+0:26
+but this is the one that I'm going to
+0:29
+show you how you can do the others are
+0:32
+exclusively available my patreon page
+0:34
+the links in description in case you are
+0:36
+interested all right so let's say we can
+0:38
+create this bad boy I'm using Universal
+0:41
+render pipeline in unity 2019 dot 3.7
+0:45
+and the only thing we need to do before
+0:48
+we proceed is to go up here to the
+0:51
+package manager in window and we need to
+0:54
+scroll down until we get to visual FX
+0:56
+graph if you don't see it go to advance
+0:59
+it and turn on show preview packages
+1:03
+once that is installed make sure to also
+1:06
+install shader graph and the first thing
+1:09
+we can do is go ahead and create with
+1:12
+right-click a visible effort graph
+1:16
+and we can drag it to the scene
+1:20
+and then press on edit so we can open up
+1:23
+the visual FX graph window I'm gonna
+1:26
+duck it here and I'm gonna make some
+1:27
+room then turn off target game object we
+1:31
+don't need that and as you can see we
+1:33
+also have the blackboard where we can
+1:35
+add variables
+1:38
+but what we want to do is first delete
+1:40
+this all of this we don't need that we
+1:43
+wanted press spacebar and search for
+1:46
+trails we are going to start with the
+1:48
+trails this one the simple ads and
+1:52
+trails we get these cool standard trails
+1:57
+so as you can see up here we can control
+1:59
+the rate but we have a capacity that is
+2:04
+basically capping our rate so let's
+2:06
+increase the capacity to around 1,000
+2:10
+on the right we also have this trips
+2:13
+capacity that is set to 32 and we could
+2:17
+change that to 1,000 as well or even
+2:20
+more
+2:22
+let's just add a float let's control
+2:25
+this rate with a property that we can
+2:29
+use in the inspector we are going to
+2:31
+call it trails pound rate and it's going
+2:34
+to be exposed so we can control it in
+2:36
+inspector with a default value of 30 and
+2:39
+we can connect it here to the rapes
+2:41
+don't here in initialize particle
+2:44
+basically when the particle is ponent we
+2:47
+don't want to use set velocity so we can
+2:50
+remove it and we can also remove the set
+2:52
+color from a gradient we want to use a
+2:54
+single color so let's press spacebar to
+2:58
+search for set color
+3:00
+all right and we can also control this
+3:03
+color in the inspector so let's add
+3:05
+another property a color one rename it
+3:08
+turn on expose it and drag the property
+3:12
+down here and then we can select a color
+3:15
+I'm going to choose the blue
+3:18
+and increase a little bit the intensity
+3:21
+all right something like these now they
+3:23
+are almost out spawning overlap it to
+3:26
+each other so let's fix that
+3:28
+and let's search for a sphere so they
+3:31
+spawn in a sphere shape and as you can
+3:34
+see if we open this up we can control
+3:37
+the radius of this sphere and this is a
+3:40
+value that's going to be useful to
+3:41
+control in the inspector so I'm going to
+3:44
+add a float name it size for example
+3:48
+it's going to be exposed and the default
+3:50
+value is going to be one with this size
+3:53
+now we can multiply it and say for
+3:56
+example that it's going to be multiplied
+3:58
+by one so any value that we input in the
+4:01
+size parameter it's going to be
+4:03
+multiplied by that one and it's going to
+4:06
+be super useful in a moment you will see
+4:09
+now what we can also do is have control
+4:12
+over the trails lifetime so I'm going to
+4:16
+add a float
+4:18
+we're default value of 1 in exposed as
+4:21
+well
+4:23
+one is going to be multiplied it 2 times
+4:25
+1 for the minimum and another for the
+4:28
+maximum the minimum is going to be 1 and
+4:31
+the maximum tree just like this
+4:37
+which ends up being super useful in case
+4:39
+we want to control the lifetime of the
+4:42
+trails directly in the inspector
+4:48
+now the cool trick comes when we go to
+4:51
+the update particles basically we have a
+4:53
+turbulence here that keeps on moving the
+4:56
+particles around with this motion and
+4:58
+what we want to do is actually conform
+5:01
+them to a sphere to a sphere shape
+5:04
+basically they try to fit inside that
+5:06
+sphere and if we increase the radius we
+5:09
+create a pretty cool effect as you can
+5:11
+see
+5:13
+so we are going to once again use the
+5:15
+size multiply it by 1.5 in this case and
+5:19
+connected to the radius
+5:22
+and as you can see they have an
+5:24
+attraction force that is too high so
+5:26
+let's decrease that to around 10
+5:30
+and the stick force which is the force
+5:32
+at which it is trying to stick with a
+5:35
+sphere shape is a bit too high to reach
+5:38
+it around five should be fat
+5:42
+now for each particle this is spawning a
+5:45
+strip basically a trail and we don't
+5:49
+want to set a lifetime here we can he
+5:52
+narrate values directly from the
+5:54
+particles so let's see narrate the
+5:55
+lifetime
+5:58
+cool and let's keep the update particle
+6:01
+we are going to go back there in a
+6:02
+moment and let's go down here to the
+6:04
+output particle strip quiet and as you
+6:08
+can see we don't have control over the
+6:09
+sides so let's add a set size and
+6:13
+disable the set size of a lifetime
+6:15
+we are going to use it in a moment and
+6:16
+once again with the size parameter we
+6:19
+can go ahead and create two multiplied
+6:21
+nodes
+6:23
+when for the minimum like 0.01 and the
+6:27
+maximum 0.02 we want we can create a
+6:31
+random number with spacebar feed them
+6:35
+the minimum and the maximum disable
+6:37
+constant we don't want this values to be
+6:40
+constant and connect to the size
+6:45
+and it around to be super small but
+6:47
+that's because we have set size of a
+6:49
+lifetime off we want to turn it on
+6:52
+and happier in the inspector the
+6:55
+composition is not going to overwrite
+6:58
+the size value it's going to add and we
+7:02
+now make sure that the trails go from
+7:04
+big to small throughout their lifetime
+7:11
+now the cool thing here is that we can
+7:13
+go ahead and select all of these notes
+7:15
+and with right-click we can create a
+7:17
+group selection I'm going to name these
+7:20
+trails
+7:23
+now for the next one we want an empty
+7:27
+particle system because we can in fact
+7:29
+create empty particle systems
+7:33
+and the first thing that the particle
+7:35
+system needs you can start by this pound
+7:37
+and we want to search for a burst a
+7:40
+periodic burst something that is going
+7:43
+to keep on emitting particles every x
+7:45
+time we can emit the only one particle
+7:48
+for this one this is going to be the
+7:50
+beam by the way with an interval of one
+7:52
+second just gonna create some space over
+7:55
+here and the particle also needs to know
+7:58
+its lifetime so that's when initialize
+8:02
+particle comes in and we can say it at
+8:04
+the beginning that we want to set the
+8:06
+lifetime to be two seconds what a
+8:10
+particle so needs is a texture and for
+8:13
+that we have this quad down here that we
+8:16
+can fit a text I'm going to select the
+8:17
+default particle and as you can see it's
+8:20
+really tiny
+8:24
+so we can go ahead and control the size
+8:26
+of this particle directly in this quad
+8:30
+and we can once again use the size and
+8:33
+multiply it by let's say 10 yeah that's
+8:40
+really big because we still don't have
+8:42
+color so let's add a set color and now
+8:45
+let's reuse this color property appear
+8:49
+drag it connected and as you can see
+8:51
+it's really intense and cool things that
+8:53
+we can divide these basically we can
+8:57
+divide color let's say for and as you
+9:00
+can see it becomes really dull but
+9:03
+that's because we are using an alpha
+9:05
+blend mode let's switch it to be in
+9:07
+allottee
+9:09
+now that looks much better but particles
+9:12
+appear and disappear are of nowhere so
+9:15
+it's controlled their alpha the
+9:18
+transparency with an odd color of a
+9:21
+lifetime and in this graph we don't need
+9:23
+these keys
+9:26
+right here we just need this first kid
+9:29
+to be to be zero
+9:31
+and then add another key up here which
+9:34
+is going to be 100 and we can also add
+9:37
+another key in the end without any alpha
+9:43
+and these fades in and fades out
+9:44
+particle which looks much smoother
+9:49
+all right cool we can also group these
+9:55
+and rename it to bheem now for the last
+9:58
+thing we need and the coolest one we can
+10:01
+search for simple and then choose simple
+10:04
+particle system and the first thing we
+10:07
+want to do here is assign a text we can
+10:09
+also assign the default particle
+10:13
+and switch the blend mode to additive
+10:17
+and once again we also want to make sure
+10:19
+that this particles found in a sphere
+10:21
+shape so initialized particle we are
+10:25
+going to set their position to be in
+10:26
+sphere mode
+10:29
+and once again we can use the size to
+10:32
+multiply it lets say by 2 that fits well
+10:37
+and for this set velocity I'm actually
+10:39
+going to set minus 0.5 which I'm going
+10:43
+to copy and paste and down here the
+10:45
+maximum is going to be 0.5
+10:49
+oh and let's not forget to increase the
+10:51
+capacity to a big value like this one
+10:54
+and create a new float so we can have
+10:58
+control over the spawn rate going to be
+11:02
+exposed and with a default value of
+11:04
+let's say five thousand particles and
+11:09
+they are super bright because we need to
+11:12
+control their size they are to be so
+11:15
+let's add a set size down here disable
+11:19
+the set size of a lifetime and I'm going
+11:22
+to use a random number between 0.01 and
+11:26
+0.02 and as you can see they are really
+11:30
+small but we can also do is disable set
+11:33
+color of a lifetime because we want to
+11:36
+set a simple color and then we use the
+11:39
+color property
+11:43
+in the update particle now we need to
+11:45
+update the position of these particles
+11:48
+and for that we are going to use a
+11:50
+turbulence that will make them move in
+11:52
+different directions
+11:56
+just going to increase a bit de-spawn
+11:58
+rate to 50,000 this is what's going to
+12:02
+melt your GPU what we also need is to
+12:05
+conform these particles to a sphere once
+12:08
+again
+12:10
+and we could control the radius of this
+12:13
+sphere by using the size multiply it by
+12:16
+let's say 2
+12:21
+and as you can see now the particles try
+12:23
+to fit to the radius of that sphere
+12:28
+and the really cool thing comes now we
+12:31
+just need to make some room because we
+12:34
+are going to add the purling curl noise
+12:36
+to D with this node we can create some
+12:38
+really cool effects
+12:42
+for example if I connect this to the
+12:44
+conform to sphere more specifically to
+12:47
+the center to the X&Y you will notice
+12:50
+that the sphere is being offset
+12:54
+and that's because we need to first get
+12:57
+the position of the existing particles
+12:59
+so we can use it as a coordinate for the
+13:03
+purling choral noise but before that we
+13:06
+can add motion by using the time nodes
+13:09
+so they keep on moving then we can
+13:12
+connect the x and y to the coordinate of
+13:15
+the paralleling current lines and that's
+13:18
+when we start getting some really cool
+13:20
+effects this motion of the particles is
+13:23
+already looking pretty decent but they
+13:25
+are really scattered away as you can see
+13:30
+and the way we fix that is by using a
+13:33
+remap node basically we are going to
+13:35
+remap the old values that are between
+13:39
+minus 3 and 3 to minus 1 and 1 and if I
+13:46
+replace the connection now to the center
+13:48
+X&Y of the sphere what we get is a more
+13:52
+concise motion for the particles and if
+13:56
+we increase the range of the remap of
+13:58
+the old values the particles get even
+14:01
+more constrained
+14:04
+it seems like minus six and six is a
+14:07
+good value a good range to create a nice
+14:09
+motion
+14:12
+and we can also reuse this read map to
+14:14
+reuse this purling Karl noise to affect
+14:17
+the field position of the turbulence
+14:21
+the difference is barely notice but if
+14:24
+we start increasing the intensity and
+14:26
+the drag to five we get this beautiful
+14:29
+cluster of particles around the sphere
+14:33
+in a sphere like shape
+14:37
+and the size comes really Andy when for
+14:40
+example we want this to be smaller and
+14:42
+these automatically adapts as you can
+14:45
+see or we want this to be bigger
+14:52
+and if we increase the spawn rate we get
+14:54
+something really beautiful
+14:57
+playing with visible effects graph is
+14:59
+really entertaining and you can do a
+15:02
+bunch of stuff for example now if we
+15:05
+wanted we could create a second color
+15:09
+something purple
+15:11
+and we could feed this color to the
+15:14
+trails
+15:16
+and here we go we have something super
+15:18
+attractive with just two colors we can
+15:21
+also switch the second call to be yellow
+15:23
+I think it really blends in nicely I
+15:26
+mean the possibilities are really
+15:28
+immense with this and I really hope that
+15:31
+I've showed you a glimpse of how
+15:33
+powerful this tool is and that you have
+15:35
+enjoyed also the stereo as usual all of
+15:40
+these herbs are available my patreon
+15:42
+page and I'm gonna say thank you to all
+15:44
+my patrons your sport really helps keep
+15:46
+these videos coming and a special thank
+15:49
+you goes to the super mega patrons which
+15:51
+are Andriana Bottega alejandro fart ero
+15:55
+Gamescom gobbling black he Maria's PC
+15:58
+Josh Mac karmic true Amendola Kenley
+16:02
+Oscar Simsek solo philosophy Morello
+16:05
+Steven Melton TK and Artem Jim thank you
+16:10
+all for your amazing support it is very
+16:12
+much appreciated and I hope you all have
+16:14
+enjoyed this video thanks for watching
+16:16
+and see you in the next one
+16:25
+you

@@ -1,0 +1,13 @@
+{
+  "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_01_Peaceful_v03.blend",
+  "source_sha256": "16fb57c159adebc37aab45aca3d0720b162a4385198d9854c2bbffd55aa78deb",
+  "output": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Environment\\DefenseSets\\Prologue_Home_01_Peaceful_v03_UnityPBR.glb",
+  "output_bytes": 1612304,
+  "output_sha256": "8d5a7b46f9a2f50c07c0e5e7cf3365c02448ace884e2778b0cc315e1bfd32a01",
+  "selected_meshes": 84,
+  "roof_mesh_count": 6,
+  "v03_flower_count": 4,
+  "procedural_material_links_unlinked_in_memory": 22,
+  "original_blend_preserved": true,
+  "editable_v03_collection": "V03_08_STUDY_TABLE_FLOWERS__SHOT_DETAIL"
+}

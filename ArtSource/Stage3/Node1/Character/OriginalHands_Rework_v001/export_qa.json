@@ -1,0 +1,41 @@
+{
+  "export_triangles": 18070,
+  "evaluated_vertices": 9052,
+  "height_m": 1.6933569852493968,
+  "material_count": 1,
+  "images": {
+    "texture_diffuse.png": {
+      "has_data": false,
+      "size": [
+        2048,
+        2048
+      ],
+      "sha256": "cfe5e889ff90e5b5ce1e9af2a1d764d55ba88757739d16b66e2faa9962996d35"
+    },
+    "texture_roughness.png": {
+      "has_data": false,
+      "size": [
+        2048,
+        2048
+      ],
+      "sha256": "aef76918e110474080bb3aa598cc40708c581b4379beb6d86d27572720a6ec90"
+    },
+    "texture_metallic.png": {
+      "has_data": false,
+      "size": [
+        2048,
+        2048
+      ],
+      "sha256": "a91484c3168dd6c9f16887285f42ec141e573fa5e15ef5e379ca3978d48f33c0"
+    },
+    "texture_normal.png": {
+      "has_data": false,
+      "size": [
+        2048,
+        2048
+      ],
+      "sha256": "0ec1663cb8e08a771fd6d084d3825de0ded7dd20cc98b83873d8b70265c272ba"
+    }
+  },
+  "source_sha256": "ad612715af88d13e1b6b560033c228b39d1d75bc866d9ca47a2bb5de5ae03c1b"
+}

@@ -1,0 +1,16 @@
+{
+  "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_MediaPipe_BlockPlay_Rough_v04.fbx",
+  "frame_snapshots": {
+    "2": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_AnimatedFBX_VisualQA_v04\\FBX_Animated_F002.png",
+    "97": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_AnimatedFBX_VisualQA_v04\\FBX_Animated_F097.png",
+    "145": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_AnimatedFBX_VisualQA_v04\\FBX_Animated_F145.png",
+    "241": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_AnimatedFBX_VisualQA_v04\\FBX_Animated_F241.png"
+  },
+  "action": {
+    "name": "Nevali_v13_MixamoArmature|Scene",
+    "range": [
+      2.0,
+      241.0
+    ]
+  }
+}

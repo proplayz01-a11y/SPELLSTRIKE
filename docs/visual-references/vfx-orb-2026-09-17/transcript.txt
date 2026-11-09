@@ -1,0 +1,136 @@
+[00000.00 - 00005.92] VFX Graph has been around for a while and many of you have been requesting that I make a few
+[00005.92 - 00012.16] tutorials we did. So I decided to recreate the first visual FX tutorial I made, this one.
+[00012.16 - 00016.72] But this time with Unity VFX Graph. And I end up with this.
+[00018.16 - 00022.72] But then I started playing around, make a few more variations and I end up
+[00022.72 - 00030.59] creating some pretty cool orbs. But this is the one that I'm going to show you how you can do.
+[00031.31 - 00036.03] The others are exclusively available on my Patreon page, the links in the description
+[00036.03 - 00039.63] in case you are interested. Alright, so let's see how we can create this bad boy.
+[00040.67 - 00048.91] I'm using Universal Render Pipeline in Unity 2019.3.7 and the only thing we need to do before we proceed
+[00048.91 - 00055.71] is to go up here to the package manager in Windows. And we need to scroll down until we get to
+[00055.71 - 00063.23] visual FX Graph. If you don't see it, go to advanced and turn on show preview packages.
+[00064.35 - 00070.35] Once that is installed, make sure to also install Shader Graph. And the first thing we can do is go
+[00070.35 - 00078.75] ahead and create with right click a visual FX Graph. And we can drag it to the scene
+[00079.31 - 00085.55] and then press on edit. So we can open up the visual FX Graph window.
+[00085.55 - 00091.55] I'm going to duck it here and I'm going to make some room. Then turn off target game object.
+[00091.55 - 00096.35] We don't need it. And as you can see, we also have the blackboard where we can add variables.
+[00098.35 - 00102.43] But what we want to do is first delete all of these. We don't need that.
+[00103.55 - 00106.91] We want to press spacebar and search for trails.
+[00107.55 - 00112.43] We are going to start with the trails. This one, the simple ads and trails.
+[00113.55 - 00120.19] We get these cool standard trails. So as you can see up here, we can control the rate.
+[00121.47 - 00128.99] But we have a capacity that is basically capping our rate. So let's increase the capacity to around
+[00128.99 - 00137.47] 1000. On the right, we also have these trips capacity that is set to 32. And we can change that
+[00137.47 - 00147.95] to 1000 as well, or even more. Let's just add a float. Let's control this rate with the property
+[00148.67 - 00154.75] that we can use in the inspector. We are going to call it trail spawn rate. And it's going to
+[00154.75 - 00160.11] be exposed so we can control it in inspector with the default value of 30. And we can connect it
+[00160.11 - 00166.75] here to the rate down here in the initialize particle. Basically, when the particle is
+[00166.75 - 00172.43] pounded, we don't want to use set velocity. So we can remove it. And we can also remove the set
+[00172.43 - 00179.15] color from a gradient. We want to use a single color. So let's press spacebar to search for set
+[00179.15 - 00185.95] color. All right. And we can also control this color in the inspector. So let's add another
+[00185.95 - 00194.59] property, a color one, rename it, turn on expose it, and drag the property down here. And then we can
+[00194.59 - 00201.89] select a color. I'm going to choose a blue and increase a little bit the intensity. All right,
+[00201.89 - 00208.13] something like this. Now they are almost all spawning overlap to each other. So let's fix that.
+[00208.93 - 00215.57] And let's search for a sphere. So they spawn in a sphere shape. And as you can see, if we open
+[00215.57 - 00221.49] this up, we can control the radius of this sphere. And this is a value that's going to be useful to
+[00221.49 - 00227.33] control in the inspector. So I'm going to add a float, name it size, for example,
+[00228.93 - 00233.57] it's going to be exposed. And the default value is going to be one. With this size,
+[00233.57 - 00240.37] now we can multiply it and say, for example, that it's going to be multiplied by one. So any value
+[00240.37 - 00246.45] that we input in the size parameter, it's going to be multiplied by that one. It's going to be
+[00246.45 - 00254.21] super useful in a moment you will see. Now what we can also do is have control over the trails
+[00254.21 - 00261.41] lifetime. So I'm going to add a float. We have default value of one and expose it as well.
+[00262.69 - 00268.93] And this one is going to be multiplied two times one for the minimum and another for the maximum.
+[00269.89 - 00278.59] The minimum is going to be one and the maximum tree, just like this, which ends up being super
+[00278.59 - 00289.07] useful in case we want to control the lifetime of the trails directly in the inspector. Now the
+[00289.07 - 00295.39] cool trick comes when we go to the update particles. Basically, we have a turbulence here that keeps
+[00295.39 - 00301.95] on moving the particles around with this motion. And what we want to do is actually conform them
+[00302.03 - 00309.15] to a sphere, to a sphere shape. Basically, they try to fit inside that sphere. And if we increase
+[00309.15 - 00316.43] the radius, we create a pretty cool effect, as you can see. So we are going to once again use this size,
+[00316.43 - 00323.42] multiply it by one dot five in this case, and connect it to the radius. And as you can see,
+[00323.42 - 00328.94] they have an attraction force that is too high. So let's decrease that to around 10.
+[00329.10 - 00336.14] And the stick force, which is the force at which it is trying to stick with the sphere shape,
+[00336.78 - 00344.99] is a bit too high to reach it. Around five should be fine. Now for each particle, this is
+[00344.99 - 00353.23] spawning a strip, basically a trail. And we don't want to set a lifetime here. We can inherit values
+[00353.23 - 00360.82] directly from the particles. So let's inherit the lifetime. Cool. And let's skip the update
+[00360.82 - 00365.62] particle. We are going to go back there in a moment. And let's go down here to the output
+[00365.62 - 00372.42] particle strip quad. And as you can see, we don't have control over the sides. So let's add a set size
+[00373.14 - 00377.94] and disable the set size of a lifetime. We are going to use it in a moment. And once again,
+[00377.94 - 00385.14] with the size parameter, we can go ahead and create two multiply nodes. One for the minimum,
+[00385.14 - 00393.94] like 0.01 and the maximum 0.02, if we want, we can create a random number with space bar,
+[00394.50 - 00400.58] feed them the minimum and the maximum, disable constant. We don't want these values to be constant
+[00401.70 - 00408.75] and connect to the size. And they turn around to be super small. But that's because we have
+[00408.75 - 00414.91] set size of a lifetime off. We want to turn it on and hop here in the inspector.
+[00415.63 - 00420.59] The composition is not going to overwrite the size value. It's going to add.
+[00422.51 - 00427.15] And we now make sure that the trails go from big to small throughout their lifetime.
+[00431.78 - 00436.34] Now the cool thing here is that we can go ahead and select all of these nodes. And with right click,
+[00436.34 - 00446.13] we can create a group selection. I'm going to name these trails. Now for the next one,
+[00446.21 - 00451.81] we want an empty particle system, because we can, in fact, create empty particle systems.
+[00453.97 - 00459.09] And the first thing that the particle system needs, we can start by the spawn and we want to search
+[00459.09 - 00465.33] for a burst, a periodic burst, something that is going to keep on emitting particles every
+[00465.33 - 00470.85] x time. We can emit only one particle for this one. This is going to be the beam, by the way,
+[00471.41 - 00477.65] with an interval of one second. Just going to create some space over here. And the particle
+[00477.65 - 00484.53] also needs to know its lifetime. So that's when initialized particle comes in. And we can say that
+[00484.53 - 00491.81] the beginning that we want to set the lifetime to be two seconds. What a particle also needs
+[00491.81 - 00497.65] is a texture. And for that, we have this quad down here that we can fit a texture. I'm going to select
+[00497.65 - 00506.37] the default particle. And as you can see, it's really tiny. So we can go ahead and control the
+[00506.37 - 00514.53] size of this particle directly in this quad. And we can once again use the size and multiply it
+[00516.13 - 00524.29] by let's say 10. Yeah, that's really big because we still don't have color. So let's add a set
+[00524.29 - 00531.65] color. And now let's reuse this color property up here. Drag it connected. And as you can see,
+[00531.65 - 00537.97] it's really intense and cool things that we can divide these. Basically, we can divide color.
+[00538.61 - 00545.17] Let's say four. And as you can see, it becomes really dull. But that's because we are using an alpha
+[00545.17 - 00553.17] blend mode. Let's switch it to be inality. Now that looks much better. But the particles appear
+[00553.17 - 00561.25] and disappear out of nowhere. So let's control their alpha, the transparency with the not color
+[00561.25 - 00569.17] of a lifetime. And in this graph, we don't need these keys. Right here, we just need this first key
+[00569.17 - 00577.89] to be to be zero. And then add another key up here, which is going to be 100. And we can also add
+[00577.89 - 00585.54] another key in the end without any alpha. And this fades in and fades out the particle,
+[00585.54 - 00597.70] which looks much smoother. All right, cool. We can also group this and rename it to beam.
+[00597.70 - 00603.86] Now for the last thing we need and the coolest one, we can search for simple and then choose
+[00603.86 - 00609.78] simple particle system. And the first thing we want to do here is assign a texture. We can also
+[00609.78 - 00619.25] assign the default particle. And switch to blend mode to additive. And once again, we also want
+[00619.25 - 00625.33] to make sure that this particles pound in a sphere shape. So initialize particle, we are going to
+[00625.33 - 00633.41] set their position to be in sphere mode. And once again, we can use the size to multiply it,
+[00633.41 - 00641.41] let's say by two, that fits well. And for this set velocity, I'm actually going to set minus zero
+[00641.49 - 00646.69] dot five, which I'm going to copy and paste. And down here, the maximum is going to be zero
+[00646.69 - 00654.62] dot five. Oh, and let's not forget to increase the capacity to a big value like this one.
+[00656.14 - 00663.74] And create a new flow so we can have control over the spawn rate, going to be exposed. And
+[00663.74 - 00671.42] with the default value of, let's say, 5000 particles. And they are super bright because
+[00672.14 - 00677.90] we need to control their size. They are too big. So let's add a set size down here,
+[00679.42 - 00684.30] disable the set size of a lifetime. And I'm going to use a random number
+[00684.30 - 00690.62] between zero dot zero one and zero dot zero two. And as you can see, they are really small.
+[00691.58 - 00697.50] But we can also do is disable set color over lifetime, because we want to set a simple color
+[00698.30 - 00707.26] and then reuse the color property. In the update particle, now we need to update the position
+[00707.26 - 00712.86] of these particles. And for that, we are going to use a turbulence that will make them move
+[00712.86 - 00721.94] in different directions. Just going to increase a bit the spawn rate to 50,000. This is what's
+[00721.94 - 00728.82] going to melt your GPU. What we also need is to conform these particles to a sphere once again.
+[00731.31 - 00737.87] And we can control the radius of this sphere by using the size, multiply it by, let's say, two.
+[00741.52 - 00749.92] And as you can see, now the particles try to fit to the radius of that sphere. And the really cool
+[00749.92 - 00756.56] thing comes now, we just need to make some room, because we are going to add a purling curl noise
+[00756.56 - 00764.54] to D. With this note, we can create some really cool effects. For example, if I connect this to
+[00764.62 - 00770.62] the conform to sphere, more specifically to the center, to the X and Y, you will notice that the
+[00770.62 - 00779.28] sphere is being offsetted. And that's because we need to first get the position of the existing
+[00779.28 - 00786.16] particles. So we can use it as a coordinate for the purling curl noise. But before that,
+[00786.16 - 00793.36] we can add motion by using the time node. So they keep on moving. Then we can connect the X
+[00794.08 - 00800.80] and Y to the coordinate of the purling curl noise. And that's when we start getting some really cool
+[00800.80 - 00806.88] effects. This motion of the particles is already looking pretty decent, but they are really scattered
+[00806.88 - 00815.82] away, as you can see. And the way we fix that is by using a remap node. Basically, we are going to
+[00815.82 - 00826.70] remap the old values that are between minus 3 and 3, 2, minus 1 and 1. And if I replace the
+[00826.70 - 00834.54] connection now to the center, X and Y of the sphere, what we get is a more concise motion for the
+[00834.54 - 00841.18] particles. And if we increase the range of the remap of the old values, the particles get even
+[00841.26 - 00850.37] more constrained. It seems like minus 6 and 6 is a good value, a good range to create a nice motion.
+[00852.51 - 00859.55] And we can also reuse this remap, reuse this purling curl noise to affect the field position
+[00859.55 - 00867.15] of the turbulence. The difference is barely noticed, but if we start increasing the intensity and the
+[00867.15 - 00875.31] drag to 5, we get this beautiful cluster of particles around the sphere, in a sphere like shape.
+[00877.89 - 00883.25] And the size comes really handy, when for example we want this to be smaller, and this
+[00883.25 - 00894.24] automatically adapts, as you can see, or we want this to be bigger. And if we increase the spawn
+[00894.24 - 00901.68] rate, we get something really beautiful. Playing with visual effects graph is really entertaining.
+[00901.68 - 00907.44] And you can do a bunch of stuff. For example, now if we wanted, we could create a second color,
+[00909.90 - 00918.38] something purple. And we could feed this color to the trails. And here we go, we have something
+[00918.38 - 00923.82] super attractive with just two colors. We can also switch the second color to be yellow,
+[00923.82 - 00929.66] I think it really blends in nicely. I mean, the possibilities are really immense with this.
+[00930.22 - 00934.94] And I really hope that I've showed you a glimpse of how powerful this tool is,
+[00934.94 - 00937.74] and that you have enjoyed. Also, the tutorial.
+[00939.18 - 00942.78] As usual, all of these orbs are available on my Patreon page.
+[00942.78 - 00948.30] And I'm gonna say thank you to all my Patrons. Your support really helps keep these videos coming.
+[00948.30 - 00954.62] And a special thank you goes to the Super Mega Patrons, which are Adriana Battega, Alejandro,
+[00954.62 - 00962.62] FartEeroGames.com, Goblin Plag, Himmerias PC, Josh MacKarmic, Ruam Endiola, Ken Lee,
+[00962.62 - 00969.66] Osgour Simsek, Salafur, Razafimayelio, Stephen Melton, TK, and Artem Jim.
+[00969.66 - 00975.18] Thank you all for your amazing support. It is very much appreciated, and I hope you all have enjoyed
+[00975.18 - 00984.46] this video. Thanks for watching and see you in the next one.

@@ -1,0 +1,42 @@
+diff --git a/docs/PROJECT_STATUS.md b/docs/PROJECT_STATUS.md
+--- a/docs/PROJECT_STATUS.md
++++ b/docs/PROJECT_STATUS.md
+@@ -1,1 +1,10 @@
+ # SPELLSTRIKE Project Status
++
++## Stage 3 Node 2 Character / Empty Quiver — 2026-10-02
++
++Created a separate textured desert-archer asset from the exact supplied screenshot
++source, with all seven arrow components removed and a real hollow quiver. Blender
++and GLB outputs contain 13,409 active triangles; the cavity is approximately
++31.2 cm deep. Export reimport and packed texture checks pass. Character rigging,
++animation, Unity integration, and PC/A05s validation remain pending. See
++`docs/STAGE3_NODE2_DESERT_ARCHER_EMPTY_QUIVER.md`.
+diff --git a/docs/CHANGELOG.md b/docs/CHANGELOG.md
+--- a/docs/CHANGELOG.md
++++ b/docs/CHANGELOG.md
+@@ -1,1 +1,10 @@
+ # SPELLSTRIKE Changelog
++
++## 2026-10-02 — Desert Archer Character with Empty Quiver
++
++- Preserved the matching source character's detail and UVs, removed seven arrow
++  components and the filled quiver cap, and authored an editable hollow shell.
++- Delivered separate Blender/GLB files, packed texture, review renders, and fresh
++  export verification: 13,409 triangles and approximately 31.2 cm cavity depth.
++- No rig, animation, Unity scene/prefab change, or gameplay integration was added.
++  See `docs/STAGE3_NODE2_DESERT_ARCHER_EMPTY_QUIVER.md`.
+diff --git a/docs/TECH_DEBT.md b/docs/TECH_DEBT.md
+--- a/docs/TECH_DEBT.md
++++ b/docs/TECH_DEBT.md
+@@ -25,1 +25,10 @@
+ # Current Technical Debt
++
++## Desert archer character rigging/platform validation — 2026-10-02
++
++The empty-quiver character is an unrigged adaptation of the supplied source mesh.
++It still needs rigging/weights, deformation checks, actual weapon/hip fitting,
++Unity integration, and PC/A05s validation. Its preserved 4096² source texture needs
++an Android import/compression budget. Geometry/export checks do not establish
++animation quality or device performance. See
++`docs/STAGE3_NODE2_DESERT_ARCHER_EMPTY_QUIVER.md`.

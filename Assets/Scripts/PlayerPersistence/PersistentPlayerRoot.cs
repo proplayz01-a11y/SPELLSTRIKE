@@ -23,6 +23,7 @@ public sealed class PersistentPlayerRoot : MonoBehaviour
     private AttackController attackController;
     private CharacterController characterController;
     private Rigidbody playerRigidbody;
+    private PersistentThirdPersonCamera persistentThirdPersonCamera;
     private int lastBoundSceneHandle = int.MinValue;
 
     public PlayerHealth Health => playerHealth;
@@ -53,6 +54,7 @@ public sealed class PersistentPlayerRoot : MonoBehaviour
         attackController = GetComponent<AttackController>();
         characterController = GetComponent<CharacterController>();
         playerRigidbody = GetComponent<Rigidbody>();
+        persistentThirdPersonCamera = GetComponent<PersistentThirdPersonCamera>();
 
         transform.SetParent(null, true);
         DontDestroyOnLoad(gameObject);
@@ -61,6 +63,10 @@ public sealed class PersistentPlayerRoot : MonoBehaviour
 
     private void Start()
     {
+        // The imported FreeLook rig is a separate DDOL root so it does not
+        // inherit Van's scene-dependent scale or character rotation.
+        persistentThirdPersonCamera?.Initialize();
+
         Scene activeScene = SceneManager.GetActiveScene();
         if (activeScene.IsValid() && activeScene.handle != lastBoundSceneHandle)
             BindLoadedScene(activeScene);
@@ -128,6 +134,7 @@ public sealed class PersistentPlayerRoot : MonoBehaviour
             ? Vector3.one * 10f
             : spawnPoint.PlayerScale;
         TeleportTo(spawnPoint.SpawnPose, targetScale);
+        persistentThirdPersonCamera?.BindSceneCamera();
         RebindSceneDependencies(scene, hud);
     }
 

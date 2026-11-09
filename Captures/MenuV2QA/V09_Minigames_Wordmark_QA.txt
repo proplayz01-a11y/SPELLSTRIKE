@@ -1,0 +1,37 @@
+SPELLSTRIKE MAIN MENU V09 — CENTERED MINIGAMES WORDMARK
+Date: 2026-10-31
+
+Scene:
+Assets/Scenes/MenuConcepts/MainMenuV2_Prototype_20261031_v09_MinigamesWordmark.unity
+
+Approved image:
+Original user-saved Downloads/MAIN MENU ASSETS/Golden Minigames UI Logo.png
+Copied without modification to:
+Assets/MenuV2/Art/Minigames_Wordmark_GoldShadow_V09.png
+Source + imported copy SHA256:
+ED2F5F7136863C310B55DC3E24F2C5AC99C634C649E1FDF2F48ECD2CED26526F
+Transparent gold lettering with dark drop shadow and no extra ornament.
+
+Change:
+Replace ONLY MinigameTent/HoverLabel's former navy/gold plaque image.
+New wordmark centered inside tent:
+  local position (0,-65), RectTransform 380x130
+  centered anchor/pivot, no raycast.
+Keep old MenuV2HoverTarget and CanvasGroup so wordmark fades in on hover,
+fades away on exit, and continues to work with touch selection.
+Minigame scene routing, tent base/hover PNG, other props, Van and
+Adventure remain untouched.
+
+Captured in Unity Game View:
+Captures/MenuV2QA/V09_MinigamesWordmark_Idle.png
+Captures/MenuV2QA/V09_MinigamesWordmark_Hover.png
+Hover screenshot visually confirms centered wordmark in tent entrance.
+OnPointerExit tested: hover false, CanvasGroup alpha settles to 0,
+EventSystem restored; label CanvasGroup and Image do not block rays.
+
+Source V08 scene SHA256 remained:
+5D1387BA7842CB9943CB9E9619EE6C13E49E64D8A245FCB62E86621E996152F9
+
+Pending: user's visual approval on final text size/vertical position;
+Android interaction/performance, click-through build validation.
+No Git commit performed.

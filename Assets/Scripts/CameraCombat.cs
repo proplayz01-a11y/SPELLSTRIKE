@@ -28,6 +28,9 @@ public class CombatCamera : MonoBehaviour
     private Vector3 currentLookTarget;
     private float orbitX = 0f;
     private float orbitY = 0f;
+    private float cinemachineAxisX;
+    private float cinemachineAxisY;
+    private bool cinemachineDriven;
     private int mobileLookFingerId = int.MinValue;
     private readonly System.Collections.Generic.HashSet<int> mobileRejectedFingerIds = new();
 
@@ -40,6 +43,9 @@ public class CombatCamera : MonoBehaviour
 
     void LateUpdate()
     {
+        cinemachineAxisX = 0f;
+        cinemachineAxisY = 0f;
+
         // Toggle lock-on
         if (Input.GetKeyDown(toggleKey))
         {
@@ -52,28 +58,54 @@ public class CombatCamera : MonoBehaviour
         bool allowMouseOrbit = !MobileStageControls.IsMobilePresentation || Application.isEditor;
         if (allowMouseOrbit && Input.GetMouseButton(1)) // right mouse button
         {
-            orbitX += Input.GetAxis("Mouse X") * orbitSpeed;
-            orbitY -= Input.GetAxis("Mouse Y") * orbitSpeed;
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+            cinemachineAxisX += mouseX;
+            cinemachineAxisY += mouseY;
+            orbitX += mouseX * orbitSpeed;
+            orbitY -= mouseY * orbitSpeed;
             orbitY = Mathf.Clamp(orbitY, -30f, 60f); // vertical limit
         }
 
         UpdateMobileTouchOrbit();
-
-        // Apply orbit to offset
-        Quaternion orbitRotation = Quaternion.Euler(orbitY, orbitX, 0);
-        Vector3 rotatedOffset = orbitRotation * offset;
-
-        // Smooth camera position
-        Vector3 desiredPosition = player.position + rotatedOffset;
-        if (desiredPosition.y < minY) desiredPosition.y = minY;
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, followSmoothSpeed);
 
         // Determine look target
         Vector3 targetPosition = lockOnEnemy && enemy != null ? enemy.position : player.position;
 
         // Smoothly interpolate LookAt
         currentLookTarget = Vector3.Lerp(currentLookTarget, targetPosition, lookSmoothSpeed * Time.deltaTime);
+
+        // Cinemachine owns the physical camera transform when the persistent
+        // FreeLook rig is active. This component remains the input/lock-on source
+        // so existing mobile touch ownership and Tab lock-on behavior are kept.
+        if (cinemachineDriven)
+            return;
+
+        // Apply orbit to offset for the legacy fallback camera path.
+        Quaternion orbitRotation = Quaternion.Euler(orbitY, orbitX, 0);
+        Vector3 rotatedOffset = orbitRotation * offset;
+
+        Vector3 desiredPosition = player.position + rotatedOffset;
+        if (desiredPosition.y < minY) desiredPosition.y = minY;
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, followSmoothSpeed);
         transform.LookAt(currentLookTarget);
+    }
+
+    public void SetCinemachineDriven(bool driven)
+    {
+        cinemachineDriven = driven;
+    }
+
+    public float GetCinemachineAxisValue(int axis)
+    {
+        return axis == 0 ? cinemachineAxisX : axis == 1 ? cinemachineAxisY : 0f;
+    }
+
+    public Vector3 GetCurrentLookTarget()
+    {
+        if (lockOnEnemy && enemy != null)
+            return enemy.position;
+        return player != null ? player.position : transform.position;
     }
 
     public void SetMobileTouchOrbitEnabled(bool enabled)
@@ -131,6 +163,15 @@ public class CombatCamera : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Moved)
                 {
+                    float deltaTime = Mathf.Max(Time.unscaledDeltaTime, 0.0001f);
+                    // FreeLook's X axis is measured in degrees; its Y axis is
+                    // normalized over the 0..1 vertical orbit range. Convert
+                    // the existing degrees-per-pixel sensitivity into the
+                    // axis input expected by Cinemachine's speed integrator.
+                    cinemachineAxisX += touch.deltaPosition.x * mobileOrbitSensitivity /
+                                        (300f * deltaTime);
+                    cinemachineAxisY += touch.deltaPosition.y * mobileOrbitSensitivity /
+                                        (50f * 6.25f * deltaTime);
                     orbitX += touch.deltaPosition.x * mobileOrbitSensitivity;
                     orbitY -= touch.deltaPosition.y * mobileOrbitSensitivity;
                     // Mobile keeps the camera comfortably above the player's ground plane.

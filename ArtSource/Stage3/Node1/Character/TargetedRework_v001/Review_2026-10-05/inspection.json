@@ -1,0 +1,1114 @@
+{
+  "source_sha256": "cb2eb9b631be0ef4ab410f522cedc86c4f819f011c6e894280077a7cce7720e9",
+  "blender": "5.0.1",
+  "rigs": [],
+  "active_parts": [
+    {
+      "name": "SunboundWarden_Body_Armor_Preserved",
+      "type": "MESH",
+      "triangles": 16622,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "model",
+          "images": [
+            "texture_diffuse.png",
+            "texture_roughness.png",
+            "texture_metallic.png",
+            "texture_normal.png"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Glove",
+      "type": "MESH",
+      "triangles": 7232,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SUBSURF"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Glove_DeepPurple",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Glove",
+      "type": "MESH",
+      "triangles": 7232,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SUBSURF"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Glove_DeepPurple",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_WristSeal",
+      "type": "MESH",
+      "triangles": 1248,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Glove_DeepPurple",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_WristLip",
+      "type": "MESH",
+      "triangles": 576,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_BackplateBorder",
+      "type": "MESH",
+      "triangles": 236,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_BackplateInset",
+      "type": "MESH",
+      "triangles": 236,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Little_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Little_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Little_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Ring_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Ring_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Ring_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Middle_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Middle_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Middle_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Index_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Index_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Index_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Thumb_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 396,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Thumb_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 396,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_Thumb_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 396,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRing",
+      "type": "CURVE",
+      "triangles": 512,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRing.001",
+      "type": "CURVE",
+      "triangles": 512,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.001",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.002",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.003",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.004",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.005",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.006",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.007",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_R_PalmSeam",
+      "type": "CURVE",
+      "triangles": 64,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Glove_Seams",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_WristSeal",
+      "type": "MESH",
+      "triangles": 1248,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Glove_DeepPurple",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_WristLip",
+      "type": "MESH",
+      "triangles": 576,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_BackplateBorder",
+      "type": "MESH",
+      "triangles": 236,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_BackplateInset",
+      "type": "MESH",
+      "triangles": 236,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Little_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Little_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Little_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Ring_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Ring_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Ring_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Middle_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Middle_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Middle_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Index_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Index_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Index_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 456,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Thumb_CurvedPlate_1",
+      "type": "MESH",
+      "triangles": 396,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Thumb_CurvedPlate_2",
+      "type": "MESH",
+      "triangles": 396,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_Thumb_CurvedPlate_3",
+      "type": "MESH",
+      "triangles": 396,
+      "uv_layers": [
+        "ReworkUV"
+      ],
+      "modifiers": [
+        "SOLIDIFY",
+        "BEVEL",
+        "WEIGHTED_NORMAL"
+      ],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_AntiqueGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRing",
+      "type": "CURVE",
+      "triangles": 512,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRing.001",
+      "type": "CURVE",
+      "triangles": 512,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.001",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.002",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.003",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.004",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.005",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.006",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.007",
+      "type": "CURVE",
+      "triangles": 16,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Gauntlet_EdgeGold",
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "Warden_Hand_L_PalmSeam",
+      "type": "CURVE",
+      "triangles": 64,
+      "uv_layers": [
+        "UVMap"
+      ],
+      "modifiers": [],
+      "materials": [
+        {
+          "name": "Warden_Glove_Seams",
+          "images": []
+        }
+      ]
+    }
+  ],
+  "active_triangles": 51430
+}

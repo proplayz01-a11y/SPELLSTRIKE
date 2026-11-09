@@ -1,0 +1,12 @@
+S3N2 Desert Weapons v012 QA
+Bow evaluated tris: 3672
+Arrow evaluated tris: 265
+Bow bounds min (-0.15954, -0.08863, -0.80211) max (0.15954, 0.3425, 0.80211)
+Arrow bounds min (-0.055, -0.95, -0.026) max (0.055, 0.028, 0.013)
+Arrow head width: 0.11000 m (handoff target max 0.090 m; known deviation retained for Astra review)
+Missing UV: []
+Missing material: []
+Negative scale: []
+Non-unit scale objects: []
+Known intentional/deferred items: Batch 9 LOD/export consolidation skipped by user; final atlas bake/PNGs not produced; visible reference image empties unresolved; only two cloth strips vs handoff three; nock geometry remains approximate.
+Draw system: 48 bow mesh objects carry Draw shape where applicable; grip/window intentionally fixed.

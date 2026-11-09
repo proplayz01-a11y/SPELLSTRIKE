@@ -1,0 +1,100 @@
+{
+  "reviewDate": "2026-10-26",
+  "reviewer": "independent hand_design_review subagent",
+  "scope": "Read-only Blender render, Unity GPU still and final GLB audit; only this work artifact written",
+  "verdict": "PASS - targeted Panel04 static defense correction",
+  "unityScene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v06.unity",
+  "sourceBlenderScene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+  "finalGlb": "Assets/Cinematics/Storyboard3D/Characters/Panel04/Panel04_GriefScene_StaticBlockout_v02.glb",
+  "finalGlbSha256": "3cddcb0b06b98700ad74fb8a73bb41fd8a691f16ce9f60ce59e7cdd67c09ca5f",
+  "glbHashMatchesUnityQA": true,
+  "binaryChecks": {
+    "meshCount": 753,
+    "triangleCount": 118028,
+    "canonicalStaffNode": "P04V15_STATIC_P04_CANONICAL_VAN_STAFF__FROM_P02_P03_STAFF_GLB",
+    "canonicalStaffNodeCount": 1,
+    "canonicalStaffTriangleCount": 5029,
+    "canonicalStaffExportPositionEntries": 3644,
+    "canonicalStaffSourcePositionEntries": 3623,
+    "canonicalStaffMaterialName": "tripo_node_84659eb9-f9e2-40da-b5cf-13771187d230_material",
+    "canonicalStaffImageSha256": "9cc64095443c16348ab7270abb36d7a9be479d8e45abb633b1d24f8d197b4a05",
+    "canonicalStaffSourceImageSha256": "9cc64095443c16348ab7270abb36d7a9be479d8e45abb633b1d24f8d197b4a05",
+    "canonicalStaffImageExactMatch": true,
+    "oldPlaceholderStaffNodeCount": 0,
+    "attachedMotherHandNodeCount": 2,
+    "bowNodeCount": 5
+  },
+  "visualChecks": {
+    "ruinedHomeReadability": "PASS - broken walls, timbers and debris establish destroyed surroundings in Unity discovery still",
+    "motherWristAttachment": "PASS - hands read attached at cuffs in Unity grief view; Blender Wrist_After_v15 macro shows no open gap or floating disk",
+    "canonicalStaff": "PASS - source-textured sculpted staff reads on floor; exact embedded texture and staff triangle count confirmed",
+    "nonGraphicMother": "PASS - closed-eye face remains readable; no graphic injury depicted",
+    "ribbonClue": "PASS - blue bow clearly isolated and all five components retained"
+  },
+  "captures": [
+    {
+      "id": "01_DISCOVERY_WIDE",
+      "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_01_DISCOVERY_WIDE_v06.png",
+      "sha256": "0113da3240ef909fc51b54bc7cbefd61acf1c93297f38f22da781e2c790ccd78",
+      "hashMatchesCaptureQA": true,
+      "cameraMatchesManifest": true,
+      "positionErrorMeters": 0.0,
+      "rotationErrorDegrees": 0.0,
+      "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+    },
+    {
+      "id": "02_VAN_GRIEF",
+      "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_02_VAN_GRIEF_v06.png",
+      "sha256": "1107b12c442f163684f99fc911da91ae05a8bf1728866185252741332d3804a1",
+      "hashMatchesCaptureQA": true,
+      "cameraMatchesManifest": true,
+      "positionErrorMeters": 0.0,
+      "rotationErrorDegrees": 0.0,
+      "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+    },
+    {
+      "id": "03_MOTHER_CLOSE",
+      "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_03_MOTHER_CLOSE_v06.png",
+      "sha256": "533b3a1cda0cbc1c5ec8a57ba278401d73acd5a4f036d21c769a43ec4241e3b8",
+      "hashMatchesCaptureQA": true,
+      "cameraMatchesManifest": true,
+      "positionErrorMeters": 0.0,
+      "rotationErrorDegrees": 0.0,
+      "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+    },
+    {
+      "id": "04_RIBBON_CLUE",
+      "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_04_RIBBON_CLUE_v06.png",
+      "sha256": "6cec1d2d8a1bfd55a247150b9bd4aa771fd414ad9eb004ffd741e996b4e312b1",
+      "hashMatchesCaptureQA": true,
+      "cameraMatchesManifest": true,
+      "positionErrorMeters": 0.0,
+      "rotationErrorDegrees": 0.0,
+      "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+    }
+  ],
+  "captureQAMetadata": {
+    "allFourGpuCapturesComplete": true,
+    "allFourCameraChecksPass": true,
+    "priorSceneSetupRestored": true,
+    "expectedPriorScene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+    "actualRestoredScene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+    "note": "Restoration and GPU origin are reported by the capture QA; this reviewer independently reviewed PNG contents and hashes."
+  },
+  "hardVisualBlockersForTargetedCorrections": [],
+  "retainedPrototypeLimits": [
+    "Patchy/shattered floor-draped gown artifacts remain conspicuous, especially grief shot and clue-frame edge.",
+    "Original Van hands and approximate support/contact remain rough.",
+    "Bow geometry remains a simple readable clue prop.",
+    "This audit does not establish final production character or cloth quality."
+  ],
+  "notAcceptedOrTestedByThisReview": [
+    "Play Mode or continuous Timeline playback",
+    "Actor animation, rig deformation or physical contact",
+    "Cloth simulation",
+    "Voice/audio",
+    "PC or Android performance/device acceptance",
+    "Pixel-identical raw staff vertex buffers"
+  ],
+  "projectOrArtEditsByReviewer": false
+}

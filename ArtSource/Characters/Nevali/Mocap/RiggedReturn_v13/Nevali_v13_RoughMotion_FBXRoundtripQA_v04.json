@@ -1,0 +1,65 @@
+{
+  "source_fbx": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_MediaPipe_BlockPlay_Rough_v04.fbx",
+  "source_size": 10002476,
+  "bones": 57,
+  "vertices": 74083,
+  "weighted_vertices": 74083,
+  "triangles": 118962,
+  "armature_action_name": "Nevali_v13_MixamoArmature|Scene",
+  "actions": [
+    {
+      "name": "Nevali_v13_MixamoArmature|Scene",
+      "frame_range": [
+        2.0,
+        241.0
+      ],
+      "slots": 1
+    }
+  ],
+  "material_count": 4,
+  "materials": [
+    {
+      "name": "Nevali_Upload_Body",
+      "images": [
+        {
+          "name": "texture_diffuse",
+          "has_data": true,
+          "packed": true
+        }
+      ]
+    },
+    {
+      "name": "Nevali_Upload_Eyes",
+      "images": [
+        {
+          "name": "Nevali_Upload_Eyes_BaseColor",
+          "has_data": true,
+          "packed": true
+        }
+      ]
+    },
+    {
+      "name": "Nevali_Upload_Face",
+      "images": [
+        {
+          "name": "Nevali_Upload_Face_BaseColor",
+          "has_data": true,
+          "packed": true
+        }
+      ]
+    },
+    {
+      "name": "Nevali_Upload_Hair",
+      "images": [
+        {
+          "name": "Nevali_Upload_Hair_BaseColor",
+          "has_data": true,
+          "packed": true
+        }
+      ]
+    }
+  ],
+  "expected": "240 frames at 30 fps from 192 source frames at 24 fps",
+  "note": "Import/animation structure only; neither motion fidelity nor Unity Humanoid validated",
+  "passed_structural": true
+}

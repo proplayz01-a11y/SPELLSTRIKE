@@ -1,0 +1,44 @@
+{
+  "blender": "5.0.1",
+  "action": "SunboundWarden_RadiantRush_ShortHeavy",
+  "frames": [
+    1,
+    75
+  ],
+  "fps": 30,
+  "duration_seconds": 2.466666666666667,
+  "bake_max_local_matrix_error": 3.0517578125e-05,
+  "opening_frames_1_17_max_matrix_error": 0,
+  "fbx_roundtrip_max_world_matrix_error": 9.782612323760986e-06,
+  "boundary_half_frame_max_world_matrix_error": 8.448958396911621e-06,
+  "rest_matrix_error": 4.57763671875e-05,
+  "bone_count": 57,
+  "names_and_parents_match": true,
+  "object_name": "Armature",
+  "object_scale": [
+    0.009999999776482582,
+    0.009999999776482582,
+    0.009999999776482582
+  ],
+  "object_rotation": [
+    1.5707964897155762,
+    -0.0,
+    0.0
+  ],
+  "hip_horizontal_range_m": [
+    0.0,
+    3.397370562652213e-08
+  ],
+  "imported_actions": [
+    [
+      "Armature|SunboundWarden_RadiantRush_ShortHeavy",
+      [
+        1.0,
+        75.0
+      ]
+    ]
+  ],
+  "preserved_file_count": 65,
+  "changed_original_files": [],
+  "fbx_sha256": "ce185d7734458ef72e9397bf95d61f0ac4b73c1eadc7af4f66d4a1d0d5098d36"
+}

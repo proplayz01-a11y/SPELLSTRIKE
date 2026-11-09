@@ -1,0 +1,12 @@
+{
+  "panel": "08",
+  "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\LibraryShell\\LibraryStudyArchive_P08_VanderContemplates_v02.blend",
+  "blend": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\LibraryShell\\LibraryStudyArchive_P08_VanderContemplates_v02_MotionCandidate_v01.blend",
+  "original_camera": "P08_CAMERA_01_VanderContemplation",
+  "frames": 192,
+  "fps": 24,
+  "duration_s": 8,
+  "dolly_drift_m": 0.048,
+  "approval": "pending",
+  "reviews": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel08_v01\\Reviews\\MotionCandidate_20261027_v01"
+}

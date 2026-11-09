@@ -223,6 +223,32 @@ public class StageVocabularyReviewController : MonoBehaviour
 
     public void BeginReview(Action onCompleted)
     {
+        // The Stage Select scene keeps this Canvas hidden until a mandatory
+        // post-stage review is due. Activate the host itself before touching
+        // its child panels or starting any transition coroutine; activating
+        // ReviewRoot alone cannot wake a disabled parent GameObject.
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+
+        if (!gameObject.activeInHierarchy)
+        {
+            Debug.LogError(
+                "[StageVocabularyReview] Cannot begin the review because its Canvas host or an ancestor is inactive.",
+                this);
+            completionCallback = null;
+            return;
+        }
+
+        // This scene's hidden review host was authored with a zero local scale.
+        // A zero-scale Canvas remains invisible even after it is activated.
+        if (transform.localScale.sqrMagnitude < 0.000001f)
+        {
+            transform.localScale = Vector3.one;
+            Debug.LogWarning(
+                "[StageVocabularyReview] Restored the review Canvas host from zero scale before opening it.",
+                this);
+        }
+
         ResolveReferences();
         EnsureReviewButtonListeners();
         completionCallback = onCompleted;

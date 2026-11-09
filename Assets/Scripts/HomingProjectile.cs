@@ -1,15 +1,27 @@
+using System;
 using UnityEngine;
 
 public class HomingProjectile : MonoBehaviour
 {
+    private const float MediumAttackImpactScale = 9f;
+
     public float speed = 8f;
     public int damage = 25; // fallback only, gets overridden by Launch()
     public int wordLength = 0;
+    [SerializeField, Min(0f)] private float launchVisibilityDelay = 0.12f;
+    [Header("Medium Attack Distance Bonus")]
+    [SerializeField, Min(0f)] private float mediumBonusStartDistance = 4f;
+    [SerializeField, Min(0.1f)] private float mediumBonusFullDistance = 24f;
+    [SerializeField, Range(0f, 0.5f)] private float mediumMaximumDistanceBonus = 0.3f;
     private Transform target;
     private bool hasHit = false;
     private AttackController attackOwner;
     private string submittedWord = string.Empty;
     private bool targetChallengeCast;
+    private float moveAfterTime;
+    private bool isMediumAttack;
+    private Vector3 lastTrackedPosition;
+    private float distanceTravelled;
 
     void Start()
     {
@@ -38,6 +50,9 @@ public class HomingProjectile : MonoBehaviour
         wordLength = incomingWordLength;
         attackOwner = owner;
         targetChallengeCast = isTargetChallengeCast;
+        moveAfterTime = Time.time + Mathf.Max(0f, launchVisibilityDelay);
+        lastTrackedPosition = transform.position;
+        distanceTravelled = 0f;
         if (explicitTarget != null)
             target = explicitTarget;
         submittedWord = string.IsNullOrWhiteSpace(incomingWord)
@@ -46,15 +61,67 @@ public class HomingProjectile : MonoBehaviour
         Debug.Log("Projectile damage set to: " + damage + " | Word length: " + wordLength + " | Word: " + submittedWord);
     }
 
+    /// <summary>
+    /// Enables the Medium Attack's paired visual presentation without creating
+    /// another collider, damage source, or owner-notification path.
+    /// </summary>
+    public bool EnableMediumTwinVisuals()
+    {
+        // The attack tier also controls its impact presentation. Keep this true
+        // even if a missing visual component forces a single-orb visual fallback.
+        isMediumAttack = true;
+        Spellstrike.Vfx.MediumTwinOrbPresentation presentation =
+            GetComponent<Spellstrike.Vfx.MediumTwinOrbPresentation>();
+        return presentation != null && presentation.Activate(target);
+    }
+
+    private void ApplyDamageWithPresentationScale(Action applyDamage)
+    {
+        if (applyDamage == null)
+            return;
+
+        if (isMediumAttack)
+        {
+            Spellstrike.Vfx.EnemyDamageImpactTrigger.WithImpactScale(
+                MediumAttackImpactScale,
+                applyDamage);
+            return;
+        }
+
+        applyDamage();
+    }
+
     void Update()
     {
-        if (target == null || hasHit) return;
+        if (target == null || hasHit || Time.time < moveAfterTime) return;
         var titan = target.GetComponent<TitanEarthbreakerController>();
         Vector3 targetPosition = titan != null ? titan.SpellAimPosition : target.position;
         Vector3 direction = targetPosition - transform.position;
         if (direction.sqrMagnitude > 0.0001f)
             transform.rotation = Quaternion.LookRotation(direction);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        distanceTravelled += Vector3.Distance(lastTrackedPosition, transform.position);
+        lastTrackedPosition = transform.position;
+    }
+
+    private int ApplyMediumDistanceDamageBonus(int incomingDamage)
+    {
+        // Target Challenge casts retain their existing barrier-only semantics.
+        if (!isMediumAttack || targetChallengeCast || incomingDamage <= 0 || mediumMaximumDistanceBonus <= 0f)
+            return incomingDamage;
+
+        float startDistance = Mathf.Max(0f, mediumBonusStartDistance);
+        float fullDistance = Mathf.Max(startDistance + 0.1f, mediumBonusFullDistance);
+        float rangeProgress = Mathf.InverseLerp(startDistance, fullDistance, distanceTravelled);
+        float damageBonus = rangeProgress * mediumMaximumDistanceBonus;
+        if (damageBonus <= 0f)
+            return incomingDamage;
+
+        int boostedDamage = Mathf.Max(1, Mathf.RoundToInt(incomingDamage * (1f + damageBonus)));
+        Debug.Log(
+            $"[HomingProjectile] Medium range bonus: travelled {distanceTravelled:0.0} units, "
+            + $"damage +{damageBonus:P0} ({incomingDamage} -> {boostedDamage}).");
+        return boostedDamage;
     }
 
     void FindNearestEnemy()
@@ -77,7 +144,14 @@ public class HomingProjectile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (hasHit) return;
+        if (other == null) return;
+
+        ResolveAcceptedImpact(other);
+    }
+
+    private void ResolveAcceptedImpact(Collider other)
+    {
+        if (hasHit || other == null) return;
 
         EnemyController enemyController = other.GetComponentInParent<EnemyController>();
         BrambleSpriteController brambleController = other.GetComponentInParent<BrambleSpriteController>();
@@ -99,6 +173,9 @@ public class HomingProjectile : MonoBehaviour
         }
 
         hasHit = true;
+        // Enemy-owned damage receivers now trigger the impact visual only after
+        // actual health loss; zero-damage barrier contacts do not spawn enemy hits.
+
         bool matchedActiveChallengeBarrier =
             !targetChallengeCast
             || (attackOwner != null
@@ -125,6 +202,8 @@ public class HomingProjectile : MonoBehaviour
                 : damage;
         }
 
+        resolvedDamage = ApplyMediumDistanceDamageBonus(resolvedDamage);
+
         Debug.Log("Projectile hit: " + other.name + " | Damage: " + resolvedDamage + " | Word length: " + wordLength + " | Word: " + submittedWord);
 
         if (targetChallengeCast && !matchedActiveChallengeBarrier)
@@ -148,16 +227,19 @@ public class HomingProjectile : MonoBehaviour
         else if (enemyController != null)
         {
             // EnemyController supports (float damage, int wordLength)
-            enemyController.TakeDamage(resolvedDamage, wordLength);
+            ApplyDamageWithPresentationScale(
+                () => enemyController.TakeDamage(resolvedDamage, wordLength));
         }
         else if (brambleController != null)
         {
             // BrambleSpriteController has only TakeDamage(float)
-            brambleController.TakeDamage(resolvedDamage);
+            ApplyDamageWithPresentationScale(
+                () => brambleController.TakeDamage(resolvedDamage));
         }
         else if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(resolvedDamage);
+            ApplyDamageWithPresentationScale(
+                () => enemyHealth.TakeDamage(resolvedDamage));
         }
 
         if (targetChallengeCast && attackOwner != null)
@@ -172,11 +254,20 @@ public class HomingProjectile : MonoBehaviour
             attackOwner.NotifySuccessfulAttackLanded(submittedWord);
         }
 
+        if (isMediumAttack)
+        {
+            Spellstrike.Vfx.MediumTwinOrbPresentation presentation =
+                GetComponent<Spellstrike.Vfx.MediumTwinOrbPresentation>();
+            if (presentation != null)
+                presentation.ReleaseTrails();
+        }
+
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        OnTriggerEnter(collision.collider);
+        if (collision == null || collision.collider == null || hasHit) return;
+        ResolveAcceptedImpact(collision.collider);
     }
 }

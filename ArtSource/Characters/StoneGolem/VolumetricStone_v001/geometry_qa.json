@@ -1,0 +1,827 @@
+{
+  "height_normalization": 0.9872169632356583,
+  "pieces": [
+    {
+      "name": "Golem_Dark_Joint_Core",
+      "base_faces": 13109,
+      "boundary_edges": 2785,
+      "nonmanifold_edges": 2785
+    },
+    {
+      "name": "Golem_Carved_Head",
+      "base_faces": 1403,
+      "boundary_edges": 390,
+      "nonmanifold_edges": 390
+    },
+    {
+      "name": "Golem_Rock_001",
+      "base_faces": 259,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_002",
+      "base_faces": 192,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_003",
+      "base_faces": 188,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_004",
+      "base_faces": 351,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_005",
+      "base_faces": 332,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_006",
+      "base_faces": 290,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_007",
+      "base_faces": 295,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_008",
+      "base_faces": 257,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_009",
+      "base_faces": 215,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_010",
+      "base_faces": 297,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_011",
+      "base_faces": 206,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_012",
+      "base_faces": 280,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_013",
+      "base_faces": 442,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_014",
+      "base_faces": 412,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_015",
+      "base_faces": 8,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_016",
+      "base_faces": 454,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_017",
+      "base_faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_018",
+      "base_faces": 237,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_019",
+      "base_faces": 221,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_020",
+      "base_faces": 350,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_021",
+      "base_faces": 228,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_022",
+      "base_faces": 299,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_023",
+      "base_faces": 343,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_024",
+      "base_faces": 203,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_025",
+      "base_faces": 205,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_026",
+      "base_faces": 336,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_027",
+      "base_faces": 20,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_028",
+      "base_faces": 367,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_029",
+      "base_faces": 315,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_030",
+      "base_faces": 270,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_031",
+      "base_faces": 589,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_032",
+      "base_faces": 258,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_033",
+      "base_faces": 245,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_034",
+      "base_faces": 282,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_035",
+      "base_faces": 225,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_036",
+      "base_faces": 313,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_037",
+      "base_faces": 249,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_038",
+      "base_faces": 306,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_039",
+      "base_faces": 183,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_040",
+      "base_faces": 231,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_041",
+      "base_faces": 309,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_042",
+      "base_faces": 341,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_043",
+      "base_faces": 368,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_044",
+      "base_faces": 404,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_045",
+      "base_faces": 265,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_046",
+      "base_faces": 173,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_047",
+      "base_faces": 508,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_048",
+      "base_faces": 242,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_049",
+      "base_faces": 362,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_050",
+      "base_faces": 287,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_051",
+      "base_faces": 216,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_052",
+      "base_faces": 292,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_053",
+      "base_faces": 346,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_054",
+      "base_faces": 241,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_055",
+      "base_faces": 191,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_056",
+      "base_faces": 262,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_057",
+      "base_faces": 329,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_058",
+      "base_faces": 337,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_059",
+      "base_faces": 756,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_060",
+      "base_faces": 201,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_061",
+      "base_faces": 267,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_062",
+      "base_faces": 19,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_063",
+      "base_faces": 171,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_064",
+      "base_faces": 305,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_065",
+      "base_faces": 321,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_066",
+      "base_faces": 304,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_067",
+      "base_faces": 265,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_068",
+      "base_faces": 334,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_069",
+      "base_faces": 237,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_070",
+      "base_faces": 297,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_071",
+      "base_faces": 286,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_072",
+      "base_faces": 405,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_073",
+      "base_faces": 379,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_074",
+      "base_faces": 287,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_075",
+      "base_faces": 113,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_076",
+      "base_faces": 266,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_077",
+      "base_faces": 504,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_078",
+      "base_faces": 377,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_079",
+      "base_faces": 311,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_080",
+      "base_faces": 214,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_081",
+      "base_faces": 178,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_082",
+      "base_faces": 379,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_083",
+      "base_faces": 231,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_084",
+      "base_faces": 476,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_085",
+      "base_faces": 277,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_086",
+      "base_faces": 315,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_087",
+      "base_faces": 240,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_088",
+      "base_faces": 317,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_089",
+      "base_faces": 321,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_090",
+      "base_faces": 334,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_091",
+      "base_faces": 8,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_092",
+      "base_faces": 275,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_093",
+      "base_faces": 207,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_094",
+      "base_faces": 703,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_095",
+      "base_faces": 196,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_096",
+      "base_faces": 318,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_097",
+      "base_faces": 291,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_098",
+      "base_faces": 252,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_099",
+      "base_faces": 294,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_100",
+      "base_faces": 255,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_101",
+      "base_faces": 258,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_102",
+      "base_faces": 307,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_103",
+      "base_faces": 260,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_104",
+      "base_faces": 258,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_105",
+      "base_faces": 205,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_106",
+      "base_faces": 270,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_107",
+      "base_faces": 198,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_108",
+      "base_faces": 222,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_109",
+      "base_faces": 245,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_110",
+      "base_faces": 301,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_111",
+      "base_faces": 26,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_112",
+      "base_faces": 226,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_113",
+      "base_faces": 201,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_114",
+      "base_faces": 296,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_115",
+      "base_faces": 266,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_116",
+      "base_faces": 294,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_117",
+      "base_faces": 31,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_118",
+      "base_faces": 268,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_119",
+      "base_faces": 363,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_120",
+      "base_faces": 351,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_121",
+      "base_faces": 195,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_122",
+      "base_faces": 296,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_123",
+      "base_faces": 152,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_124",
+      "base_faces": 218,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_125",
+      "base_faces": 274,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_126",
+      "base_faces": 252,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_127",
+      "base_faces": 136,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_128",
+      "base_faces": 256,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_129",
+      "base_faces": 225,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_130",
+      "base_faces": 269,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_131",
+      "base_faces": 259,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_132",
+      "base_faces": 302,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_133",
+      "base_faces": 208,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_134",
+      "base_faces": 153,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "name": "Golem_Rock_135",
+      "base_faces": 241,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    }
+  ]
+}

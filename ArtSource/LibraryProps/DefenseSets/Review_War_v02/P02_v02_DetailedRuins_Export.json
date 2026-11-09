@@ -1,0 +1,13 @@
+{
+  "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_GreatWar_02_03_v01.blend",
+  "source_sha256_original_unchanged": "d2c878d3784a78cdc32064f306f0a72cce4e3bf1349bc201cafc2b1e35d864d8",
+  "blend": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_GreatWar_02_03_v02_DetailedRuins.blend",
+  "glb": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Environment\\DefenseSets\\Prologue_GreatWar_02_03_v02_DetailedRuins.glb",
+  "glb_bytes": 1071740,
+  "original_included_meshes": 128,
+  "new_editable_detail_objects": 587,
+  "total_export_mesh_objects": 715,
+  "disabled_panel03_entity_and_word_magic_in_export": true,
+  "new_blend_sha256": "7feec6a5fbab2dadfa4a10b954699c653cff9854b68e38fade471f7855bbed9b",
+  "glb_sha256": "e8be546fb02773f1f8a1559a670f387b95723f7f75d0d2258545810d42f6580f"
+}

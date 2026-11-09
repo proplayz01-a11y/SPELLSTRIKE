@@ -1,0 +1,150 @@
+{
+  "scene": "Scene",
+  "file": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_01_Peaceful_v03.blend",
+  "file_bytes": 611004,
+  "blender": "5.0.1",
+  "active_camera": "P01_STATIC_HERO_CAMERA",
+  "lens_mm": 32.0,
+  "roof_enabled_default": true,
+  "roof_meshes": [
+    "ROOF_CONTINUOUS_OPAQUE_DECK",
+    "ROOF_INTERIOR_WOOD_PLANK_UNDERSIDE",
+    "ROOF_LOW_POLY_SLATE_SHINGLE_COURSES",
+    "ROOF_CLOSED_GABLE_INFILL",
+    "ROOF_RAFTERS_RIDGE_AND_FASCIA",
+    "ROOF_CONTINUOUS_RIDGE_CAP"
+  ],
+  "roof_upward_checks": 63,
+  "roof_deck_hits": 63,
+  "roof_missed_points": [],
+  "sightline_rays_tested": 9,
+  "sightline_rays_clear": 9,
+  "sightline_samples": [
+    {
+      "to": [
+        0.95,
+        -0.45,
+        0.65
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        0.95,
+        -0.45,
+        1.05
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        0.95,
+        -0.45,
+        1.35
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        1.28,
+        -0.45,
+        0.65
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        1.28,
+        -0.45,
+        1.05
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        1.28,
+        -0.45,
+        1.35
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        1.6,
+        -0.45,
+        0.65
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        1.6,
+        -0.45,
+        1.05
+      ],
+      "clear": true,
+      "hit": null
+    },
+    {
+      "to": [
+        1.6,
+        -0.45,
+        1.35
+      ],
+      "clear": true,
+      "hit": null
+    }
+  ],
+  "child_body_clearance_structure_intersections": [],
+  "window_exit_samples": [
+    {
+      "y": -0.75,
+      "unblocked": true,
+      "hit": null
+    },
+    {
+      "y": 0,
+      "unblocked": true,
+      "hit": null
+    },
+    {
+      "y": 0.75,
+      "unblocked": false,
+      "hit": "IVORY_LINEN_CURTAINS"
+    }
+  ],
+  "sun_lights": [
+    {
+      "name": "Afternoon_sun_through_window",
+      "energy": 8.0,
+      "type": "SUN"
+    }
+  ],
+  "visible_meshes": 84,
+  "evaluated_triangles": 58157,
+  "v03_flower_objects": [
+    "V03_BLUE_CERAMIC_FLOWER_VASE",
+    "V03_FLOWER_GOLD_CENTERS",
+    "V03_FLOWER_IVORY_PETALS",
+    "V03_OLIVE_STEMS_AND_LEAVES"
+  ],
+  "flower_camera_xy": [
+    0.655,
+    0.679
+  ],
+  "contains_actor_meshes": false,
+  "sha256": {
+    "Prologue_Home_01_Peaceful_v01.blend": "650fbdab307f5886f4cfa71b96c5bf8ea209165555f71c01b91033c29a339e5d",
+    "Prologue_Home_01_Peaceful_v02.blend": "2a81eec6307edf589f8c615114854f87e59d55289fcc760157ac574f89b937e6",
+    "Prologue_Home_01_Peaceful_v03.blend": "16fb57c159adebc37aab45aca3d0720b162a4385198d9854c2bbffd55aa78deb"
+  },
+  "roof_camera_present": true,
+  "structural_validation_pass": true
+}

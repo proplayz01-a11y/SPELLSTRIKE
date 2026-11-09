@@ -59,7 +59,10 @@ public sealed class TutorialPersistentHudBridge : MonoBehaviour
     {
         if (gameObject.scene.name != TutorialSceneName)
             yield break;
-
+    
+        // Keep only the canonical objects after a scene or script-domain reload.
+        PruneDuplicatePersistentRoots();
+    
         // A direct Tutorial launch has the prefab in-scene. Story-to-Tutorial
         // transitions can instead reuse an already-surviving singleton.
         for (int attempts = 0; attempts < 6 && !bound; attempts++)
@@ -77,21 +80,23 @@ public sealed class TutorialPersistentHudBridge : MonoBehaviour
         PersistentHUDRoot hud = PersistentHUDRoot.Instance;
         if (hud == null)
             return false;
-
+    
         var scene = gameObject.scene;
         TileManager tiles = FindInScene<TileManager>(scene);
         TileSpawner spawner = FindInScene<TileSpawner>(scene);
-        AttackController attack = FindFirstObjectByType<AttackController>();
+        AttackController attack = PersistentPlayerRoot.Instance != null
+            ? PersistentPlayerRoot.Instance.Attack
+            : FindFirstObjectByType<AttackController>();
         PlayerHealth health = attack != null ? attack.GetComponent<PlayerHealth>() : null;
-
+    
         if (tiles == null || spawner == null || attack == null || health == null)
             return false;
-
+    
         hud.CacheReferences();
         if (hud.HealthSlider == null || hud.AttackButton == null ||
             hud.WordBarPanel == null || hud.TilePoolPanel == null)
             return false;
-
+    
         // Tutorial is a guided word lesson, NOT Stage 1 normal combat. Keep
         // its pool empty until TutorialDirector explicitly spawns lesson tiles.
         tiles.prefillTilePoolOnStart = false;
@@ -100,14 +105,14 @@ public sealed class TutorialPersistentHudBridge : MonoBehaviour
         spawner.tilePoolPanel = hud.TilePoolPanel;
         attack.RebindSceneDependencies(hud.AttackButton, tiles);
         health.BindHealthSlider(hud.HealthSlider);
-
-        // Hide only duplicated authored gameplay controls. The original
-        // MobileCollectButton and tutorial UI/dialogue remain in-scene.
+    
+        // Hide duplicated authored gameplay controls, including the old
+        // scene-owned pause button. The persistent HUD is the single pause owner.
         string[] oldVisuals =
         {
             "HealthBar", "EnemyHealthBar",
             "TilePoolPanel", "TilePoolPanelDesign", "TilePoolPanelDesign (1)",
-            "WordBarPanel", "UI_Buttons", "MobileMovementJoystick"
+            "WordBarPanel", "UI_Buttons", "MobileMovementJoystick", "PauseButton"
         };
         foreach (Transform t in scene.GetRootGameObjects()
                      .SelectMany(root => root.GetComponentsInChildren<Transform>(true)))
@@ -115,7 +120,7 @@ public sealed class TutorialPersistentHudBridge : MonoBehaviour
             if (oldVisuals.Contains(t.name))
                 t.gameObject.SetActive(false);
         }
-
+    
         // The full persistent prefab includes stage-specific potion controls;
         // keep the tutorial uncluttered, then restore the button on scene exit.
         Transform bag = FindDescendant(hud.transform, "PotionBagButton");
@@ -125,13 +130,13 @@ public sealed class TutorialPersistentHudBridge : MonoBehaviour
             potionBagWasActive = bag.gameObject.activeSelf;
             bag.gameObject.SetActive(false);
         }
-
+    
         hud.RefreshPersistentPresentation();
         if (potionBagButton != null)
             potionBagButton.SetActive(false);
-
+    
         SuppressTutorialDebugOverlay();
-        Debug.Log("[TutorialPersistentHudBridge] Tutorial HP, attack, word bar, tiles and joystick now use the canonical persistent HUD. Guided lesson control remains tutorial-owned.", this);
+        Debug.Log("[TutorialPersistentHudBridge] Tutorial HP, attack, word bar, tiles, joystick and pause now use the canonical persistent HUD.", this);
         return true;
     }
 
@@ -189,5 +194,45 @@ public sealed class TutorialPersistentHudBridge : MonoBehaviour
             if (match != null) return match;
         }
         return null;
+    }
+
+
+    private static void PruneDuplicatePersistentRoots()
+    {
+        PersistentHUDRoot canonicalHud = PersistentHUDRoot.Instance;
+        if (canonicalHud != null)
+        {
+            PersistentHUDRoot[] hudRoots = FindObjectsByType<PersistentHUDRoot>(
+                FindObjectsInactive.Include, FindObjectsSortMode.None);
+            foreach (PersistentHUDRoot candidate in hudRoots)
+            {
+                if (candidate == null || candidate == canonicalHud ||
+                    candidate.gameObject == canonicalHud.gameObject)
+                    continue;
+    
+                GameObject duplicate = candidate.gameObject;
+                duplicate.SetActive(false);
+                Destroy(duplicate);
+                Debug.LogWarning("[TutorialPersistentHudBridge] Removed a duplicate persistent gameplay HUD.", canonicalHud);
+            }
+        }
+    
+        PersistentPlayerRoot canonicalPlayer = PersistentPlayerRoot.Instance;
+        if (canonicalPlayer == null)
+            return;
+    
+        PersistentPlayerRoot[] playerRoots = FindObjectsByType<PersistentPlayerRoot>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (PersistentPlayerRoot candidate in playerRoots)
+        {
+            if (candidate == null || candidate == canonicalPlayer ||
+                candidate.gameObject == canonicalPlayer.gameObject)
+                continue;
+    
+            GameObject duplicate = candidate.gameObject;
+            duplicate.SetActive(false);
+            Destroy(duplicate);
+            Debug.LogWarning("[TutorialPersistentHudBridge] Removed a duplicate persistent player root.", canonicalPlayer);
+        }
     }
 }

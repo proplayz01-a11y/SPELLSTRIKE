@@ -15,13 +15,14 @@ player uses a taught target word to cause a meaningful combat or world effect.
 Teach
   -> Stage target words are presented with definition and context.
 Combat
-  -> A target-word opportunity supplies a clue and makes the complete target
-     letter set available in the current selectable tile pool.
+  -> A target-word opportunity saves and hides the player's Normal Combat
+     pool, then presents a separate temporary shuffled challenge set.
   -> The target word triggers a configured gameplay effect.
 Checkpoint
-  -> The existing Spell It Out minigame assesses the same stage word set.
-Review / retry
-  -> Missed words are shown again and retried; the player is not deadlocked.
+  -> A mandatory post-stage review asks which sentence correctly uses each
+     stage target word.
+Feedback
+  -> Every answer receives immediate explanatory feedback and is recorded.
 ```
 
 ## Non-negotiable rules
@@ -43,11 +44,23 @@ Review / retry
    later design explicitly maps them to the stage vocabulary profile.
 8. The in-game checkpoint is formative evidence. The study's vocabulary outcome
    still requires a defined external pre-assessment and post-assessment.
+9. Assign no more than one target word to each enemy. Boss phases reuse the
+   boss's assigned target word or return to ordinary valid-word combat; phases
+   do not create additional target-word requirements.
+10. A target challenge must never delete, reroll, replace, or otherwise mutate
+    the player's saved Normal Combat tiles.
+11. Target Challenge tiles are temporary encounter-provided tiles. They do not
+    enter the normal world-pickup replacement flow.
+12. When a target challenge ends, the player's Normal Combat pool must return
+    with the same letters and relevant tile states it had before the challenge.
+13. An active Word Bar selection must be safely returned to the Normal Combat
+    pool before a target challenge snapshot is captured.
 
 ## Data required per stage
 
-Start with five target words per stage (25 words across five stages), subject to
-English/education expert review.
+Use four target words per stage as the working content plan (20 words across
+five stages), with one word assigned to each enemy. This total remains subject
+to confirmation of the final enemy roster and English/education expert review.
 
 ```text
 StageVocabularyProfile
@@ -56,67 +69,117 @@ StageVocabularyProfile
 
 TargetWord
   word
+  part of speech
   definition
   context sentence
   combat clue
   encounter / node assignment
   configured success effect
-  checkpoint prompt
+  contextual sentence-use review prompt
+  sentence choices[]
+  correct choice
+  explanatory feedback
 ```
 
 The expert must review the selected-word set, definitions, context sentences,
-and stage mapping. Do not choose final words merely because they fit an enemy
-theme.
+sentence-use items, and stage mapping. The Stage 1 implementation set below is
+locked as the team's candidate set, but it must not be described as
+expert-validated until the qualified reviewer has approved or revised it.
 
-## Stage 1 design map (gameplay effects only)
+## Stage 1 candidate vocabulary and encounter map
 
-Final target words are intentionally **TBD pending expert review**. The table
-defines the effect category, not the final vocabulary content.
+These four words are the locked implementation candidates. Their definitions
+are based on the local Open English WordNet 2025 dataset. Final player-facing
+wording, examples, distractors, and review items remain subject to qualified
+English/education expert validation.
 
-| Encounter | Vocabulary Opportunity effect | Notes |
-|---|---|---|
-| Bramble Sprite | Remove a vine/thorn shield or root bind; brief stagger | One target word; normal combat continues after success. |
-| Stone Sentinel | Break the existing Guardian Shield | Align this with the current shield mechanic rather than create a duplicate shield system. |
-| Cursed Jester | Dispel Taunt/Confetti confusion or interrupt its special attack | One target word; effect must be readable to the player. |
-| Hollow Knight boss phase 1 | Expose armor / interrupt a guarded attack | One target word. |
-| Hollow Knight boss phase 2 | Reveal or free the fragment seal | One target word; serves as the fifth Stage 1 opportunity. |
+| Encounter | Target word | Meaning focus | Opportunity timing and effect |
+|---|---|---|---|
+| Bramble Sprite | `MITIGATE` | Reduce the seriousness or harmful effect of something | Pre-combat gate: mitigate the fragment's harmful energy, collapse the barrier, awaken Bramble, then resume ordinary combat. |
+| Stone Sentinel | `FRACTURE` | Break or crack something | Mid-combat armor opportunity: fracture reinforced stone armor/core, stagger the Sentinel, then resume ordinary combat. |
+| Cursed Jester | `NULLIFY` | Make something ineffective by counteracting its effect | Reactive opportunity: nullify Taunt/slow or interrupt the configured special effect, then resume ordinary combat. |
+| Hollow Knight boss | `LIBERATE` | Free someone or something from confinement or control | One scripted boss opportunity: liberate the fragment from the Knight's control, remove its empowerment or stagger it, then continue the same boss encounter. |
 
 The player uses ordinary valid words outside these planned moments. Vocabulary
 opportunities are brief, meaningful checkpoints rather than a permanent combat
 pause.
 
-## Reusable implementation layers
+## Stage 1 implementation checklist
 
-1. **Stage vocabulary data**
-   - Create a data owner for the profile and target-word records.
-   - Do not hardcode stage words into enemy controllers.
+Check a layer only after its implementation and required verification are
+complete. Design documentation alone does not complete a runtime layer.
 
-2. **Teach UI**
-   - A lightweight Spellbook/lesson screen before a stage.
-   - Shows word, definition, and context sentence; this is exposure, not the
-     score-bearing assessment.
+- [x] **1. Vocabulary data and mode contract**
+   - Store the four Stage 1 records in one reusable profile.
+   - Define `NormalCombat` and `TargetChallenge` behavior without changing
+     current runtime tile behavior yet.
+   - Do not hardcode words into enemy controllers.
 
-3. **Vocabulary Opportunity controller**
-   - Receives one assigned target word and its clue.
-   - Requests the complete letter multiset from the current tile system.
-   - Detects successful submission of the assigned word.
-   - Sends one configured success effect to the encounter owner.
+- [x] **2. Reversible Normal Combat pool snapshot**
+   - Return any active Word Bar selection safely.
+   - Capture the exact Normal Combat letters and relevant tile states.
+   - Hide/disable the saved pool without destroying it.
+   - Prove that the same pool can be restored unchanged.
+   - **Verification:** Unity Play Mode passed both the basic round trip and the
+     active Word Bar case. Selected tiles returned safely before capture, all
+     16 tiles were hidden, and the restored integrity signature matched the
+     captured signature exactly.
 
-4. **Encounter effect adapters**
-   - Existing enemy/node systems own the gameplay effect.
-   - Example: Stone Sentinel's existing shield owner receives a shield-break
-     request. Do not create five bespoke vocabulary-barrier managers.
+- [x] **3. Temporary Target Challenge pool**
+   - Create a shuffled temporary set containing the complete target-letter
+     multiset plus configured distractors.
+   - Visually distinguish temporary challenge tiles from player-owned tiles.
+   - Do not spawn world replacement tiles from this temporary set.
+   - **Verification:** Unity Play Mode showed 16 shuffled cyan-and-gold
+     temporary tiles. The player manually selected the shuffled letters to form
+     `MITIGATE`; ordinary STRIKE remained disabled; Normal Combat restoration
+     was refused until the temporary pool was removed; removal created no world
+     replacements; and the final Normal Combat signature matched the captured
+     signature exactly.
 
-5. **Spell It Out checkpoint adapter**
-   - Existing Spell It Out receives the StageVocabularyProfile instead of
-     random length-filtered dictionary entries.
-   - Records correct/missed words, attempts, and completion.
+- [ ] **4. Target submission and restoration**
+   - Every dictionary-valid submission uses the normal attack animation and
+     projectile, while selected temporary tiles remain frozen.
+   - A valid non-target word is absorbed for zero damage on confirmed matching
+     barrier impact, then returns to the temporary pool without consumption.
+   - The exact target word resolves on matching barrier impact, removes the
+     temporary set, restores the saved Normal Combat pool, and returns control
+     to ordinary combat.
+   - **Current status:** The impact-confirmed cast path, mid-flight input lock,
+     zero-damage non-target absorption, unrelated-barrier rejection, temporary
+     tile return, and exact restoration are implemented and compiling. Unity
+     Play Mode verification is pending.
 
-6. **Learning record storage**
-   - Store teach viewed, target word submitted in combat, checkpoint accuracy,
-     attempts, and completion by stage/word.
-   - Keep this separate from ordinary word history so it is usable for the
-     study and final evidence.
+- [ ] **5. Bramble / `MITIGATE` adapter**
+   - Migrate the existing prototype to the preserved-pool contract.
+   - Collapse the barrier and awaken Bramble without mutating the saved pool.
+
+- [ ] **6. Stone Sentinel / `FRACTURE` adapter**
+   - Add or verify one reinforced armor/core state.
+   - Target success fractures the state and visibly staggers/exposes the enemy.
+
+- [ ] **7. Cursed Jester / `NULLIFY` adapter**
+   - Connect target success to the existing Taunt/slow or chosen special-effect
+     cancellation point.
+
+- [ ] **8. Hollow Knight / `LIBERATE` adapter**
+   - Add one scripted fragment-binding opportunity for the complete boss
+     encounter.
+   - Later boss phases do not add another target word.
+
+- [ ] **9. Teach presentation**
+   - Present the assigned word, part of speech, definition, and contextual
+     sentence before its encounter opportunity.
+
+- [ ] **10. Mandatory contextual Stage Vocabulary Review**
+    - Ask one sentence-use question for each of the four Stage 1 words.
+    - Give immediate explanatory feedback.
+    - Do not require another spelling reconstruction after the stage.
+
+- [ ] **11. Records and platform validation**
+    - Store teach viewed, target-word success, review answer, attempts, and
+      stage-review completion separately from ordinary word history.
+    - Validate the complete flow on PC and an Android device.
 
 ## Next-week plan: July 13-19, 2026
 
@@ -124,7 +187,7 @@ pause.
 
 - Present the revised learning loop: Teach -> Combat opportunity -> mandatory
   Spell It Out checkpoint -> review/retry.
-- Ask approval for five expert-reviewed target words per stage and the external
+- Ask approval for four expert-reviewed target words per stage and the external
   pre-/post-assessment procedure.
 - Confirm the qualified English/education validator and review process.
 
@@ -133,7 +196,7 @@ direction and named follow-up actions.
 
 ### Tuesday - content and technical design
 
-- Draft the StageVocabularyProfile fields and one Stage 1 worksheet with five
+- Draft the StageVocabularyProfile fields and one Stage 1 worksheet with four
   placeholder word slots.
 - Map Stage 1 encounter effects using the table above.
 - Define UI wireframe for Teach screen, Vocabulary Strike prompt, success
@@ -191,14 +254,15 @@ cards.
 ## Definition of done for the Stage 1 vertical slice
 
 - [ ] Stage 1 has an approved target-word profile.
-- [ ] Teach screen presents all five words with meaning and context.
+- [ ] Teach screen presents all four words with meaning and context.
 - [ ] Each target word has a planned opportunity across the Stage 1 encounters.
 - [ ] At least the Bramble opportunity is fully playable and manually tested.
-- [ ] Exact target letters are available together when required.
+- [ ] The saved Normal Combat pool is restored unchanged after every target challenge.
+- [ ] Exact target letters are available together in a temporary shuffled challenge set.
 - [ ] Target-word success visibly affects the encounter.
 - [ ] Normal word combat still works before and after the opportunity.
-- [ ] Spell It Out uses the Stage 1 word profile rather than random words.
-- [ ] Missed checkpoint items are reviewed and retryable.
+- [ ] The mandatory Stage Vocabulary Review uses four contextual sentence-use items.
+- [ ] Every review answer receives immediate explanatory feedback.
 - [ ] Results are recorded in a form usable for later evaluation.
 
 ## Risks to manage
@@ -207,5 +271,5 @@ cards.
   complete.
 - Do not let a clue, target word, or letter guarantee make combat trivial.
 - Do not make an incorrect answer permanently block stage completion.
-- Do not write final word lists before the expert review.
+- Do not describe the candidate word list as expert-validated before review.
 - Do not promise all five stage integrations before the Stage 1 loop passes.

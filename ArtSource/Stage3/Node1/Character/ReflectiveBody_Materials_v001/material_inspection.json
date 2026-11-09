@@ -1,0 +1,419 @@
+{
+  "materials": [
+    {
+      "name": "model",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": {
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ],
+              "links": [
+                [
+                  "Image Texture",
+                  "Color"
+                ]
+              ]
+            },
+            "Metallic": {
+              "value": 0.0,
+              "links": [
+                [
+                  "Image Texture.002",
+                  "Color"
+                ]
+              ]
+            },
+            "Roughness": {
+              "value": 0.5,
+              "links": [
+                [
+                  "Image Texture.001",
+                  "Color"
+                ]
+              ]
+            },
+            "IOR": {
+              "value": 1.5,
+              "links": []
+            },
+            "Normal": {
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                [
+                  "Normal Map",
+                  "Normal"
+                ]
+              ]
+            },
+            "Specular IOR Level": {
+              "value": 0.5,
+              "links": []
+            },
+            "Coat Weight": {
+              "value": 0.0,
+              "links": []
+            },
+            "Coat Roughness": {
+              "value": 0.029999999329447746,
+              "links": []
+            }
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "texture_diffuse.png",
+          "color_space": "sRGB",
+          "stats": {
+            "min": [
+              0.007843137718737125,
+              0.003921568859368563,
+              0.003921568859368563
+            ],
+            "max": [
+              1.0,
+              0.8980392813682556,
+              0.803921639919281
+            ],
+            "mean": [
+              0.4288431406021118,
+              0.32244470715522766,
+              0.3010600209236145
+            ],
+            "quantiles_r": [
+              0.007843137718737125,
+              0.16862745583057404,
+              0.2352941334247589,
+              0.40000003576278687,
+              0.6117647290229797,
+              0.729411780834198,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "texture_roughness.png",
+          "color_space": "Non-Color",
+          "stats": {
+            "min": [
+              0.03921568766236305,
+              0.03921568766236305,
+              0.03921568766236305
+            ],
+            "max": [
+              0.9960784912109375,
+              0.9960784912109375,
+              0.9960784912109375
+            ],
+            "mean": [
+              0.7115856409072876,
+              0.7115856409072876,
+              0.7115856409072876
+            ],
+            "quantiles_r": [
+              0.03921568766236305,
+              0.5058823823928833,
+              0.6000000238418579,
+              0.7372549176216125,
+              0.8352941870689392,
+              0.8901961445808411,
+              0.9960784912109375
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "texture_metallic.png",
+          "color_space": "Non-Color",
+          "stats": {
+            "min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "mean": [
+              0.5628942847251892,
+              0.5628942847251892,
+              0.5628942847251892
+            ],
+            "quantiles_r": [
+              0.0,
+              0.07058823853731155,
+              0.19607844948768616,
+              0.6000000238418579,
+              0.9490196704864502,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "texture_normal.png",
+          "color_space": "Non-Color",
+          "stats": {
+            "min": [
+              0.0784313753247261,
+              0.07058823853731155,
+              0.5058823823928833
+            ],
+            "max": [
+              0.9215686917304993,
+              0.9294118285179138,
+              1.0
+            ],
+            "mean": [
+              0.4988432228565216,
+              0.5024660229682922,
+              0.9320425391197205
+            ],
+            "quantiles_r": [
+              0.0784313753247261,
+              0.3529411852359772,
+              0.458823561668396,
+              0.501960813999176,
+              0.5372549295425415,
+              0.6431372761726379,
+              0.9215686917304993
+            ]
+          }
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP"
+        }
+      ]
+    },
+    {
+      "name": "Warden_Gauntlet_AntiqueGold",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": {
+              "value": [
+                0.47999998927116394,
+                0.35499998927116394,
+                0.19499999284744263,
+                1.0
+              ],
+              "links": []
+            },
+            "Metallic": {
+              "value": 0.699999988079071,
+              "links": []
+            },
+            "Roughness": {
+              "value": 0.3799999952316284,
+              "links": [
+                [
+                  "Map Range",
+                  "Result"
+                ]
+              ]
+            },
+            "IOR": {
+              "value": 1.5,
+              "links": []
+            },
+            "Normal": {
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            "Specular IOR Level": {
+              "value": 0.5,
+              "links": []
+            },
+            "Coat Weight": {
+              "value": 0.0,
+              "links": []
+            },
+            "Coat Roughness": {
+              "value": 0.029999999329447746,
+              "links": []
+            }
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "name": "Noise Texture",
+          "type": "TEX_NOISE"
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE"
+        }
+      ]
+    },
+    {
+      "name": "Warden_Gauntlet_EdgeGold",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": {
+              "value": [
+                0.6700000166893005,
+                0.5099999904632568,
+                0.30000001192092896,
+                1.0
+              ],
+              "links": []
+            },
+            "Metallic": {
+              "value": 0.75,
+              "links": []
+            },
+            "Roughness": {
+              "value": 0.3199999928474426,
+              "links": [
+                [
+                  "Map Range",
+                  "Result"
+                ]
+              ]
+            },
+            "IOR": {
+              "value": 1.5,
+              "links": []
+            },
+            "Normal": {
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            "Specular IOR Level": {
+              "value": 0.5,
+              "links": []
+            },
+            "Coat Weight": {
+              "value": 0.0,
+              "links": []
+            },
+            "Coat Roughness": {
+              "value": 0.029999999329447746,
+              "links": []
+            }
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "name": "Noise Texture",
+          "type": "TEX_NOISE"
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE"
+        }
+      ]
+    },
+    {
+      "name": "Warden_Glove_DeepPurple",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": {
+              "value": [
+                0.0949999988079071,
+                0.052000001072883606,
+                0.14000000059604645,
+                1.0
+              ],
+              "links": []
+            },
+            "Metallic": {
+              "value": 0.0,
+              "links": []
+            },
+            "Roughness": {
+              "value": 0.6499999761581421,
+              "links": [
+                [
+                  "Map Range",
+                  "Result"
+                ]
+              ]
+            },
+            "IOR": {
+              "value": 1.5,
+              "links": []
+            },
+            "Normal": {
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            "Specular IOR Level": {
+              "value": 0.5,
+              "links": []
+            },
+            "Coat Weight": {
+              "value": 0.0,
+              "links": []
+            },
+            "Coat Roughness": {
+              "value": 0.029999999329447746,
+              "links": []
+            }
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "name": "Noise Texture",
+          "type": "TEX_NOISE"
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE"
+        }
+      ]
+    }
+  ]
+}

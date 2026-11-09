@@ -1,0 +1,10 @@
+import bpy,pathlib,json,hashlib
+from mathutils import Vector
+P=pathlib.Path('C:/Users/David/Downloads/stone golem 3d model (1).glb');OUT=pathlib.Path('C:/Users/David/PROTOTYPE/SPELLSTRIKE/ArtSource/Characters/StoneGolem/Mixamo_Package_v001');bpy.ops.wm.read_factory_settings(use_empty=True);bpy.ops.import_scene.gltf(filepath=str(P));sc=bpy.context.scene;meshes=[o for o in sc.objects if o.type=='MESH'];verts=[o.matrix_world@v.co for o in meshes for v in o.data.vertices];lo=Vector([min(v[i] for v in verts) for i in range(3)]);hi=Vector([max(v[i] for v in verts) for i in range(3)]);rows=[]
+for o in meshes:o.data.calc_loop_triangles();rows.append({'name':o.name,'vertices':len(o.data.vertices),'triangles':len(o.data.loop_triangles),'uvs':[u.name for u in o.data.uv_layers]})
+qa={'source':str(P),'source_sha256':hashlib.sha256(P.read_bytes()).hexdigest(),'bounds':[list(lo),list(hi)],'meshes':rows,'armatures':[o.name for o in sc.objects if o.type=='ARMATURE'],'images':[{'name':i.name,'size':list(i.size),'packed':bool(i.packed_file),'has_data':i.has_data} for i in bpy.data.images]};(OUT/'source_inspection.json').write_text(json.dumps(qa,indent=2));print(json.dumps(qa,indent=2))
+sc.render.engine='BLENDER_WORKBENCH';sc.render.resolution_x=900;sc.render.resolution_y=900;sc.render.resolution_percentage=100;sc.world=bpy.data.worlds.new('ReviewWorld');sc.world.color=(.12,.12,.12);sc.display.shading.color_type='TEXTURE';sc.display.shading.light='STUDIO';sc.display.shading.show_cavity=True
+bpy.ops.object.camera_add();cam=bpy.context.object;cam.name='ReviewCamera';cam.data.type='ORTHO';cam.data.ortho_scale=max(hi.x-lo.x,hi.z-lo.z)*1.15;sc.camera=cam;center=(hi+lo)*.5
+for name,d in [('Front',(0,-4,0)),('Back',(0,4,0)),('Side',(4,0,0))]:
+ cam.location=center+Vector(d)*(hi.z-lo.z);cam.rotation_euler=(center-cam.location).to_track_quat('-Z','Y').to_euler();sc.render.filepath=str(OUT/('Source_'+name+'.png'));bpy.ops.render.render(write_still=True)
+bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'Source_Inspection.blend'))

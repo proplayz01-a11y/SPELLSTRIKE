@@ -1,0 +1,140 @@
+{
+    "scene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v06.unity",
+    "sourceGlb": "Assets/Cinematics/Storyboard3D/Characters/Panel04/Panel04_GriefScene_StaticBlockout_v02.glb",
+    "sourceGlbSha256": "3cddcb0b06b98700ad74fb8a73bb41fd8a691f16ce9f60ce59e7cdd67c09ca5f",
+    "sourceBlenderScene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+    "manifest": "ArtSource/Cinematics/Panel04_v06/P04_CorrectionManifest_v06.json",
+    "manifestSha256": "6450389654e3010b2b419d6ee87d2b0f3c3daf5e57d8d1b2bf294f41b9b784f2",
+    "capturedAtUTC": "2026-10-26T14:24:15.6851095Z",
+    "width": 960,
+    "height": 540,
+    "duration": 10.0,
+    "timelineTracks": 2,
+    "renderers": 753,
+    "allFourGpuCapturesComplete": true,
+    "allFourCameraChecksPass": true,
+    "priorSceneSetupRestored": true,
+    "expectedPriorActiveScenePath": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+    "actualActiveScenePathAfterCapture": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+    "sceneRestorationNote": "Verified previous loaded scene paths, loaded states and active flags.",
+    "shots": [
+        {
+            "id": "01_DISCOVERY_WIDE",
+            "time": 1.3335000276565552,
+            "expectedEyeUnity": {
+                "x": 3.4000000953674318,
+                "y": 2.299999952316284,
+                "z": 4.800000190734863
+            },
+            "actualEyeUnity": {
+                "x": 3.4000000953674318,
+                "y": 2.299999952316284,
+                "z": 4.800000190734863
+            },
+            "expectedTargetUnity": {
+                "x": 0.3499999940395355,
+                "y": 0.8500000238418579,
+                "z": -0.30000001192092898
+            },
+            "verticalFov": 45.0,
+            "positionErrorMeters": 0.0,
+            "rotationErrorDegrees": 0.0,
+            "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_01_DISCOVERY_WIDE_v06.png",
+            "captureBytes": 225339,
+            "captureSha256": "0113da3240ef909fc51b54bc7cbefd61acf1c93297f38f22da781e2c790ccd78",
+            "meanLuminance": 0.24545016884803773,
+            "maximumLuminance": 0.9725356698036194,
+            "cameraMatchesManifest": true
+        },
+        {
+            "id": "02_VAN_GRIEF",
+            "time": 4.354499816894531,
+            "expectedEyeUnity": {
+                "x": -1.5,
+                "y": 1.5499999523162842,
+                "z": -1.350000023841858
+            },
+            "actualEyeUnity": {
+                "x": -1.5,
+                "y": 1.5499999523162842,
+                "z": -1.350000023841858
+            },
+            "expectedTargetUnity": {
+                "x": 0.8999999761581421,
+                "y": 0.550000011920929,
+                "z": 0.2800000011920929
+            },
+            "verticalFov": 38.0,
+            "positionErrorMeters": 0.0,
+            "rotationErrorDegrees": 0.0,
+            "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_02_VAN_GRIEF_v06.png",
+            "captureBytes": 331679,
+            "captureSha256": "1107b12c442f163684f99fc911da91ae05a8bf1728866185252741332d3804a1",
+            "meanLuminance": 0.2709416449069977,
+            "maximumLuminance": 1.0,
+            "cameraMatchesManifest": true
+        },
+        {
+            "id": "03_MOTHER_CLOSE",
+            "time": 7.25,
+            "expectedEyeUnity": {
+                "x": 1.350000023841858,
+                "y": 1.2999999523162842,
+                "z": -0.949999988079071
+            },
+            "actualEyeUnity": {
+                "x": 1.350000023841858,
+                "y": 1.2999999523162842,
+                "z": -0.949999988079071
+            },
+            "expectedTargetUnity": {
+                "x": 1.1399999856948853,
+                "y": 0.47999998927116396,
+                "z": 0.2199999988079071
+            },
+            "verticalFov": 35.0,
+            "positionErrorMeters": 0.0,
+            "rotationErrorDegrees": 0.0,
+            "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_03_MOTHER_CLOSE_v06.png",
+            "captureBytes": 484730,
+            "captureSha256": "533b3a1cda0cbc1c5ec8a57ba278401d73acd5a4f036d21c769a43ec4241e3b8",
+            "meanLuminance": 0.29766973853111269,
+            "maximumLuminance": 1.0,
+            "cameraMatchesManifest": true
+        },
+        {
+            "id": "04_RIBBON_CLUE",
+            "time": 9.229000091552735,
+            "expectedEyeUnity": {
+                "x": -0.2800000011920929,
+                "y": 1.4500000476837159,
+                "z": 1.8799999952316285
+            },
+            "actualEyeUnity": {
+                "x": -0.2800000011920929,
+                "y": 1.4500000476837159,
+                "z": 1.8799999952316285
+            },
+            "expectedTargetUnity": {
+                "x": 0.12999999523162843,
+                "y": 0.20999999344348908,
+                "z": 1.0199999809265137
+            },
+            "verticalFov": 26.0,
+            "positionErrorMeters": 0.0,
+            "rotationErrorDegrees": 0.0,
+            "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_04_RIBBON_CLUE_v06.png",
+            "captureBytes": 189650,
+            "captureSha256": "6cec1d2d8a1bfd55a247150b9bd4aa771fd414ad9eb004ffd741e996b4e312b1",
+            "meanLuminance": 0.30833476781845095,
+            "maximumLuminance": 1.0,
+            "cameraMatchesManifest": true
+        }
+    ],
+    "notes": [
+        "Actual Unity GPU Camera.Render stills from the saved new v06 scene; no scene save is performed during capture.",
+        "Static character poses; no actor animation, voice/audio, Play Mode playback, or device validation is claimed.",
+        "OnGUI narration is not included by Camera.Render; these PNGs are scene-image evidence.",
+        "Transform and per-shot vertical FOV are checked against the Blender-space camera manifest."
+    ]
+}

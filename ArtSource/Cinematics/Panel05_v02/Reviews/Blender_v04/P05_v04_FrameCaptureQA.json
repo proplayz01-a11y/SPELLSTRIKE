@@ -1,0 +1,102 @@
+[
+  {
+    "frame": 15,
+    "label": "01_ExteriorArrival",
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel05_v02\\Reviews\\Blender_v04\\P05_01_ExteriorArrival_v04.png",
+    "rig_world": [
+      5.769247055053711,
+      -12.37271785736084,
+      0.07357367128133774
+    ],
+    "hand_world": [
+      5.056664943695068,
+      -12.34570026397705,
+      1.6023305654525757
+    ],
+    "staff_world": [
+      5.0816650390625,
+      -12.320700645446777,
+      1.5075161457061768
+    ]
+  },
+  {
+    "frame": 46,
+    "label": "02_CrossingThreshold",
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel05_v02\\Reviews\\Blender_v04\\P05_02_CrossingThreshold_v04.png",
+    "rig_world": [
+      5.763671875,
+      -11.430547714233398,
+      0.0765053927898407
+    ],
+    "hand_world": [
+      5.045422554016113,
+      -11.431863784790039,
+      1.6071910858154297
+    ],
+    "staff_world": [
+      5.070422649383545,
+      -11.406864166259766,
+      1.5123766660690308
+    ]
+  },
+  {
+    "frame": 73,
+    "label": "03_MidWalking",
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel05_v02\\Reviews\\Blender_v04\\P05_03_MidWalking_v04.png",
+    "rig_world": [
+      5.757040023803711,
+      -10.309760093688965,
+      0.05921895429491997
+    ],
+    "hand_world": [
+      5.062640190124512,
+      -10.283061981201172,
+      1.5656249523162842
+    ],
+    "staff_world": [
+      5.087640285491943,
+      -10.258062362670898,
+      1.4708105325698853
+    ]
+  },
+  {
+    "frame": 121,
+    "label": "04_StopInside",
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel05_v02\\Reviews\\Blender_v04\\P05_04_StopInside_v04.png",
+    "rig_world": [
+      5.75,
+      -9.119999885559082,
+      0.06499999761581421
+    ],
+    "hand_world": [
+      5.029280185699463,
+      -9.091348648071289,
+      1.468066930770874
+    ],
+    "staff_world": [
+      5.0542802810668945,
+      -9.066349029541016,
+      1.373252511024475
+    ]
+  },
+  {
+    "frame": 121,
+    "label": "05_WideInterior",
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel05_v02\\Reviews\\Blender_v04\\P05_05_WideInterior_v04.png",
+    "rig_world": [
+      5.75,
+      -9.119999885559082,
+      0.06499999761581421
+    ],
+    "hand_world": [
+      5.029280185699463,
+      -9.091348648071289,
+      1.468066930770874
+    ],
+    "staff_world": [
+      5.0542802810668945,
+      -9.066349029541016,
+      1.373252511024475
+    ]
+  }
+]

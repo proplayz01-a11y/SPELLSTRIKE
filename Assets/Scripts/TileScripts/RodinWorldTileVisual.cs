@@ -17,6 +17,31 @@ public sealed class RodinWorldTileVisual : MonoBehaviour
     private Transform visualRoot;
     private char displayedLetter;
 
+    /// <summary>
+    /// Enlarges this runtime world pickup's Rodin model without scaling its
+    /// root transform, trigger collider, or movement behavior.
+    /// </summary>
+    public void ApplySpawnVisualScaleMultiplier(float multiplier)
+    {
+        if (multiplier <= 0f)
+            return;
+
+        worldVisualScale *= multiplier;
+
+        // Spawn callers apply this before SetLetter, so the visual is built
+        // once at its final size. If a caller changes it after rendering,
+        // rebuild the existing visual at the updated scale.
+        if (visualRoot == null)
+            return;
+
+        Destroy(visualRoot.gameObject);
+        visualRoot = null;
+
+        WorldTile worldTile = GetComponent<WorldTile>();
+        if (worldTile != null)
+            ApplyLetter(worldTile.letter);
+    }
+
     public bool ApplyLetter(char letter)
     {
         letter = char.ToUpperInvariant(letter);

@@ -1,0 +1,23 @@
+{
+  "camera_name": "P10_CAMERA_01_OlderVanSpeaks_VanderListens",
+  "loc": [
+    0.0,
+    -8.485878944396973,
+    1.4519639015197754
+  ],
+  "rotation": [
+    1.4477462768554688,
+    -0.0,
+    0.0
+  ],
+  "fov_vertical_deg": 28.072486935852957,
+  "lens": 48.0,
+  "sensor_width": 36.0,
+  "sensor_height": 24.0,
+  "frames": [
+    1,
+    192
+  ],
+  "fps": 24,
+  "scene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\LibraryShell\\LibraryStudyArchive_P10_OlderVanDreamConfession_v02_CinematicRefinement_v02.blend"
+}

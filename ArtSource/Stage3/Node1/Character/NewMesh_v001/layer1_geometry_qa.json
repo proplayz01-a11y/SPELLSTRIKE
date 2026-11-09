@@ -1,0 +1,66 @@
+{
+  "Core_Torso": {
+    "vertices": 160,
+    "nonmanifold_edges": 0
+  },
+  "Core_Pelvis": {
+    "vertices": 48,
+    "nonmanifold_edges": 0
+  },
+  "Core_Neck": {
+    "vertices": 32,
+    "nonmanifold_edges": 0
+  },
+  "Core_Head": {
+    "vertices": 100,
+    "nonmanifold_edges": 0
+  },
+  "Core_UpperArm_R": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  },
+  "Core_UpperArm_L": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  },
+  "Core_Forearm_R": {
+    "vertices": 96,
+    "nonmanifold_edges": 0
+  },
+  "Core_Forearm_L": {
+    "vertices": 96,
+    "nonmanifold_edges": 0
+  },
+  "Core_Thigh_R": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  },
+  "Core_Thigh_L": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  },
+  "Core_Shin_R": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  },
+  "Core_Shin_L": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  },
+  "Core_Hand_R": {
+    "vertices": 228,
+    "nonmanifold_edges": 0
+  },
+  "Core_Hand_L": {
+    "vertices": 228,
+    "nonmanifold_edges": 0
+  },
+  "Core_Foot_R": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  },
+  "Core_Foot_L": {
+    "vertices": 80,
+    "nonmanifold_edges": 0
+  }
+}

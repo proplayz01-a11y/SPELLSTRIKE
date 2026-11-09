@@ -1,0 +1,37 @@
+{
+  "status": "AUTORIGGER_UPLOAD_CANDIDATE_ROUNDTRIP_PASS",
+  "what_it_is": "Unrigged, neutral T-pose, single-MESH FBX with embedded textures",
+  "what_it_is_not": "Not yet skinned/auto-rigged in Mixamo and not a guaranteed Mixamo website acceptance",
+  "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Working\\Nevali_Face_Reconstruction_v12.glb",
+  "source_sha256": "619043c8fc423b47a1ee296dab59f75ef032a5189e838129a814a40beb204ded",
+  "blend": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\MixamoReady_v12\\Nevali_v12_MixamoUpload_PRE_RIG.blend",
+  "fbx": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\MixamoReady_v12\\Nevali_v12_MixamoUpload_UNRIGGED.fbx",
+  "fbx_size": 10801180,
+  "source_mesh_objects": 41,
+  "source_mesh_vertices": 74685,
+  "source_mesh_polygons": 118962,
+  "upload_mesh_objects": 1,
+  "upload_polygons": 118962,
+  "reimport_material_count": 7,
+  "packed_source_images": 3,
+  "texture_files_staged": [
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\MixamoReady_v12\\Textures\\00_texture_diffuse.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\MixamoReady_v12\\Textures\\01_texture_metallic_texture_roughness.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\MixamoReady_v12\\Textures\\02_texture_normal.png"
+  ],
+  "embedded_fbx_image_signatures": 5,
+  "reimported_textures": [
+    "texture_diffuse",
+    "texture_normal"
+  ],
+  "source_z_up_height_m": 1.8913,
+  "reimport_z_up_height_m": 1.8913,
+  "fbx_ground_z_m": -0.0,
+  "reimport_rigged": false,
+  "notes": [
+    "Do not upload .glb to Mixamo: use the .fbx upload candidate.",
+    "Website auto-rigger needs user login and wrist/elbow/knee/groin markers.",
+    "Inspect mesh deformation and skirt/hair weighting after auto-rigging.",
+    "If Mixamo auto-rig fails, use a simplified hair/skirt-proxy variant."
+  ]
+}

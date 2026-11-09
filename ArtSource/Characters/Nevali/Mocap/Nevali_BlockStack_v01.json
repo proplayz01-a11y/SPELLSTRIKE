@@ -1,0 +1,12 @@
+{
+  "name": "nevali_blockstack_flow_20261023",
+  "action_name": "Nevali_BlockStack_FromHuman_Reference_v01",
+  "clip_dir": "clips/nevali_blockstack_flow_v01",
+  "landmarks": "plates/nevali_blockstack_flow_20261023/landmarks.json",
+  "smplx": "plates/nevali_blockstack_flow_20261023/smplx.npz",
+  "rig_profile": "rig_profile.json",
+  "estimator": "gvhmr_siga24",
+  "src_fps": 24,
+  "dst_fps": 30,
+  "qa_src_frames": [1, 24, 48, 72, 96, 120, 144, 168, 192]
+}

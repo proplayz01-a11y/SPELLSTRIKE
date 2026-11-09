@@ -1,0 +1,7 @@
+Assets\Scripts\VFX\BasicAttackChargeVfx.cs(14,43): warning CS0649: Field 'BasicAttackChargeVfx.energyMaterial' is never assigned to, and will always have its default value null
+Assets\Scripts\VFX\BasicAttackChargeBinding.cs(12,44): warning CS0649: Field 'BasicAttackChargeBinding.magicSpawnPoint' is never assigned to, and will always have its default value null
+Assets\Scripts\VFX\BasicAttackChargeBinding.cs(11,43): warning CS0649: Field 'BasicAttackChargeBinding.playerAnimator' is never assigned to, and will always have its default value null
+Assets\Scripts\VFX\BasicAttackChargeBinding.cs(15,47): warning CS0649: Field 'BasicAttackChargeBinding.chargeGraphPrefab' is never assigned to, and will always have its default value null
+Assets\Scripts\VFX\BasicAttackChargeBinding.cs(13,55): warning CS0649: Field 'BasicAttackChargeBinding.chargePrefab' is never assigned to, and will always have its default value null
+Assets\Scripts\VFX\BasicAttackChargeBinding.cs(18,38): warning CS0649: Field 'BasicAttackChargeBinding.animatorLayer' is never assigned to, and will always have its default value 0
+Assets\Scripts\VFX\BasicAttackChargeBinding.cs(16,48): warning CS0649: Field 'BasicAttackChargeBinding.basicAttackClip' is never assigned to, and will always have its default value null

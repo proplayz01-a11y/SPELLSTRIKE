@@ -1,0 +1,40 @@
+﻿SPELLSTRIKE MAIN MENU V11: RODIN WORDS REVIEW
+Date: October 31, 2026
+Status: Complete for user visual QA (not yet approved as final production build)
+
+Scene:
+  Assets/Scenes/MenuConcepts/MainMenuV2_Prototype_20261031_v11_RodinFinal.unity
+Protected source:
+  Assets/Scenes/MenuConcepts/MainMenuV2_Prototype_20261031_v10_BookStaffPolish.unity
+
+Implemented:
+  * Isolated V11 duplicate created from clean protected V10 source.
+  * Five chronological WORDS slots (W=Silver; O/R/D/S=Bronze).
+  * Three imported shared textured Rodin rarity bases and 26 texture-free 3D letter prefabs staged under Assets/MenuV2/RodinV11.
+  * Each orbit tile: one actual Rodin mesh + front/back black 3D lettering; correct rarity badge on both faces.
+  * Shared original V10 two-camera RenderTexture front/behind Van compositing; original Menu, Van, portal, tent, spellbook UI and staff glint preserved.
+  * Local geometry visually centered before orbiting; tile collider and shadow passes disabled for menu-only presentation.
+  * Fix from first QA: replaced synchronized constant 360 yaw with a staggered 20-second cycle, 1.4-second 180-degree flips, so only one tile nears edge-on at any moment.
+
+Validation:
+  * Unity 6.3.10f1 open on isolated V11; project build target set to Android.
+  * V11 active scene saved clean in Edit Mode after screenshots.
+  * Unity imported all 29 optimized GLBs; V11 references five needed tile types.
+  * At runtime: 5 orbit slots, 15 mesh renderers, 12 unique meshes, about 30,164 displayed tile triangles.
+  * 2 orbit RenderTextures (900x800); imported base textures 1024x1024 front and 768x768 rear.
+  * Tested analytical rotation 0-20 sec in 0.01 sec increments: maximum one tile near edge-on simultaneously.
+  * Screenshots show working front/back visual layers, varied positions, black letters, and rarity circle.
+  * No tile-specific Unity exceptions seen in sampled Editor log.
+  * Android Galaxy A05s on-device framerate, texture compression, and UI interaction still REQUIRE validation.
+
+Screenshots:
+  Captures/MenuV2QA/V11_Rodin_WORDS_FirstPlay.png   (pre-rotation-fix initial evidence)
+  Captures/MenuV2QA/V11_Rodin_WORDS_StaggeredVerified_SecondQA.png  (runtime QA after recompile)
+  Captures/MenuV2QA/V11_Rodin_WORDS_StaggeredVerified_ThirdQA.png   (additional runtime QA)
+
+Explicitly NOT performed:
+  * No edits to original V9/V10 menu scenes.
+  * No deletion of earlier prototype scenes.
+  * No changes to gameplay stage scenes, original tile prefabs, or character spawnpoints.
+  * No commit/push yet; main Git workspace contains preexisting unrelated changes/untracked assets.
+  * No physical Android performance test.

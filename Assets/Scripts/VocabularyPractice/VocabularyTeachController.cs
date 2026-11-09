@@ -53,6 +53,7 @@ public class VocabularyTeachController : MonoBehaviour
     private bool attackWasLocked;
     private bool recordCompletionOnDismiss = true;
     private bool reviewPresentation;
+    private int presentationOpenedFrame = -1;
 
     public bool TeachCompleted { get; private set; }
     public VocabularyWordData CurrentWord => profile != null ? profile.GetWord(wordIndex) : null;
@@ -81,6 +82,22 @@ public class VocabularyTeachController : MonoBehaviour
 
     private void Update()
     {
+        // The approved "click anywhere" prompt must accept a press anywhere
+        // on the screen, not only inside the transparent Button stretched over
+        // the centered TeachPanel. Keep the Button listener for normal UI
+        // routing, but also read mouse/touch presses directly as a reliable
+        // fallback for desktop and Android.
+        if (state == TeachState.Presenting
+            && !requireGuidedReconstruction
+            && panelRoot != null
+            && panelRoot.activeInHierarchy
+            && Time.frameCount > presentationOpenedFrame
+            && HasPresentationPointerPress())
+        {
+            OnPrimaryPressed();
+            return;
+        }
+
         if (state != TeachState.Reconstructing || tileManager == null || CurrentWord == null)
             return;
 
@@ -135,6 +152,7 @@ public class VocabularyTeachController : MonoBehaviour
         TeachCompleted = false;
         hintLevel = 0;
         state = TeachState.Presenting;
+        presentationOpenedFrame = Time.frameCount;
         reviewPresentation = isReview;
         recordCompletionOnDismiss = shouldRecordCompletion;
 
@@ -298,6 +316,20 @@ public class VocabularyTeachController : MonoBehaviour
             primaryButton.interactable = interactable;
         if (primaryButtonLabel != null)
             primaryButtonLabel.text = label;
+    }
+
+    private static bool HasPresentationPointerPress()
+    {
+        if (Input.GetMouseButtonDown(0))
+            return true;
+
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            if (Input.GetTouch(i).phase == TouchPhase.Began)
+                return true;
+        }
+
+        return false;
     }
 
     private static string BuildBlankWord(int length)

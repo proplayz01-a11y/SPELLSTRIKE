@@ -1,0 +1,25 @@
+{
+  "bone_count": 57,
+  "names_and_parents_match": true,
+  "world_pose_max_matrix_error": 8.165836334228516e-06,
+  "rest_max_matrix_error": 4.57763671875e-05,
+  "actions": [
+    [
+      "Armature|SunboundWarden_SunSlash_Full158",
+      [
+        2.0,
+        159.0
+      ]
+    ]
+  ],
+  "armature_scale": [
+    0.009999999776482582,
+    0.009999999776482582,
+    0.009999999776482582
+  ],
+  "armature_rotation": [
+    1.5707964897155762,
+    -0.0,
+    0.0
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "input": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\Panel01_RoughCut_v02\\SPELLSTRIKE_P01_FamilyHome_NevaliV13_RoughCut_v02.blend",
+  "output": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\Panel01_RoughCut_v03\\SPELLSTRIKE_P01_FamilyHome_NevaliV13_RoughCut_v03.blend",
+  "van_foreground_root": [
+    -1.9500000476837158,
+    -2.75,
+    0.0
+  ],
+  "van_facing_z_rad": 1.649999976158142,
+  "camera": "PREVIEW_CAMERA",
+  "lens_mm": 32.0,
+  "exposure": -0.5,
+  "frames": [
+    1,
+    240
+  ],
+  "fps": 30,
+  "limitations": [
+    "Temporary Young Van model",
+    "Toy contact manually blocked",
+    "Unity not tested"
+  ]
+}

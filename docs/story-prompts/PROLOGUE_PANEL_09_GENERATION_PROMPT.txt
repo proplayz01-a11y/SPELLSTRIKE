@@ -1,0 +1,135 @@
+Create the final clean 16:9 landscape storyboard illustration for SPELLSTRIKE.
+
+Panel 9: Vander Poel finds Van Aert silently thinking about Nevali.
+
+REFERENCE ROLES
+
+* Use the original canonical top-down library map as the absolute architectural blueprint.
+* Use the latest approved left-side library view as the exact environment, perspective, lighting, and camera-orientation reference.
+* Use the annotated top-down camera sketch as the exact character-blocking and camera-position guide.
+* Use the previous Panel 9 only as an emotional and acting reference. Do not reuse its incorrect library background.
+* Use the approved Older Van Aert reference for his exact identity, robe, emblem, glasses, proportions, and staff.
+* Use the updated Vander Poel reference for his exact identity, older facial structure, teal robe, blue chest gem, hunched proportions, and visual distinction from Van Aert.
+
+STORY BEAT
+
+Van Aert is seated alone at the main study table, silently thinking about his daughter Nevali and the dream he recently had about her.
+
+He has not yet told Vander Poel about the dream. No conversation is happening yet.
+
+Vander Poel has just arrived from the rear archive through the central Gothic gateway. He pauses near or immediately beyond the gateway after noticing that Van Aert looks troubled. Vander Poel is checking on him with quiet concern.
+
+This panel is the silent emotional setup for the following conversation, where Van Aert will explain that he dreamed about Nevali.
+
+CAMERA AND BLOCKING
+
+Follow the annotated camera sketch exactly:
+
+* Place the camera on the right/east side of the study chamber.
+* Aim the camera diagonally left across the main table toward the central gateway.
+* Use a cinematic medium-wide shot at approximately seated eye level or slightly above tabletop height.
+* Do not use a top-down or bird’s-eye camera for the final storyboard panel.
+* Van Aert is the nearest character in the foreground, positioned around the center-right or lower-center of the frame.
+* Vander Poel is farther away in the left midground, positioned near or beneath the central gateway.
+* The main wooden table creates depth between the camera, Van Aert, and Vander Poel.
+* The red runner and gateway lead the viewer’s eye toward Vander Poel.
+* Preserve clear visual separation between both characters.
+
+VAN AERT ACTING
+
+Show Older Van Aert seated at the near side of the main study table.
+
+His expression must feel distant, exhausted, and emotionally preoccupied:
+
+* head slightly lowered;
+* gaze unfocused or directed downward;
+* one hand supporting his cheek or temple;
+* shoulders slightly slumped;
+* other hand resting loosely near the table or an inactive book;
+* mouth closed;
+* no speaking gesture;
+* no surprised reaction.
+
+He is thinking about Nevali, but do not show Nevali, a dream projection, flashback imagery, or magical vision.
+
+Any book visible near Van Aert is only ordinary library set dressing. Van Aert is not actively reading it. The book must not glow, move, display a message, or contain readable writing.
+
+Preserve Van Aert’s approved older appearance exactly: white hair, beard, glasses, deep navy robe, gold trim, chest emblem, aged proportions, and boots.
+
+Place Van Aert’s canonical staff naturally beside his chair using its approved design and scale. Keep it secondary and do not allow it to block Van Aert, Vander Poel, or the gateway.
+
+VANDER POEL ACTING
+
+Show Vander Poel emerging from or having just passed through the central Gothic gateway from the cool rear archive.
+
+He should:
+
+* pause after noticing Van Aert;
+* look directly toward Van Aert;
+* have a concerned, observant, and gentle expression;
+* lean slightly forward because of his elderly posture;
+* keep his mouth closed;
+* not make a large speaking gesture;
+* not appear threatening, shocked, or suspicious.
+
+Preserve the updated Vander Poel design exactly: distinctly older face, different facial structure from Van Aert, fuller white beard, round glasses, tired eyes, pronounced hunch, teal-blue robe, gold ornamentation, blue diamond chest gem, and approved proportions.
+
+Van Aert and Vander Poel must remain immediately distinguishable. Do not merge their facial structures, robes, emblems, silhouettes, or color palettes.
+
+CANONICAL LIBRARY ENVIRONMENT
+
+Generate both characters naturally inside the approved library environment. Do not paste character cutouts onto the background.
+
+Preserve the visible environment exactly:
+
+* main wooden study table on its central red rug;
+* canonical study-chamber proportions;
+* long side-wall bookshelves;
+* smaller study table and globe in their correct location if visible;
+* large blue-trim Gothic pointed gateway;
+* two square gateway pillars;
+* one amber wall sconce on each pillar;
+* broad open passage beneath the arch;
+* straight red runner aligned through the gateway;
+* cool archive shelves and circulation visible beyond the gateway;
+* all doors, windows, rugs, furniture, banners, statues, and props in their established physical positions.
+
+Vander Poel must visibly come from the gateway. Do not replace the gateway behind him with bookshelves, a flat wall, a narrow doorway, or unrelated architecture.
+
+LIGHTING
+
+* Use warm amber candlelight throughout the study chamber and on Van Aert.
+* Use cooler cyan-blue ambient light in the archive and around the gateway.
+* Give Vander Poel subtle cool-blue edge lighting as he emerges from the archive into the warmer study.
+* Generate natural contact shadows, robe shadows, chair shadows, and environmental light interaction for both characters.
+* The characters must feel physically present in the room, not composited or pasted over it.
+
+STYLE
+
+SPELLSTRIKE retro educational fantasy-comic cutscene style:
+
+* clean bold ink-like outlines;
+* saturated but controlled colors;
+* clean cel-shaded shadow planes;
+* subtle painterly texture;
+* readable expressions;
+* navy, teal, gold, cyan, and warm amber palette;
+* polished early-2000s educational fantasy PC-game artwork;
+* cinematic 16:9 landscape framing.
+
+DO NOT
+
+* Do not show Nevali physically or as a vision.
+* Do not show Van Aert speaking.
+* Do not show Vander Poel speaking.
+* Do not show the living spellbook message.
+* Do not make the book glow.
+* Do not add dialogue, captions, labels, speech bubbles, readable text, logos, or watermark.
+* Do not add extra characters.
+* Do not change the canonical library floor plan.
+* Do not add, remove, duplicate, relocate, or redesign shelves, tables, doors, windows, rugs, furniture, props, or architecture.
+* Do not replace the gateway with shelves or a plain divider.
+* Do not paste transparent character cutouts onto the background.
+* Do not make Van Aert and Vander Poel look like the same person.
+
+The final result must preserve the emotional staging of the old Panel 9 while correcting it to the approved canonical SPELLSTRIKE library environment and camera blocking.

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class TileSpawner : MonoBehaviour
 {
+    // Double the previously enlarged 1.2x replacement visuals (2.4x base size).
+    private const float ReplacementWorldTileVisualScaleMultiplier = 2.4f;
+
     public event System.Action<IReadOnlyList<WorldTile>> SpecificTilesSpawned;
 
     public static TileSpawner Instance;
@@ -206,6 +209,13 @@ public class TileSpawner : MonoBehaviour
             WorldTile tileScript = tile.GetComponent<WorldTile>();
             if (tileScript != null)
             {
+                // Attack-consumed letters return as world pickups. Enlarge only
+                // their Rodin presentation; leave the pickup root/collider and
+                // all other prefab uses at their authored size.
+                RodinWorldTileVisual rodinVisual = tile.GetComponent<RodinWorldTileVisual>();
+                if (rodinVisual != null)
+                    rodinVisual.ApplySpawnVisualScaleMultiplier(ReplacementWorldTileVisualScaleMultiplier);
+
                 tileScript.SetLetter(letter);
                 pendingReplacementTiles.Add(tileScript);
                 spawnedTiles.Add(tileScript);

@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "pages": 24,
+  "page_hinges": 24,
+  "cover_hinges": 2,
+  "meshes": 41,
+  "embedded_textures": [
+    "Leather_AncientMidnight_1024",
+    "Leather_InsetCharcoal_1024",
+    "Leather_SpineBrown_1024",
+    "Parchment_AgedBlank_1024"
+  ],
+  "blender": "5.0.1"
+}

@@ -1,0 +1,127 @@
+﻿{
+    "created_local":  "2026-10-27",
+    "schema":  "SPELLSTRIKE_CINEMATIC_PROLOGUE_INDEX_V01",
+    "panels":  [
+                   {
+                       "panel":  11,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P11_NevaliDream_v03.unity",
+                       "state":  "saved_serialized_preview_pending",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panel11_v03/P11_NevaliDream_8s_v03.playable",
+                       "duration_seconds":  8,
+                       "title":  "Nevali dream-memory apparition"
+                   },
+                   {
+                       "panel":  10,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P10_HeadBobDialogue_v07.unity",
+                       "state":  "verified_playable_director_isolated",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels07_10_v07/P10_DialogueHeadBob_v07.playable",
+                       "duration_seconds":  8,
+                       "title":  "Dream disclosure"
+                   },
+                   {
+                       "panel":  9,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P09_HeadBobDialogue_v07.unity",
+                       "state":  "verified_playable_director_isolated",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels07_10_v07/P09_DialogueHeadBob_v07.playable",
+                       "duration_seconds":  8,
+                       "title":  "Older Van decades later"
+                   },
+                   {
+                       "panel":  12,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P12_VanderReflects_v01.unity",
+                       "state":  "saved_serialized_preview_pending",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels12_14_v01/P12_VanderReflects_8s_v01.playable",
+                       "duration_seconds":  8,
+                       "title":  "Vander reaction"
+                   },
+                   {
+                       "panel":  15,
+                       "scene":  null,
+                       "state":  "approved_source_blocking_timeline_exists_production_scene_missing",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels15_18/Prologue_P15_P18_ArchiveRetrieval_Blocking_v01.playable",
+                       "duration_seconds":  null,
+                       "title":  "Vander rises toward archive gateway"
+                   },
+                   {
+                       "panel":  14,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P14_VanderReplies_v01.unity",
+                       "state":  "saved_serialized_preview_pending",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels12_14_v01/P14_VanderReplies_8s_v01.playable",
+                       "duration_seconds":  8,
+                       "title":  "Vander responds to Older Van"
+                   },
+                   {
+                       "panel":  13,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P13_VanderContemplatesClose_v01.unity",
+                       "state":  "saved_serialized_preview_pending",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels12_14_v01/P13_VanderContemplatesClose_8s_v01.playable",
+                       "duration_seconds":  8,
+                       "title":  "Vander thoughtful close-up"
+                   },
+                   {
+                       "panel":  8,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P08_HeadBobDialogue_v07.unity",
+                       "state":  "verified_playable_director_isolated",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels07_10_v07/P08_DialogueHeadBob_v07.playable",
+                       "duration_seconds":  8,
+                       "title":  "Vander contemplates loss"
+                   },
+                   {
+                       "panel":  3,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P03_A03_UltimateRelease_v04_SceneUsedVanStaff.unity",
+                       "state":  "scene_exists_timeline_reference_to_verify",
+                       "timeline":  null,
+                       "duration_seconds":  null,
+                       "title":  "Ultimate Release"
+                   },
+                   {
+                       "panel":  2,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P02_A02_GreatWar_v06_SceneUsedVanStaff.unity",
+                       "state":  "scene_exists_timeline_reference_to_verify",
+                       "timeline":  null,
+                       "duration_seconds":  null,
+                       "title":  "Great War"
+                   },
+                   {
+                       "panel":  1,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P01_FamilyHome_v08_A01_GoldenHourRays.unity",
+                       "state":  "scene_exists_timeline_reference_to_verify",
+                       "timeline":  null,
+                       "duration_seconds":  null,
+                       "title":  "Peace Before the Great War"
+                   },
+                   {
+                       "panel":  4,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v08_UnityValidatedSceneStaff.unity",
+                       "state":  "scene_exists_timeline_binding_to_verify",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panel04_A04_v06/P04_A04_Grief_ReturnHome_v06.playable",
+                       "duration_seconds":  null,
+                       "title":  "Destroyed Home"
+                   },
+                   {
+                       "panel":  7,
+                       "scene":  "Assets/Scenes/Cinematics/Prologue_P07_HeadBobDialogue_v07.unity",
+                       "state":  "verified_playable_director_isolated",
+                       "timeline":  "Assets/Cinematics/Storyboard3D/Timelines/Panels07_10_v07/P07_DialogueHeadBob_v07.playable",
+                       "duration_seconds":  8,
+                       "title":  "Younger Van in grief"
+                   },
+                   {
+                       "panel":  6,
+                       "scene":  null,
+                       "state":  "unity_scene_not_found",
+                       "timeline":  null,
+                       "duration_seconds":  null,
+                       "title":  "Approved Panel 06"
+                   },
+                   {
+                       "panel":  5,
+                       "scene":  null,
+                       "state":  "unity_scene_not_found",
+                       "timeline":  null,
+                       "duration_seconds":  null,
+                       "title":  "Approved Panel 05"
+                   }
+               ],
+    "notes":  "Ordered source index, NOT a playable master Timeline. Missing panels 05/06 and Panel15 production scene block full sequencing. Do not change gameplay or Build Settings."
+}

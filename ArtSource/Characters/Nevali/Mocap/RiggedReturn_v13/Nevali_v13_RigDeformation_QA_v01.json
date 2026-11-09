@@ -1,0 +1,283 @@
+{
+  "source_fbx": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_Mixamo_TPose_WithSkin.fbx",
+  "source_bytes": 9998816,
+  "armature_count": 1,
+  "armature_name": "Armature",
+  "bone_count": 57,
+  "bone_names": [
+    "mixamorig:Hips",
+    "mixamorig:Spine",
+    "mixamorig:Spine1",
+    "mixamorig:Spine2",
+    "mixamorig:Neck",
+    "mixamorig:Head",
+    "mixamorig:HeadTop_End",
+    "mixamorig:LeftShoulder",
+    "mixamorig:LeftArm",
+    "mixamorig:LeftForeArm",
+    "mixamorig:LeftHand",
+    "mixamorig:LeftHandThumb1",
+    "mixamorig:LeftHandThumb2",
+    "mixamorig:LeftHandThumb3",
+    "mixamorig:LeftHandThumb4",
+    "mixamorig:LeftHandIndex1",
+    "mixamorig:LeftHandIndex2",
+    "mixamorig:LeftHandIndex3",
+    "mixamorig:LeftHandIndex4",
+    "mixamorig:LeftHandMiddle1",
+    "mixamorig:LeftHandMiddle2",
+    "mixamorig:LeftHandMiddle3",
+    "mixamorig:LeftHandMiddle4",
+    "mixamorig:LeftHandRing1",
+    "mixamorig:LeftHandRing2",
+    "mixamorig:LeftHandRing3",
+    "mixamorig:LeftHandRing4",
+    "mixamorig:RightShoulder",
+    "mixamorig:RightArm",
+    "mixamorig:RightForeArm",
+    "mixamorig:RightHand",
+    "mixamorig:RightHandThumb1",
+    "mixamorig:RightHandThumb2",
+    "mixamorig:RightHandThumb3",
+    "mixamorig:RightHandThumb4",
+    "mixamorig:RightHandIndex1",
+    "mixamorig:RightHandIndex2",
+    "mixamorig:RightHandIndex3",
+    "mixamorig:RightHandIndex4",
+    "mixamorig:RightHandMiddle1",
+    "mixamorig:RightHandMiddle2",
+    "mixamorig:RightHandMiddle3",
+    "mixamorig:RightHandMiddle4",
+    "mixamorig:RightHandRing1",
+    "mixamorig:RightHandRing2",
+    "mixamorig:RightHandRing3",
+    "mixamorig:RightHandRing4",
+    "mixamorig:LeftUpLeg",
+    "mixamorig:LeftLeg",
+    "mixamorig:LeftFoot",
+    "mixamorig:LeftToeBase",
+    "mixamorig:LeftToe_End",
+    "mixamorig:RightUpLeg",
+    "mixamorig:RightLeg",
+    "mixamorig:RightFoot",
+    "mixamorig:RightToeBase",
+    "mixamorig:RightToe_End"
+  ],
+  "mesh_count": 1,
+  "mesh_details": {
+    "Nevali_Mixamo_Upload_v13": {
+      "vertices": 74083,
+      "weighted_vertices": 74083,
+      "group_count": 46,
+      "armature_modifier_count": 1,
+      "armature_parent": "Armature",
+      "materials": [
+        "Nevali_Upload_Body",
+        "Nevali_Upload_Face",
+        "Nevali_Upload_Eyes",
+        "Nevali_Upload_Hair"
+      ]
+    }
+  },
+  "weighted_vertices": 74083,
+  "triangle_count": 118962,
+  "material_count": 4,
+  "materials": [
+    {
+      "material": "Nevali_Upload_Body",
+      "images": [
+        {
+          "name": "texture_diffuse",
+          "filepath": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\..\\..\\..\\..\\home\\app\\mixamo-mini\\tmp\\skins_3c07af38-38ec-49c7-a05a-fc646eda18e6.fbm\\Nevali_Upload_Body_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "packed": true,
+          "has_data": true
+        }
+      ]
+    },
+    {
+      "material": "Nevali_Upload_Eyes",
+      "images": [
+        {
+          "name": "Nevali_Upload_Eyes_BaseColor",
+          "filepath": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\..\\..\\..\\..\\home\\app\\mixamo-mini\\tmp\\skins_3c07af38-38ec-49c7-a05a-fc646eda18e6.fbm\\Nevali_Upload_Eyes_BaseColor.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "packed": true,
+          "has_data": true
+        }
+      ]
+    },
+    {
+      "material": "Nevali_Upload_Face",
+      "images": [
+        {
+          "name": "Nevali_Upload_Face_BaseColor",
+          "filepath": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\..\\..\\..\\..\\home\\app\\mixamo-mini\\tmp\\skins_3c07af38-38ec-49c7-a05a-fc646eda18e6.fbm\\Nevali_Upload_Face_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "packed": true,
+          "has_data": true
+        }
+      ]
+    },
+    {
+      "material": "Nevali_Upload_Hair",
+      "images": [
+        {
+          "name": "Nevali_Upload_Hair_BaseColor",
+          "filepath": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\..\\..\\..\\..\\home\\app\\mixamo-mini\\tmp\\skins_3c07af38-38ec-49c7-a05a-fc646eda18e6.fbm\\Nevali_Upload_Hair_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "packed": true,
+          "has_data": true
+        }
+      ]
+    }
+  ],
+  "base_bounds": {
+    "valid": true,
+    "nonfinite": 0,
+    "min": [
+      -0.8866983652114868,
+      -0.4108438789844513,
+      -0.0009960464667528868
+    ],
+    "max": [
+      0.8796351552009583,
+      0.40306994318962097,
+      1.8729302883148193
+    ]
+  },
+  "pose_tests": {
+    "LeftArm": {
+      "result": "FINITE",
+      "bone": "mixamorig:LeftArm",
+      "rotation_rad": [
+        0.4,
+        0,
+        0
+      ],
+      "bounds": {
+        "valid": true,
+        "nonfinite": 0,
+        "min": [
+          -0.8609901070594788,
+          -0.2930322587490082,
+          -0.010291051119565964
+        ],
+        "max": [
+          0.7529774308204651,
+          0.40326395630836487,
+          1.8729705810546875
+        ]
+      }
+    },
+    "RightForeArm": {
+      "result": "FINITE",
+      "bone": "mixamorig:RightForeArm",
+      "rotation_rad": [
+        0,
+        0,
+        0.65
+      ],
+      "bounds": {
+        "valid": true,
+        "nonfinite": 0,
+        "min": [
+          -0.7824906706809998,
+          -0.2930322587490082,
+          -0.010291051119565964
+        ],
+        "max": [
+          0.8575276136398315,
+          0.40326395630836487,
+          1.8729705810546875
+        ]
+      }
+    },
+    "LeftUpLeg": {
+      "result": "FINITE",
+      "bone": "mixamorig:LeftUpLeg",
+      "rotation_rad": [
+        0.55,
+        0,
+        0
+      ],
+      "bounds": {
+        "valid": true,
+        "nonfinite": 0,
+        "min": [
+          -0.8609901070594788,
+          -0.7201600074768066,
+          -0.010290863923728466
+        ],
+        "max": [
+          0.8575276136398315,
+          0.40326395630836487,
+          1.8729705810546875
+        ]
+      }
+    },
+    "RightLeg": {
+      "result": "FINITE",
+      "bone": "mixamorig:RightLeg",
+      "rotation_rad": [
+        -0.6,
+        0,
+        0
+      ],
+      "bounds": {
+        "valid": true,
+        "nonfinite": 0,
+        "min": [
+          -0.8609901070594788,
+          -0.2930322587490082,
+          -0.07589887082576752
+        ],
+        "max": [
+          0.8575276136398315,
+          0.40326395630836487,
+          1.8729705810546875
+        ]
+      }
+    },
+    "Head": {
+      "result": "FINITE",
+      "bone": "mixamorig:Head",
+      "rotation_rad": [
+        0,
+        0.4,
+        0
+      ],
+      "bounds": {
+        "valid": true,
+        "nonfinite": 0,
+        "min": [
+          -0.8609901070594788,
+          -0.2930322587490082,
+          -0.010291051119565964
+        ],
+        "max": [
+          0.8575276136398315,
+          0.40326395630836487,
+          1.8729705810546875
+        ]
+      }
+    }
+  },
+  "test_notice": "Synthetic one-joint stress tests, NOT Google Flow retargeting or animation quality acceptance",
+  "animation_range": [
+    1,
+    60
+  ]
+}

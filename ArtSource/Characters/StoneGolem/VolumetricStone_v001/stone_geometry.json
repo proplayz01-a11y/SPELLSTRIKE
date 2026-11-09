@@ -1,0 +1,686 @@
+{
+  "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\StoneGolem\\Mixamo_Package_v001\\StoneGolem_Mixamo_Copy.blend",
+  "stone_count": 136,
+  "pieces": [
+    {
+      "name": "Golem_Carved_Head",
+      "vertices": 969,
+      "faces": 1403
+    },
+    {
+      "name": "Golem_Rock_001",
+      "vertices": 224,
+      "faces": 259
+    },
+    {
+      "name": "Golem_Rock_002",
+      "vertices": 164,
+      "faces": 192
+    },
+    {
+      "name": "Golem_Rock_003",
+      "vertices": 164,
+      "faces": 188
+    },
+    {
+      "name": "Golem_Rock_004",
+      "vertices": 298,
+      "faces": 351
+    },
+    {
+      "name": "Golem_Rock_005",
+      "vertices": 269,
+      "faces": 332
+    },
+    {
+      "name": "Golem_Rock_006",
+      "vertices": 257,
+      "faces": 290
+    },
+    {
+      "name": "Golem_Rock_007",
+      "vertices": 268,
+      "faces": 295
+    },
+    {
+      "name": "Golem_Rock_008",
+      "vertices": 219,
+      "faces": 257
+    },
+    {
+      "name": "Golem_Rock_009",
+      "vertices": 187,
+      "faces": 215
+    },
+    {
+      "name": "Golem_Rock_010",
+      "vertices": 261,
+      "faces": 297
+    },
+    {
+      "name": "Golem_Rock_011",
+      "vertices": 171,
+      "faces": 206
+    },
+    {
+      "name": "Golem_Rock_012",
+      "vertices": 229,
+      "faces": 280
+    },
+    {
+      "name": "Golem_Rock_013",
+      "vertices": 390,
+      "faces": 442
+    },
+    {
+      "name": "Golem_Rock_014",
+      "vertices": 353,
+      "faces": 412
+    },
+    {
+      "name": "Golem_Rock_015",
+      "vertices": 12,
+      "faces": 8
+    },
+    {
+      "name": "Golem_Rock_016",
+      "vertices": 384,
+      "faces": 454
+    },
+    {
+      "name": "Golem_Rock_017",
+      "vertices": 198,
+      "faces": 224
+    },
+    {
+      "name": "Golem_Rock_018",
+      "vertices": 215,
+      "faces": 237
+    },
+    {
+      "name": "Golem_Rock_019",
+      "vertices": 203,
+      "faces": 221
+    },
+    {
+      "name": "Golem_Rock_020",
+      "vertices": 302,
+      "faces": 350
+    },
+    {
+      "name": "Golem_Rock_021",
+      "vertices": 209,
+      "faces": 228
+    },
+    {
+      "name": "Golem_Rock_022",
+      "vertices": 270,
+      "faces": 299
+    },
+    {
+      "name": "Golem_Rock_023",
+      "vertices": 306,
+      "faces": 343
+    },
+    {
+      "name": "Golem_Rock_024",
+      "vertices": 180,
+      "faces": 203
+    },
+    {
+      "name": "Golem_Rock_025",
+      "vertices": 192,
+      "faces": 205
+    },
+    {
+      "name": "Golem_Rock_026",
+      "vertices": 290,
+      "faces": 336
+    },
+    {
+      "name": "Golem_Rock_027",
+      "vertices": 32,
+      "faces": 20
+    },
+    {
+      "name": "Golem_Rock_028",
+      "vertices": 306,
+      "faces": 367
+    },
+    {
+      "name": "Golem_Rock_029",
+      "vertices": 273,
+      "faces": 315
+    },
+    {
+      "name": "Golem_Rock_030",
+      "vertices": 223,
+      "faces": 270
+    },
+    {
+      "name": "Golem_Rock_031",
+      "vertices": 495,
+      "faces": 589
+    },
+    {
+      "name": "Golem_Rock_032",
+      "vertices": 222,
+      "faces": 258
+    },
+    {
+      "name": "Golem_Rock_033",
+      "vertices": 219,
+      "faces": 245
+    },
+    {
+      "name": "Golem_Rock_034",
+      "vertices": 226,
+      "faces": 282
+    },
+    {
+      "name": "Golem_Rock_035",
+      "vertices": 202,
+      "faces": 225
+    },
+    {
+      "name": "Golem_Rock_036",
+      "vertices": 285,
+      "faces": 313
+    },
+    {
+      "name": "Golem_Rock_037",
+      "vertices": 225,
+      "faces": 249
+    },
+    {
+      "name": "Golem_Rock_038",
+      "vertices": 274,
+      "faces": 306
+    },
+    {
+      "name": "Golem_Rock_039",
+      "vertices": 159,
+      "faces": 183
+    },
+    {
+      "name": "Golem_Rock_040",
+      "vertices": 207,
+      "faces": 231
+    },
+    {
+      "name": "Golem_Rock_041",
+      "vertices": 267,
+      "faces": 309
+    },
+    {
+      "name": "Golem_Rock_042",
+      "vertices": 298,
+      "faces": 341
+    },
+    {
+      "name": "Golem_Rock_043",
+      "vertices": 330,
+      "faces": 368
+    },
+    {
+      "name": "Golem_Rock_044",
+      "vertices": 331,
+      "faces": 404
+    },
+    {
+      "name": "Golem_Rock_045",
+      "vertices": 247,
+      "faces": 265
+    },
+    {
+      "name": "Golem_Rock_046",
+      "vertices": 191,
+      "faces": 173
+    },
+    {
+      "name": "Golem_Rock_047",
+      "vertices": 434,
+      "faces": 508
+    },
+    {
+      "name": "Golem_Rock_048",
+      "vertices": 219,
+      "faces": 242
+    },
+    {
+      "name": "Golem_Rock_049",
+      "vertices": 306,
+      "faces": 362
+    },
+    {
+      "name": "Golem_Rock_050",
+      "vertices": 276,
+      "faces": 287
+    },
+    {
+      "name": "Golem_Rock_051",
+      "vertices": 179,
+      "faces": 216
+    },
+    {
+      "name": "Golem_Rock_052",
+      "vertices": 263,
+      "faces": 292
+    },
+    {
+      "name": "Golem_Rock_053",
+      "vertices": 307,
+      "faces": 346
+    },
+    {
+      "name": "Golem_Rock_054",
+      "vertices": 223,
+      "faces": 241
+    },
+    {
+      "name": "Golem_Rock_055",
+      "vertices": 199,
+      "faces": 191
+    },
+    {
+      "name": "Golem_Rock_056",
+      "vertices": 225,
+      "faces": 262
+    },
+    {
+      "name": "Golem_Rock_057",
+      "vertices": 291,
+      "faces": 329
+    },
+    {
+      "name": "Golem_Rock_058",
+      "vertices": 300,
+      "faces": 337
+    },
+    {
+      "name": "Golem_Rock_059",
+      "vertices": 589,
+      "faces": 756
+    },
+    {
+      "name": "Golem_Rock_060",
+      "vertices": 190,
+      "faces": 201
+    },
+    {
+      "name": "Golem_Rock_061",
+      "vertices": 239,
+      "faces": 267
+    },
+    {
+      "name": "Golem_Rock_062",
+      "vertices": 34,
+      "faces": 19
+    },
+    {
+      "name": "Golem_Rock_063",
+      "vertices": 150,
+      "faces": 171
+    },
+    {
+      "name": "Golem_Rock_064",
+      "vertices": 268,
+      "faces": 305
+    },
+    {
+      "name": "Golem_Rock_065",
+      "vertices": 283,
+      "faces": 321
+    },
+    {
+      "name": "Golem_Rock_066",
+      "vertices": 271,
+      "faces": 304
+    },
+    {
+      "name": "Golem_Rock_067",
+      "vertices": 242,
+      "faces": 265
+    },
+    {
+      "name": "Golem_Rock_068",
+      "vertices": 300,
+      "faces": 334
+    },
+    {
+      "name": "Golem_Rock_069",
+      "vertices": 209,
+      "faces": 237
+    },
+    {
+      "name": "Golem_Rock_070",
+      "vertices": 247,
+      "faces": 297
+    },
+    {
+      "name": "Golem_Rock_071",
+      "vertices": 269,
+      "faces": 286
+    },
+    {
+      "name": "Golem_Rock_072",
+      "vertices": 347,
+      "faces": 405
+    },
+    {
+      "name": "Golem_Rock_073",
+      "vertices": 327,
+      "faces": 379
+    },
+    {
+      "name": "Golem_Rock_074",
+      "vertices": 261,
+      "faces": 287
+    },
+    {
+      "name": "Golem_Rock_075",
+      "vertices": 119,
+      "faces": 113
+    },
+    {
+      "name": "Golem_Rock_076",
+      "vertices": 263,
+      "faces": 266
+    },
+    {
+      "name": "Golem_Rock_077",
+      "vertices": 488,
+      "faces": 504
+    },
+    {
+      "name": "Golem_Rock_078",
+      "vertices": 325,
+      "faces": 377
+    },
+    {
+      "name": "Golem_Rock_079",
+      "vertices": 259,
+      "faces": 311
+    },
+    {
+      "name": "Golem_Rock_080",
+      "vertices": 188,
+      "faces": 214
+    },
+    {
+      "name": "Golem_Rock_081",
+      "vertices": 195,
+      "faces": 178
+    },
+    {
+      "name": "Golem_Rock_082",
+      "vertices": 355,
+      "faces": 379
+    },
+    {
+      "name": "Golem_Rock_083",
+      "vertices": 209,
+      "faces": 231
+    },
+    {
+      "name": "Golem_Rock_084",
+      "vertices": 452,
+      "faces": 476
+    },
+    {
+      "name": "Golem_Rock_085",
+      "vertices": 247,
+      "faces": 277
+    },
+    {
+      "name": "Golem_Rock_086",
+      "vertices": 264,
+      "faces": 315
+    },
+    {
+      "name": "Golem_Rock_087",
+      "vertices": 221,
+      "faces": 240
+    },
+    {
+      "name": "Golem_Rock_088",
+      "vertices": 276,
+      "faces": 317
+    },
+    {
+      "name": "Golem_Rock_089",
+      "vertices": 275,
+      "faces": 321
+    },
+    {
+      "name": "Golem_Rock_090",
+      "vertices": 299,
+      "faces": 334
+    },
+    {
+      "name": "Golem_Rock_091",
+      "vertices": 6,
+      "faces": 8
+    },
+    {
+      "name": "Golem_Rock_092",
+      "vertices": 241,
+      "faces": 275
+    },
+    {
+      "name": "Golem_Rock_093",
+      "vertices": 191,
+      "faces": 207
+    },
+    {
+      "name": "Golem_Rock_094",
+      "vertices": 534,
+      "faces": 703
+    },
+    {
+      "name": "Golem_Rock_095",
+      "vertices": 209,
+      "faces": 196
+    },
+    {
+      "name": "Golem_Rock_096",
+      "vertices": 289,
+      "faces": 318
+    },
+    {
+      "name": "Golem_Rock_097",
+      "vertices": 264,
+      "faces": 291
+    },
+    {
+      "name": "Golem_Rock_098",
+      "vertices": 220,
+      "faces": 252
+    },
+    {
+      "name": "Golem_Rock_099",
+      "vertices": 265,
+      "faces": 294
+    },
+    {
+      "name": "Golem_Rock_100",
+      "vertices": 224,
+      "faces": 255
+    },
+    {
+      "name": "Golem_Rock_101",
+      "vertices": 236,
+      "faces": 258
+    },
+    {
+      "name": "Golem_Rock_102",
+      "vertices": 267,
+      "faces": 307
+    },
+    {
+      "name": "Golem_Rock_103",
+      "vertices": 244,
+      "faces": 260
+    },
+    {
+      "name": "Golem_Rock_104",
+      "vertices": 225,
+      "faces": 258
+    },
+    {
+      "name": "Golem_Rock_105",
+      "vertices": 191,
+      "faces": 205
+    },
+    {
+      "name": "Golem_Rock_106",
+      "vertices": 242,
+      "faces": 270
+    },
+    {
+      "name": "Golem_Rock_107",
+      "vertices": 194,
+      "faces": 198
+    },
+    {
+      "name": "Golem_Rock_108",
+      "vertices": 195,
+      "faces": 222
+    },
+    {
+      "name": "Golem_Rock_109",
+      "vertices": 217,
+      "faces": 245
+    },
+    {
+      "name": "Golem_Rock_110",
+      "vertices": 264,
+      "faces": 301
+    },
+    {
+      "name": "Golem_Rock_111",
+      "vertices": 45,
+      "faces": 26
+    },
+    {
+      "name": "Golem_Rock_112",
+      "vertices": 207,
+      "faces": 226
+    },
+    {
+      "name": "Golem_Rock_113",
+      "vertices": 178,
+      "faces": 201
+    },
+    {
+      "name": "Golem_Rock_114",
+      "vertices": 256,
+      "faces": 296
+    },
+    {
+      "name": "Golem_Rock_115",
+      "vertices": 236,
+      "faces": 266
+    },
+    {
+      "name": "Golem_Rock_116",
+      "vertices": 287,
+      "faces": 294
+    },
+    {
+      "name": "Golem_Rock_117",
+      "vertices": 36,
+      "faces": 31
+    },
+    {
+      "name": "Golem_Rock_118",
+      "vertices": 239,
+      "faces": 268
+    },
+    {
+      "name": "Golem_Rock_119",
+      "vertices": 340,
+      "faces": 363
+    },
+    {
+      "name": "Golem_Rock_120",
+      "vertices": 323,
+      "faces": 351
+    },
+    {
+      "name": "Golem_Rock_121",
+      "vertices": 180,
+      "faces": 195
+    },
+    {
+      "name": "Golem_Rock_122",
+      "vertices": 271,
+      "faces": 296
+    },
+    {
+      "name": "Golem_Rock_123",
+      "vertices": 154,
+      "faces": 152
+    },
+    {
+      "name": "Golem_Rock_124",
+      "vertices": 204,
+      "faces": 218
+    },
+    {
+      "name": "Golem_Rock_125",
+      "vertices": 234,
+      "faces": 274
+    },
+    {
+      "name": "Golem_Rock_126",
+      "vertices": 220,
+      "faces": 252
+    },
+    {
+      "name": "Golem_Rock_127",
+      "vertices": 128,
+      "faces": 136
+    },
+    {
+      "name": "Golem_Rock_128",
+      "vertices": 239,
+      "faces": 256
+    },
+    {
+      "name": "Golem_Rock_129",
+      "vertices": 203,
+      "faces": 225
+    },
+    {
+      "name": "Golem_Rock_130",
+      "vertices": 257,
+      "faces": 269
+    },
+    {
+      "name": "Golem_Rock_131",
+      "vertices": 237,
+      "faces": 259
+    },
+    {
+      "name": "Golem_Rock_132",
+      "vertices": 270,
+      "faces": 302
+    },
+    {
+      "name": "Golem_Rock_133",
+      "vertices": 196,
+      "faces": 208
+    },
+    {
+      "name": "Golem_Rock_134",
+      "vertices": 143,
+      "faces": 153
+    },
+    {
+      "name": "Golem_Rock_135",
+      "vertices": 220,
+      "faces": 241
+    }
+  ]
+}

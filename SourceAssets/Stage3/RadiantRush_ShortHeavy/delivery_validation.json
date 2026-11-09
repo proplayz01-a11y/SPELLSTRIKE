@@ -1,0 +1,16 @@
+{
+  "export_path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Stage 3\\Enemies\\STAGE 3 ENEMY NO. 1\\Animations\\SunboundWarden_RadiantRush_ShortHeavy.fbx",
+  "sha256": "ce185d7734458ef72e9397bf95d61f0ac4b73c1eadc7af4f66d4a1d0d5098d36",
+  "matches_validated_export": true,
+  "preserved_file_count": 65,
+  "changed_original_files": [],
+  "new_importer_settings_authored": {
+    "rig": "Humanoid / Create From This Model",
+    "loop_time": false,
+    "root_rotation_and_position_baked_into_pose": true,
+    "compression": "Off",
+    "resample_curves": false,
+    "events": []
+  },
+  "unity_import_runtime_validation": "Not performed"
+}

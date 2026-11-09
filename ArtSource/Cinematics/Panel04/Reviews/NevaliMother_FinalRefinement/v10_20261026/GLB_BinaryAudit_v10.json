@@ -1,0 +1,505 @@
+{
+  "auditType": "Independent read-only GLB JSON/BIN structural and preservation audit",
+  "generatedAtUTC": "2026-10-26T07:19:57.5138289Z",
+  "sourceGLBPath": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\NevaliMother\\Working\\NevaliMother_FinalCharacterRefinement_v10.glb",
+  "sourceRodinPath": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\NevaliMother\\Rodin_Original_20261026\\NevaliMother_Rodin_PBR_Original.glb",
+  "result": "PASS",
+  "issues": [],
+  "file": {
+    "bytes": 14622876,
+    "sha256": "8dea59bb0cd64043262f1e9d15302dff375d071a2869339d4528fb803ee6ebda",
+    "magic": "glTF",
+    "version": 2,
+    "declaredBytes": 14622876,
+    "declaredLengthMatches": true,
+    "jsonChunkBytes": 4076,
+    "binChunkBytes": 14618772,
+    "declaredBufferBytes": 14618772,
+    "binLengthMatches": true,
+    "allBufferViewsWithinBuffer": true
+  },
+  "counts": {
+    "meshes": 3,
+    "nodes": 3,
+    "triangles": 70559,
+    "materials": 2,
+    "textures": 5,
+    "embeddedImages": 5,
+    "accessors": 12,
+    "cameras": 0,
+    "skins": 0,
+    "animations": 0,
+    "externalImageURIs": 0,
+    "externalBufferURIs": 0,
+    "unexpectedNoncharacterNodes": 0
+  },
+  "meshes": [
+    {
+      "meshIndex": 0,
+      "nodeName": "NEVALI_MOTHER_PRESERVED_TEXTURED_BODY_v10",
+      "meshName": "model.001",
+      "vertices": 10214,
+      "triangles": 15359,
+      "primitiveMode": 4,
+      "materialIndex": 0,
+      "hasNormals": true,
+      "hasUV0": true,
+      "hasJointWeights": false,
+      "indicesInRange": true,
+      "indexCountDivisibleBy3": true,
+      "boundsMin": [
+        -0.7418709993362427,
+        0,
+        -0.43045392632484436
+      ],
+      "boundsMax": [
+        0.7363569736480713,
+        1.8301429748535156,
+        0.43391305208206177
+      ],
+      "dimensionsMeters": [
+        1.478227972984314,
+        1.8301429748535156,
+        0.8643669784069061
+      ]
+    },
+    {
+      "meshIndex": 1,
+      "nodeName": "NEVALI_MOTHER_RIGHT_HAND_RETOPO_v10",
+      "meshName": "Mesh",
+      "vertices": 16321,
+      "triangles": 27600,
+      "primitiveMode": 4,
+      "materialIndex": 1,
+      "hasNormals": true,
+      "hasUV0": true,
+      "hasJointWeights": false,
+      "indicesInRange": true,
+      "indexCountDivisibleBy3": true,
+      "boundsMin": [
+        0.7049997448921204,
+        1.381441593170166,
+        0.07794174551963806
+      ],
+      "boundsMax": [
+        0.9270644187927246,
+        1.4979455471038818,
+        0.12415315955877304
+      ],
+      "dimensionsMeters": [
+        0.22206467390060425,
+        0.11650395393371582,
+        0.04621141403913498
+      ]
+    },
+    {
+      "meshIndex": 2,
+      "nodeName": "NEVALI_MOTHER_LEFT_HAND_RETOPO_v10",
+      "meshName": "Mesh",
+      "vertices": 16317,
+      "triangles": 27600,
+      "primitiveMode": 4,
+      "materialIndex": 1,
+      "hasNormals": true,
+      "hasUV0": true,
+      "hasJointWeights": false,
+      "indicesInRange": true,
+      "indexCountDivisibleBy3": true,
+      "boundsMin": [
+        -0.9270644187927246,
+        1.381441593170166,
+        0.07794173806905746
+      ],
+      "boundsMax": [
+        -0.7049997448921204,
+        1.4979455471038818,
+        0.12415315955877304
+      ],
+      "dimensionsMeters": [
+        0.22206467390060425,
+        0.11650395393371582,
+        0.046211421489715576
+      ]
+    }
+  ],
+  "orientation": {
+    "axis": "glTF Y-up",
+    "nodeTransformsAbsent": true,
+    "heightMeters": 1.8301429748535156,
+    "handBoundsMirroredAcrossX": true
+  },
+  "images": [
+    {
+      "index": 0,
+      "name": "texture_normal",
+      "mimeType": "image/png",
+      "embedded": true,
+      "bufferView": 4,
+      "bytes": 5489985,
+      "sha256": "c2e3ce21c41823e46d822076235529f55dd3a3dc3d923ecc6ba8dfd7d39a2acb",
+      "pngSignature": "89-50-4E-47-0D-0A-1A-0A",
+      "validPngSignature": true,
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "index": 1,
+      "name": "texture_diffuse",
+      "mimeType": "image/png",
+      "embedded": true,
+      "bufferView": 5,
+      "bytes": 4364529,
+      "sha256": "601ed24192caa5a23c302c84a3eae9ad713f201212ac6f5c70535d2af5bff2da",
+      "pngSignature": "89-50-4E-47-0D-0A-1A-0A",
+      "validPngSignature": true,
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "index": 2,
+      "name": "texture_metallic-texture_roughness",
+      "mimeType": "image/png",
+      "embedded": true,
+      "bufferView": 6,
+      "bytes": 2900801,
+      "sha256": "a6aeaba652470815036bf3b6d12b1cd0ea4066304dc520769a50a3b31132b207",
+      "pngSignature": "89-50-4E-47-0D-0A-1A-0A",
+      "validPngSignature": true,
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "index": 3,
+      "name": "NevaliMother_v10_HandSkin_BaseColor",
+      "mimeType": "image/png",
+      "embedded": true,
+      "bufferView": 11,
+      "bytes": 60456,
+      "sha256": "571aa17b6ff5d62a469faa9057dd41adb38957d1bea23a074f854af679e3f36b",
+      "pngSignature": "89-50-4E-47-0D-0A-1A-0A",
+      "validPngSignature": true,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "index": 4,
+      "name": "NevaliMother_v10_HandSkin_MetallicRoughness",
+      "mimeType": "image/png",
+      "embedded": true,
+      "bufferView": 12,
+      "bytes": 8369,
+      "sha256": "e9246368b6196bded58e72be2bb1ab0e4c7079e7bc5b7873e75bd9c903b01ea9",
+      "pngSignature": "89-50-4E-47-0D-0A-1A-0A",
+      "validPngSignature": true,
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "textureReferences": [
+    {
+      "material": "model",
+      "binding": "normalTexture",
+      "textureIndex": 0,
+      "textureInRange": true,
+      "imageIndex": 0,
+      "imageInRange": true
+    },
+    {
+      "material": "model",
+      "binding": "baseColorTexture",
+      "textureIndex": 1,
+      "textureInRange": true,
+      "imageIndex": 1,
+      "imageInRange": true
+    },
+    {
+      "material": "model",
+      "binding": "metallicRoughnessTexture",
+      "textureIndex": 2,
+      "textureInRange": true,
+      "imageIndex": 2,
+      "imageInRange": true
+    },
+    {
+      "material": "NevaliMother_v10_TexturedSkin_OriginalWristMatched",
+      "binding": "baseColorTexture",
+      "textureIndex": 3,
+      "textureInRange": true,
+      "imageIndex": 3,
+      "imageInRange": true
+    },
+    {
+      "material": "NevaliMother_v10_TexturedSkin_OriginalWristMatched",
+      "binding": "metallicRoughnessTexture",
+      "textureIndex": 4,
+      "textureInRange": true,
+      "imageIndex": 4,
+      "imageInRange": true
+    }
+  ],
+  "originalBodyImagePreservation": [
+    {
+      "name": "texture_normal",
+      "originalSha256": "c2e3ce21c41823e46d822076235529f55dd3a3dc3d923ecc6ba8dfd7d39a2acb",
+      "exportedSha256": "c2e3ce21c41823e46d822076235529f55dd3a3dc3d923ecc6ba8dfd7d39a2acb",
+      "byteIdentical": true
+    },
+    {
+      "name": "texture_diffuse",
+      "originalSha256": "601ed24192caa5a23c302c84a3eae9ad713f201212ac6f5c70535d2af5bff2da",
+      "exportedSha256": "601ed24192caa5a23c302c84a3eae9ad713f201212ac6f5c70535d2af5bff2da",
+      "byteIdentical": true
+    },
+    {
+      "name": "texture_metallic-texture_roughness",
+      "originalSha256": "a6aeaba652470815036bf3b6d12b1cd0ea4066304dc520769a50a3b31132b207",
+      "exportedSha256": "a6aeaba652470815036bf3b6d12b1cd0ea4066304dc520769a50a3b31132b207",
+      "byteIdentical": true
+    }
+  ],
+  "retainedBodyPositionUVPreservation": {
+    "method": "Exact IEEE float byte tuple membership: POSITION xyz + TEXCOORD_0 uv for every exported body vertex against original Rodin GLB",
+    "matchedVertices": 10214,
+    "exportedBodyVertices": 10214,
+    "allRetainedVerticesExact": true,
+    "scopeNote": "Verifies retained body position and UV bytes; does not assert unchanged full original topology because malformed hand regions are masked out"
+  },
+  "accessors": [
+    {
+      "index": 0,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 10214,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        -0.741871,
+        0.0,
+        -0.43045393
+      ],
+      "actualMax": [
+        0.736357,
+        1.830143,
+        0.43391305
+      ],
+      "declaredBoundsMatchActual": true
+    },
+    {
+      "index": 1,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 10214,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        -0.9999794,
+        -0.999954,
+        -0.999985
+      ],
+      "actualMax": [
+        0.9999794,
+        1.0,
+        0.999992
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 2,
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 10214,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        0.001,
+        0.0009999871
+      ],
+      "actualMax": [
+        0.999,
+        0.999
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 3,
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 46077,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        0
+      ],
+      "actualMax": [
+        10213
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 4,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 16321,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        0.70499974,
+        1.3814416,
+        0.077941746
+      ],
+      "actualMax": [
+        0.9270644,
+        1.4979455,
+        0.12415316
+      ],
+      "declaredBoundsMatchActual": true
+    },
+    {
+      "index": 5,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 16321,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        -0.99999976,
+        -0.99999964,
+        -0.99999297
+      ],
+      "actualMax": [
+        0.99999714,
+        0.99999905,
+        1.0
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 6,
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 16321,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        0.0055131526,
+        0.005512893
+      ],
+      "actualMax": [
+        0.94107944,
+        0.99448717
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 7,
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 82800,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        0
+      ],
+      "actualMax": [
+        16320
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 8,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 16317,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        -0.9270644,
+        1.3814416,
+        0.07794174
+      ],
+      "actualMax": [
+        -0.70499974,
+        1.4979455,
+        0.12415316
+      ],
+      "declaredBoundsMatchActual": true
+    },
+    {
+      "index": 9,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 16317,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        -0.99999714,
+        -0.99999964,
+        -0.99999297
+      ],
+      "actualMax": [
+        0.99999976,
+        0.99999905,
+        1.0
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 10,
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 16317,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        0.0055131526,
+        0.005512893
+      ],
+      "actualMax": [
+        0.94107944,
+        0.99448717
+      ],
+      "declaredBoundsMatchActual": null
+    },
+    {
+      "index": 11,
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 82800,
+      "finite": true,
+      "fitsBufferView": true,
+      "actualMin": [
+        0
+      ],
+      "actualMax": [
+        16316
+      ],
+      "declaredBoundsMatchActual": null
+    }
+  ],
+  "characterOnly": {
+    "expectedNodeNames": [
+      "NEVALI_MOTHER_PRESERVED_TEXTURED_BODY_v10",
+      "NEVALI_MOTHER_RIGHT_HAND_RETOPO_v10",
+      "NEVALI_MOTHER_LEFT_HAND_RETOPO_v10"
+    ],
+    "unexpectedNodeNames": [
+      null
+    ],
+    "hasLights": false,
+    "hasCameras": false,
+    "hasSkins": false,
+    "hasAnimations": false,
+    "externalURIsAbsent": true
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular"
+  ],
+  "materialNote": "Hand material has embedded base color and metallic/roughness textures and KHR_materials_specular factor 0.54. Original body uses its original embedded normal/base color/metallic-roughness images.",
+  "rigReady": false,
+  "limitations": [
+    "Static separate hand meshes; no skin rig or animation exported.",
+    "Binary audit does not establish final anatomical or rendered material acceptance; separate Blender reimport visual QA is required.",
+    "Inherited Rodin body connected-island/boundary topology was reported by the parent Blender audit and is not remeasured by this binary report.",
+    "No Unity or device validation performed."
+  ]
+}

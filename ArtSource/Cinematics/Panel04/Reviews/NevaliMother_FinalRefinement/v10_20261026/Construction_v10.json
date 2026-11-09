@@ -1,0 +1,60 @@
+{
+  "source_body_visible_geometry_uv_sha256": "da2afd1d095bf135eeac2a2aec1f2287ed1763a6131e668f8d722df2f210a352",
+  "new_hand_cage": {
+    "vertices": 844,
+    "edges": 1725,
+    "faces": 884,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0
+  },
+  "sampled_srgb_skin": [
+    0.8568628132343292,
+    0.6901960968971252,
+    0.6274510025978088
+  ],
+  "source_skin_uv_sample": [
+    0.01758733329673608,
+    0.49924933910369873
+  ],
+  "digit_layout": [
+    [
+      "Little",
+      -0.0318,
+      0.0074,
+      0.007,
+      0.811,
+      0.078,
+      -0.005
+    ],
+    [
+      "Ring",
+      -0.0124,
+      0.009,
+      0.008,
+      0.82,
+      0.093,
+      -0.002
+    ],
+    [
+      "Middle",
+      0.009,
+      0.0095,
+      0.0085,
+      0.823,
+      0.104,
+      0.001
+    ],
+    [
+      "Index",
+      0.0308,
+      0.009,
+      0.008,
+      0.818,
+      0.094,
+      0.004
+    ]
+  ],
+  "version": 10,
+  "method": "Explicit shared-vertex quad palm, four finger sockets, opposing thumb side socket; no voxel union/remesh. UV mapped source-color skin atlases."
+}

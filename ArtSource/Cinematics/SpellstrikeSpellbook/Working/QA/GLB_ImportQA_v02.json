@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "blender": "5.0.1",
+  "page_objects": 24,
+  "page_hinges": 24,
+  "cover_hinges": 2,
+  "materials": 10,
+  "image_count": 4,
+  "images": [
+    "Leather_AncientMidnight_1024",
+    "Leather_InsetCharcoal_1024",
+    "Leather_SpineBrown_1024",
+    "Parchment_AgedBlank_1024"
+  ],
+  "mesh_objects": 291
+}

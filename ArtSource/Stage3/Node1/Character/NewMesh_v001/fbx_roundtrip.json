@@ -1,0 +1,23 @@
+{
+  "mesh_count": 1,
+  "triangles": 66496,
+  "height_m": 1.8999999878603848,
+  "loaded_images": [
+    {
+      "name": "Warden_BaseColor",
+      "has_data": true,
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "Warden_Normal",
+      "has_data": true,
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ]
+}

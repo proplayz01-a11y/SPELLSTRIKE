@@ -1,0 +1,22 @@
+{
+  "name": "P10_CAMERA_01_OlderVanSpeaks_VanderListens",
+  "location": [
+    0.0,
+    -8.649999618530273,
+    1.4700000286102295
+  ],
+  "rotation_euler": [
+    1.4945805072784424,
+    -0.0,
+    0.0
+  ],
+  "lens_mm": 43.0,
+  "sensor_width_mm": 36.0,
+  "clip_end": 500.0,
+  "fps": 24,
+  "source_frames": [
+    1,
+    192
+  ],
+  "note": "Blender camera transform, validate Unity coordinate conversion before using"
+}

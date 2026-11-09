@@ -1,0 +1,46 @@
+{
+  "frames": [
+    1,
+    91
+  ],
+  "fps": 30,
+  "duration": 3,
+  "strips": [
+    {
+      "track": "01 FULL crouch entry",
+      "action": "ADAPTED_Crouch_Canonical_InPlace",
+      "source": [
+        0.0,
+        21.0
+      ],
+      "timeline": [
+        1.0,
+        22.0
+      ],
+      "scale": 1.0,
+      "repeat": 1.0,
+      "blend_in": 0.0,
+      "blend_out": 0.0,
+      "mode": "REPLACE",
+      "extrapolation": "HOLD"
+    },
+    {
+      "track": "02 FULL crouch idle",
+      "action": "ADAPTED_CrouchIdle_Canonical_InPlace",
+      "source": [
+        0.0,
+        73.0
+      ],
+      "timeline": [
+        18.0,
+        91.0
+      ],
+      "scale": 1.0,
+      "repeat": 1.0,
+      "blend_in": 4.0,
+      "blend_out": 0.0,
+      "mode": "REPLACE",
+      "extrapolation": "HOLD"
+    }
+  ]
+}

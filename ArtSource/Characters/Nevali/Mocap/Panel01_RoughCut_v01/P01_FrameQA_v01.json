@@ -1,0 +1,38 @@
+{
+  "scene": "Scene",
+  "frames": {
+    "1": {
+      "toy_location": [
+        1.56,
+        -0.86,
+        0.485
+      ],
+      "render": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\Panel01_RoughCut_v01\\FrameQA_v01\\Home_NevaliV13_F001.png"
+    },
+    "96": {
+      "toy_location": [
+        1.4086,
+        -0.8091,
+        0.635
+      ],
+      "render": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\Panel01_RoughCut_v01\\FrameQA_v01\\Home_NevaliV13_F096.png"
+    },
+    "144": {
+      "toy_location": [
+        1.32,
+        -0.82,
+        0.465
+      ],
+      "render": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\Panel01_RoughCut_v01\\FrameQA_v01\\Home_NevaliV13_F144.png"
+    },
+    "240": {
+      "toy_location": [
+        1.32,
+        -0.82,
+        0.465
+      ],
+      "render": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\Panel01_RoughCut_v01\\FrameQA_v01\\Home_NevaliV13_F240.png"
+    }
+  },
+  "camera": "PREVIEW_CAMERA"
+}

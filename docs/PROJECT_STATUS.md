@@ -1,5 +1,24 @@
 # SPELLSTRIKE Project Status
 
+## Persistent Pause Button Visual — 2026-11-05
+
+Added `Assets/UI/Pause/PauseButtonCircle.png` as a transparent Sprite using the
+user-supplied ornate navy-and-gold circular button artwork. Added a `PauseButton`
+with two warm-gold pause bars and a subtle shadow to the primary combat Canvas
+inside `Assets/Prefabs/PersistentGameplayHUD.prefab`, anchored to the top-right
+with a 48-unit inset. The button is a child of the canonical HUD root, whose
+`PersistentHUDRoot.Awake()` detaches it and calls `DontDestroyOnLoad`; it therefore
+shares the HUD lifetime rather than being duplicated in individual stage scenes.
+The Stage 1 `SampleScene`, Stage 2, Stage 3, Stage 4, and `TutorialScene` currently
+reference this same canonical prefab.
+
+Unity refreshed the changed assets and the button rendered in the Stage 1 Game
+View. The `Button` currently has no click listener: this is the persistent visual
+control only, not a completed pause panel, options flow, or return-to-menu flow.
+Play Mode scene-transition tests and physical Android/A05s layout validation
+remain pending. A pre-edit prefab backup is in
+`RecoveryBackups/PAUSE_BUTTON_20261105/`.
+
 ## Stage 3 Node 2 Character / Empty Quiver — 2026-10-02
 
 Created a separate textured desert-archer asset from the exact supplied screenshot

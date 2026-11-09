@@ -1,0 +1,44 @@
+SPELLSTRIKE MAIN MENU V05 | HOVER INTEGRATION QA | 2026-10-30
+
+Scene:
+Assets/Scenes/MenuConcepts/MainMenuV2_Prototype_20261030_v05_HoverFlow.unity
+
+Source artwork: C:\Users\David\Downloads\MAIN MENU ASSETS\UPDATED ASSETS
+Original downloaded source artwork and earlier V01-V04 scenes preserved.
+Production Main Menu, Tutorial, and cinematics not edited.
+
+Geometry-locked hover sprite pairs:
+Adventure: 1254 x 1254; center portal void unchanged.
+Minigame: 1448 x 1086; original details preserved, strong ref gold halo.
+Options: 1254 x 1254; original details preserved, strong ref gold halo.
+All Unity normal/hover RectTransform size, pivot and position checks passed.
+
+Unity Game View recorded at 2400 x 1080:
+V05_FreshIdle.png
+MainMenuV2_V05_AdventureHover.png
+V05_MinigameHover.png
+V05_OptionsHover.png
+
+SIFT feature alignment (idle vs hovered Game View, ROI per object):
+Adventure: 1243 feature matches, median (dx,dy)=(0,0), 96.5% within 1 px.
+Minigame: 831 feature matches, median (dx,dy)=(0,0), 90.7% within 1 px.
+Options: 869 feature matches, median (dx,dy)=(0,0), 99.4% within 1 px.
+These are screenshot-based visual alignments, NOT full Android validation.
+
+Portal:
+Independent V05 shader and controller. Hover-only movement.
+Tested: idle phase 0.00000 stayed 0; hover phase advanced to 9.62091
+while hover blend was 1.0; mouse exit decelerated to 0 hover blend
+with phase then stable, no active spinning. Shader returns to source art
+at idle, rather than freezing a visibly rotated vortex frame.
+
+QA remaining:
+- User visual sign-off through recorded Play Mode QA.
+- Android touch, frame timing and release build verification.
+- Word Chronicle data persistence/SQLite Editor warning investigation.
+- Label placement/aesthetic polish (Adventure label can overlap Options).
+- Functional navigation testing in build for Adventure/Minigame/Options/Quit.
+- Narrow git commit only after QA approval; unrelated dirty tree untouched.
+
+At last check V05 active in Play Mode; EventSystem restored/enabled.
+Unity warning seen: Unity Remote requirements check failed (existing warning).

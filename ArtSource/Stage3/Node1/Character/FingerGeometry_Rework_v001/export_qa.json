@@ -1,0 +1,125 @@
+{
+  "triangles": 21494,
+  "mesh_count": 1,
+  "material_count": 2,
+  "height_m": 1.693356990814209,
+  "hand_boundary_edges": 0,
+  "textures": {
+    "texture_diffuse.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true,
+      "sha256": "cfe5e889ff90e5b5ce1e9af2a1d764d55ba88757739d16b66e2faa9962996d35"
+    },
+    "texture_roughness.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true,
+      "sha256": "aef76918e110474080bb3aa598cc40708c581b4379beb6d86d27572720a6ec90"
+    },
+    "texture_metallic.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true,
+      "sha256": "a91484c3168dd6c9f16887285f42ec141e573fa5e15ef5e379ca3978d48f33c0"
+    },
+    "texture_normal.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true,
+      "sha256": "0ec1663cb8e08a771fd6d084d3825de0ded7dd20cc98b83873d8b70265c272ba"
+    },
+    "FingerPaint_texture_diffuse.png": {
+      "size": [
+        1024,
+        512
+      ],
+      "has_data": true,
+      "sha256": "adc9565d76a3c6b5e6c8dd4d944cd6baf85f9563c3bd512ca91b9e53000b6767"
+    },
+    "FingerPaint_texture_roughness.png": {
+      "size": [
+        1024,
+        512
+      ],
+      "has_data": true,
+      "sha256": "12a81822f50ade51603b0bae9fa76f81040e60c9c394910d4eabca0bd0d6bae1"
+    },
+    "FingerPaint_texture_metallic.png": {
+      "size": [
+        1024,
+        512
+      ],
+      "has_data": true,
+      "sha256": "0edf095ed65b8092205b1779fb6e0b4dda61fc4120b60a1413a9c82f12565282"
+    },
+    "FingerPaint_texture_normal.png": {
+      "size": [
+        1024,
+        512
+      ],
+      "has_data": true,
+      "sha256": "c8525f000f64fff5da03153e4585f96c0cb1eb02865092b79af691b63be19101"
+    }
+  },
+  "glb_loaded_images": [
+    {
+      "name": "FingerPaint_texture_diffuse",
+      "size": [
+        1024,
+        512
+      ],
+      "has_data": true
+    },
+    {
+      "name": "FingerPaint_texture_metallic-FingerPaint_texture_roughness",
+      "size": [
+        1024,
+        512
+      ],
+      "has_data": true
+    },
+    {
+      "name": "FingerPaint_texture_normal",
+      "size": [
+        1024,
+        512
+      ],
+      "has_data": true
+    },
+    {
+      "name": "texture_diffuse",
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true
+    },
+    {
+      "name": "texture_metallic-texture_roughness",
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true
+    },
+    {
+      "name": "texture_normal",
+      "size": [
+        2048,
+        2048
+      ],
+      "has_data": true
+    }
+  ],
+  "source_sha256": "ad612715af88d13e1b6b560033c228b39d1d75bc866d9ca47a2bb5de5ae03c1b",
+  "rigged": false
+}

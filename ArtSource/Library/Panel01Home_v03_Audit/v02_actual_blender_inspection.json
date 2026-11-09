@@ -1,0 +1,1456 @@
+{
+  "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_01_Peaceful_v02.blend",
+  "scene": "Scene",
+  "camera": {
+    "name": "P01_STATIC_HERO_CAMERA",
+    "position": [
+      -2.75,
+      -5.199999809265137,
+      2.049999952316284
+    ],
+    "lens": 32.0
+  },
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "resolution": [
+      1280,
+      720,
+      100
+    ],
+    "samples": null
+  },
+  "roof": {
+    "exists": true,
+    "hide_render": false,
+    "hide_viewport": false,
+    "objects": [
+      "P01_COMPLETE_ROOF_ROOT__HIDE_COLLECTION_FOR_CUTAWAY",
+      "ROOF_CONTINUOUS_OPAQUE_DECK",
+      "ROOF_INTERIOR_WOOD_PLANK_UNDERSIDE",
+      "ROOF_LOW_POLY_SLATE_SHINGLE_COURSES",
+      "ROOF_CLOSED_GABLE_INFILL",
+      "ROOF_RAFTERS_RIDGE_AND_FASCIA",
+      "ROOF_CONTINUOUS_RIDGE_CAP"
+    ]
+  },
+  "objects": [
+    {
+      "name": "ROOF_CROSSBEAM_0",
+      "type": "MESH",
+      "collection": [
+        "SOURCE_V01__REPLACED_COMPONENTS__HIDDEN"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          -0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          -5.6
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluated_tris": 12
+    },
+    {
+      "name": "ROOF_CROSSBEAM_1",
+      "type": "MESH",
+      "collection": [
+        "SOURCE_V01__REPLACED_COMPONENTS__HIDDEN"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          -0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          -5.6
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluated_tris": 12
+    },
+    {
+      "name": "ROOF_CROSSBEAM_2",
+      "type": "MESH",
+      "collection": [
+        "SOURCE_V01__REPLACED_COMPONENTS__HIDDEN"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          -0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          -5.6
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluated_tris": 12
+    },
+    {
+      "name": "ROOF_CROSSBEAM_3",
+      "type": "MESH",
+      "collection": [
+        "SOURCE_V01__REPLACED_COMPONENTS__HIDDEN"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          -0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          -5.6
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluated_tris": 12
+    },
+    {
+      "name": "ROOF_CROSSBEAM_4",
+      "type": "MESH",
+      "collection": [
+        "SOURCE_V01__REPLACED_COMPONENTS__HIDDEN"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          -0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          5.6
+        ],
+        [
+          -0.075,
+          0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          -5.6
+        ],
+        [
+          0.075,
+          -0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          5.6
+        ],
+        [
+          0.075,
+          0.075,
+          -5.6
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluated_tris": 12
+    },
+    {
+      "name": "DOOR_ENTRY_LEFT",
+      "type": "MESH",
+      "collection": [
+        "V02_01_SHELL_AND_OPEN_ENTRY"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -3.725,
+          -6.09,
+          0.0
+        ],
+        [
+          -3.725,
+          -6.09,
+          3.6
+        ],
+        [
+          -3.725,
+          -5.81,
+          3.6
+        ],
+        [
+          -3.725,
+          -5.81,
+          0.0
+        ],
+        [
+          -3.475,
+          -6.09,
+          0.0
+        ],
+        [
+          -3.475,
+          -6.09,
+          3.6
+        ],
+        [
+          -3.475,
+          -5.81,
+          3.6
+        ],
+        [
+          -3.475,
+          -5.81,
+          0.0
+        ]
+      ],
+      "vertices": 56,
+      "polygons": 54,
+      "evaluated_tris": 108
+    },
+    {
+      "name": "DOOR_ENTRY_RIGHT",
+      "type": "MESH",
+      "collection": [
+        "V02_01_SHELL_AND_OPEN_ENTRY"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -1.2,
+          -6.09,
+          0.0
+        ],
+        [
+          -1.2,
+          -6.09,
+          3.6
+        ],
+        [
+          -1.2,
+          -5.81,
+          3.6
+        ],
+        [
+          -1.2,
+          -5.81,
+          0.0
+        ],
+        [
+          4.94,
+          -6.09,
+          0.0
+        ],
+        [
+          4.94,
+          -6.09,
+          3.6
+        ],
+        [
+          4.94,
+          -5.81,
+          3.6
+        ],
+        [
+          4.94,
+          -5.81,
+          0.0
+        ]
+      ],
+      "vertices": 56,
+      "polygons": 54,
+      "evaluated_tris": 108
+    },
+    {
+      "name": "DOOR_ENTRY_HEADER",
+      "type": "MESH",
+      "collection": [
+        "V02_01_SHELL_AND_OPEN_ENTRY"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -3.62,
+          -6.15,
+          3.3
+        ],
+        [
+          -3.62,
+          -6.15,
+          3.6
+        ],
+        [
+          -3.62,
+          -5.75,
+          3.6
+        ],
+        [
+          -3.62,
+          -5.75,
+          3.3
+        ],
+        [
+          -1.22,
+          -6.15,
+          3.3
+        ],
+        [
+          -1.22,
+          -6.15,
+          3.6
+        ],
+        [
+          -1.22,
+          -5.75,
+          3.6
+        ],
+        [
+          -1.22,
+          -5.75,
+          3.3
+        ]
+      ],
+      "vertices": 56,
+      "polygons": 54,
+      "evaluated_tris": 108
+    },
+    {
+      "name": "DOOR_TRIM_-3.53",
+      "type": "MESH",
+      "collection": [
+        "V02_01_SHELL_AND_OPEN_ENTRY"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -3.605,
+          -6.11,
+          -0.005
+        ],
+        [
+          -3.605,
+          -6.11,
+          3.545
+        ],
+        [
+          -3.605,
+          -5.77,
+          3.545
+        ],
+        [
+          -3.605,
+          -5.77,
+          -0.005
+        ],
+        [
+          -3.455,
+          -6.11,
+          -0.005
+        ],
+        [
+          -3.455,
+          -6.11,
+          3.545
+        ],
+        [
+          -3.455,
+          -5.77,
+          3.545
+        ],
+        [
+          -3.455,
+          -5.77,
+          -0.005
+        ]
+      ],
+      "vertices": 56,
+      "polygons": 54,
+      "evaluated_tris": 108
+    },
+    {
+      "name": "DOOR_TRIM_-1.3",
+      "type": "MESH",
+      "collection": [
+        "V02_01_SHELL_AND_OPEN_ENTRY"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -1.375,
+          -6.11,
+          -0.005
+        ],
+        [
+          -1.375,
+          -6.11,
+          3.545
+        ],
+        [
+          -1.375,
+          -5.77,
+          3.545
+        ],
+        [
+          -1.375,
+          -5.77,
+          -0.005
+        ],
+        [
+          -1.225,
+          -6.11,
+          -0.005
+        ],
+        [
+          -1.225,
+          -6.11,
+          3.545
+        ],
+        [
+          -1.225,
+          -5.77,
+          3.545
+        ],
+        [
+          -1.225,
+          -5.77,
+          -0.005
+        ]
+      ],
+      "vertices": 56,
+      "polygons": 54,
+      "evaluated_tris": 108
+    },
+    {
+      "name": "TIMBER_FRAME_AND_WAINSCOT",
+      "type": "MESH",
+      "collection": [
+        "V02_01_SHELL_AND_OPEN_ENTRY"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -3.565,
+          -5.725,
+          0.0
+        ],
+        [
+          -3.565,
+          -5.725,
+          3.55
+        ],
+        [
+          -3.565,
+          3.5,
+          3.55
+        ],
+        [
+          -3.565,
+          3.5,
+          0.0
+        ],
+        [
+          4.89,
+          -5.725,
+          0.0
+        ],
+        [
+          4.89,
+          -5.725,
+          3.55
+        ],
+        [
+          4.89,
+          3.5,
+          3.55
+        ],
+        [
+          4.89,
+          3.5,
+          0.0
+        ]
+      ],
+      "vertices": 2112,
+      "polygons": 2288,
+      "evaluated_tris": 3872
+    },
+    {
+      "name": "REMOVABLE_CEILING_TIMBERS",
+      "type": "MESH",
+      "collection": [
+        "V02_01_SHELL_AND_OPEN_ENTRY"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -3.575,
+          -2.705,
+          3.44
+        ],
+        [
+          -3.575,
+          -2.705,
+          3.66
+        ],
+        [
+          -3.575,
+          3.505,
+          3.66
+        ],
+        [
+          -3.575,
+          3.505,
+          3.44
+        ],
+        [
+          4.875,
+          -2.705,
+          3.44
+        ],
+        [
+          4.875,
+          -2.705,
+          3.66
+        ],
+        [
+          4.875,
+          3.505,
+          3.66
+        ],
+        [
+          4.875,
+          3.505,
+          3.44
+        ]
+      ],
+      "vertices": 224,
+      "polygons": 216,
+      "evaluated_tris": 432
+    },
+    {
+      "name": "TOY_CASTLE_ROOF_CAPS",
+      "type": "MESH",
+      "collection": [
+        "V02_04_RUG_AND_TOYS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          0.227,
+          -1.318,
+          0.484
+        ],
+        [
+          0.227,
+          -1.318,
+          0.865
+        ],
+        [
+          0.227,
+          -1.082,
+          0.865
+        ],
+        [
+          0.227,
+          -1.082,
+          0.484
+        ],
+        [
+          0.947,
+          -1.318,
+          0.484
+        ],
+        [
+          0.947,
+          -1.318,
+          0.865
+        ],
+        [
+          0.947,
+          -1.082,
+          0.865
+        ],
+        [
+          0.947,
+          -1.082,
+          0.484
+        ]
+      ],
+      "vertices": 126,
+      "polygons": 123,
+      "evaluated_tris": 240
+    },
+    {
+      "name": "ROOF_REMOVABLE__HIDE_FOR_CINEMATIC",
+      "type": "EMPTY",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_CAMERA_V03_MATCH_32MM",
+      "type": "CAMERA",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_VAN_DOORWAY_STATIC",
+      "type": "EMPTY",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_NEVALI_SEATED_CLEARANCE",
+      "type": "EMPTY",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_CAMERA_ORIGINAL_TARGET",
+      "type": "EMPTY",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_STATIC_HERO_CAMERA",
+      "type": "CAMERA",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_ROOF_EXTERIOR_CAMERA",
+      "type": "CAMERA",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_ROOF_UNDERSIDE_CAMERA",
+      "type": "CAMERA",
+      "collection": [
+        "V02_05_CAMERAS_LIGHTS_AND_MARKERS"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "P01_COMPLETE_ROOF_ROOT__HIDE_COLLECTION_FOR_CUTAWAY",
+      "type": "EMPTY",
+      "collection": [
+        "V02_07_REMOVABLE_COMPLETE_ROOF"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": null,
+      "vertices": 0,
+      "polygons": 0,
+      "evaluated_tris": 0
+    },
+    {
+      "name": "ROOF_CONTINUOUS_OPAQUE_DECK",
+      "type": "MESH",
+      "collection": [
+        "V02_07_REMOVABLE_COMPLETE_ROOF"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -4.014,
+          -6.29,
+          3.719
+        ],
+        [
+          -4.014,
+          -6.29,
+          5.661
+        ],
+        [
+          -4.014,
+          3.94,
+          5.661
+        ],
+        [
+          -4.014,
+          3.94,
+          3.719
+        ],
+        [
+          5.314,
+          -6.29,
+          3.719
+        ],
+        [
+          5.314,
+          -6.29,
+          5.661
+        ],
+        [
+          5.314,
+          3.94,
+          5.661
+        ],
+        [
+          5.314,
+          3.94,
+          3.719
+        ]
+      ],
+      "vertices": 16,
+      "polygons": 12,
+      "evaluated_tris": 24
+    },
+    {
+      "name": "ROOF_INTERIOR_WOOD_PLANK_UNDERSIDE",
+      "type": "MESH",
+      "collection": [
+        "V02_07_REMOVABLE_COMPLETE_ROOF"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -3.966,
+          -6.29,
+          3.718
+        ],
+        [
+          -3.966,
+          -6.29,
+          5.538
+        ],
+        [
+          -3.966,
+          3.94,
+          5.538
+        ],
+        [
+          -3.966,
+          3.94,
+          3.718
+        ],
+        [
+          5.266,
+          -6.29,
+          3.718
+        ],
+        [
+          5.266,
+          -6.29,
+          5.538
+        ],
+        [
+          5.266,
+          3.94,
+          5.538
+        ],
+        [
+          5.266,
+          3.94,
+          3.718
+        ]
+      ],
+      "vertices": 216,
+      "polygons": 54,
+      "evaluated_tris": 108
+    },
+    {
+      "name": "ROOF_LOW_POLY_SLATE_SHINGLE_COURSES",
+      "type": "MESH",
+      "collection": [
+        "V02_07_REMOVABLE_COMPLETE_ROOF"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -4.027,
+          -6.29,
+          3.852
+        ],
+        [
+          -4.027,
+          -6.29,
+          5.706
+        ],
+        [
+          -4.027,
+          3.94,
+          5.706
+        ],
+        [
+          -4.027,
+          3.94,
+          3.852
+        ],
+        [
+          5.327,
+          -6.29,
+          3.852
+        ],
+        [
+          5.327,
+          -6.29,
+          5.706
+        ],
+        [
+          5.327,
+          3.94,
+          5.706
+        ],
+        [
+          5.327,
+          3.94,
+          3.852
+        ]
+      ],
+      "vertices": 4032,
+      "polygons": 3024,
+      "evaluated_tris": 6048
+    },
+    {
+      "name": "ROOF_CLOSED_GABLE_INFILL",
+      "type": "MESH",
+      "collection": [
+        "V02_07_REMOVABLE_COMPLETE_ROOF"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -3.65,
+          -6.01,
+          3.59
+        ],
+        [
+          -3.65,
+          -6.01,
+          5.56
+        ],
+        [
+          -3.65,
+          3.66,
+          5.56
+        ],
+        [
+          -3.65,
+          3.66,
+          3.59
+        ],
+        [
+          4.95,
+          -6.01,
+          3.59
+        ],
+        [
+          4.95,
+          -6.01,
+          5.56
+        ],
+        [
+          4.95,
+          3.66,
+          5.56
+        ],
+        [
+          4.95,
+          3.66,
+          3.59
+        ]
+      ],
+      "vertices": 12,
+      "polygons": 10,
+      "evaluated_tris": 16
+    },
+    {
+      "name": "ROOF_RAFTERS_RIDGE_AND_FASCIA",
+      "type": "MESH",
+      "collection": [
+        "V02_07_REMOVABLE_COMPLETE_ROOF"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          -4.085,
+          -6.375,
+          3.605
+        ],
+        [
+          -4.085,
+          -6.375,
+          5.675
+        ],
+        [
+          -4.085,
+          4.025,
+          5.675
+        ],
+        [
+          -4.085,
+          4.025,
+          3.605
+        ],
+        [
+          5.385,
+          -6.375,
+          3.605
+        ],
+        [
+          5.385,
+          -6.375,
+          5.675
+        ],
+        [
+          5.385,
+          4.025,
+          5.675
+        ],
+        [
+          5.385,
+          4.025,
+          3.605
+        ]
+      ],
+      "vertices": 1344,
+      "polygons": 1296,
+      "evaluated_tris": 2592
+    },
+    {
+      "name": "ROOF_CONTINUOUS_RIDGE_CAP",
+      "type": "MESH",
+      "collection": [
+        "V02_07_REMOVABLE_COMPLETE_ROOF"
+      ],
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_get": false,
+      "bounds": [
+        [
+          0.43,
+          -6.32,
+          5.57
+        ],
+        [
+          0.43,
+          -6.32,
+          5.77
+        ],
+        [
+          0.43,
+          3.97,
+          5.77
+        ],
+        [
+          0.43,
+          3.97,
+          5.57
+        ],
+        [
+          0.87,
+          -6.32,
+          5.57
+        ],
+        [
+          0.87,
+          -6.32,
+          5.77
+        ],
+        [
+          0.87,
+          3.97,
+          5.77
+        ],
+        [
+          0.87,
+          3.97,
+          5.57
+        ]
+      ],
+      "vertices": 6,
+      "polygons": 5,
+      "evaluated_tris": 8
+    }
+  ],
+  "camera_screen_ray_hits": {
+    "0.42_0.25": [
+      "FAMILY_LIBRARY_CABINET",
+      [
+        1.26,
+        3.125,
+        2.018
+      ]
+    ],
+    "0.42_0.50": [
+      "FAMILY_LIBRARY_CABINET",
+      [
+        1.007,
+        2.645,
+        0.649
+      ]
+    ],
+    "0.42_0.75": [
+      "ROUND_MADDER_FAMILY_RUG",
+      [
+        -0.103,
+        0.362,
+        0.036
+      ]
+    ],
+    "0.46_0.25": [
+      "FAMILY_BOOKS_BOUND_IN_LEATHER",
+      [
+        1.555,
+        2.81,
+        2.018
+      ]
+    ],
+    "0.46_0.50": [
+      "FAMILY_LIBRARY_CABINET",
+      [
+        1.455,
+        2.645,
+        0.611
+      ]
+    ],
+    "0.46_0.75": [
+      "ROUND_MADDER_FAMILY_RUG",
+      [
+        0.144,
+        0.215,
+        0.036
+      ]
+    ],
+    "0.49_0.25": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.307,
+        -2.717,
+        2.04
+      ]
+    ],
+    "0.49_0.50": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.308,
+        -2.716,
+        1.585
+      ]
+    ],
+    "0.49_0.75": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.308,
+        -2.716,
+        1.107
+      ]
+    ],
+    "0.50_0.25": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.278,
+        -2.73,
+        2.04
+      ]
+    ],
+    "0.50_0.50": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.278,
+        -2.73,
+        1.585
+      ]
+    ],
+    "0.50_0.75": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.278,
+        -2.73,
+        1.106
+      ]
+    ],
+    "0.52_0.25": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.202,
+        -2.73,
+        2.04
+      ]
+    ],
+    "0.52_0.50": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.2,
+        -2.73,
+        1.578
+      ]
+    ],
+    "0.52_0.75": [
+      "TIMBER_FRAME_AND_WAINSCOT",
+      [
+        -1.198,
+        -2.73,
+        1.092
+      ]
+    ],
+    "0.54_0.25": [
+      "FAMILY_LIBRARY_CABINET",
+      [
+        2.61,
+        2.946,
+        2.016
+      ]
+    ],
+    "0.54_0.50": [
+      "FAMILY_LIBRARY_CABINET",
+      [
+        2.425,
+        2.645,
+        0.531
+      ]
+    ],
+    "0.54_0.75": [
+      "ROUND_MADDER_FAMILY_RUG",
+      [
+        0.637,
+        -0.079,
+        0.036
+      ]
+    ],
+    "0.56_0.25": [
+      "SHELF_APOTHECARY_AND_KEEPSAKES",
+      [
+        2.853,
+        2.918,
+        2.016
+      ]
+    ],
+    "0.56_0.50": [
+      "FAMILY_LIBRARY_CABINET",
+      [
+        2.692,
+        2.655,
+        0.508
+      ]
+    ],
+    "0.56_0.75": [
+      "TOY_BUILDING_BLOCK_13",
+      [
+        0.328,
+        -0.773,
+        0.284
+      ]
+    ],
+    "0.60_0.25": [
+      "FAMILY_LIBRARY_CABINET",
+      [
+        3.66,
+        3.262,
+        2.013
+      ]
+    ],
+    "0.60_0.50": [
+      "FAMILY_CHAIR_BACK_2.55",
+      [
+        2.476,
+        1.66,
+        0.664
+      ]
+    ],
+    "0.60_0.75": [
+      "TOY_BUILDING_BLOCK_03",
+      [
+        0.206,
+        -1.343,
+        0.465
+      ]
+    ]
+  },
+  "collections": [
+    {
+      "name": "EXPORT__SCENERY",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "PREVIEW_ONLY",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "SOURCE_V01__REPLACED_COMPONENTS__HIDDEN",
+      "hide_render": true,
+      "hide_viewport": true
+    },
+    {
+      "name": "V02_01_SHELL_AND_OPEN_ENTRY",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "V02_02_FAMILY_FURNITURE",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "V02_03_HOUSEHOLD_STORIES",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "V02_04_RUG_AND_TOYS",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "V02_05_CAMERAS_LIGHTS_AND_MARKERS",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "V02_06_GARDEN_GLIMPSE",
+      "hide_render": false,
+      "hide_viewport": false
+    },
+    {
+      "name": "V02_07_REMOVABLE_COMPLETE_ROOF",
+      "hide_render": false,
+      "hide_viewport": false
+    }
+  ],
+  "active_mesh_count": 80
+}

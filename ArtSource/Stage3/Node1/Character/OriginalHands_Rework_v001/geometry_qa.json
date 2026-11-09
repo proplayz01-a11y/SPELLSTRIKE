@@ -1,0 +1,24 @@
+{
+  "source_sha256": "ad612715af88d13e1b6b560033c228b39d1d75bc866d9ca47a2bb5de5ae03c1b",
+  "source_vertices": 8608,
+  "rework_vertices": 8608,
+  "source_faces": 8622,
+  "changed_vertices": 188,
+  "mirrored_vertex_error": 1.0728836059570312e-06,
+  "uvs_exactly_unchanged": true,
+  "outside_hands_unchanged": true,
+  "finger_extension_m": {
+    "Little": 0.015,
+    "Ring": 0.002,
+    "Middle": 0.001,
+    "Index": 0.015
+  },
+  "thumb_diagonal_extension_m": 0.016,
+  "used_images": [
+    "texture_diffuse.png",
+    "texture_roughness.png",
+    "texture_metallic.png",
+    "texture_normal.png"
+  ],
+  "rigged": false
+}

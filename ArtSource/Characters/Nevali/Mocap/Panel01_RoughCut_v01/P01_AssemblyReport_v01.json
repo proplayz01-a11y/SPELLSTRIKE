@@ -1,0 +1,38 @@
+{
+  "source_home": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_01_Peaceful_v01.blend",
+  "source_nevali": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_MediaPipe_BlockPlay_Rough_v04.blend",
+  "source_young_van_temp_standin": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Characters\\DefensePrototypes\\YoungVanAert_Prototype_v01.glb",
+  "separate_blend": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\Panel01_RoughCut_v01\\SPELLSTRIKE_P01_FamilyHome_NevaliV13_RoughCut_v01.blend",
+  "scene": "Scene",
+  "camera": "PREVIEW_CAMERA",
+  "fps": 30,
+  "range": [
+    1,
+    240
+  ],
+  "nevali_rig": "P01_NEVALI_V13_VIDEO_MOTION_ROUGH",
+  "nevali_mesh": "P01_NEVALI_V13_SKIN",
+  "nevali_bones": 57,
+  "nevali_action": "Nevali_v13_MixamoArmatureAction",
+  "young_van_rig_count": 1,
+  "young_van_mesh_count": 51,
+  "new_toy_blocks": [
+    "P01_TOY_STACK_SECOND_STATIC",
+    "P01_TOY_BLOCK_HAND_BLOCKED"
+  ],
+  "manual_contact_frames": [
+    1,
+    48,
+    72,
+    95,
+    121,
+    140,
+    160,
+    240
+  ],
+  "remaining": [
+    "Camera shot QA",
+    "toy hand contact visual check",
+    "actual Unity Timeline and Play Mode"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "blender": "5.0.1",
+  "authoring_objects": 339,
+  "export_mesh_count": 1,
+  "export_material_count": 1,
+  "triangles": 66496,
+  "vertices": 34426,
+  "bounds": [
+    [
+      -1.0249861478805542,
+      -0.19563640654087067,
+      0.0
+    ],
+    [
+      1.0249861478805542,
+      0.1626046746969223,
+      1.899999976158142
+    ]
+  ],
+  "height": 1.899999976158142,
+  "texture_sizes": [
+    [
+      2048,
+      2048
+    ],
+    [
+      2048,
+      2048
+    ],
+    [
+      2048,
+      2048
+    ]
+  ],
+  "source_mesh_or_texture_reused": false,
+  "rigged": false,
+  "finite_coordinates": true,
+  "original_source_sha256": "ad612715af88d13e1b6b560033c228b39d1d75bc866d9ca47a2bb5de5ae03c1b"
+}

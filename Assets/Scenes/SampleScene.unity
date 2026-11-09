@@ -36869,6 +36869,10 @@ PrefabInstance:
       value: 0.84313726
       objectReference: {fileID: 0}
     - target: {fileID: 7035257562677522734, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
+      propertyPath: m_overflowMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7035257562677522734, guid: da6d4dc5fcd26fa43ac2e2e59e1d1e3d, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
       objectReference: {fileID: 0}

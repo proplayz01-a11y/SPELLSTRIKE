@@ -1,0 +1,580 @@
+{
+  "source_blend": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v14_BowVisibleReview.blend",
+  "corrected_blend": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+  "hand_corrections": [
+    {
+      "source": "NEVALI_MOTHER_RIGHT_HAND_RETOPO_SKINNED_v12",
+      "replacement": "P04_MOTHER_RIGHT_HAND_ATTACHED_STATIC_v15",
+      "translation_m": [
+        -0.017999999225139618,
+        -0.004000000189989805,
+        -0.017999999225139618
+      ],
+      "method": "Preserve evaluated hand shape and UVs; align the whole wrist beneath the posed, statically-draped original sleeve."
+    },
+    {
+      "source": "NEVALI_MOTHER_LEFT_HAND_RETOPO_SKINNED_v12",
+      "replacement": "P04_MOTHER_LEFT_HAND_ATTACHED_STATIC_v15",
+      "translation_m": [
+        -0.017999999225139618,
+        0.004000000189989805,
+        -0.03500000014901161
+      ],
+      "method": "Preserve evaluated hand shape and UVs; align the whole wrist beneath the posed, statically-draped original sleeve."
+    }
+  ],
+  "hidden_in_new_version": [
+    "P04_v08_VanAertStaff_WalnutOnFloor",
+    "P04_v08_Staff_GoldClamp",
+    "P04_v08_Staff_SingleBlueDiamond",
+    "HOUSE_LEFT_WALL"
+  ],
+  "material_copies": [
+    {
+      "source": "V02_Oak_02",
+      "new": "P04_V15_ASHED_V02_Oak_02",
+      "pbr_base_color": [
+        0.095,
+        0.07,
+        0.05
+      ]
+    },
+    {
+      "source": "V02_Warm_Lime_Plaster",
+      "new": "P04_V15_ASHED_V02_Warm_Lime_Plaster",
+      "pbr_base_color": [
+        0.23,
+        0.215,
+        0.185
+      ]
+    },
+    {
+      "source": "V02_Honey_Edges",
+      "new": "P04_V15_ASHED_V02_Honey_Edges",
+      "pbr_base_color": [
+        0.13,
+        0.09,
+        0.05
+      ]
+    },
+    {
+      "source": "V02_Carved_Timber",
+      "new": "P04_V15_ASHED_V02_Carved_Timber",
+      "pbr_base_color": [
+        0.065,
+        0.045,
+        0.03
+      ]
+    },
+    {
+      "source": "V02_Oak_04",
+      "new": "P04_V15_ASHED_V02_Oak_04",
+      "pbr_base_color": [
+        0.095,
+        0.07,
+        0.05
+      ]
+    },
+    {
+      "source": "V02_Oak_00",
+      "new": "P04_V15_ASHED_V02_Oak_00",
+      "pbr_base_color": [
+        0.095,
+        0.07,
+        0.05
+      ]
+    },
+    {
+      "source": "V02_Oak_01",
+      "new": "P04_V15_ASHED_V02_Oak_01",
+      "pbr_base_color": [
+        0.095,
+        0.07,
+        0.05
+      ]
+    },
+    {
+      "source": "V02_Oak_03",
+      "new": "P04_V15_ASHED_V02_Oak_03",
+      "pbr_base_color": [
+        0.095,
+        0.07,
+        0.05
+      ]
+    },
+    {
+      "source": "V02_Aged_Walnut",
+      "new": "P04_V15_ASHED_V02_Aged_Walnut",
+      "pbr_base_color": [
+        0.035,
+        0.028,
+        0.024
+      ]
+    },
+    {
+      "source": "V02_Rug_Madder",
+      "new": "P04_V15_ASHED_V02_Rug_Madder",
+      "pbr_base_color": [
+        0.12,
+        0.045,
+        0.035
+      ]
+    },
+    {
+      "source": "V02_Rug_Wine_Border",
+      "new": "P04_V15_ASHED_V02_Rug_Wine_Border",
+      "pbr_base_color": [
+        0.055,
+        0.018,
+        0.02
+      ]
+    },
+    {
+      "source": "V02_Ochre_Embroidery",
+      "new": "P04_V15_ASHED_V02_Ochre_Embroidery",
+      "pbr_base_color": [
+        0.24,
+        0.17,
+        0.085
+      ]
+    }
+  ],
+  "canonical_staff": {
+    "source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Character\\STAFF.glb",
+    "guid": "85e409f88beb1c94abee8973c66cf04c",
+    "source_sha256": "0dedfd15192dd4b6667066b592f5a2c063d62644bc8adddf3e44d001bd802532",
+    "object": "P04_CANONICAL_VAN_STAFF__FROM_P02_P03_STAFF_GLB",
+    "uniform_scale_baked": 1.9,
+    "triangles": 5029,
+    "ground_clearance_m": 0.025
+  },
+  "shots": [
+    {
+      "id": "01_DISCOVERY_WIDE",
+      "name": "Discovery / ruined surroundings",
+      "eye": {
+        "x": -3.4,
+        "y": -4.8,
+        "z": 2.3
+      },
+      "target": {
+        "x": -0.35,
+        "y": 0.3,
+        "z": 0.85
+      },
+      "verticalFov": 45.0,
+      "blender_camera": "P04_V15_01_DISCOVERY_WIDE"
+    },
+    {
+      "id": "02_VAN_GRIEF",
+      "name": "Van grieving beside his wife",
+      "eye": {
+        "x": 1.5,
+        "y": 1.35,
+        "z": 1.55
+      },
+      "target": {
+        "x": -0.9,
+        "y": -0.28,
+        "z": 0.55
+      },
+      "verticalFov": 38.0,
+      "blender_camera": "P04_V15_02_VAN_GRIEF"
+    },
+    {
+      "id": "03_MOTHER_CLOSE",
+      "name": "Mother close / non-graphic attached arm",
+      "eye": {
+        "x": -1.35,
+        "y": 0.95,
+        "z": 1.3
+      },
+      "target": {
+        "x": -1.14,
+        "y": -0.22,
+        "z": 0.48
+      },
+      "verticalFov": 35,
+      "blender_camera": "P04_V15_03_MOTHER_CLOSE"
+    },
+    {
+      "id": "04_RIBBON_CLUE",
+      "name": "Nevali missing / blue ribbon clue",
+      "eye": {
+        "x": 0.28,
+        "y": -1.88,
+        "z": 1.45
+      },
+      "target": {
+        "x": -0.13,
+        "y": -1.02,
+        "z": 0.21
+      },
+      "verticalFov": 26.0,
+      "blender_camera": "P04_V15_04_RIBBON_CLUE"
+    }
+  ],
+  "existing_ruined_context_reused": "P04_04_EXTERIOR_STREET_AND_RUINED_CITY,291objects; no new city expansion",
+  "new_transition_fragments": 30,
+  "support_arm_adjustment": {
+    "scope": "Scene-only supporting hand moved to the shoulder/clavicle, keeping the face clear and the kneeling grief pose unchanged.",
+    "new_hand_world": [
+      -0.8399999737739563,
+      -0.09999997168779373,
+      0.6700000166893005
+    ]
+  },
+  "staff_clearance_rubble_relocated": [
+    "HOME_MORTAR_CHUNK_010",
+    "HOME_SPRAYED_GRIT_007",
+    "HOME_SPRAYED_GRIT_052",
+    "HOME_SPRAYED_GRIT_077",
+    "HOME_SPRAYED_GRIT_079",
+    "HOME_SPRAYED_GRIT_140",
+    "SMASHED_OAK_FLOOR_SLIVER_12"
+  ],
+  "southern_continuity": "Ground strip, two broken neighboring facade stumps and sparse burnt timber, extending existing ruined street to the reverse-angle background.",
+  "export": {
+    "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Characters\\Panel04\\Panel04_GriefScene_StaticBlockout_v02.glb",
+    "sha256": "3cddcb0b06b98700ad74fb8a73bb41fd8a691f16ce9f60ce59e7cdd67c09ca5f",
+    "meshes": 753,
+    "triangles": 118028,
+    "bytes": 32552304,
+    "only_render_visible_geometry": true,
+    "character_rigs_preserved_in_blend": true,
+    "placeholder_not_exported": true
+  },
+  "protected_inputs_unchanged": true,
+  "unity_verification": {
+    "scene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v06.unity",
+    "sourceGlb": "Assets/Cinematics/Storyboard3D/Characters/Panel04/Panel04_GriefScene_StaticBlockout_v02.glb",
+    "sourceGlbSha256": "3cddcb0b06b98700ad74fb8a73bb41fd8a691f16ce9f60ce59e7cdd67c09ca5f",
+    "sourceBlenderScene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+    "manifest": "ArtSource/Cinematics/Panel04_v06/P04_CorrectionManifest_v06.json",
+    "manifestSha256": "6450389654e3010b2b419d6ee87d2b0f3c3daf5e57d8d1b2bf294f41b9b784f2",
+    "capturedAtUTC": "2026-10-26T14:24:15.6851095Z",
+    "width": 960,
+    "height": 540,
+    "duration": 10.0,
+    "timelineTracks": 2,
+    "renderers": 753,
+    "allFourGpuCapturesComplete": true,
+    "allFourCameraChecksPass": true,
+    "priorSceneSetupRestored": true,
+    "expectedPriorActiveScenePath": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+    "actualActiveScenePathAfterCapture": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+    "sceneRestorationNote": "Verified previous loaded scene paths, loaded states and active flags.",
+    "shots": [
+      {
+        "id": "01_DISCOVERY_WIDE",
+        "time": 1.3335000276565552,
+        "expectedEyeUnity": {
+          "x": 3.4000000953674316,
+          "y": 2.299999952316284,
+          "z": 4.800000190734863
+        },
+        "actualEyeUnity": {
+          "x": 3.4000000953674316,
+          "y": 2.299999952316284,
+          "z": 4.800000190734863
+        },
+        "expectedTargetUnity": {
+          "x": 0.3499999940395355,
+          "y": 0.8500000238418579,
+          "z": -0.30000001192092896
+        },
+        "verticalFov": 45.0,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_01_DISCOVERY_WIDE_v06.png",
+        "captureBytes": 225339,
+        "captureSha256": "0113da3240ef909fc51b54bc7cbefd61acf1c93297f38f22da781e2c790ccd78",
+        "meanLuminance": 0.24545016884803772,
+        "maximumLuminance": 0.9725356698036194,
+        "cameraMatchesManifest": true
+      },
+      {
+        "id": "02_VAN_GRIEF",
+        "time": 4.354499816894531,
+        "expectedEyeUnity": {
+          "x": -1.5,
+          "y": 1.5499999523162842,
+          "z": -1.350000023841858
+        },
+        "actualEyeUnity": {
+          "x": -1.5,
+          "y": 1.5499999523162842,
+          "z": -1.350000023841858
+        },
+        "expectedTargetUnity": {
+          "x": 0.8999999761581421,
+          "y": 0.550000011920929,
+          "z": 0.2800000011920929
+        },
+        "verticalFov": 38.0,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_02_VAN_GRIEF_v06.png",
+        "captureBytes": 331679,
+        "captureSha256": "1107b12c442f163684f99fc911da91ae05a8bf1728866185252741332d3804a1",
+        "meanLuminance": 0.2709416449069977,
+        "maximumLuminance": 1.0,
+        "cameraMatchesManifest": true
+      },
+      {
+        "id": "03_MOTHER_CLOSE",
+        "time": 7.25,
+        "expectedEyeUnity": {
+          "x": 1.350000023841858,
+          "y": 1.2999999523162842,
+          "z": -0.949999988079071
+        },
+        "actualEyeUnity": {
+          "x": 1.350000023841858,
+          "y": 1.2999999523162842,
+          "z": -0.949999988079071
+        },
+        "expectedTargetUnity": {
+          "x": 1.1399999856948853,
+          "y": 0.47999998927116394,
+          "z": 0.2199999988079071
+        },
+        "verticalFov": 35.0,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_03_MOTHER_CLOSE_v06.png",
+        "captureBytes": 484730,
+        "captureSha256": "533b3a1cda0cbc1c5ec8a57ba278401d73acd5a4f036d21c769a43ec4241e3b8",
+        "meanLuminance": 0.29766973853111267,
+        "maximumLuminance": 1.0,
+        "cameraMatchesManifest": true
+      },
+      {
+        "id": "04_RIBBON_CLUE",
+        "time": 9.229000091552734,
+        "expectedEyeUnity": {
+          "x": -0.2800000011920929,
+          "y": 1.4500000476837158,
+          "z": 1.8799999952316284
+        },
+        "actualEyeUnity": {
+          "x": -0.2800000011920929,
+          "y": 1.4500000476837158,
+          "z": 1.8799999952316284
+        },
+        "expectedTargetUnity": {
+          "x": 0.12999999523162842,
+          "y": 0.20999999344348907,
+          "z": 1.0199999809265137
+        },
+        "verticalFov": 26.0,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "capturePath": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_04_RIBBON_CLUE_v06.png",
+        "captureBytes": 189650,
+        "captureSha256": "6cec1d2d8a1bfd55a247150b9bd4aa771fd414ad9eb004ffd741e996b4e312b1",
+        "meanLuminance": 0.3083347678184509,
+        "maximumLuminance": 1.0,
+        "cameraMatchesManifest": true
+      }
+    ],
+    "notes": [
+      "Actual Unity GPU Camera.Render stills from the saved new v06 scene; no scene save is performed during capture.",
+      "Static character poses; no actor animation, voice/audio, Play Mode playback, or device validation is claimed.",
+      "OnGUI narration is not included by Camera.Render; these PNGs are scene-image evidence.",
+      "Transform and per-shot vertical FOV are checked against the Blender-space camera manifest."
+    ]
+  },
+  "protected_inputs": {
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v14_BowVisibleReview.blend": "31ca8cdab273dbdfe08edcffe1645bc33c89b64047d012d3070761cab1601530",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P04_A04_GriefStatic_v05.unity": "1d520d10ef5e1d2be7fa05a8f6ecf5ba963df2ca7db2a667a0fb8c05cf0de52b",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Characters\\Panel04\\Panel04_GriefScene_StaticBlockout_v01.glb": "8640d630cbcb62a706e8b776c2baee83abd370455a78f07ca83b4449bc23b6c5",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Character\\STAFF.glb": "0dedfd15192dd4b6667066b592f5a2c063d62644bc8adddf3e44d001bd802532",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\NevaliMother\\Working\\NevaliMother_Panel04_DeathPose_v15.blend": "9e2d02df15b9d444724701806e696d7385860cf32b41a6f3c3acafde77534c16",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\YoungVanAert\\Working\\YoungVanAert_Panel04_KneelSupport_v07.blend": "1bb981404b1e2db59cd29f0c3ea757d89e42c7ef85d633a1c112222fe5cf7278",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_Defense_v01.unity": "964fbbea218f6bf6cf5d4593339f1c5a10fad8f43ce40c228152f4c78edd78db",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v02.unity": "571750c589da70de5877e79cabfeb30084f81eec33fd30c9446eb7093d919599",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v03_AnimatedRoughCut.unity": "5cb8a7b6ef97ffe6184b44272b6d95c495e0749f84aca20889df54b0f2362ea4",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v03_AnimatedTest.unity": "00cc917afd157b74e7f5e47c88bd61e9a3f3a0965cf050021aad606520a8bb75",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v04_Animated_HomeV03.unity": "a027b4ccf4146154e751af7d0ce0096adf50b76e0207af30cab9773a7ab30df4",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v05_A01_Timeline.unity": "6a18b5f39d31d9a155b02182bd4ba5687403e8d12550e1dbc579e3f79e506b4c",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v06_A01_StaticNevali.unity": "8a028bc689ed9506358cfc7eb3edcab69acac2fbb144ad0886babb97f6a245f8",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v07_A01_GoldenHour.unity": "5bea3f43e9037b099de5d064a044d93c976da429aff3ac69585c0e7437f2e72b",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P01_FamilyHome_v08_A01_GoldenHourRays.unity": "170d8c2937f59b42d9541d21c520f5d345efe06d8fc837cec5f47e278a3a85d8",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P02_A02_GreatWar_v02_RoughCut.unity": "8810d96bdae7f148bf728cc4e9e49e87953f378b791021db7d977c352b19d9b9",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P02_A02_GreatWar_v03_DetailedRuins.unity": "bccb36e4a88da3465b34255a40e8bb96d462d76f086ea17e4533e43eb950a7aa",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P02_A02_GreatWar_v04_YoungVanFixed.unity": "6a95dfb02df3ad916921a2eb567fdae006fec2cdda6d03ab7be81d821975f860",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P02_A02_GreatWar_v05_BackTurn_AnimatedThunder.unity": "a7228cd609bb46abfde0684e5e880913ab64bc6c79bbaea6513e110ccc30abb8",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P02_P03_GreatWar_Defense_v01.unity": "8f7397b5e87626d36a88e65dd3b8fcf19c780c9fb5bb452f7c0d894d9d52cf81",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P03_A03_StrongAttackRelease_v01.unity": "21f4a00e073f9bb663e85ca3b15094bc72c07e17d36adc4e6cf08fab72276ff6",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P03_A03_UltimateRelease_v02.unity": "926d5ef921662324e58af68eb6ea3066466b234ecb33d40d244322e2d7d68973",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P03_A03_UltimateRelease_v03_ThunderFireTiles.unity": "d656f3cbe667fedce75d16a1242b1495ac53a75cb3164a38f29dc492e508c8ed"
+  },
+  "created_main_files": [
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Characters\\Panel04\\Panel04_GriefScene_StaticBlockout_v02.glb",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P04_A04_GriefStatic_v06.unity",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Grief_ReturnHome_v06.playable",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Camera_CutSequence_v06.anim",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Builder.cs",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Preview.cs",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\P04_CorrectionManifest_v06.json"
+  ],
+  "limits": [
+    "Static character poses and a camera-cut Timeline; no recorded Play Mode movie, motion/contact or narration-audio acceptance",
+    "Existing patchy/spiked static gown drape and original Van hand detail remain prototype polish debt",
+    "No Android hardware/FPS test or physical debris simulation",
+    "Unity scene copy requires the existing SPELLSTRIKE project and referenced runtime components; use the saved project scene",
+    "Mother hand copies are baked for the present static staging; future pose changes require rebaking/re-aligning the wrists under the cuffs."
+  ],
+  "status": "PASS - targeted P04 static correction; all four Unity GPU camera checks passed",
+  "independent_audit": {
+    "reviewDate": "2026-10-26",
+    "reviewer": "independent hand_design_review subagent",
+    "scope": "Read-only Blender render, Unity GPU still and final GLB audit; only this work artifact written",
+    "verdict": "PASS - targeted Panel04 static defense correction",
+    "unityScene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v06.unity",
+    "sourceBlenderScene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+    "finalGlb": "Assets/Cinematics/Storyboard3D/Characters/Panel04/Panel04_GriefScene_StaticBlockout_v02.glb",
+    "finalGlbSha256": "3cddcb0b06b98700ad74fb8a73bb41fd8a691f16ce9f60ce59e7cdd67c09ca5f",
+    "glbHashMatchesUnityQA": true,
+    "binaryChecks": {
+      "meshCount": 753,
+      "triangleCount": 118028,
+      "canonicalStaffNode": "P04V15_STATIC_P04_CANONICAL_VAN_STAFF__FROM_P02_P03_STAFF_GLB",
+      "canonicalStaffNodeCount": 1,
+      "canonicalStaffTriangleCount": 5029,
+      "canonicalStaffExportPositionEntries": 3644,
+      "canonicalStaffSourcePositionEntries": 3623,
+      "canonicalStaffMaterialName": "tripo_node_84659eb9-f9e2-40da-b5cf-13771187d230_material",
+      "canonicalStaffImageSha256": "9cc64095443c16348ab7270abb36d7a9be479d8e45abb633b1d24f8d197b4a05",
+      "canonicalStaffSourceImageSha256": "9cc64095443c16348ab7270abb36d7a9be479d8e45abb633b1d24f8d197b4a05",
+      "canonicalStaffImageExactMatch": true,
+      "oldPlaceholderStaffNodeCount": 0,
+      "attachedMotherHandNodeCount": 2,
+      "bowNodeCount": 5
+    },
+    "visualChecks": {
+      "ruinedHomeReadability": "PASS - broken walls, timbers and debris establish destroyed surroundings in Unity discovery still",
+      "motherWristAttachment": "PASS - hands read attached at cuffs in Unity grief view; Blender Wrist_After_v15 macro shows no open gap or floating disk",
+      "canonicalStaff": "PASS - source-textured sculpted staff reads on floor; exact embedded texture and staff triangle count confirmed",
+      "nonGraphicMother": "PASS - closed-eye face remains readable; no graphic injury depicted",
+      "ribbonClue": "PASS - blue bow clearly isolated and all five components retained"
+    },
+    "captures": [
+      {
+        "id": "01_DISCOVERY_WIDE",
+        "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_01_DISCOVERY_WIDE_v06.png",
+        "sha256": "0113da3240ef909fc51b54bc7cbefd61acf1c93297f38f22da781e2c790ccd78",
+        "hashMatchesCaptureQA": true,
+        "cameraMatchesManifest": true,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+      },
+      {
+        "id": "02_VAN_GRIEF",
+        "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_02_VAN_GRIEF_v06.png",
+        "sha256": "1107b12c442f163684f99fc911da91ae05a8bf1728866185252741332d3804a1",
+        "hashMatchesCaptureQA": true,
+        "cameraMatchesManifest": true,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+      },
+      {
+        "id": "03_MOTHER_CLOSE",
+        "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_03_MOTHER_CLOSE_v06.png",
+        "sha256": "533b3a1cda0cbc1c5ec8a57ba278401d73acd5a4f036d21c769a43ec4241e3b8",
+        "hashMatchesCaptureQA": true,
+        "cameraMatchesManifest": true,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+      },
+      {
+        "id": "04_RIBBON_CLUE",
+        "path": "ArtSource/Cinematics/Panel04_v06/Reviews/Unity_v06/P04_Unity_04_RIBBON_CLUE_v06.png",
+        "sha256": "6cec1d2d8a1bfd55a247150b9bd4aa771fd414ad9eb004ffd741e996b4e312b1",
+        "hashMatchesCaptureQA": true,
+        "cameraMatchesManifest": true,
+        "positionErrorMeters": 0.0,
+        "rotationErrorDegrees": 0.0,
+        "visualReview": "PASS - readable static narrative beat; prototype limits retained"
+      }
+    ],
+    "captureQAMetadata": {
+      "allFourGpuCapturesComplete": true,
+      "allFourCameraChecksPass": true,
+      "priorSceneSetupRestored": true,
+      "expectedPriorScene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+      "actualRestoredScene": "Assets/Scenes/Cinematics/Prologue_P04_A04_GriefStatic_v05.unity",
+      "note": "Restoration and GPU origin are reported by the capture QA; this reviewer independently reviewed PNG contents and hashes."
+    },
+    "hardVisualBlockersForTargetedCorrections": [],
+    "retainedPrototypeLimits": [
+      "Patchy/shattered floor-draped gown artifacts remain conspicuous, especially grief shot and clue-frame edge.",
+      "Original Van hands and approximate support/contact remain rough.",
+      "Bow geometry remains a simple readable clue prop.",
+      "This audit does not establish final production character or cloth quality."
+    ],
+    "notAcceptedOrTestedByThisReview": [
+      "Play Mode or continuous Timeline playback",
+      "Actor animation, rig deformation or physical contact",
+      "Cloth simulation",
+      "Voice/audio",
+      "PC or Android performance/device acceptance",
+      "Pixel-identical raw staff vertex buffers"
+    ],
+    "projectOrArtEditsByReviewer": false
+  },
+  "created_files_exact": [
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\P04_CorrectionManifest_v06.json",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\P04_CorrectionReport_v06.json",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\01_DISCOVERY_WIDE_Draft.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\01_DISCOVERY_WIDE_Final.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\02_VAN_GRIEF_Draft.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\02_VAN_GRIEF_Final.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\03_MOTHER_CLOSE_Draft.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\03_MOTHER_CLOSE_Final.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\04_RIBBON_CLUE_Draft.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\04_RIBBON_CLUE_Final.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\MotherHand_After_v15.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Blender_v15\\MotherHand_Before_v14.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Independent_FinalAudit.json",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\P04_Correction_FinalReport_v06.json",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\P04_Correction_FinalReport_v06.md",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\P04_Discovery_Before_v05_After_v06.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\P04_Mother_Wrist_Before_After.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\P04_v06_Unity_FourShot_ContactSheet.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Unity_v06\\P04_Corrected_UnityPreviewQA_v06.json",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Unity_v06\\P04_Unity_01_DISCOVERY_WIDE_v06.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Unity_v06\\P04_Unity_02_VAN_GRIEF_v06.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Unity_v06\\P04_Unity_03_MOTHER_CLOSE_v06.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\Reviews\\Unity_v06\\P04_Unity_04_RIBBON_CLUE_v06.png",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Characters\\Panel04\\Panel04_GriefScene_StaticBlockout_v02.glb",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Characters\\Panel04\\Panel04_GriefScene_StaticBlockout_v02.glb.meta",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06.meta",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Camera_CutSequence_v06.anim",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Camera_CutSequence_v06.anim.meta",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Grief_ReturnHome_v06.playable",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Grief_ReturnHome_v06.playable.meta",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Builder.cs",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Builder.cs.meta",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Preview.cs",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Preview.cs.meta",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P04_A04_GriefStatic_v06.unity",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P04_A04_GriefStatic_v06.unity.meta"
+  ],
+  "final_file_sha256": {
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend": "71af47c8115dd8a64bcee2a5e76679ad341feffe31c8852a65ab3d97f427e26b",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Characters\\Panel04\\Panel04_GriefScene_StaticBlockout_v02.glb": "3cddcb0b06b98700ad74fb8a73bb41fd8a691f16ce9f60ce59e7cdd67c09ca5f",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Scenes\\Cinematics\\Prologue_P04_A04_GriefStatic_v06.unity": "79e1fbbe0e2fc21d13821165ffbfff287f5657dcbbfbb01f207294dcff84f0c8",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Grief_ReturnHome_v06.playable": "5738cdac6f31d2ff2b93e436da82d2cd6e4647148006f8664e614e11790be22f",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Cinematics\\Storyboard3D\\Timelines\\Panel04_A04_v06\\P04_A04_Camera_CutSequence_v06.anim": "0f458df732f43653e26167ac33ecad0cf2f5b3b7abf713e554a4688bd2ec231a",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Builder.cs": "56846f4ffb5d1ad270f4b9c149467ec2d4e7155b9ebe99d0625203cf5d143a1f",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\Assets\\Editor\\Cinematics\\Panel04CorrectionV06Preview.cs": "873a849c6bf4ae4242c245999ccab97b7a9f8b6c143d8e2ebb4281172c7cab7c",
+    "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Cinematics\\Panel04_v06\\P04_CorrectionManifest_v06.json": "6450389654e3010b2b419d6ee87d2b0f3c3daf5e57d8d1b2bf294f41b9b784f2"
+  }
+}

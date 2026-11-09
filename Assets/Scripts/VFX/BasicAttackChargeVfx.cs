@@ -25,11 +25,11 @@ namespace Spellstrike.Vfx
         [Min(0f)] [SerializeField] private float coreIntensity = 5f;
         [Min(0.001f)] [SerializeField] private float coreRadius = 0.047f;
 
-        [Header("Continuous buildup - loose/faint to compressed/bright")]
-        [Tooltip("Final pre-release radius multiplier. Lower values produce a tighter frame-27 compression.")]
-        [Range(0.05f, 0.5f)] [SerializeField] private float finalCompression = 0.18f;
-        [Tooltip("Charge01 point where the strong inward collapse begins.")]
-        [Range(0.45f, 0.9f)] [SerializeField] private float compressionStart = 0.68f;
+        [Header("Continuous buildup - small/faint to larger/brighter")]
+        [Tooltip("Initial size multiplier at the start of the charge. The effect grows continuously toward full size before release.")]
+        [Range(0.05f, 0.5f)] [SerializeField] private float startSize = 0.18f;
+        [Tooltip("Controls the growth curve across the charge window.")]
+        [Range(0.5f, 3f)] [SerializeField] private float growthPower = 1.35f;
 
         [Header("Bounded quality — same composition on both platforms")]
         [SerializeField] private Quality quality = Quality.Automatic;
@@ -90,9 +90,9 @@ namespace Spellstrike.Vfx
             vertices.Clear(); colors.Clear(); uvs.Clear(); triangles.Clear();
             bool mobile = quality == Quality.Mobile || (quality == Quality.Automatic && Application.isMobilePlatform);
             float q = Charge01;
-            // Keep the charge loose while it builds, then collapse every layer toward the crystal.
-            float collapse01 = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(compressionStart, 1f, q));
-            float size = Mathf.Lerp(1f, finalCompression, collapse01);
+            // Grow every layer continuously from a small starting envelope to full size.
+            float growth = Mathf.Pow(q, growthPower);
+            float size = Mathf.Lerp(startSize, 1f, growth);
             float radius = orbitRadius * size;
             float energy = chargeIntensity * Mathf.Lerp(0.16f, 2.4f, q * q);
             // Integral of increasing speed, so angular velocity never jumps between frames.

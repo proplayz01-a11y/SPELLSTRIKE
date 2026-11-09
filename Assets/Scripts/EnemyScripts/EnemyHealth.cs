@@ -97,7 +97,11 @@ public class EnemyHealth : MonoBehaviour
 
         float beforeDamage = currentHealth;
         currentHealth = Mathf.Max(0f, currentHealth - damage);
-        FloatingDamageNumbersV01.Show(this, beforeDamage - currentHealth);
+        float appliedDamage = beforeDamage - currentHealth;
+        if (appliedDamage > 0f)
+            Spellstrike.Vfx.EnemyDamageImpactTrigger.PlayFor(transform);
+
+        FloatingDamageNumbersV01.Show(this, appliedDamage);
         SyncHealthSlider();
         HealthChanged?.Invoke(currentHealth, maxHealth);
 

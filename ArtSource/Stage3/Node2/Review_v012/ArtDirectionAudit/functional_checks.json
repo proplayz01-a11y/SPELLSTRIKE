@@ -1,0 +1,113 @@
+{
+  "bow_meshes": 67,
+  "arrow_meshes": 22,
+  "draw": {
+    "0": {
+      "axis_hits": [
+        {
+          "object": "Bow_RiserUpper",
+          "position": [
+            0.0,
+            0.037500008940696716,
+            0.11999999731779099
+          ],
+          "distance": 0.24249999225139618
+        }
+      ],
+      "string_anchor_to_nock_mesh": {
+        "Bow_Nock_L": 0.0886201336979866,
+        "Bow_Nock_U": 0.0886201336979866
+      }
+    },
+    "0.25": {
+      "axis_hits": [
+        {
+          "object": "Bow_RiserUpper",
+          "position": [
+            0.0,
+            0.03750002384185791,
+            0.11999999731779099
+          ],
+          "distance": 0.3424999713897705
+        }
+      ],
+      "string_anchor_to_nock_mesh": {
+        "Bow_Nock_L": 0.0867038294672966,
+        "Bow_Nock_U": 0.08580780774354935
+      }
+    },
+    "0.5": {
+      "axis_hits": [
+        {
+          "object": "Bow_RiserUpper",
+          "position": [
+            0.0,
+            0.03750002384185791,
+            0.11999999731779099
+          ],
+          "distance": 0.44249996542930603
+        }
+      ],
+      "string_anchor_to_nock_mesh": {
+        "Bow_Nock_L": 0.08479774743318558,
+        "Bow_Nock_U": 0.08301836997270584
+      }
+    },
+    "0.75": {
+      "axis_hits": [
+        {
+          "object": "Bow_RiserUpper",
+          "position": [
+            0.0,
+            0.037500083446502686,
+            0.11999999731779099
+          ],
+          "distance": 0.5424998998641968
+        }
+      ],
+      "string_anchor_to_nock_mesh": {
+        "Bow_Nock_L": 0.08290264755487442,
+        "Bow_Nock_U": 0.08025410771369934
+      }
+    },
+    "1": {
+      "axis_hits": [
+        {
+          "object": "Bow_RiserUpper",
+          "position": [
+            0.0,
+            0.037500083446502686,
+            0.11999999731779099
+          ],
+          "distance": 0.6424999237060547
+        }
+      ],
+      "string_anchor_to_nock_mesh": {
+        "Bow_Nock_L": 0.08101928979158401,
+        "Bow_Nock_U": 0.07751793414354324
+      }
+    }
+  },
+  "mesh_issues": {
+    "Bow_String_Brace": {
+      "zero_area_evaluated_triangles": 0,
+      "base_boundary_edges": 8
+    },
+    "Arrow_Feather_1": {
+      "zero_area_evaluated_triangles": 0,
+      "base_boundary_edges": 5
+    },
+    "Arrow_Feather_2": {
+      "zero_area_evaluated_triangles": 0,
+      "base_boundary_edges": 5
+    },
+    "Arrow_Feather_3": {
+      "zero_area_evaluated_triangles": 0,
+      "base_boundary_edges": 5
+    },
+    "Arrow_NockCollar": {
+      "zero_area_evaluated_triangles": 0,
+      "base_boundary_edges": 0
+    }
+  }
+}

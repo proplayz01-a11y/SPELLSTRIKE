@@ -1,0 +1,22 @@
+{
+  "name": "P09_CAMERA_01_OlderVanFore_VanderGateway",
+  "location": [
+    -0.800000011920929,
+    -10.199999809265137,
+    1.149999976158142
+  ],
+  "rotation_euler": [
+    1.5814244747161865,
+    3.842914431118061e-09,
+    0.04252753406763077
+  ],
+  "lens_mm": 40.0,
+  "sensor_width_mm": 36.0,
+  "clip_end": 500.0,
+  "fps": 24,
+  "source_frames": [
+    1,
+    192
+  ],
+  "note": "Blender camera transform, validate Unity coordinate conversion before using"
+}

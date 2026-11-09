@@ -1,0 +1,1 @@
+PASS: 1647 timing assertions; 15/30/60/120 fps samples, release continuity, monotonic fade, endpoint, pause, restart and zero-duration behavior.

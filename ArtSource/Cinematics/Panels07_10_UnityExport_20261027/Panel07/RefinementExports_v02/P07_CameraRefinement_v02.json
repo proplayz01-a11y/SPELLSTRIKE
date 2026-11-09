@@ -1,0 +1,23 @@
+{
+  "camera_name": "P07_CAMERA_01_VanSilentGrief_CloseMedium",
+  "loc": [
+    -0.15984103083610535,
+    -8.451888084411621,
+    1.5333863496780396
+  ],
+  "rotation": [
+    1.3575384616851807,
+    -6.197504731630943e-09,
+    0.7071273326873779
+  ],
+  "fov_vertical_deg": 25.057615418303023,
+  "lens": 54.0,
+  "sensor_width": 36.0,
+  "sensor_height": 24.0,
+  "frames": [
+    1,
+    192
+  ],
+  "fps": 24,
+  "scene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\LibraryShell\\LibraryStudyArchive_P07_SilentGrief_v02_CinematicRefinement_v03.blend"
+}

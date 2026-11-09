@@ -23,11 +23,24 @@ public static class StageVocabularyReferenceArtBuilder
     [MenuItem("SPELLSTRIKE/UI/Vocabulary Review/Build Isolated Reference Art")]
     public static void Build()
     {
+        BuildForScene(IsolatedScene);
+    }
+
+    [MenuItem("SPELLSTRIKE/UI/Vocabulary Review/Build Production Stage Select Art")]
+    public static void BuildProduction()
+    {
+        BuildForScene("Assets/Scenes/StageSelectScene.unity");
+    }
+
+    private static void BuildForScene(string requiredScenePath)
+    {
         var scene = EditorSceneManager.GetActiveScene();
         if (Application.isPlaying || EditorApplication.isCompiling ||
-            scene.path != IsolatedScene || scene.isDirty)
+            scene.path != requiredScenePath || scene.isDirty)
             throw new InvalidOperationException(
-                "Open and save the isolated VocabularyReviewArt scene in Edit Mode first.");
+                "Open the required Vocabulary Review scene in Edit Mode and save unrelated changes first. "
+                + "Expected: " + requiredScenePath + "; active: " + scene.path
+                + "; dirty: " + scene.isDirty);
 
         ImportSprites();
         GameObject canvas = null;
@@ -49,7 +62,10 @@ public static class StageVocabularyReferenceArtBuilder
         dim.rectTransform.anchorMax=Vector2.one;
         dim.rectTransform.offsetMin=Vector2.zero;
         dim.rectTransform.offsetMax=Vector2.zero;
-        dim.color=Color.black;
+        dim.rectTransform.localScale=Vector3.one;
+        // Keep the full-screen modal raycast surface, but do not cover the
+        // Hall of Chronicles background with an opaque black rectangle.
+        dim.color=new Color(0f,0f,0f,0f);
         dim.raycastTarget=true;
         dim.transform.SetAsFirstSibling();
 

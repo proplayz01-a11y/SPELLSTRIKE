@@ -1,0 +1,95 @@
+{
+  "source_sha256": "ad612715af88d13e1b6b560033c228b39d1d75bc866d9ca47a2bb5de5ae03c1b",
+  "original_vertices": 8608,
+  "reworked_vertices": 10764,
+  "original_faces": 8622,
+  "reworked_faces": 10680,
+  "body_positions_preserved": true,
+  "source_materials_retained": [
+    "model",
+    "Original_Worn_FingerPaint_Transferred"
+  ],
+  "digits": [
+    {
+      "side": 1,
+      "digit": "Little",
+      "length_from_cut_root_m": 0.078,
+      "ring_vertices": 14,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": 1,
+      "digit": "Ring",
+      "length_from_cut_root_m": 0.092,
+      "ring_vertices": 16,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": 1,
+      "digit": "Middle",
+      "length_from_cut_root_m": 0.099,
+      "ring_vertices": 16,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": 1,
+      "digit": "Index",
+      "length_from_cut_root_m": 0.094,
+      "ring_vertices": 12,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": 1,
+      "digit": "Thumb",
+      "length_from_cut_root_m": 0.065,
+      "ring_vertices": 20,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": -1,
+      "digit": "Little",
+      "length_from_cut_root_m": 0.078,
+      "ring_vertices": 14,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": -1,
+      "digit": "Ring",
+      "length_from_cut_root_m": 0.092,
+      "ring_vertices": 16,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": -1,
+      "digit": "Middle",
+      "length_from_cut_root_m": 0.099,
+      "ring_vertices": 16,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": -1,
+      "digit": "Index",
+      "length_from_cut_root_m": 0.094,
+      "ring_vertices": 12,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    },
+    {
+      "side": -1,
+      "digit": "Thumb",
+      "length_from_cut_root_m": 0.065,
+      "ring_vertices": 20,
+      "longitudinal_rings": 14,
+      "cap_width_fraction_of_start": 0.6
+    }
+  ],
+  "rigged": false
+}

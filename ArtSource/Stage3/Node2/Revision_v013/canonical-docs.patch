@@ -1,0 +1,48 @@
+diff --git a/docs/PROJECT_STATUS.md b/docs/PROJECT_STATUS.md
+--- a/docs/PROJECT_STATUS.md
++++ b/docs/PROJECT_STATUS.md
+@@ -1,1 +1,12 @@
+ # SPELLSTRIKE Project Status
++
++## Stage 3 Node 2 Weapon Asset Revision — 2026-10-02
++
++Authored `ArtSource/Stage3/Node2/S3N2_DesertWeapons_v013.blend` from the preserved
++v012 source: corrected arrow passage/nock/string, refined silhouette and surface
++parts, and added an isolated Blender draw/release preview. Fresh counts are 2,758
++bow triangles and 460 arrow triangles. Offline draw and 121-sample release checks
++found no arrow/bow surface intersections (string contact excluded). Final atlas,
++enemy hand fit, export/integration, and PC/A05s validation remain pending. See
++`docs/STAGE3_NODE2_WEAPONS_V013_REVISION_REPORT.md`; this does not mark the enemy
++or Stage 3 gameplay complete.
+diff --git a/docs/CHANGELOG.md b/docs/CHANGELOG.md
+--- a/docs/CHANGELOG.md
++++ b/docs/CHANGELOG.md
+@@ -1,1 +1,13 @@
+ # SPELLSTRIKE Changelog
++
++## 2026-10-02 — Stage 3 Node 2 Bow/Arrow v013
++
++- Preserved v012 and revised the Blender weapon parts: offset arrow passage,
++  seated nock, volumetric string/anchors, broader limbs, curved trim, swept guards,
++  hooked tips, conforming wraps, cloth clearance, rune lanes and sharper arrowhead.
++- Added a linked Blender-only draw/release review scene and reproducible revision/QA
++  scripts. Bow: 2,758 triangles; arrow: 460. Five draw states and 121 release samples
++  showed no arrow/bow surface intersections, excluding intentional string contact.
++- Final atlas/bakes, export consolidation, Unity integration and device validation
++  remain deferred. No gameplay scene, prefab or C# script changed. See
++  `docs/STAGE3_NODE2_WEAPONS_V013_REVISION_REPORT.md`.
+diff --git a/docs/TECH_DEBT.md b/docs/TECH_DEBT.md
+--- a/docs/TECH_DEBT.md
++++ b/docs/TECH_DEBT.md
+@@ -25,1 +25,11 @@
+ # Current Technical Debt
++
++## Stage 3 Node 2 weapon production acceptance — 2026-10-02
++
++The v013 Blender revision has offline geometry/draw evidence, but still needs a
++final shared UV atlas and baked texture maps, actual enemy hand/socket fit,
++export/renderer consolidation and an appropriate LOD policy, Unity draw/release
++hookup, runtime bounds/collision checks, and PC/Galaxy A05s validation. Its 121
++release samples are discrete surface-overlap checks, not continuous collision or
++device-performance proof. Packed rune art is a preview mask. Details:
++`docs/STAGE3_NODE2_WEAPONS_V013_REVISION_REPORT.md`.

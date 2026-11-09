@@ -1,0 +1,22 @@
+{
+  "name": "P07_CAMERA_01_VanSilentGrief_CloseMedium",
+  "location": [
+    -0.20000000298023224,
+    -8.850000381469727,
+    1.5299999713897705
+  ],
+  "rotation_euler": [
+    1.3763259649276733,
+    1.2354593792451851e-08,
+    0.404891699552536
+  ],
+  "lens_mm": 47.0,
+  "sensor_width_mm": 36.0,
+  "clip_end": 600.0,
+  "fps": 24,
+  "source_frames": [
+    1,
+    192
+  ],
+  "note": "Blender camera transform, validate Unity coordinate conversion before using"
+}

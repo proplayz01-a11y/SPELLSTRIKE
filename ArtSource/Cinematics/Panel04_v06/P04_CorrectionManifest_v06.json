@@ -1,0 +1,86 @@
+{
+  "shots": [
+    {
+      "id": "01_DISCOVERY_WIDE",
+      "name": "Discovery / ruined surroundings",
+      "eye": {
+        "x": -3.4,
+        "y": -4.8,
+        "z": 2.3
+      },
+      "target": {
+        "x": -0.35,
+        "y": 0.3,
+        "z": 0.85
+      },
+      "verticalFov": 45.0,
+      "blender_camera": "P04_V15_01_DISCOVERY_WIDE"
+    },
+    {
+      "id": "02_VAN_GRIEF",
+      "name": "Van grieving beside his wife",
+      "eye": {
+        "x": 1.5,
+        "y": 1.35,
+        "z": 1.55
+      },
+      "target": {
+        "x": -0.9,
+        "y": -0.28,
+        "z": 0.55
+      },
+      "verticalFov": 38.0,
+      "blender_camera": "P04_V15_02_VAN_GRIEF"
+    },
+    {
+      "id": "03_MOTHER_CLOSE",
+      "name": "Mother close / non-graphic attached arm",
+      "eye": {
+        "x": -1.35,
+        "y": 0.95,
+        "z": 1.3
+      },
+      "target": {
+        "x": -1.14,
+        "y": -0.22,
+        "z": 0.48
+      },
+      "verticalFov": 35,
+      "blender_camera": "P04_V15_03_MOTHER_CLOSE"
+    },
+    {
+      "id": "04_RIBBON_CLUE",
+      "name": "Nevali missing / blue ribbon clue",
+      "eye": {
+        "x": 0.28,
+        "y": -1.88,
+        "z": 1.45
+      },
+      "target": {
+        "x": -0.13,
+        "y": -1.02,
+        "z": 0.21
+      },
+      "verticalFov": 26.0,
+      "blender_camera": "P04_V15_04_RIBBON_CLUE"
+    }
+  ],
+  "blenderSource": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+  "sourceGlb": "Assets/Cinematics/Storyboard3D/Characters/Panel04/Panel04_GriefScene_StaticBlockout_v02.glb",
+  "duration": 10.0,
+  "cutTimes": [
+    0,
+    2.667,
+    6.042,
+    8.458
+  ],
+  "coordinateSpace": "Blender",
+  "sourceBlenderScene": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\LibraryProps\\DefenseSets\\Prologue_Home_04_Ruined_v15_CorrectedRuinsHandCanonicalStaff.blend",
+  "requiredObjectNames": [
+    "P04V15_STATIC_P04_MOTHER_LEFT_HAND_ATTACHED_STATIC_v15",
+    "P04V15_STATIC_P04_MOTHER_RIGHT_HAND_ATTACHED_STATIC_v15",
+    "P04V15_STATIC_P04_CANONICAL_VAN_STAFF__FROM_P02_P03_STAFF_GLB",
+    "P04V15_STATIC_P04_Nevali_Bow_CenterKnot"
+  ],
+  "hideSourceObjects": []
+}

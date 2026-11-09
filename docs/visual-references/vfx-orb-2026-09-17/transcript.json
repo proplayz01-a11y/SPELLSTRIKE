@@ -1,0 +1,682 @@
+[
+  {
+    "start": 0.0,
+    "end": 5.92,
+    "text": " VFX Graph has been around for a while and many of you have been requesting that I make a few"
+  },
+  {
+    "start": 5.92,
+    "end": 12.16,
+    "text": " tutorials we did. So I decided to recreate the first visual FX tutorial I made, this one."
+  },
+  {
+    "start": 12.16,
+    "end": 16.72,
+    "text": " But this time with Unity VFX Graph. And I end up with this."
+  },
+  {
+    "start": 18.16,
+    "end": 22.72,
+    "text": " But then I started playing around, make a few more variations and I end up"
+  },
+  {
+    "start": 22.72,
+    "end": 30.59,
+    "text": " creating some pretty cool orbs. But this is the one that I'm going to show you how you can do."
+  },
+  {
+    "start": 31.31,
+    "end": 36.03,
+    "text": " The others are exclusively available on my Patreon page, the links in the description"
+  },
+  {
+    "start": 36.03,
+    "end": 39.63,
+    "text": " in case you are interested. Alright, so let's see how we can create this bad boy."
+  },
+  {
+    "start": 40.67,
+    "end": 48.91,
+    "text": " I'm using Universal Render Pipeline in Unity 2019.3.7 and the only thing we need to do before we proceed"
+  },
+  {
+    "start": 48.91,
+    "end": 55.71,
+    "text": " is to go up here to the package manager in Windows. And we need to scroll down until we get to"
+  },
+  {
+    "start": 55.71,
+    "end": 63.23,
+    "text": " visual FX Graph. If you don't see it, go to advanced and turn on show preview packages."
+  },
+  {
+    "start": 64.35,
+    "end": 70.35,
+    "text": " Once that is installed, make sure to also install Shader Graph. And the first thing we can do is go"
+  },
+  {
+    "start": 70.35,
+    "end": 78.75,
+    "text": " ahead and create with right click a visual FX Graph. And we can drag it to the scene"
+  },
+  {
+    "start": 79.31,
+    "end": 85.55,
+    "text": " and then press on edit. So we can open up the visual FX Graph window."
+  },
+  {
+    "start": 85.55,
+    "end": 91.55,
+    "text": " I'm going to duck it here and I'm going to make some room. Then turn off target game object."
+  },
+  {
+    "start": 91.55,
+    "end": 96.35,
+    "text": " We don't need it. And as you can see, we also have the blackboard where we can add variables."
+  },
+  {
+    "start": 98.35,
+    "end": 102.43,
+    "text": " But what we want to do is first delete all of these. We don't need that."
+  },
+  {
+    "start": 103.55,
+    "end": 106.91,
+    "text": " We want to press spacebar and search for trails."
+  },
+  {
+    "start": 107.55,
+    "end": 112.43,
+    "text": " We are going to start with the trails. This one, the simple ads and trails."
+  },
+  {
+    "start": 113.55,
+    "end": 120.19,
+    "text": " We get these cool standard trails. So as you can see up here, we can control the rate."
+  },
+  {
+    "start": 121.47,
+    "end": 128.99,
+    "text": " But we have a capacity that is basically capping our rate. So let's increase the capacity to around"
+  },
+  {
+    "start": 128.99,
+    "end": 137.47,
+    "text": " 1000. On the right, we also have these trips capacity that is set to 32. And we can change that"
+  },
+  {
+    "start": 137.47,
+    "end": 147.95,
+    "text": " to 1000 as well, or even more. Let's just add a float. Let's control this rate with the property"
+  },
+  {
+    "start": 148.67,
+    "end": 154.75,
+    "text": " that we can use in the inspector. We are going to call it trail spawn rate. And it's going to"
+  },
+  {
+    "start": 154.75,
+    "end": 160.11,
+    "text": " be exposed so we can control it in inspector with the default value of 30. And we can connect it"
+  },
+  {
+    "start": 160.11,
+    "end": 166.75,
+    "text": " here to the rate down here in the initialize particle. Basically, when the particle is"
+  },
+  {
+    "start": 166.75,
+    "end": 172.43,
+    "text": " pounded, we don't want to use set velocity. So we can remove it. And we can also remove the set"
+  },
+  {
+    "start": 172.43,
+    "end": 179.15,
+    "text": " color from a gradient. We want to use a single color. So let's press spacebar to search for set"
+  },
+  {
+    "start": 179.15,
+    "end": 185.95,
+    "text": " color. All right. And we can also control this color in the inspector. So let's add another"
+  },
+  {
+    "start": 185.95,
+    "end": 194.59,
+    "text": " property, a color one, rename it, turn on expose it, and drag the property down here. And then we can"
+  },
+  {
+    "start": 194.59,
+    "end": 201.89,
+    "text": " select a color. I'm going to choose a blue and increase a little bit the intensity. All right,"
+  },
+  {
+    "start": 201.89,
+    "end": 208.13,
+    "text": " something like this. Now they are almost all spawning overlap to each other. So let's fix that."
+  },
+  {
+    "start": 208.93,
+    "end": 215.57,
+    "text": " And let's search for a sphere. So they spawn in a sphere shape. And as you can see, if we open"
+  },
+  {
+    "start": 215.57,
+    "end": 221.49,
+    "text": " this up, we can control the radius of this sphere. And this is a value that's going to be useful to"
+  },
+  {
+    "start": 221.49,
+    "end": 227.33,
+    "text": " control in the inspector. So I'm going to add a float, name it size, for example,"
+  },
+  {
+    "start": 228.93,
+    "end": 233.57,
+    "text": " it's going to be exposed. And the default value is going to be one. With this size,"
+  },
+  {
+    "start": 233.57,
+    "end": 240.37,
+    "text": " now we can multiply it and say, for example, that it's going to be multiplied by one. So any value"
+  },
+  {
+    "start": 240.37,
+    "end": 246.45,
+    "text": " that we input in the size parameter, it's going to be multiplied by that one. It's going to be"
+  },
+  {
+    "start": 246.45,
+    "end": 254.21,
+    "text": " super useful in a moment you will see. Now what we can also do is have control over the trails"
+  },
+  {
+    "start": 254.21,
+    "end": 261.41,
+    "text": " lifetime. So I'm going to add a float. We have default value of one and expose it as well."
+  },
+  {
+    "start": 262.69,
+    "end": 268.93,
+    "text": " And this one is going to be multiplied two times one for the minimum and another for the maximum."
+  },
+  {
+    "start": 269.89,
+    "end": 278.59,
+    "text": " The minimum is going to be one and the maximum tree, just like this, which ends up being super"
+  },
+  {
+    "start": 278.59,
+    "end": 289.07,
+    "text": " useful in case we want to control the lifetime of the trails directly in the inspector. Now the"
+  },
+  {
+    "start": 289.07,
+    "end": 295.39,
+    "text": " cool trick comes when we go to the update particles. Basically, we have a turbulence here that keeps"
+  },
+  {
+    "start": 295.39,
+    "end": 301.95,
+    "text": " on moving the particles around with this motion. And what we want to do is actually conform them"
+  },
+  {
+    "start": 302.03,
+    "end": 309.15,
+    "text": " to a sphere, to a sphere shape. Basically, they try to fit inside that sphere. And if we increase"
+  },
+  {
+    "start": 309.15,
+    "end": 316.43,
+    "text": " the radius, we create a pretty cool effect, as you can see. So we are going to once again use this size,"
+  },
+  {
+    "start": 316.43,
+    "end": 323.42,
+    "text": " multiply it by one dot five in this case, and connect it to the radius. And as you can see,"
+  },
+  {
+    "start": 323.42,
+    "end": 328.94,
+    "text": " they have an attraction force that is too high. So let's decrease that to around 10."
+  },
+  {
+    "start": 329.1,
+    "end": 336.14,
+    "text": " And the stick force, which is the force at which it is trying to stick with the sphere shape,"
+  },
+  {
+    "start": 336.78,
+    "end": 344.99,
+    "text": " is a bit too high to reach it. Around five should be fine. Now for each particle, this is"
+  },
+  {
+    "start": 344.99,
+    "end": 353.23,
+    "text": " spawning a strip, basically a trail. And we don't want to set a lifetime here. We can inherit values"
+  },
+  {
+    "start": 353.23,
+    "end": 360.82,
+    "text": " directly from the particles. So let's inherit the lifetime. Cool. And let's skip the update"
+  },
+  {
+    "start": 360.82,
+    "end": 365.62,
+    "text": " particle. We are going to go back there in a moment. And let's go down here to the output"
+  },
+  {
+    "start": 365.62,
+    "end": 372.42,
+    "text": " particle strip quad. And as you can see, we don't have control over the sides. So let's add a set size"
+  },
+  {
+    "start": 373.14,
+    "end": 377.94,
+    "text": " and disable the set size of a lifetime. We are going to use it in a moment. And once again,"
+  },
+  {
+    "start": 377.94,
+    "end": 385.14,
+    "text": " with the size parameter, we can go ahead and create two multiply nodes. One for the minimum,"
+  },
+  {
+    "start": 385.14,
+    "end": 393.94,
+    "text": " like 0.01 and the maximum 0.02, if we want, we can create a random number with space bar,"
+  },
+  {
+    "start": 394.5,
+    "end": 400.58,
+    "text": " feed them the minimum and the maximum, disable constant. We don't want these values to be constant"
+  },
+  {
+    "start": 401.7,
+    "end": 408.75,
+    "text": " and connect to the size. And they turn around to be super small. But that's because we have"
+  },
+  {
+    "start": 408.75,
+    "end": 414.91,
+    "text": " set size of a lifetime off. We want to turn it on and hop here in the inspector."
+  },
+  {
+    "start": 415.63,
+    "end": 420.59,
+    "text": " The composition is not going to overwrite the size value. It's going to add."
+  },
+  {
+    "start": 422.51,
+    "end": 427.15,
+    "text": " And we now make sure that the trails go from big to small throughout their lifetime."
+  },
+  {
+    "start": 431.78,
+    "end": 436.34,
+    "text": " Now the cool thing here is that we can go ahead and select all of these nodes. And with right click,"
+  },
+  {
+    "start": 436.34,
+    "end": 446.13,
+    "text": " we can create a group selection. I'm going to name these trails. Now for the next one,"
+  },
+  {
+    "start": 446.21,
+    "end": 451.81,
+    "text": " we want an empty particle system, because we can, in fact, create empty particle systems."
+  },
+  {
+    "start": 453.97,
+    "end": 459.09,
+    "text": " And the first thing that the particle system needs, we can start by the spawn and we want to search"
+  },
+  {
+    "start": 459.09,
+    "end": 465.33,
+    "text": " for a burst, a periodic burst, something that is going to keep on emitting particles every"
+  },
+  {
+    "start": 465.33,
+    "end": 470.85,
+    "text": " x time. We can emit only one particle for this one. This is going to be the beam, by the way,"
+  },
+  {
+    "start": 471.41,
+    "end": 477.65,
+    "text": " with an interval of one second. Just going to create some space over here. And the particle"
+  },
+  {
+    "start": 477.65,
+    "end": 484.53,
+    "text": " also needs to know its lifetime. So that's when initialized particle comes in. And we can say that"
+  },
+  {
+    "start": 484.53,
+    "end": 491.81,
+    "text": " the beginning that we want to set the lifetime to be two seconds. What a particle also needs"
+  },
+  {
+    "start": 491.81,
+    "end": 497.65,
+    "text": " is a texture. And for that, we have this quad down here that we can fit a texture. I'm going to select"
+  },
+  {
+    "start": 497.65,
+    "end": 506.37,
+    "text": " the default particle. And as you can see, it's really tiny. So we can go ahead and control the"
+  },
+  {
+    "start": 506.37,
+    "end": 514.53,
+    "text": " size of this particle directly in this quad. And we can once again use the size and multiply it"
+  },
+  {
+    "start": 516.13,
+    "end": 524.29,
+    "text": " by let's say 10. Yeah, that's really big because we still don't have color. So let's add a set"
+  },
+  {
+    "start": 524.29,
+    "end": 531.65,
+    "text": " color. And now let's reuse this color property up here. Drag it connected. And as you can see,"
+  },
+  {
+    "start": 531.65,
+    "end": 537.97,
+    "text": " it's really intense and cool things that we can divide these. Basically, we can divide color."
+  },
+  {
+    "start": 538.61,
+    "end": 545.17,
+    "text": " Let's say four. And as you can see, it becomes really dull. But that's because we are using an alpha"
+  },
+  {
+    "start": 545.17,
+    "end": 553.17,
+    "text": " blend mode. Let's switch it to be inality. Now that looks much better. But the particles appear"
+  },
+  {
+    "start": 553.17,
+    "end": 561.25,
+    "text": " and disappear out of nowhere. So let's control their alpha, the transparency with the not color"
+  },
+  {
+    "start": 561.25,
+    "end": 569.17,
+    "text": " of a lifetime. And in this graph, we don't need these keys. Right here, we just need this first key"
+  },
+  {
+    "start": 569.17,
+    "end": 577.89,
+    "text": " to be to be zero. And then add another key up here, which is going to be 100. And we can also add"
+  },
+  {
+    "start": 577.89,
+    "end": 585.54,
+    "text": " another key in the end without any alpha. And this fades in and fades out the particle,"
+  },
+  {
+    "start": 585.54,
+    "end": 597.7,
+    "text": " which looks much smoother. All right, cool. We can also group this and rename it to beam."
+  },
+  {
+    "start": 597.7,
+    "end": 603.86,
+    "text": " Now for the last thing we need and the coolest one, we can search for simple and then choose"
+  },
+  {
+    "start": 603.86,
+    "end": 609.78,
+    "text": " simple particle system. And the first thing we want to do here is assign a texture. We can also"
+  },
+  {
+    "start": 609.78,
+    "end": 619.25,
+    "text": " assign the default particle. And switch to blend mode to additive. And once again, we also want"
+  },
+  {
+    "start": 619.25,
+    "end": 625.33,
+    "text": " to make sure that this particles pound in a sphere shape. So initialize particle, we are going to"
+  },
+  {
+    "start": 625.33,
+    "end": 633.41,
+    "text": " set their position to be in sphere mode. And once again, we can use the size to multiply it,"
+  },
+  {
+    "start": 633.41,
+    "end": 641.41,
+    "text": " let's say by two, that fits well. And for this set velocity, I'm actually going to set minus zero"
+  },
+  {
+    "start": 641.49,
+    "end": 646.69,
+    "text": " dot five, which I'm going to copy and paste. And down here, the maximum is going to be zero"
+  },
+  {
+    "start": 646.69,
+    "end": 654.62,
+    "text": " dot five. Oh, and let's not forget to increase the capacity to a big value like this one."
+  },
+  {
+    "start": 656.14,
+    "end": 663.74,
+    "text": " And create a new flow so we can have control over the spawn rate, going to be exposed. And"
+  },
+  {
+    "start": 663.74,
+    "end": 671.42,
+    "text": " with the default value of, let's say, 5000 particles. And they are super bright because"
+  },
+  {
+    "start": 672.14,
+    "end": 677.9,
+    "text": " we need to control their size. They are too big. So let's add a set size down here,"
+  },
+  {
+    "start": 679.42,
+    "end": 684.3,
+    "text": " disable the set size of a lifetime. And I'm going to use a random number"
+  },
+  {
+    "start": 684.3,
+    "end": 690.62,
+    "text": " between zero dot zero one and zero dot zero two. And as you can see, they are really small."
+  },
+  {
+    "start": 691.58,
+    "end": 697.5,
+    "text": " But we can also do is disable set color over lifetime, because we want to set a simple color"
+  },
+  {
+    "start": 698.3,
+    "end": 707.26,
+    "text": " and then reuse the color property. In the update particle, now we need to update the position"
+  },
+  {
+    "start": 707.26,
+    "end": 712.86,
+    "text": " of these particles. And for that, we are going to use a turbulence that will make them move"
+  },
+  {
+    "start": 712.86,
+    "end": 721.94,
+    "text": " in different directions. Just going to increase a bit the spawn rate to 50,000. This is what's"
+  },
+  {
+    "start": 721.94,
+    "end": 728.82,
+    "text": " going to melt your GPU. What we also need is to conform these particles to a sphere once again."
+  },
+  {
+    "start": 731.31,
+    "end": 737.87,
+    "text": " And we can control the radius of this sphere by using the size, multiply it by, let's say, two."
+  },
+  {
+    "start": 741.52,
+    "end": 749.92,
+    "text": " And as you can see, now the particles try to fit to the radius of that sphere. And the really cool"
+  },
+  {
+    "start": 749.92,
+    "end": 756.56,
+    "text": " thing comes now, we just need to make some room, because we are going to add a purling curl noise"
+  },
+  {
+    "start": 756.56,
+    "end": 764.54,
+    "text": " to D. With this note, we can create some really cool effects. For example, if I connect this to"
+  },
+  {
+    "start": 764.62,
+    "end": 770.62,
+    "text": " the conform to sphere, more specifically to the center, to the X and Y, you will notice that the"
+  },
+  {
+    "start": 770.62,
+    "end": 779.28,
+    "text": " sphere is being offsetted. And that's because we need to first get the position of the existing"
+  },
+  {
+    "start": 779.28,
+    "end": 786.16,
+    "text": " particles. So we can use it as a coordinate for the purling curl noise. But before that,"
+  },
+  {
+    "start": 786.16,
+    "end": 793.36,
+    "text": " we can add motion by using the time node. So they keep on moving. Then we can connect the X"
+  },
+  {
+    "start": 794.08,
+    "end": 800.8,
+    "text": " and Y to the coordinate of the purling curl noise. And that's when we start getting some really cool"
+  },
+  {
+    "start": 800.8,
+    "end": 806.88,
+    "text": " effects. This motion of the particles is already looking pretty decent, but they are really scattered"
+  },
+  {
+    "start": 806.88,
+    "end": 815.82,
+    "text": " away, as you can see. And the way we fix that is by using a remap node. Basically, we are going to"
+  },
+  {
+    "start": 815.82,
+    "end": 826.7,
+    "text": " remap the old values that are between minus 3 and 3, 2, minus 1 and 1. And if I replace the"
+  },
+  {
+    "start": 826.7,
+    "end": 834.54,
+    "text": " connection now to the center, X and Y of the sphere, what we get is a more concise motion for the"
+  },
+  {
+    "start": 834.54,
+    "end": 841.18,
+    "text": " particles. And if we increase the range of the remap of the old values, the particles get even"
+  },
+  {
+    "start": 841.26,
+    "end": 850.37,
+    "text": " more constrained. It seems like minus 6 and 6 is a good value, a good range to create a nice motion."
+  },
+  {
+    "start": 852.51,
+    "end": 859.55,
+    "text": " And we can also reuse this remap, reuse this purling curl noise to affect the field position"
+  },
+  {
+    "start": 859.55,
+    "end": 867.15,
+    "text": " of the turbulence. The difference is barely noticed, but if we start increasing the intensity and the"
+  },
+  {
+    "start": 867.15,
+    "end": 875.31,
+    "text": " drag to 5, we get this beautiful cluster of particles around the sphere, in a sphere like shape."
+  },
+  {
+    "start": 877.89,
+    "end": 883.25,
+    "text": " And the size comes really handy, when for example we want this to be smaller, and this"
+  },
+  {
+    "start": 883.25,
+    "end": 894.24,
+    "text": " automatically adapts, as you can see, or we want this to be bigger. And if we increase the spawn"
+  },
+  {
+    "start": 894.24,
+    "end": 901.68,
+    "text": " rate, we get something really beautiful. Playing with visual effects graph is really entertaining."
+  },
+  {
+    "start": 901.68,
+    "end": 907.44,
+    "text": " And you can do a bunch of stuff. For example, now if we wanted, we could create a second color,"
+  },
+  {
+    "start": 909.9,
+    "end": 918.38,
+    "text": " something purple. And we could feed this color to the trails. And here we go, we have something"
+  },
+  {
+    "start": 918.38,
+    "end": 923.82,
+    "text": " super attractive with just two colors. We can also switch the second color to be yellow,"
+  },
+  {
+    "start": 923.82,
+    "end": 929.66,
+    "text": " I think it really blends in nicely. I mean, the possibilities are really immense with this."
+  },
+  {
+    "start": 930.22,
+    "end": 934.94,
+    "text": " And I really hope that I've showed you a glimpse of how powerful this tool is,"
+  },
+  {
+    "start": 934.94,
+    "end": 937.74,
+    "text": " and that you have enjoyed. Also, the tutorial."
+  },
+  {
+    "start": 939.18,
+    "end": 942.78,
+    "text": " As usual, all of these orbs are available on my Patreon page."
+  },
+  {
+    "start": 942.78,
+    "end": 948.3,
+    "text": " And I'm gonna say thank you to all my Patrons. Your support really helps keep these videos coming."
+  },
+  {
+    "start": 948.3,
+    "end": 954.62,
+    "text": " And a special thank you goes to the Super Mega Patrons, which are Adriana Battega, Alejandro,"
+  },
+  {
+    "start": 954.62,
+    "end": 962.62,
+    "text": " FartEeroGames.com, Goblin Plag, Himmerias PC, Josh MacKarmic, Ruam Endiola, Ken Lee,"
+  },
+  {
+    "start": 962.62,
+    "end": 969.66,
+    "text": " Osgour Simsek, Salafur, Razafimayelio, Stephen Melton, TK, and Artem Jim."
+  },
+  {
+    "start": 969.66,
+    "end": 975.18,
+    "text": " Thank you all for your amazing support. It is very much appreciated, and I hope you all have enjoyed"
+  },
+  {
+    "start": 975.18,
+    "end": 984.46,
+    "text": " this video. Thanks for watching and see you in the next one."
+  }
+]

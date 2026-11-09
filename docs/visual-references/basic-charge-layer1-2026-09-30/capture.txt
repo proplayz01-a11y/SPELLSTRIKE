@@ -1,0 +1,7 @@
+Graph: Assets/VFX/BasicAttackCharge/BasicChargeStreaks.vfx
+Charge01: 0.96
+Frames: 60
+Simulation step: 1/30 s
+Seed: 137
+Normal playback: 30 fps; slow-motion playback: 7.5 fps
+Editor isolated capture, not gameplay or physical A05s proof.

@@ -1,5 +1,142 @@
 # Stage 3 Node 3 Stone Golem — 2026-10-05
 
+## Layered Being Hit — 2026-10-06
+
+This extends the existing production enemy. The Base Layer still contains only
+Heavy Walk, Stop and Ground Slam. No additional attack, stagger or death system
+was added.
+
+### Animation audit
+
+Both downloads match all 33 production Mixamo bone names/paths and rest matrices
+exactly (maximum rest-matrix difference 0). Both armature object transforms are
+stationary. The existing valid Generic production Avatar is reused.
+
+| Source | Native length | Source movement / affected regions | Production use |
+| --- | ---: | --- | --- |
+| Step Backward | 25/30 = 0.833333 s | Hips travel 0.728972 m backward; vertical hip range 0.134579 m; pronounced leg/foot motion, smaller torso/arm motion. End pose matches the start after subtracting travel. | One-shot lower override layer; Hips and both leg chains only. |
+| Head Hit | 66/30 = 2.2 s | No net horizontal travel. Hips also sway/rotate (up to 56 degrees), legs move, head recoils up to 76 degrees and arms contribute strongly. End pose returns to start. | One-shot upper override layer; Spine through head and both shoulder/arm/hand chains. Hips and legs excluded. |
+
+The downloaded takes are imported with looping disabled. Matching Head Hit
+endpoints do not make this reaction a permanent loop. Both production masks
+exclude the ModelRig/root transform; no Humanoid retargeting or new Avatar is used.
+The original BLEND and production rig FBX are unchanged.
+
+### Ownership and movement
+
+EnemyHealth's existing single reflection dispatch invokes
+StoneGolemController.TriggerBeingHit(). There is no health polling and no duplicate
+HealthChanged subscription. StoneGolemHitReaction owns the two layer plays,
+authored retreat curve, fades and bounded finish watchdog; the combat controller
+calls its Tick before normal AI.
+
+A walking hit enters the existing Stop state while both layers play. Stop and
+Recovery hits preserve their base state and existing recovery/cooldown clocks.
+Ground Slam suppresses both hit layers and retreat, while EnemyHealth still
+receives damage. It never cancels the committed jump.
+
+The extracted lower clip flattens only the audited backward Hips position Z
+curve (delta -0.728972). Hip bob/rotation and leg articulation remain. The same
+authored translation profile drives NavMeshAgent.Move, with root motion disabled.
+Initial retreat is 1.003248 world metres and is intentionally independent of the
+Golem root scale. This prevents the saved 10.24 scene-scale override from turning
+one authored step into an approximately 10 metre launch. Direction is captured
+from the Golem's facing once per hit.
+Each move is limited by the current NavMesh boundary and solid capsule sweeps.
+There is no Warp, catch-up teleport, player homing or hit-time transform assignment.
+At a boundary/obstacle the retreat can be shorter than a full authored stride.
+
+Both layers use explicit Play at time zero for every hit, including repeated
+hits. Finish acceptance ignores events from the old evaluation immediately after
+a restart. Normal completion uses events; it does not inspect stale normalized
+time to decide whether the new reaction has already ended.
+
+| Relay event | Clip time | Result |
+| --- | ---: | --- |
+| OnLowerBodyHitFinished | 0.833233 s | Fade the lower layer to zero. |
+| OnUpperBodyHitFinished | 2.166667 s | Fade the upper layer to zero. |
+
+Layer defaults are zero, blending mode Override, and each layer has Empty plus
+its authored reaction state with no auto-exit transitions. Both layers reset to
+Empty after completion. Initial fade-in/out values are 0.06/0.12 s. Missing events
+clear the reaction after the longest clip plus 0.4 s padding and fade duration
+(about 2.72 s), then release normal combat. Disable/dead-player/dead-enemy/lost
+NavMesh binding also clear the hit layers.
+
+### Required spawn correction
+
+The live scene contained a preserved 10.24 root-scale override and Y = 0.21.
+Runtime inspection proved that the low spawn bound the agent to the lower
+Y ~= 4.82 surface. Only the scene spawn height was corrected to the connected
+Node 3 upper surface, Y = 7.2999196. X/Z (-673.0169, -534.2211), facing, size,
+parent offset, trigger references and the existing bake were preserved.
+The visible Align Node 3 Spawn Surface menu provides an undoable repeat.
+
+The spawn remains near an upper-surface boundary, so early retreats can be
+limited there. The full-stride test first lets the actual Heavy Walk enter open
+arena space; no Golem teleport is used to prepare that test.
+
+### Files and Inspector wiring
+
+Production changes are StoneGolemHitReaction.cs, the small controller/relay
+extension, StoneGolemHitSetupMenu.cs, two copied Mixamo sources, two one-shot .anim
+clips, StoneGolemLowerHit.mask, StoneGolemUpperHit.mask, two Animator layers and the
+existing prefab. The scene's required height correction is saved.
+Animator, agent, collider, both clips, controller link and retreat curve are
+assigned in the prefab; no Inspector assignment remains outstanding.
+The three baseline animation files, including Ground Slam events, retain their
+pre-task SHA256 values. The protected BLEND retains
+EB0A7FB2316170809BC6FA5C7DC463789631BB4CC2317CB8E661D93924D1E1BC.
+
+### Validation evidence and limits
+
+Two controlled Unity 6000.3.10f1 Stage3Scene PC Editor runs passed. Each starts
+through the real Node 3 trigger after unlocking only preceding nodes at runtime.
+Play Mode exit restores the saved progression state.
+
+| Check | Prefab-scale run | Saved 10.24-scale run |
+| --- | --- | --- |
+| Observed frames / persistent base-state mismatches | 1,909 / 0 | 2,267 / 0 |
+| First retreat | 1.0033 m, full authored stride | Pre-fix evidence: 9.1497 m; requested 10.2733 m shortened at the NavMesh boundary |
+| Maximum agent/root offset | 0.0000 m | 0.0000 m |
+| Maximum horizontal Hips/root offset | 0.1750 m | 1.7924 m (same proportional offset at scene scale) |
+| Maximum observed movement frame step | 0.3987 m | 1.8793 m at scene scale; continuous profile movement, no Warp |
+| Exact pose ownership | Step leg rotations and Head Hit head/Spine2 rotations: 0 degree difference from their source samples | Same 0 degree difference |
+| Reactions / landing impacts / player hits | 7 / 1 / 1 | 7 / 1 / 1 |
+
+Both passes verify pre-battle gating, simultaneous layers, walking-hit recovery,
+restarts after lower completion and near upper completion, Stop/Recovery hits,
+zero weights after completion, missing-event watchdog release, NavMesh retention,
+committed facing, no pre-landing damage, exactly one 15 HP landing hit, preserved
+cooldown and Ground Slam finish-to-Recovery. Node 3 stays incomplete and Node 4
+locked. Rendered layered poses were inspected. The temporary validator and meta
+were removed after the passes.
+
+After that validation exposed the giant-scale retreat, runtime retreat scaling was
+corrected: `StoneGolemHitReaction` now treats the serialized 1.003248 value as
+world-space metres instead of multiplying it by `transform.lossyScale`. The saved
+scene scale, masks, clips, layer timing, NavMesh movement and Ground Slam behavior
+remain unchanged. The 10.24-scale retreat number above is retained only as evidence
+of the pre-fix behavior that motivated the correction.
+
+The scale-one run uses a runtime-only size fixture and natural Stop/Ground Slam
+range transitions. At the saved giant scene size, explicit existing Stop/Slam
+entries and a temporarily non-moving player collider fixture isolate the hit
+interaction and actual landing event. That run is not a sign-off of ordinary
+giant-scale attack reach/collider balance. Those existing settings were preserved.
+The fault-injection test uses a runtime-only clip/controller override; restoring
+that test controller requires reapplying the current base state as fixture cleanup.
+It is not part of production AI. Evidence is retained under ignored Temp/S3N3Audit
+in unity_hit_validation_prefab_scale.txt and unity_hit_validation_scene_scale.txt.
+
+Manual repeat: play Stage3Scene, finish Nodes 1/2, enter Node 3 and hit the Golem
+with the existing damage path. Watch the two layers together, backward root and
+collider movement, subsequent zero weights and normal combat resume. Repeat hits
+during Stop/Recovery and during Ground Slam: slam hits must not cancel the attack
+or produce an early/duplicate landing impact. A selected Golem still exposes the
+existing impact/range Gizmos. Physical Android validation has not been performed.
+
+
 ## Scope
 
 This layer contains Heavy Walk, a stopped/recovery stance, and Jump as Ground

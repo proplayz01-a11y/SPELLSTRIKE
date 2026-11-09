@@ -1,0 +1,38 @@
+{
+  "source_file": "C:\\Users\\David\\Downloads\\stone golem 3d model (1).glb",
+  "matched_screenshot_object_id": "79325208-e312-4f26-a11d-91acbd0df204",
+  "source_sha256": "f8b12f7a4318c3cc4238f693dbde194749888bf4ea766280d9299a705204ea2a",
+  "source_unchanged": true,
+  "blender": "5.0.1",
+  "mesh_count": 1,
+  "triangles": 13109,
+  "source_triangles": 13109,
+  "height_m": 2.000000012770502,
+  "feet_z": -1.2770501989223249e-08,
+  "rotation_applied_degrees_z": -90,
+  "uniform_scale_from_source": 2.4323040380047507,
+  "native_uvs_unchanged": true,
+  "texture": [
+    {
+      "name": "stone+golem+3d+model_basecolor.jpg",
+      "file": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\StoneGolem\\Mixamo_Package_v001\\Textures\\StoneGolem_BaseColor.jpg",
+      "sha256": "55165bfa6f4911b1c7f37e949b1fd3599f2ed7e65c7ec67b7afb8ff1a51a36cc",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ],
+  "isolated_reimport_images": [
+    {
+      "name": "stone+golem+3d+model_basecolor.jpg",
+      "loaded": true,
+      "size": [
+        4096,
+        4096
+      ],
+      "path": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\StoneGolem\\Mixamo_Package_v001\\Verification\\StoneGolem_Mixamo.fbm\\StoneGolem_BaseColor.jpg"
+    }
+  ],
+  "mixamo_upload_tested": false
+}

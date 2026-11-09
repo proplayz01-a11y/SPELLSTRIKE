@@ -1,0 +1,347 @@
+{
+  "source": "C:\\Users\\David\\Downloads\\videoplayback (3).mp4",
+  "source_fps": 30.0,
+  "sample_fps": 6,
+  "source_frame_step": 5,
+  "sample_count": 5940,
+  "sheet_count": 42,
+  "samples_per_full_sheet": 144,
+  "sheets": [
+    {
+      "sheet": "six-fps-001.jpg",
+      "first_sample": 0,
+      "last_sample": 143,
+      "start_seconds": 0.0,
+      "end_seconds": 23.833333333333332,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-002.jpg",
+      "first_sample": 144,
+      "last_sample": 287,
+      "start_seconds": 24.0,
+      "end_seconds": 47.833333333333336,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-003.jpg",
+      "first_sample": 288,
+      "last_sample": 431,
+      "start_seconds": 48.0,
+      "end_seconds": 71.83333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-004.jpg",
+      "first_sample": 432,
+      "last_sample": 575,
+      "start_seconds": 72.0,
+      "end_seconds": 95.83333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-005.jpg",
+      "first_sample": 576,
+      "last_sample": 719,
+      "start_seconds": 96.0,
+      "end_seconds": 119.83333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-006.jpg",
+      "first_sample": 720,
+      "last_sample": 863,
+      "start_seconds": 120.0,
+      "end_seconds": 143.83333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-007.jpg",
+      "first_sample": 864,
+      "last_sample": 1007,
+      "start_seconds": 144.0,
+      "end_seconds": 167.83333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-008.jpg",
+      "first_sample": 1008,
+      "last_sample": 1151,
+      "start_seconds": 168.0,
+      "end_seconds": 191.83333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-009.jpg",
+      "first_sample": 1152,
+      "last_sample": 1295,
+      "start_seconds": 192.0,
+      "end_seconds": 215.83333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-010.jpg",
+      "first_sample": 1296,
+      "last_sample": 1439,
+      "start_seconds": 216.0,
+      "end_seconds": 239.83333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-011.jpg",
+      "first_sample": 1440,
+      "last_sample": 1583,
+      "start_seconds": 240.0,
+      "end_seconds": 263.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-012.jpg",
+      "first_sample": 1584,
+      "last_sample": 1727,
+      "start_seconds": 264.0,
+      "end_seconds": 287.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-013.jpg",
+      "first_sample": 1728,
+      "last_sample": 1871,
+      "start_seconds": 288.0,
+      "end_seconds": 311.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-014.jpg",
+      "first_sample": 1872,
+      "last_sample": 2015,
+      "start_seconds": 312.0,
+      "end_seconds": 335.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-015.jpg",
+      "first_sample": 2016,
+      "last_sample": 2159,
+      "start_seconds": 336.0,
+      "end_seconds": 359.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-016.jpg",
+      "first_sample": 2160,
+      "last_sample": 2303,
+      "start_seconds": 360.0,
+      "end_seconds": 383.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-017.jpg",
+      "first_sample": 2304,
+      "last_sample": 2447,
+      "start_seconds": 384.0,
+      "end_seconds": 407.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-018.jpg",
+      "first_sample": 2448,
+      "last_sample": 2591,
+      "start_seconds": 408.0,
+      "end_seconds": 431.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-019.jpg",
+      "first_sample": 2592,
+      "last_sample": 2735,
+      "start_seconds": 432.0,
+      "end_seconds": 455.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-020.jpg",
+      "first_sample": 2736,
+      "last_sample": 2879,
+      "start_seconds": 456.0,
+      "end_seconds": 479.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-021.jpg",
+      "first_sample": 2880,
+      "last_sample": 3023,
+      "start_seconds": 480.0,
+      "end_seconds": 503.8333333333333,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-022.jpg",
+      "first_sample": 3024,
+      "last_sample": 3167,
+      "start_seconds": 504.0,
+      "end_seconds": 527.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-023.jpg",
+      "first_sample": 3168,
+      "last_sample": 3311,
+      "start_seconds": 528.0,
+      "end_seconds": 551.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-024.jpg",
+      "first_sample": 3312,
+      "last_sample": 3455,
+      "start_seconds": 552.0,
+      "end_seconds": 575.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-025.jpg",
+      "first_sample": 3456,
+      "last_sample": 3599,
+      "start_seconds": 576.0,
+      "end_seconds": 599.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-026.jpg",
+      "first_sample": 3600,
+      "last_sample": 3743,
+      "start_seconds": 600.0,
+      "end_seconds": 623.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-027.jpg",
+      "first_sample": 3744,
+      "last_sample": 3887,
+      "start_seconds": 624.0,
+      "end_seconds": 647.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-028.jpg",
+      "first_sample": 3888,
+      "last_sample": 4031,
+      "start_seconds": 648.0,
+      "end_seconds": 671.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-029.jpg",
+      "first_sample": 4032,
+      "last_sample": 4175,
+      "start_seconds": 672.0,
+      "end_seconds": 695.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-030.jpg",
+      "first_sample": 4176,
+      "last_sample": 4319,
+      "start_seconds": 696.0,
+      "end_seconds": 719.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-031.jpg",
+      "first_sample": 4320,
+      "last_sample": 4463,
+      "start_seconds": 720.0,
+      "end_seconds": 743.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-032.jpg",
+      "first_sample": 4464,
+      "last_sample": 4607,
+      "start_seconds": 744.0,
+      "end_seconds": 767.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-033.jpg",
+      "first_sample": 4608,
+      "last_sample": 4751,
+      "start_seconds": 768.0,
+      "end_seconds": 791.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-034.jpg",
+      "first_sample": 4752,
+      "last_sample": 4895,
+      "start_seconds": 792.0,
+      "end_seconds": 815.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-035.jpg",
+      "first_sample": 4896,
+      "last_sample": 5039,
+      "start_seconds": 816.0,
+      "end_seconds": 839.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-036.jpg",
+      "first_sample": 5040,
+      "last_sample": 5183,
+      "start_seconds": 840.0,
+      "end_seconds": 863.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-037.jpg",
+      "first_sample": 5184,
+      "last_sample": 5327,
+      "start_seconds": 864.0,
+      "end_seconds": 887.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-038.jpg",
+      "first_sample": 5328,
+      "last_sample": 5471,
+      "start_seconds": 888.0,
+      "end_seconds": 911.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-039.jpg",
+      "first_sample": 5472,
+      "last_sample": 5615,
+      "start_seconds": 912.0,
+      "end_seconds": 935.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-040.jpg",
+      "first_sample": 5616,
+      "last_sample": 5759,
+      "start_seconds": 936.0,
+      "end_seconds": 959.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-041.jpg",
+      "first_sample": 5760,
+      "last_sample": 5903,
+      "start_seconds": 960.0,
+      "end_seconds": 983.8333333333334,
+      "samples": 144
+    },
+    {
+      "sheet": "six-fps-042.jpg",
+      "first_sample": 5904,
+      "last_sample": 5939,
+      "start_seconds": 984.0,
+      "end_seconds": 989.8333333333334,
+      "samples": 36
+    }
+  ]
+}

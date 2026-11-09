@@ -1,0 +1,66 @@
+{
+  "status": "ROUGH_RETARGET_EXPORTED_NEEDS_VISUAL_QA",
+  "is_gvhmr_smplx": false,
+  "source": "C:\\Users\\David\\Documents\\Codex\\MocapLab\\mixamo-llm-mocap\\plates\\nevali_blockstack_flow_20261023\\nevali_pose_world_mediapipe_v01.npz",
+  "rig_source": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_Mixamo_TPose_WithSkin.fbx",
+  "original_video_frames": 192,
+  "original_video_fps": 24,
+  "animation_frames": 240,
+  "target_fps": 30,
+  "duration_seconds": 8.0,
+  "armature_bones": 57,
+  "mesh_vertices": 74083,
+  "output_blend": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_MediaPipe_BlockPlay_Rough_v01.blend",
+  "output_fbx": "C:\\Users\\David\\PROTOTYPE\\SPELLSTRIKE\\ArtSource\\Characters\\Nevali\\Mocap\\RiggedReturn_v13\\Nevali_v13_MediaPipe_BlockPlay_Rough_v01.fbx",
+  "right_arm_source_visibility": 0.962,
+  "foot_visibility": 0.054,
+  "qa_samples": {
+    "1": {
+      "right_wrist_from_shoulder_m": [
+        0.07685060799121857,
+        -0.15045422315597534,
+        -0.4166891276836395
+      ],
+      "nose_image_x_px": 598.56982421875
+    },
+    "60": {
+      "right_wrist_from_shoulder_m": [
+        0.1278752237558365,
+        -0.15294167399406433,
+        -0.41606029868125916
+      ],
+      "nose_image_x_px": 699.1543579101562
+    },
+    "120": {
+      "right_wrist_from_shoulder_m": [
+        0.15437766909599304,
+        -0.18692278861999512,
+        -0.36678165197372437
+      ],
+      "nose_image_x_px": 695.2920532226562
+    },
+    "180": {
+      "right_wrist_from_shoulder_m": [
+        -0.023541294038295746,
+        -0.24181580543518066,
+        -0.3965964913368225
+      ],
+      "nose_image_x_px": 627.6878051757812
+    },
+    "240": {
+      "right_wrist_from_shoulder_m": [
+        -0.027171000838279724,
+        -0.1941218078136444,
+        -0.3935386836528778
+      ],
+      "nose_image_x_px": 679.2975463867188
+    }
+  },
+  "limitations": [
+    "MediaPipe world landmarks are estimated from partially occluded seated footage",
+    "Hand/finger grip and wooden-block contact not yet animated",
+    "Seated skirt, shoe position, root height and knee folding require visual correction",
+    "Does not constitute validated SMPL-X/GVHMR motion extraction",
+    "Animation export and real Unity playback still need independent verification"
+  ]
+}

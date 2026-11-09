@@ -1,0 +1,37 @@
+{
+  "mesh_count": 1,
+  "triangle_count": 66496,
+  "height_m": 1.899999976158142,
+  "material_count": 1,
+  "imported_materials": [
+    {
+      "name": "Warden_Baked_PBR.001",
+      "images": [
+        {
+          "name": "Warden_BaseColor.001",
+          "size": [
+            2048,
+            2048
+          ],
+          "has_data": true
+        },
+        {
+          "name": "Warden_OcclusionRoughnessMetallic.001",
+          "size": [
+            2048,
+            2048
+          ],
+          "has_data": true
+        },
+        {
+          "name": "Warden_Normal.001",
+          "size": [
+            2048,
+            2048
+          ],
+          "has_data": true
+        }
+      ]
+    }
+  ]
+}

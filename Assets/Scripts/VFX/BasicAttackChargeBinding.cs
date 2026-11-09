@@ -30,6 +30,7 @@ namespace Spellstrike.Vfx
         private float releaseSeconds;
         private static readonly int Charge01Id = Shader.PropertyToID("Charge01");
         private static readonly int ChargeVisibilityId = Shader.PropertyToID("ChargeVisibility");
+        private bool chargeEventReceived;
         private bool chargeStarted;
         private bool graphEmissionStopped;
         private float lastAnimationSeconds = -1f;
@@ -42,6 +43,24 @@ namespace Spellstrike.Vfx
                 if (marker.functionName == "OnAttackRelease" || marker.functionName == "ShootMagicProjectile")
                     earliest = Mathf.Min(earliest, marker.time);
             return float.IsInfinity(earliest) ? -1f : earliest;
+        }
+
+        // Animation Event: frame 0 of BasicAttack. The Animator remains the
+        // timing authority; this event only opens the presentation window.
+        public void OnAttackChargeStart()
+        {
+            if (!isActiveAndEnabled)
+                return;
+
+            chargeEventReceived = true;
+            chargeStarted = false;
+            graphEmissionStopped = false;
+            lastAnimationSeconds = -1f;
+
+            if (instance != null)
+                instance.Hide();
+            if (graphInstance != null && graphInstance.gameObject.activeSelf)
+                graphInstance.gameObject.SetActive(false);
         }
 
         private void Awake()
@@ -84,6 +103,11 @@ namespace Spellstrike.Vfx
         private void LateUpdate()
         {
             if (instance == null && graphInstance == null) return;
+            if (!chargeEventReceived)
+            {
+                HideCharge();
+                return;
+            }
             if (playerAnimator == null || !playerAnimator.isActiveAndEnabled || magicSpawnPoint == null)
             {
                 HideCharge();
@@ -142,6 +166,7 @@ namespace Spellstrike.Vfx
 
         private void HideCharge()
         {
+            chargeEventReceived = false;
             chargeStarted = false;
             graphEmissionStopped = false;
             lastAnimationSeconds = -1f;

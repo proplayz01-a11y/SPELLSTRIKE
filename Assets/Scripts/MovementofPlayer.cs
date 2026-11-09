@@ -196,8 +196,16 @@ public class MovementofPlayer : MonoBehaviour
             guardedHighStep?.CancelStep();
 
         // Jump
+        bool jumpPressed = Input.GetButtonDown("Jump");
+        // Keep the original legacy binding and also accept the Input System
+        // bindings used by the imported third-person controller (Space / South).
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+            jumpPressed = true;
+        if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
+            jumpPressed = true;
+
         if (!highStepHandledMovement && !IsMovementDisabled &&
-            Input.GetButtonDown("Jump") && controller.isGrounded)
+            jumpPressed && controller.isGrounded)
         {
             velocity.y = jumpPower;
             if (animator != null)

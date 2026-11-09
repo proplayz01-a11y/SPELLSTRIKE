@@ -1,0 +1,38 @@
+{
+  "source": "C:\\Users\\David\\Downloads\\stone golem 3d model (1).glb",
+  "source_sha256": "f8b12f7a4318c3cc4238f693dbde194749888bf4ea766280d9299a705204ea2a",
+  "bounds": [
+    [
+      -0.1552734375,
+      -0.4990234375,
+      -0.4111328125
+    ],
+    [
+      0.1552734375,
+      0.4990234375,
+      0.4111328125
+    ]
+  ],
+  "meshes": [
+    {
+      "name": "tripo_node_79325208-e312-4f26-a11d-91acbd0df204",
+      "vertices": 8036,
+      "triangles": 13109,
+      "uvs": [
+        "UVMap"
+      ]
+    }
+  ],
+  "armatures": [],
+  "images": [
+    {
+      "name": "stone+golem+3d+model_basecolor.jpg",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true,
+      "has_data": true
+    }
+  ]
+}

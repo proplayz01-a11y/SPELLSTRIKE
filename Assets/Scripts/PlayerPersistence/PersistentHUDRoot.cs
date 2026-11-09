@@ -55,6 +55,22 @@ public sealed class PersistentHUDRoot : MonoBehaviour
         RefreshPersistentPresentation();
     }
 
+    private void OnEnable()
+    {
+        // Static singletons can be reset by an editor script-domain reload while
+        // DontDestroyOnLoad objects survive. Reclaim ownership on re-enable so a
+        // scene-authored copy cannot leave a second persistent HUD alive.
+        if (Instance == null || Instance == this)
+        {
+            Instance = this;
+            return;
+        }
+
+        gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
+
+
     private void Start()
     {
         // All scene Awake callbacks have executed at this point. Existing
@@ -76,6 +92,25 @@ public sealed class PersistentHUDRoot : MonoBehaviour
         {
             if (canvas == null)
                 continue;
+            if (canvas.gameObject.name == "PauseMenuPanel")
+            {
+                canvas.overrideSorting = true;
+                canvas.sortingOrder = 100;
+                continue;
+            }
+            if (canvas.gameObject.name == "GameplayOptionsPanel")
+            {
+                canvas.overrideSorting = true;
+                canvas.sortingOrder = 101;
+                continue;
+            }
+            if (canvas.gameObject.name == "ReturnToMainMenuConfirmationPanel")
+            {
+                canvas.overrideSorting = true;
+                canvas.sortingOrder = 102;
+                continue;
+            }
+
 
             // The editable Mage HUD places its existing bound HP Text on a
             // nested Canvas above the fixed ornate gold frame (order 20).

@@ -1,0 +1,100 @@
+Assets/MenuV2/Art/Adventure_Arch_Base.png
+Assets/MenuV2/Art/Adventure_Arch_Hover_UserApproved_V05.png
+Assets/MenuV2/Art/Adventure_Vortex.png
+Assets/MenuV2/Art/Adventure_Wordmark_GoldShadow_V09.png
+Assets/MenuV2/Art/Book_GroundShadow_V10.png
+Assets/MenuV2/Art/Book_HoverGoldHalo.png
+Assets/MenuV2/Art/ContactShadow_QA.png
+Assets/MenuV2/Art/LogoCrystalGlint_QA.png
+Assets/MenuV2/Art/MainMenu_Background_NoObjects_2400x1080.png
+Assets/MenuV2/Art/Minigame_Tent_Base.png
+Assets/MenuV2/Art/Minigame_Tent_Hover_CleanHalo_V06.png
+Assets/MenuV2/Art/Minigames_Wordmark_GoldShadow_V09.png
+Assets/MenuV2/Art/Options_Wordmark_GoldShadow_V09.png
+Assets/MenuV2/Art/Options_Workbench_Base.png
+Assets/MenuV2/Art/Options_Workbench_Hover_UserApproved_V05.png
+Assets/MenuV2/Art/Portal_CyanLightSpill_QA.png
+Assets/MenuV2/Art/Quit_Sign_Base.png
+Assets/MenuV2/Art/Quit_Sign_Hover_Aligned_QA.png
+Assets/MenuV2/Art/Quit_Wordmark_GoldShadow_V09.png
+Assets/MenuV2/Art/Spellbook_Wordmark_GoldShadow_V09.png
+Assets/MenuV2/Art/SpellstrikeLogo_SoftBlurShadow_V09.png
+Assets/MenuV2/Art/Spellstrike_Logo.png
+Assets/MenuV2/Art/VanAert_IntegratedDepth_V08.png
+Assets/MenuV2/Art/VanGroundContact_Strong_V08.png
+Assets/MenuV2/Materials/PortalSimpleWhirl_V06.mat
+Assets/MenuV2/RenderTextures/OrbitTiles_Back.renderTexture
+Assets/MenuV2/RenderTextures/OrbitTiles_Front.renderTexture
+Assets/MenuV2/RenderTextures/TutorialSpellbook_Menu.renderTexture
+Assets/MenuV2/RodinV11/BlackLetters/SPELLSTRIKE_D_Black3D_BothFaces_MobileLean.glb
+Assets/MenuV2/RodinV11/BlackLetters/SPELLSTRIKE_O_Black3D_BothFaces_MobileLean.glb
+Assets/MenuV2/RodinV11/BlackLetters/SPELLSTRIKE_R_Black3D_BothFaces_MobileLean.glb
+Assets/MenuV2/RodinV11/BlackLetters/SPELLSTRIKE_S_Black3D_BothFaces_MobileLean.glb
+Assets/MenuV2/RodinV11/BlackLetters/SPELLSTRIKE_W_Black3D_BothFaces_MobileLean.glb
+Assets/MenuV2/RodinV11/SharedBases/SPELLSTRIKE_Bronze_SharedBase_1024.glb
+Assets/MenuV2/RodinV11/SharedBases/SPELLSTRIKE_Silver_SharedBase_1024.glb
+Assets/MenuV2/Shaders/PortalSimpleWhirlV06.shader
+Assets/Prefabs/UI/MainMenuSpellbookUI.prefab
+Assets/Scenes/Main Menu Scene.unity
+Assets/Scripts/AdventureButtonHandler.cs
+Assets/Scripts/MenuV2/MenuV11RodinOrbitTile.cs
+Assets/Scripts/MenuV2/MenuV2BookShadowPulseV10.cs
+Assets/Scripts/MenuV2/MenuV2CrystalGlint.cs
+Assets/Scripts/MenuV2/MenuV2FloatingBookUIV06.cs
+Assets/Scripts/MenuV2/MenuV2HoverTarget.cs
+Assets/Scripts/MenuV2/MenuV2PanelAction.cs
+Assets/Scripts/MenuV2/MenuV2PortalHoverOnly.cs
+Assets/Scripts/MenuV2/MenuV2SpellbookSpinV10.cs
+Assets/Scripts/MenuV2/MenuV2StaffCrystalGlintV10.cs
+Assets/Scripts/MenuV2/MenuV2VolumeSetting.cs
+Assets/Scripts/Spellbook/MainMenuSpellbookEntryView.cs
+Assets/Scripts/Spellbook/MainMenuSpellbookUI.cs
+Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+Assets/Tutorial Assets/Navigation/SPELLBOOK.glb
+Packages/com.unity.cloud.gltfast/Editor/Scripts/GltfImporter.cs
+Packages/com.unity.cloud.gltfast/Runtime/Shader/Includes/Emission.cginc
+Packages/com.unity.cloud.gltfast/Runtime/Shader/Includes/Normal.cginc
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/BaseColor.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/Emission.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/MetallicRoughness.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/Normal.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/Occlusion.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/PBR_metallic_roughness.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/ScreenGrab.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/TextureTransform.shadersubgraph
+Packages/com.unity.cloud.gltfast/Runtime/Shader/glTF-pbrMetallicRoughness.shadergraph
+Packages/com.unity.render-pipelines.high-definition/Editor/Material/ShaderGraph/HDMetadata.cs
+Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/UniversalMetadata.cs
+Packages/com.unity.render-pipelines.universal/Runtime/UniversalAdditionalLightData.cs
+Packages/com.unity.shadergraph/Editor/Data/SubGraph/SubGraphAsset.cs
+Packages/com.unity.shadergraph/Editor/Generation/Targets/BuiltIn/Editor/ShaderGraph/BuiltInMetadata.cs
+Packages/com.unity.shadergraph/Editor/Importers/ShaderGraphImporter.cs
+Packages/com.unity.shadergraph/Editor/Importers/ShaderGraphMetadata.cs
+Packages/com.unity.shadergraph/Editor/Importers/ShaderSubGraphImporter.cs
+Packages/com.unity.shadergraph/Editor/Importers/ShaderSubGraphMetadata.cs
+Packages/com.unity.ugui/Editor Resources/Gizmos/TMP - Font Asset Icon.psd
+Packages/com.unity.ugui/Editor Resources/Gizmos/TMP - Input Field Icon.psd
+Packages/com.unity.ugui/Editor Resources/Gizmos/TMP - Text Component Icon.psd
+Packages/com.unity.ugui/Runtime/TMP/TMP_FontAsset.cs
+Packages/com.unity.ugui/Runtime/TMP/TMP_InputField.cs
+Packages/com.unity.ugui/Runtime/TMP/TextMeshProUGUI.cs
+Packages/com.unity.ugui/Runtime/UGUI/EventSystem/EventSystem.cs
+Packages/com.unity.ugui/Runtime/UGUI/EventSystem/InputModules/StandaloneInputModule.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Button.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/GraphicRaycaster.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Image.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Layout/AspectRatioFitter.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Layout/CanvasScaler.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Layout/ContentSizeFitter.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Layout/LayoutElement.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Layout/VerticalLayoutGroup.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Mask.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/RawImage.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/RectMask2D.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/ScrollRect.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Slider.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/VertexModifiers/Outline.cs
+Packages/com.unity.ugui/Runtime/UGUI/UI/Core/VertexModifiers/Shadow.cs

@@ -1,0 +1,326 @@
+{
+  "parts": [
+    {
+      "name": "SunboundWarden_Body_Armor_Preserved",
+      "triangles": 16622,
+      "verts": 8328
+    },
+    {
+      "name": "Warden_Hand_R_Glove",
+      "triangles": 7232,
+      "verts": 3618,
+      "base_nonmanifold_edges": 0,
+      "base_vertices": 228
+    },
+    {
+      "name": "Warden_Hand_L_Glove",
+      "triangles": 7232,
+      "verts": 3618,
+      "base_nonmanifold_edges": 0,
+      "base_vertices": 228
+    },
+    {
+      "name": "Warden_Hand_R_WristSeal",
+      "triangles": 1248,
+      "verts": 624
+    },
+    {
+      "name": "Warden_Hand_R_WristLip",
+      "triangles": 576,
+      "verts": 288
+    },
+    {
+      "name": "Warden_Hand_R_BackplateBorder",
+      "triangles": 236,
+      "verts": 120
+    },
+    {
+      "name": "Warden_Hand_R_BackplateInset",
+      "triangles": 236,
+      "verts": 120
+    },
+    {
+      "name": "Warden_Hand_R_Little_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Little_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Little_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Ring_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Ring_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Ring_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Middle_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Middle_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Middle_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Index_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Index_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Index_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_R_Thumb_CurvedPlate_1",
+      "triangles": 396,
+      "verts": 200
+    },
+    {
+      "name": "Warden_Hand_R_Thumb_CurvedPlate_2",
+      "triangles": 396,
+      "verts": 200
+    },
+    {
+      "name": "Warden_Hand_R_Thumb_CurvedPlate_3",
+      "triangles": 396,
+      "verts": 200
+    },
+    {
+      "name": "Warden_Hand_R_SunRing",
+      "triangles": 512,
+      "verts": 264
+    },
+    {
+      "name": "Warden_Hand_R_SunRing.001",
+      "triangles": 512,
+      "verts": 264
+    },
+    {
+      "name": "Warden_Hand_R_SunRay",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.001",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.002",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.003",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.004",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.005",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.006",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_SunRay.007",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_R_PalmSeam",
+      "triangles": 64,
+      "verts": 40
+    },
+    {
+      "name": "Warden_Hand_L_WristSeal",
+      "triangles": 1248,
+      "verts": 624
+    },
+    {
+      "name": "Warden_Hand_L_WristLip",
+      "triangles": 576,
+      "verts": 288
+    },
+    {
+      "name": "Warden_Hand_L_BackplateBorder",
+      "triangles": 236,
+      "verts": 120
+    },
+    {
+      "name": "Warden_Hand_L_BackplateInset",
+      "triangles": 236,
+      "verts": 120
+    },
+    {
+      "name": "Warden_Hand_L_Little_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Little_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Little_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Ring_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Ring_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Ring_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Middle_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Middle_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Middle_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Index_CurvedPlate_1",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Index_CurvedPlate_2",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Index_CurvedPlate_3",
+      "triangles": 456,
+      "verts": 230
+    },
+    {
+      "name": "Warden_Hand_L_Thumb_CurvedPlate_1",
+      "triangles": 396,
+      "verts": 200
+    },
+    {
+      "name": "Warden_Hand_L_Thumb_CurvedPlate_2",
+      "triangles": 396,
+      "verts": 200
+    },
+    {
+      "name": "Warden_Hand_L_Thumb_CurvedPlate_3",
+      "triangles": 396,
+      "verts": 200
+    },
+    {
+      "name": "Warden_Hand_L_SunRing",
+      "triangles": 512,
+      "verts": 264
+    },
+    {
+      "name": "Warden_Hand_L_SunRing.001",
+      "triangles": 512,
+      "verts": 264
+    },
+    {
+      "name": "Warden_Hand_L_SunRay",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.001",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.002",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.003",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.004",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.005",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.006",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_SunRay.007",
+      "triangles": 16,
+      "verts": 16
+    },
+    {
+      "name": "Warden_Hand_L_PalmSeam",
+      "triangles": 64,
+      "verts": 40
+    }
+  ],
+  "body_interior_geometry_uv_unchanged": true,
+  "total_triangles": 51430,
+  "source_unchanged": true
+}

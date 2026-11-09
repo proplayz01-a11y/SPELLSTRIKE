@@ -1,5 +1,18 @@
 # SPELLSTRIKE Changelog
 
+## 2026-11-05 — Persistent Pause Button Visual
+
+- Added the transparent ornate navy-and-gold `PauseButtonCircle` Sprite and a
+  top-right `PauseButton` with two gold bars and a subtle shadow to the primary
+  combat Canvas in the canonical `PersistentGameplayHUD.prefab`.
+- The control is parented under the HUD root, so it shares the existing
+  `DontDestroyOnLoad` lifetime in Stage 1, Stages 2–4, and TutorialScene, all of
+  which reference the canonical HUD prefab.
+- The button click is intentionally not wired yet. Pause panel, Options, and
+  Return to Main Menu behavior are not part of this visual-only change. Unity
+  Game View rendering was checked; Play Mode transitions and Android device QA
+  remain pending. Backup: `RecoveryBackups/PAUSE_BUTTON_20261105/`.
+
 ## 2026-10-02 — Desert Archer Mixamo Material Package
 
 - Extracted the original 4096² color atlas, three-material Blender library, and

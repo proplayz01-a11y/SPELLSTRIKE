@@ -1,0 +1,51 @@
+SPELLSTRIKE MAIN MENU V08 — STRONGER VAN DEPTH / GROUNDING QA
+2026-10-31, Unity 6000.3.10f1 (URP)
+
+ISOLATED SCENE:
+Assets/Scenes/MenuConcepts/MainMenuV2_Prototype_20261031_v08_VanGrounded.unity
+
+SOURCE PROTECTION:
+V07 scene SHA256 verified unchanged after creation:
+95A37EF57879120DDA9BB88B9090B94BCDDAF2D36F04D966AA184A73CAEEED5A
+V07 source art / original approved Van untouched; V08 writes separate
+character and shadow assets only. No production Main Menu / TutorialScene /
+cinematic changes.
+
+NEW ASSETS:
+Assets/MenuV2/Art/VanAert_IntegratedDepth_V08.png
+Assets/MenuV2/Art/VanGroundContact_Strong_V08.png
+Assets/MenuV2/Tools/build_v08_van_grounded.py
+Assets/Editor/MainMenuV2VanGroundedV08.cs
+
+ART CONTRACT:
+Approved portrait, white hair/beard, face, gold-rim glasses, robe artwork,
+wooden/crystal staff, boots and pose unchanged.
+Same 1122x1402 canvas and EXACT pixel-for-pixel source alpha/silhouette.
+Stronger occlusion in overlapping navy cloak, bottom hem and sleeves.
+Enhanced existing painted-fold shading and cool portal/warm meadow bounce.
+No thick comic outline / new external silhouette.
+
+GROUND SHADOW:
+Atlas 1024x288, UI rect 500x140 centered at canvas anchored (-10,-477).
+Anatomical 2400x1080 contact estimates extracted from source art:
+staff tip (1068,46), left boot (1127,45), right boot (1251,31);
+shader-free soft dark contact bands, larger diffuse ground shadow;
+atlas maximum opacity ~0.82. Placed below Van in the canvas sibling order.
+
+UNITY GAME VIEW QA:
+Captures/MenuV2QA/V08_BaselineV07_Before.png
+Captures/MenuV2QA/V08_VanGrounded_Final.png
+Captures/MenuV2QA/V07_vs_V08_Feet_Final.png
+Captures/MenuV2QA/V07_vs_V08_FullVan_Final.png
+
+At native 2400x1080 Game View:
+- 215 matched Van detail features between V07/V08, median motion (0,0);
+  97.7% stable within 1 pixel.
+- Ground-foot comparison ROI mean absolute channel difference 28.53;
+  unrelated meadow control ROI difference 0.00 (max 2).
+- No new Van geometry, stage, menu route, or input layer modifications.
+
+PENDING:
+User's visual sign-off (especially subjective shadow strength).
+Android touch/performance validation and full menu navigation.
+No Git commit until user QA approval.

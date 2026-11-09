@@ -1,0 +1,52 @@
+SPELLSTRIKE MAIN MENU V06 - RECORDED QA REVIEW
+User recording: C:\Users\David\Videos\Screen Recordings\Screen Recording 2026-10-30 233044.mp4
+Duration: approximately 04:36, 30 fps, 1918x1000.
+Baseline: Assets/Scenes/MenuConcepts/MainMenuV2_Prototype_20261030_v05_HoverFlow.unity
+New isolated scene: Assets/Scenes/MenuConcepts/MainMenuV2_Prototype_20261030_v06_QAPolish.unity
+
+TIME-CODED FINDINGS AND ACTIONS
+00:40-01:05: User disliked vortex arms looking multiplied/distorted.
+  V06 uses ONE rotating texture field with no radial ripple or crossfade
+  between different spiral frames, and preserves a stationary outer boundary.
+  Hover controller still starts/stops angular motion with pointer.
+01:30-02:20: Place real 3D Spellbook floating ABOVE lower-right stone;
+  move Quit down beside stone. V06 moves book anchor to 2202x234,
+  adds subtle UI bob; Quit to 1780x105, shrunk to 210x192 so boots
+  are not clipped by the 2400x1080 canvas.
+02:30-03:05: User reported cramped side-face letter glyphs on five 3D
+  orbiting tiles. V06 uses camera-facing clean-face orbit with small
+  yaw/roll rather than full 360 degree yaw, thinner local-X tile geometry.
+  Original gameplay tile meshes/materials are untouched.
+03:35-04:35: Close-up reveals hover art ghosting at tent poles/ropes
+  even though screen position and geometry were aligned.
+  V06's halo is built solely from the base tent alpha silhouette,
+  preserving V05 illuminated art only INSIDE the original geometry.
+
+VERIFIED IN UNITY
+Scene created and saved; current Play Mode scene V06 with EventSystem enabled.
+Original V05 SHA256 unchanged:
+6C791165496EF4BEEEE38D8840BB4876F29E017E0041F2C5F6EA41E8FC3BA212
+V06 screenshot files saved in parent Captures/MenuV2QA:
+  V06_GameView_Initial.png
+  V06_GameView_QuitSafe.png
+  V06_HoverBaseline.png
+  V06_MinigameHover_CleanHalo.png
+  V06_AdventureSimpleWhirl_A.png
+  V06_AdventureSimpleWhirl_B.png
+Tent hovered vs idle at native 2400x1080 Game View:
+  1032 SIFT feature matches, median translation (0,0) pixels,
+  90.7% within one pixel.
+Base and hover tent RGBA sizes equal (1448x1086), alpha on original
+visible geometry matches; V05 lit interior retained unchanged.
+Vortex motion validated across two captured frames:
+  swirl ROI mean maximum channel difference 47.01;
+  stone edge ROI 1.59; static background region 0.00.
+Editor Console: pre-existing "Unity Remote requirements check failed"
+warning; no new C# error observed in the final check.
+
+STILL NEEDS USER SIGNOFF
+Visual approval of vortex shape and tent halo strength.
+Actual click-through and flow tests for Adventure / Minigame /
+Spellbook / Options / Quit.
+Word Chronicle persistence validation and Android device performance.
+No git commit performed; unrelated working-tree changes untouched.
