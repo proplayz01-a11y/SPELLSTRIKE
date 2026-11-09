@@ -20,6 +20,7 @@ public class HomingProjectile : MonoBehaviour
     private bool targetChallengeCast;
     private float moveAfterTime;
     private bool isMediumAttack;
+    private Spellstrike.Vfx.ArcaneSurgePresentation arcaneSurge;
     private Vector3 lastTrackedPosition;
     private float distanceTravelled;
 
@@ -75,6 +76,37 @@ public class HomingProjectile : MonoBehaviour
         return presentation != null && presentation.Activate(target);
     }
 
+    /// <summary>Strong-only overhead movement; this projectile keeps single-hit authority.</summary>
+    public bool EnableArcaneSurge()
+    {
+        if (target == null || hasHit || wordLength < 10 || wordLength > 13)
+            return false;
+        arcaneSurge = gameObject.AddComponent<Spellstrike.Vfx.ArcaneSurgePresentation>();
+        if (!arcaneSurge.Begin(target))
+        {
+            Destroy(arcaneSurge);
+            arcaneSurge = null;
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>Use the existing accepted-target/damage/barrier flow after 0.20s.</summary>
+    public bool ResolveArcaneSurgeContact(Collider collider)
+    {
+        if (arcaneSurge == null || !arcaneSurge.DescentComplete || hasHit)
+            return false;
+        ResolveAcceptedImpact(collider);
+        return hasHit;
+    }
+
+    /// <summary>Cancel a lost Strong target without leaving a challenge submission pending.</summary>
+    public void NotifyArcaneSurgeCancelled()
+    {
+        if (targetChallengeCast && attackOwner != null)
+            attackOwner.NotifyTargetChallengeProjectileResolved(submittedWord, null, false);
+    }
+
     private void ApplyDamageWithPresentationScale(Action applyDamage)
     {
         if (applyDamage == null)
@@ -93,6 +125,7 @@ public class HomingProjectile : MonoBehaviour
 
     void Update()
     {
+        if (arcaneSurge != null) return; // Presentation drives the strong-only vertical path.
         if (target == null || hasHit || Time.time < moveAfterTime) return;
         var titan = target.GetComponent<TitanEarthbreakerController>();
         Vector3 targetPosition = titan != null ? titan.SpellAimPosition : target.position;
@@ -144,6 +177,7 @@ public class HomingProjectile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (arcaneSurge != null) return; // Contact is confirmed at descent completion.
         if (other == null) return;
 
         ResolveAcceptedImpact(other);
@@ -224,22 +258,38 @@ public class HomingProjectile : MonoBehaviour
                 "[HomingProjectile] The active vocabulary barrier absorbed the valid non-target spell. "
                 + "No enemy damage or hit reaction was applied.");
         }
-        else if (enemyController != null)
+        else
         {
-            // EnemyController supports (float damage, int wordLength)
-            ApplyDamageWithPresentationScale(
-                () => enemyController.TakeDamage(resolvedDamage, wordLength));
-        }
-        else if (brambleController != null)
-        {
-            // BrambleSpriteController has only TakeDamage(float)
-            ApplyDamageWithPresentationScale(
-                () => brambleController.TakeDamage(resolvedDamage));
-        }
-        else if (enemyHealth != null)
-        {
-            ApplyDamageWithPresentationScale(
-                () => enemyHealth.TakeDamage(resolvedDamage));
+            // Resolve the vocabulary barrier / word just ONCE above, then
+            // hand the approved total to the independent Strong presentation.
+            // Each of the three Zap contacts applies one third of that total.
+            // Other attack tiers and Target Challenge retain their old flow.
+            bool strongDamageQueued = arcaneSurge != null
+                && !targetChallengeCast
+                && resolvedDamage > 0
+                && arcaneSurge.QueueDamageSequence(
+                    resolvedDamage, wordLength, enemyController, brambleController, enemyHealth);
+
+            if (!strongDamageQueued)
+            {
+                if (enemyController != null)
+                {
+                    // EnemyController supports (float damage, int wordLength)
+                    ApplyDamageWithPresentationScale(
+                        () => enemyController.TakeDamage(resolvedDamage, wordLength));
+                }
+                else if (brambleController != null)
+                {
+                    // BrambleSpriteController has only TakeDamage(float)
+                    ApplyDamageWithPresentationScale(
+                        () => brambleController.TakeDamage(resolvedDamage));
+                }
+                else if (enemyHealth != null)
+                {
+                    ApplyDamageWithPresentationScale(
+                        () => enemyHealth.TakeDamage(resolvedDamage));
+                }
+            }
         }
 
         if (targetChallengeCast && attackOwner != null)
@@ -267,6 +317,7 @@ public class HomingProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (arcaneSurge != null) return;
         if (collision == null || collision.collider == null || hasHit) return;
         ResolveAcceptedImpact(collision.collider);
     }

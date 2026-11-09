@@ -30,6 +30,9 @@ public class AttackController : MonoBehaviour
     private string pendingWord = string.Empty;
     private bool projectileReleasedForCurrentAttack;
     private string currentAttackTrigger = "BasicAttack";
+    private Spellstrike.Vfx.ArcaneSurgeCastChargeVfx strongCastVfx;
+    private Spellstrike.Vfx.ArcaneSurgePresentation activeStrongZapPresentation;
+    private Spellstrike.Vfx.ArcaneSurgeZapVisual activeStrongZapVisual;
     private Coroutine attackCoroutine;
     private bool attackInputLocked;
     private Func<string, bool> wordSubmissionFilter;
@@ -275,6 +278,7 @@ public class AttackController : MonoBehaviour
         currentWordLength = wordLength;
         pendingWord = word;
 
+        ResetStrongZapEventHandles();
         currentAttackTrigger = GetAttackTrigger(wordLength);
         projectileReleasedForCurrentAttack = false;
         Debug.Log("Attack tier: " + currentAttackTrigger);
@@ -313,6 +317,7 @@ public class AttackController : MonoBehaviour
         pendingDamage = CalculateDamage(word, false);
         currentWordLength = wordLength;
         pendingWord = word;
+        ResetStrongZapEventHandles();
         currentAttackTrigger = GetAttackTrigger(wordLength);
         projectileReleasedForCurrentAttack = false;
 
@@ -390,6 +395,27 @@ public class AttackController : MonoBehaviour
                     this);
             }
 
+            // Challenge word/barrier mechanics retain their already-accepted
+            // projectile/contact flow until the overhead variant is separately
+            // accepted in that mode.
+            if (currentAttackTrigger == "StrongAttack"
+                && !targetChallengeCastInProgress)
+            {
+                if (!projectileScript.EnableArcaneSurge())
+                {
+                    Debug.LogWarning(
+                        "[AttackController] Arcane Surge setup failed; falling back to the existing homing projectile.",
+                        this);
+                }
+                else
+                {
+                    activeStrongZapPresentation =
+                        proj.GetComponent<Spellstrike.Vfx.ArcaneSurgePresentation>();
+                    activeStrongZapVisual = activeStrongZapPresentation != null
+                        ? activeStrongZapPresentation.ZapVisual
+                        : null;
+                }
+            }
             projectileReleasedForCurrentAttack = true;
         }
         else
@@ -407,12 +433,111 @@ public class AttackController : MonoBehaviour
     // Animation Event: place on the exact casting release frame.
     public void OnAttackRelease()
     {
+        // Legacy clips / safe fallback must not leave a Strong charge alive.
+        if (currentAttackTrigger == "StrongAttack")
+            StopStrongCastVfx();
         ShootMagicProjectile();
+    }
+
+    /// <summary>
+    /// Animation Event at 0.9667s of the active StrongAttack clip.
+    /// Starts presentation-only hand energy BEFORE the real release frame.
+    /// This never consumes a word, spawns a projectile or deals damage.
+    /// </summary>
+    public void OnStrongAttackCast()
+    {
+        if (currentAttackTrigger != "StrongAttack"
+            || targetChallengeCastInProgress
+            || pendingDamage <= 0
+            || projectileReleasedForCurrentAttack
+            || magicSpawnPoint == null)
+            return;
+
+        StopStrongCastVfx();
+        strongCastVfx = Spellstrike.Vfx.ArcaneSurgeCastChargeVfx.Spawn(magicSpawnPoint);
+    }
+
+    /// <summary>
+    /// Animation Event at 1.2667s: replaces the Strong clip's generic
+    /// OnAttackRelease. Existing release method is preserved for all
+    /// other tiers and for any intentional Strong Target Challenge cast.
+    /// ShootMagicProjectile's existing guard prevents duplicate releases.
+    /// </summary>
+    public void OnStrongAttackZapRelease()
+    {
+        if (currentAttackTrigger != "StrongAttack" || projectileReleasedForCurrentAttack
+            || pendingDamage <= 0)
+            return;
+
+        StopStrongCastVfx();
+        ShootMagicProjectile();
+    }
+
+    /// <summary>
+    /// Animation Event at 1.4667s (6 frames after release): authorize the
+    /// first lightning contact. ArcaneSurgePresentation waits until its
+    /// full 0.20-second sky-to-head descent is visible before resolving hit.
+    /// </summary>
+    public void OnStrongZapYellow()
+    {
+        if (currentAttackTrigger != "StrongAttack"
+            || targetChallengeCastInProgress
+            || !projectileReleasedForCurrentAttack
+            || activeStrongZapPresentation == null)
+            return;
+
+        activeStrongZapPresentation.RequestYellowImpact();
+    }
+
+    /// <summary>Animation Event at 1.6667s: second HP share + dark blue Zap.</summary>
+    public void OnStrongZapDarkBlue()
+    {
+        if (currentAttackTrigger != "StrongAttack"
+            || targetChallengeCastInProgress
+            || !projectileReleasedForCurrentAttack
+            || activeStrongZapVisual == null)
+            return;
+
+        activeStrongZapVisual.TriggerDarkBlueImpact();
+    }
+
+    /// <summary>Animation Event at 1.8667s: third HP share + cyan blue Zap.</summary>
+    public void OnStrongZapCyanBlue()
+    {
+        if (currentAttackTrigger != "StrongAttack"
+            || targetChallengeCastInProgress
+            || !projectileReleasedForCurrentAttack
+            || activeStrongZapVisual == null)
+            return;
+
+        activeStrongZapVisual.TriggerCyanBlueImpact();
+    }
+
+    private void ResetStrongZapEventHandles()
+    {
+        activeStrongZapPresentation = null;
+        activeStrongZapVisual = null;
+    }
+
+    private void StopStrongCastVfx()
+    {
+        if (strongCastVfx == null)
+            return;
+        Destroy(strongCastVfx.gameObject);
+        strongCastVfx = null;
+    }
+
+    private void OnDisable()
+    {
+        StopStrongCastVfx();
+        ResetStrongZapEventHandles();
     }
 
     // Animation Event: place on the final active frame of every attack clip.
     public void OnAttackAnimationFinished()
     {
+        StopStrongCastVfx();
+        ResetStrongZapEventHandles();
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
@@ -468,6 +593,7 @@ public class AttackController : MonoBehaviour
 
     private void CancelTargetChallengeCast(string reason)
     {
+        StopStrongCastVfx();
         if (!targetChallengeCastInProgress)
             return;
 
@@ -580,6 +706,8 @@ public class AttackController : MonoBehaviour
 
         yield return new WaitForSeconds(duration + 0.05f);
 
+        StopStrongCastVfx();
+        ResetStrongZapEventHandles();
         if (movementController != null)
             movementController.EndAttack();
 
