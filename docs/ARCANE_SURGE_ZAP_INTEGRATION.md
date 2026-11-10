@@ -1,5 +1,66 @@
 # Arcane Surge — Imported Vefects Zap VFX (Strong Attack)
 
+## Stone Sentinel 50% FRACTURE gate — 13-letter three-hit death-lock fix (2026-11-11)
+
+The Stage 1 **Stone Sentinel** has 30 HP and its FRACTURE vocabulary Counterspell starts at 50% HP (15 HP). Previously, the approved 13-letter Strong Attack's damage was split across three event-driven impacts; the Counterspell began during hit 2 but hit 3 still reduced HP to zero, leaving the Sentinel dead while stuck in the shield/vocabulary animation.
+
+**Current fix:** `EnemyHealth.TakeDamage` calls `StoneSentinelCounterspellController.LimitIncomingDamage` *before* reducing HP or dispatching `HealthChanged`. While the phase is waiting to begin, incoming damage can reduce Stone Sentinel only as far as 50% HP; damage exceeding that amount is capped. The first hit that reaches 50% dispatches `HealthChanged` normally, triggering the shield/vocabulary sequence. During Equipping, Teaching, Challenge, and Breaking, **every subsequent damaging hit (including the third Arcane Surge impact) is nullified**, without a hit reaction or death transition. Once FRACTURE is Completed, damage is lethal normally; Failed also releases the gate to avoid an invincible setup-error softlock. Other enemies do not have this gate. No animation event names, visuals, or scene files were modified for this fix.
+
+**Example using actual Stone Sentinel max HP 30 and approved 30-damage, 13-letter Strong Attack:** Yellow deals 10 (30→20), Dark Blue is capped to 5 (20→15, shield activates), Cyan deals **0** (15→15). A one-hit damage value of 999,999 also stops exactly at 15 HP. After the required FRACTURE phase completes, combat can reduce the Sentinel from 15 HP to zero. The dedicated phase-gate source regression in `Tools/Test-ArcaneSurgeSourceContract.ps1` and a Unity runtime limiter simulation passed. Actual full arena combat should be retested from a fresh encounter (an already-dead Sentinel in the running Play Mode cannot be revived retroactively).
+
+## Latest — Ground-level Foot VFX Anchor for aftershock (2026-11-10)
+
+The user preferred the **Plexus AoE and Lightning Aura at the feet**, rather than on the chest. The current OnStrongAftershock animation event creates an independent runtime Foot VFX Anchor GameObject per enemy that actually lost HP to the three Zap impacts. Both imported Hovl effects spawn at this same ground-level anchor. It follows the midpoint of the left/right foot bones for Humanoid and common Generic rigs, with fallback to the body collider's bottom. A downward solid-floor check prevents the VFX from floating above ground on walking/falling animation frames. On enemy disable/despawn, the anchor **freezes at the last known ground point** instead of being destroyed or floating at the old chest position. Particles remain local-space to the independent anchor.
+
+**Unchanged:** 2× homing Magic Circle and corresponding AoE damage radius; Yellow/Dark Blue/Cyan hits and original accepted damage authority; OnStrongAftershock visual-only; per-enemy relative Plexus and Lightning Aura sizing; all existing seven StrongAttack animation-event names/timings. Neither gameplay scenes nor vendor prefab assets need a permanent foot marker.
+
+**Isolated Unity Play Mode test:** Created a solid floor, a small enemy with generic LeftFoot/RightFoot transforms, a normal enemy without feet bones, a giant with feet bones, and a fourth enemy outside the AoE. All three actual targets received 30 damage (HP 70/70/70); the outsider remained at 100 HP. Confirmed **three independent Foot VFX Anchors, three Plexus prefabs and three Aura prefabs**, one pair per affected enemy. The small enemy's anchor matched the **foot midpoint**; the normal enemy used its **collider-bottom fallback**; all three were close to the floor (0.06 world units above it). Moving two enemies shifted their foot anchors; deliberately raising both foot bones left the small enemy's effect on the ground. Disabling the small enemy and moving its GameObject further left the aftershock at its **last ground point**. This does not replace full Stage 1–4 or Android visual/performance QA.
+
+## Latest scaling refinement — 2× Circle + enemy-relative Aftershock (2026-11-10)
+
+Per user feedback, the previous 5× moving Magic Circle was too large. **The cast Magic Circle and its real AoE damage radius are now 2× the original**, rather than 5× (radius 12–36 world units instead of 30–90, subject to primary enemy width). The circle stays homing, and all three ground Zap impact points and in-circle damage checks continue to use its actual moving area.
+
+The imported Plexus AoE and Lightning Aura now size **per affected enemy**, independent of the ground-circle radius. The system prefers the visible character's skinned-mesh bounds, otherwise its body collider/static renderer; it derives a world-space body size from the height and width. Plexus runtime scale is body-size ×0.45, bounded 0.3–14×; Lightning Aura is body-size ×0.65, bounded 0.35–18×. Thus a small ~0.8-unit creature gets ~0.36× Plexus and ~0.52× Aura, a standard ~2-unit enemy gets 0.9× Plexus and 1.3× Aura, and a ~12-unit giant gets 5.4× Plexus and 7.8× Aura. The original imported prefabs remain unchanged.
+
+The existing per-enemy chest attachment, death-animation tracking, last-known-position freeze on despawn, event-driven three damage shares, one accepted word/barrier resolution, and visual-only aftershock all remain intact. Earlier 5× circle / up-to-28× fixed-minimum Plexus notes below are superseded by this section.
+
+**Isolated Unity Play Mode confirmation:** A small (0.8-unit), normal (2-unit), and giant (12-unit) enemy were each hit by the same Strong AoE in the imported VFX Lab. The 2× circle had an actual **12-unit radius** and imported prefab scale **8×** (down from 30-unit radius / 20× prefab scale under the 5× setting), and homed instantly when the target moved three units. With approved damage 30, inside enemy HP ended **70/70/70** and the outside enemy stayed **100**. All three affected enemies received independent chest aftershocks with scales **0.36/0.90/5.40 Plexus** and **0.52/1.30/7.80 Aura**, respectively. This validates relative size, AoE boundary, and event-driven damage in isolated Play Mode; full gameplay-camera and device visual QA are still required.
+
+## Latest — 5× homing Magic Circle and per-enemy chest aftershock (2026-11-10)
+
+This section supersedes the earlier **fixed ground circle**, **single aftershock**, and old clip-timing descriptions below. On `OnStrongAttackCast`, the imported Hovl Magic Circle is **five times its previous diameter**, and its **actual damage radius also increases 5×** (from 6–18 world units to 30–90 world units). The circle now follows the selected enemy's live collider transform on every Update. The yellow sky-to-ground descent, remaining two lightning landing points, and all three AoE damage checks share the moving center/radius. The tracking avoids one-frame-old `Collider.bounds` data by using the live collider transform with the cast-time local-space offset. The bolts still land **within the circle, not on enemy heads**.
+
+`OnStrongAftershock` now creates **one pair of Hovl Plexus AoE and Lightning Aura for every enemy that actually lost HP during the attack**, not one global pair. Both effects are instantiated at the enemy's **chest**. Humanoid UpperChest/Chest/Spine bones are preferred, followed by generic-rig chest/spine transforms and finally a body collider center. Each independent VFX pair follows its own animated chest through death/fall, with particles running in Local simulation space so they move with the chest. If the enemy is disabled/despawned, the pair stays at its **last observed chest position** for the remaining aftershock lifetime. The Plexus scale is now up to 28× the source prefab (previously at most 8×); the Lightning Aura is also enlarged. These are **visual-only**, with no additional HP damage or repeated word/barrier resolution.
+
+**Respect the user's current edited StrongAttack.anim timings:** Cast **0.9667s**, Release **1.3333s**, Yellow **1.6667s**, Dark Blue **2.1667s**, Cyan Blue **2.6667s**, Aftershock **2.7000s**, Finish **2.9667s** (at 1×). The hits are now **0.50 seconds apart**. The 0.20 seconds in code is only the first lightning's minimum visible descent, **not** the inter-hit interval. The source-contract test checks event ordering and non-overlap, not an obsolete hard-coded 0.20-second inter-hit spacing.
+
+**Verification after final fix:** The isolated Unity VFX Lab Play Mode test moved the selected enemy **50 world units in one update**, and the magic circle immediately followed from X=2000 to X=2050 (true homing). The actual radius was **30 units** versus the former 6, and the prefab's runtime circle scale was **20×** versus the former 4×. After the move, the original 30-point three-way attack dealt 25 lethal HP to the primary (final HP 0), 30 HP to a second enemy that was inside only the **new** circle (final HP 70), and zero damage to an enemy outside (HP 100). The aftershock spawned **two Plexus and two Aura** instances, independently at both damaged enemies' chest positions; the imported Plexus instances scaled to **22.5×** versus the previous cap of 8×. Both pairs followed the moving chest through death and the first pair froze at its last chest location after the target was disabled. The Plexus particles use local simulation. This isolated runtime test and source builds passed; **full Stage 1–4 gameplay-camera visual QA and Android performance QA remain pending**.
+
+## Current implementation — Ground AoE with animation-event aftershock (2026-11-10)
+
+**This section supersedes the older sky-to-head targeting and six-event timing notes below.** The strong attack now targets a fixed ground circle under the selected enemy rather than homing to an enemy head. Imported Hovl Magic Circle appears at the cast event; three colored Vefects lightning bolts strike distinct locations inside the circle. Plexus AoE and Lightning Aura play after the final strike, via their own Animation Event, and are visual-only (no fourth damage hit).
+
+Current active StrongAttack.anim event sequence (1x playback):
+
+| Clip time | Animation event | Behavior |
+| --- | --- | --- |
+| 0.9667s | OnStrongAttackCast | Hand charge plus fixed ground Magic Circle; no damage |
+| 1.3333s | OnStrongAttackZapRelease | Original projectile handles accepted-contact authority; Yellow lightning starts sky-to-ground descent |
+| 1.9667s | OnStrongZapYellow | First damage share, Yellow Zap and shake |
+| 2.1667s | OnStrongZapDarkBlue | Second damage share, Dark Blue Zap and shake |
+| 2.3667s | OnStrongZapCyanBlue | Third damage share, Cyan Zap and shake |
+| 2.9500s | OnStrongAftershock | Hovl Plexus AoE at enemy feet and Lightning Aura on enemy, no damage |
+| 2.9667s | OnAttackAnimationFinished | End attack animation and retire cast circle |
+
+The actual strikes are 0.20 seconds apart. The release-to-Yellow gap (~0.633 seconds) is authored in the clip, while the first visible descending bolt still requires at least 0.20 seconds. Giant-boss bolts begin above the full model, and all three strike endpoints are fixed within the original cast circle.
+
+ArcaneSurgeGroundField stores ground center, radius and three landing points. ArcaneSurgeZapVisual samples current enemy collider footprints against that same radius for each strike. The initial projectile handles its word and primary barrier once. Each qualifying enemy within range receives the approved damage split (e.g. total 30 means 10/10/10 per affected enemy); an enemy outside the circle is unaffected. Dead/invulnerable enemies and secondary targets with active vocabulary barriers are skipped.
+
+Source Hovl Magic circle, Plexus AoE and Lightning aura prefab assets are linked by GUID in ArcaneSurgeZapLibrary.asset and never modified. Spawned visual instances have real-time lights disabled. Existing Vefects Zap color variants and per-hit camera impulses are preserved.
+
+Verification: Editor loaded all seven clip events with valid AttackController receivers and all three imported Hovl prefab references. Isolated VFX Lab Play Mode end-to-end simulation ran Cast → Release → Yellow → Dark Blue → Cyan → Aftershock; two dummy enemies inside the circle reached 70/100 HP, one outside stayed 100/100. Three distinct Vefects Zaps and both Hovl aftershock prefabs appeared; repeated Aftershock did not duplicate. Build: 0 errors, 34 existing warnings; updated static source/animation tests pass. Full Stage 1–4 gameplay visual and Android performance QA remain pending. No gameplay scenes were saved; no commit/push was performed.
+
+
 **Direction approved 2026-11-09:** Stop Blender modeling and custom VFX Graph work. The new visual target is the user-imported **Zap VFX – URP** package by Vefects, version **1.0.3**, Asset Store product ID 303479. The imported vendor assets remain untouched.
 
 **Status:** Strong-only asset references and runtime VFX integration are authored; C# source assembly builds and static checks can be run. **Unity Play Mode, visible mobile/URP output, and physical Android performance are NOT yet accepted.**

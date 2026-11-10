@@ -3,29 +3,29 @@ using UnityEngine;
 namespace Spellstrike.Vfx
 {
     /// <summary>
-    /// Strong Attack (10-13 letters) presentation/movement adapter.
+    /// Strong Attack (10-13 letters) ground AoE presentation/movement adapter.
     /// The HomingProjectile remains the ONLY owner of the accepted contact,
     /// barrier resolution and word notification. Its approved damage is then
     /// dealt in three timed strikes on the independent Zap VFX root.
     /// No physics events are permitted to resolve a hit before the 0.20s descent.
     /// </summary>
+    [DefaultExecutionOrder(500)]
     [DisallowMultipleComponent]
     public sealed class ArcaneSurgePresentation : MonoBehaviour
     {
         public const float DescentSeconds = 0.20f;
         private const float MissingYellowEventTimeoutSeconds = 2.0f;
 
-        [Header("Vertical descent (presentation only)")]
-        // Long, screen-dominant strike like the Vefects reference:
-        // the descending tip starts far above the live target's head.
-        [SerializeField, Min(3f)] private float heightAboveHead = 18f;
-        [SerializeField, Min(0f)] private float headInset = 0.08f;
+        [Header("Sky-to-ground descent (presentation only)")]
+        [SerializeField, Min(3f)] private float heightAboveCircle = 18f;
 
         private Transform target;
         private Collider targetCollider;
         private SphereCollider projectileCollider;
         private HomingProjectile owner;
         private ArcaneSurgeZapVisual visual;
+        private ArcaneSurgeGroundField groundField;
+        private float descentHeight;
         private float elapsed;
         private float aliveElapsed;
         private bool completed;
@@ -60,19 +60,24 @@ namespace Spellstrike.Vfx
                 && visual.ConfigureDamageSequence(approvedDamage, wordLength, enemy, bramble, health);
         }
 
-        public bool Begin(Transform liveTarget)
+        public bool Begin(Transform liveTarget, ArcaneSurgeGroundField area)
         {
             owner = GetComponent<HomingProjectile>();
-            if (liveTarget == null || owner == null)
+            if (liveTarget == null || owner == null || area == null)
                 return false;
 
             target = liveTarget;
+            groundField = area;
             targetCollider = FindTargetCollider(target);
             if (targetCollider == null)
             {
                 Debug.LogWarning("[ArcaneSurge] No target collider; retain normal homing behavior.", this);
                 return false;
             }
+            // Even for a giant boss, the storm column must descend from
+            // ABOVE the model to the ground, not start inside its upper body.
+            descentHeight = Mathf.Max(heightAboveCircle,
+                targetCollider.bounds.max.y - groundField.Center.y + 16f);
 
             projectileCollider = GetComponent<SphereCollider>();
             if (projectileCollider == null)
@@ -96,6 +101,7 @@ namespace Spellstrike.Vfx
                 Destroy(vfx);
                 return false;
             }
+            visual.SetGroundField(groundField);
 
             // Disable the existing projectile collider only for the presentation
             // descent. The real impact still passes through ResolveAcceptedImpact.
@@ -104,7 +110,7 @@ namespace Spellstrike.Vfx
             if (oldOrb != null)
                 oldOrb.gameObject.SetActive(false);
 
-            visual.SetDescent(GetHeadPoint(), heightAboveHead, 0f);
+            visual.SetDescent(groundField.StrikePoint(0), descentHeight, 0f);
             visual.BeginReleaseLightning();
             return true;
         }
@@ -155,33 +161,11 @@ namespace Spellstrike.Vfx
             return triggerFallback;
         }
 
-        private Vector3 GetHeadPoint()
-        {
-            if (target == null) return transform.position;
-
-            // Target Challenge targets are deliberate hit points, not humanoid heads.
-            if (target.GetComponentInParent<VocabularyWorldTarget>() != null)
-                return target.position;
-
-            Animator animator = target.GetComponentInParent<Animator>();
-            if (animator != null && animator.isHuman)
-            {
-                Transform headBone = animator.GetBoneTransform(HumanBodyBones.Head);
-                if (headBone != null) return headBone.position;
-            }
-
-            if (targetCollider != null)
-            {
-                Bounds bounds = targetCollider.bounds; // updates with moving targets
-                return new Vector3(bounds.center.x, bounds.max.y - headInset, bounds.center.z);
-            }
-            return target.position + Vector3.up;
-        }
-
         private void Update()
         {
             if (completed) return;
-            if (target == null || targetCollider == null || !targetCollider.enabled)
+            if (groundField == null || target == null ||
+                targetCollider == null || !targetCollider.enabled)
             {
                 Abort();
                 return;
@@ -199,11 +183,14 @@ namespace Spellstrike.Vfx
             // Time is measured from OnStrongAttackZapRelease via Begin.
             elapsed = Mathf.Min(DescentSeconds, elapsed + Time.deltaTime);
             float t = elapsed / DescentSeconds;
-            Vector3 head = GetHeadPoint();
-            Vector3 start = head + Vector3.up * heightAboveHead;
-            Vector3 tip = Vector3.LerpUnclamped(start, head, t * t * (3f - 2f * t));
+            // The circle was locked to the ground by OnStrongAttackCast.
+            // No tracking of the head, head bone, or moving model bounds.
+            Vector3 groundLanding = groundField.StrikePoint(0);
+            Vector3 start = groundLanding + Vector3.up * descentHeight;
+            Vector3 tip = Vector3.LerpUnclamped(start, groundLanding,
+                t * t * (3f - 2f * t));
             transform.position = tip; // physical projectile converges with the bolt
-            if (visual != null) visual.SetDescent(head, heightAboveHead, t);
+            if (visual != null) visual.SetDescent(groundLanding, descentHeight, t);
 
             // The clip controls the release of the first hit. If its frame
             // arrives slightly before Update crosses 0.20s, honor the request
@@ -220,17 +207,15 @@ namespace Spellstrike.Vfx
                 return;
             }
             if (projectileCollider != null) projectileCollider.enabled = true;
-            // Capture the ground contact before ResolveAcceptedImpact can kill,
-            // disable, or replace the enemy's visual/collider hierarchy.
-            float groundY = acceptedCollider.bounds.min.y;
-            transform.position = acceptedCollider.ClosestPoint(head);
+            transform.position = groundLanding;
             // Store the moving target on the independent visual BEFORE a
             // lethal first hit can destroy the projectile or enemy hierarchy.
             if (visual != null)
                 visual.SetImpactTarget(target, acceptedCollider);
             if (owner != null && owner.ResolveArcaneSurgeContact(acceptedCollider))
             {
-                if (visual != null) visual.ConfirmedImpact(head, groundY);
+                if (visual != null)
+                    visual.ConfirmedImpact(groundLanding, groundField.Center.y);
             }
             else
             {

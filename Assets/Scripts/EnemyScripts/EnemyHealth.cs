@@ -95,6 +95,20 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isDead || invulnerable) return;
 
+        // Stone Sentinel's FRACTURE lesson is a mandatory 50%-HP phase gate.
+        // Apply before reducing HP and BEFORE HealthChanged can start the
+        // Counterspell. This protects all damage sources, including every hit
+        // in a 13-letter, three-strike Arcane Surge (not just projectile #1).
+        StoneSentinelCounterspellController sentinelCounterspell =
+            GetComponent<StoneSentinelCounterspellController>();
+        if (sentinelCounterspell != null && sentinelCounterspell.isActiveAndEnabled)
+        {
+            damage = sentinelCounterspell.LimitIncomingDamage(
+                damage, currentHealth, maxHealth);
+            if (damage <= 0f)
+                return; // A blocked hit cannot retrigger hit/death animation.
+        }
+
         float beforeDamage = currentHealth;
         currentHealth = Mathf.Max(0f, currentHealth - damage);
         float appliedDamage = beforeDamage - currentHealth;

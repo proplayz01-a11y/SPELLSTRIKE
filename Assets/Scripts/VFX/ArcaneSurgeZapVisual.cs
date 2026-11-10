@@ -7,15 +7,18 @@ namespace Spellstrike.Vfx
     /// <summary>
     /// Strong-only imported Vefects Zap VFX presentation.
     /// Three imported Zap hits are triggered by StrongAttack Animation Events:
-    /// Yellow, DarkBlue, CyanBlue at distinct clip frames 0.20s apart.
+    /// Yellow, DarkBlue, CyanBlue at three locations INSIDE the cast magic circle.
     /// The accepted word/barrier resolves ONCE, then each lightning strike
     /// applies its own integer portion of the approved total damage.
     /// No vendor prefab, shared material, or Basic/Medium asset is modified.
     ///
-    /// The very short pre-impact streak draws the exact 0.20-second descending
-    /// tip; the vendor-authored particles then provide the heavy head contact
-    /// burst, floor arcs, and scorch after the accepted projectile hit.
+    /// The initial 0.20-second descent and vendor impact particles terminate
+    /// on the GROUND, never on a head bone. A separate animation event plays
+    /// the Hovl Plexus AoE and Lightning Aura as a visual-only aftershock.
     /// </summary>
+    // After the circle's LateUpdate: floor lightning and chest aftershocks
+    // render from the newest homing / death-animation positions.
+    [DefaultExecutionOrder(550)]
     [DisallowMultipleComponent]
     public sealed class ArcaneSurgeZapVisual : MonoBehaviour
     {
@@ -23,7 +26,7 @@ namespace Spellstrike.Vfx
 
         private const int BoltPoints = 13;
         public const float ImpactIntervalSeconds = 0.20f;
-        private const float EffectCleanupSeconds = 2.60f;
+        private const float EffectCleanupSeconds = 5.00f;
         // Double-Giant Zap preset. The source Vefects Zap billboard uses
         // startSizeX for width and startSizeY for its vertical bolt length.
         // These are multipliers relative to ORIGINAL vendor sizes; do not
@@ -47,16 +50,52 @@ namespace Spellstrike.Vfx
         private readonly Vector3[] cachedBoltPositions = new Vector3[BoltPoints];
         private Material tracerMaterial;
         private bool ownsMaterial;
-        private Vector3 head;
+        private Vector3 groundPoint;
         private float height;
         private float descent01;
         private bool impacted;
         private bool aborted;
         private int nextImpactIndex;
         private float seed;
+        private Vector3 areaCenter;
+        private float areaRadius;
+        private readonly Vector3[] areaStrikePoints = new Vector3[3];
+        private bool areaConfigured;
+        private bool aftershockTriggered;
+        private ArcaneSurgeGroundField groundField;
+        private static readonly RaycastHit[] FeetGroundHits = new RaycastHit[32];
+        private sealed class AffectedEnemy
+        {
+            public int Id;
+            public Component Receiver;
+            public Transform LeftFoot;
+            public Transform RightFoot;
+            public Collider BodyCollider;
+            public Vector3 ColliderLocalFeet;
+            public Transform AftershockRoot;
+            public Vector3 LastFeet;
+            public float BodySize;
+
+            public void FollowFeet()
+            {
+                // Track the midpoint between the animated feet, projected
+                // onto solid ground. A generic-rig/body-collider fallback
+                // also works for enemies without humanoid foot bones.
+                if (Receiver != null && Receiver.gameObject.activeInHierarchy)
+                    LastFeet = GroundPointBetweenFeet(
+                        Receiver, LeftFoot, RightFoot, BodyCollider,
+                        ColliderLocalFeet, LastFeet, BodySize);
+
+                // Effects belong to this independent VFX object, not the
+                // enemy GameObject, so death/despawn cannot destroy them.
+                // If the enemy disappears, they stay at its LAST ground point.
+                if (AftershockRoot != null)
+                    AftershockRoot.position = LastFeet;
+            }
+        }
+        private readonly List<AffectedEnemy> affectedEnemies = new List<AffectedEnemy>();
         private Transform movingTarget;
         private Collider movingCollider;
-        private Transform headBone;
         private Vector3 lastContact;
         private float lastGroundY;
         private EnemyController damageEnemy;
@@ -65,6 +104,24 @@ namespace Spellstrike.Vfx
         private int damageWordLength;
         private int totalApprovedDamage;
         private bool damageSequenceConfigured;
+
+        public void SetGroundField(ArcaneSurgeGroundField field)
+        {
+            if (field == null) return;
+            groundField = field;
+            RefreshGroundArea();
+        }
+
+        private void RefreshGroundArea()
+        {
+            if (groundField == null)
+                return; // Hold the last valid AoE center if its owner despawns.
+            areaCenter = groundField.Center;
+            areaRadius = groundField.Radius;
+            for (int i = 0; i < 3; i++)
+                areaStrikePoints[i] = groundField.StrikePoint(i);
+            areaConfigured = true;
+        }
 
         /// <summary>
         /// Divide a single approved damage total without losing remainder.
@@ -104,24 +161,347 @@ namespace Spellstrike.Vfx
 
         private void ApplyDamageStrike(int strikeIndex)
         {
-            if (!damageSequenceConfigured)
+            if (!damageSequenceConfigured || !areaConfigured)
                 return;
+            RefreshGroundArea();
 
             int splitDamage = DamageForStrike(totalApprovedDamage, strikeIndex);
             if (splitDamage <= 0)
                 return;
+            // Exactly three event-driven impacts per cast: refresh the physics
+            // world here (not every frame) so moving enemies' collider bounds
+            // agree with the homing circle at the instant AoE damage is dealt.
+            Physics.SyncTransforms();
 
-            // Do not hit a corpse or a target removed between two impacts.
-            // In that case the visual still finishes at the last contact point.
-            if (damageEnemy != null && damageEnemy.gameObject.activeInHierarchy
-                && damageEnemy.currentState != EnemyController.EnemyState.Dead)
-                damageEnemy.TakeDamage(splitDamage, damageWordLength);
-            else if (damageBramble != null && damageBramble.gameObject.activeInHierarchy
-                && damageBramble.currentState != BrambleSpriteController.EnemyState.Dead)
-                damageBramble.TakeDamage(splitDamage);
-            else if (damageHealth != null && damageHealth.gameObject.activeInHierarchy
-                && !damageHealth.IsDead && !damageHealth.IsInvulnerable)
-                damageHealth.TakeDamage(splitDamage);
+            // The accepted projectile resolves the word/barrier EXACTLY ONCE.
+            // Every actual enemy within the circle receives only this strike's
+            // portion. Re-query at each event so moving enemies can enter/exit.
+            // Never damage outside the visible circle, hit dead actors, or
+            // bypass a second enemy's active word barrier.
+            foreach (EnemyController enemy in
+                Object.FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
+            {
+                if (enemy == null || !enemy.gameObject.activeInHierarchy ||
+                    enemy.currentState == EnemyController.EnemyState.Dead ||
+                    !IsInsideCircle(enemy) || IsProtectedSecondaryTarget(enemy))
+                    continue;
+                float healthBefore = enemy.CurrentHealth;
+                Collider bodyBefore = FindBodyCollider(enemy);
+                float bodySizeBefore = GetVisualBodySize(enemy, bodyBefore);
+                Vector3 feetBefore = FindFeetPosition(enemy);
+                enemy.TakeDamage(splitDamage, damageWordLength);
+                if (enemy.CurrentHealth < healthBefore)
+                    RememberAffectedEnemy(enemy, feetBefore, bodySizeBefore, bodyBefore);
+            }
+
+            foreach (BrambleSpriteController bramble in
+                Object.FindObjectsByType<BrambleSpriteController>(FindObjectsSortMode.None))
+            {
+                if (bramble == null || !bramble.gameObject.activeInHierarchy ||
+                    bramble.currentState == BrambleSpriteController.EnemyState.Dead ||
+                    bramble.GetComponentInParent<EnemyController>() != null ||
+                    !IsInsideCircle(bramble) || IsProtectedSecondaryTarget(bramble))
+                    continue;
+                float healthBefore = bramble.CurrentHealth;
+                Collider bodyBefore = FindBodyCollider(bramble);
+                float bodySizeBefore = GetVisualBodySize(bramble, bodyBefore);
+                Vector3 feetBefore = FindFeetPosition(bramble);
+                bramble.TakeDamage(splitDamage);
+                if (bramble.CurrentHealth < healthBefore)
+                    RememberAffectedEnemy(bramble, feetBefore, bodySizeBefore, bodyBefore);
+            }
+
+            foreach (EnemyHealth health in
+                Object.FindObjectsByType<EnemyHealth>(FindObjectsSortMode.None))
+            {
+                if (health == null || !health.gameObject.activeInHierarchy ||
+                    health.IsDead || health.IsInvulnerable ||
+                    health.GetComponentInParent<EnemyController>() != null ||
+                    health.GetComponentInParent<BrambleSpriteController>() != null ||
+                    !IsInsideCircle(health) || IsProtectedSecondaryTarget(health))
+                    continue;
+                float healthBefore = health.currentHealth;
+                Collider bodyBefore = FindBodyCollider(health);
+                float bodySizeBefore = GetVisualBodySize(health, bodyBefore);
+                Vector3 feetBefore = FindFeetPosition(health);
+                health.TakeDamage(splitDamage);
+                if (health.currentHealth < healthBefore)
+                    RememberAffectedEnemy(health, feetBefore, bodySizeBefore, bodyBefore);
+            }
+        }
+
+        private void RememberAffectedEnemy(Component receiver, Vector3 beforeDamageFeet,
+            float bodySizeBefore, Collider bodyBefore)
+        {
+            if (receiver == null) return;
+            int id = receiver.GetInstanceID();
+            foreach (AffectedEnemy existing in affectedEnemies)
+            {
+                if (existing.Id != id) continue;
+                existing.FollowFeet();
+                return;
+            }
+
+            FindFootBones(receiver, out Transform leftFoot, out Transform rightFoot);
+            // Snapshot the size and body collider BEFORE lethal damage can
+            // deactivate its mesh/colliders. Giant bosses must keep their
+            // appropriately scaled aftershock even if they die on Yellow.
+            Collider body = bodyBefore;
+            float bodySize = bodySizeBefore;
+            Vector3 localFeet = body != null
+                ? body.transform.InverseTransformPoint(
+                    new Vector3(body.bounds.center.x, body.bounds.min.y, body.bounds.center.z))
+                : Vector3.zero;
+            AffectedEnemy entry = new AffectedEnemy
+            {
+                Id = id,
+                Receiver = receiver,
+                LeftFoot = leftFoot,
+                RightFoot = rightFoot,
+                BodyCollider = body,
+                ColliderLocalFeet = localFeet,
+                LastFeet = beforeDamageFeet,
+                BodySize = bodySize
+            };
+            // If lethal damage immediately hides the enemy, retain the
+            // pre-hit ground midpoint rather than its vanished rig transform.
+            entry.FollowFeet();
+            affectedEnemies.Add(entry);
+        }
+
+        private static Collider FindBodyCollider(Component receiver)
+        {
+            Collider fallback = null;
+            foreach (Collider collider in receiver.GetComponentsInChildren<Collider>(true))
+            {
+                if (collider == null || collider.isTrigger || !collider.enabled)
+                    continue;
+                if (collider is CapsuleCollider || collider is CharacterController)
+                    return collider;
+                if (fallback == null)
+                    fallback = collider;
+            }
+            return fallback;
+        }
+
+        /// <summary>
+        /// Measure the actual visible enemy body instead of the spell radius.
+        /// Prefer skinned character meshes (including giants); otherwise use
+        /// a body collider or visible static mesh/sprite. Ignore particles,
+        /// weapons-only trail renderers and HUD. The fallback is deliberately
+        /// small rather than giving tiny enemies an oversized effect.
+        /// </summary>
+        private static float GetVisualBodySize(Component receiver, Collider body)
+        {
+            Bounds visualBounds = default;
+            bool hasSkinnedBody = false;
+            foreach (SkinnedMeshRenderer renderer in
+                receiver.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+            {
+                if (renderer == null || !renderer.enabled ||
+                    !renderer.gameObject.activeInHierarchy ||
+                    renderer.bounds.size.sqrMagnitude <= 0.0001f)
+                    continue;
+                if (!hasSkinnedBody)
+                    visualBounds = renderer.bounds;
+                else
+                    visualBounds.Encapsulate(renderer.bounds);
+                hasSkinnedBody = true;
+            }
+
+            if (hasSkinnedBody)
+                return SizeFromBounds(visualBounds);
+
+            if (body != null && body.bounds.size.sqrMagnitude > 0.0001f)
+                return SizeFromBounds(body.bounds);
+
+            bool hasMesh = false;
+            foreach (Renderer renderer in receiver.GetComponentsInChildren<Renderer>(true))
+            {
+                if (renderer == null || !renderer.enabled ||
+                    !renderer.gameObject.activeInHierarchy ||
+                    !(renderer is MeshRenderer || renderer is SpriteRenderer) ||
+                    renderer.bounds.size.sqrMagnitude <= 0.0001f)
+                    continue;
+                if (!hasMesh)
+                    visualBounds = renderer.bounds;
+                else
+                    visualBounds.Encapsulate(renderer.bounds);
+                hasMesh = true;
+            }
+            return hasMesh ? SizeFromBounds(visualBounds) : 1.0f;
+        }
+
+        private static float SizeFromBounds(Bounds bounds)
+        {
+            float width = Mathf.Max(bounds.size.x, bounds.size.z);
+            return Mathf.Max(0.25f, bounds.size.y, width * 0.9f);
+        }
+
+        // Hovl Plexus's Glow particles have a ~4-unit source size, so a
+        // 2-unit-tall enemy at 0.9x produces a visible ~3.6-unit effect.
+        // Both VFX scale proportionally with the individual character,
+        // independently from the Magic Circle and the AoE damage radius.
+        public static float PlexusScaleForEnemySize(float bodySize) =>
+            Mathf.Clamp(bodySize * 0.45f, 0.3f, 14f);
+
+        public static float AuraScaleForEnemySize(float bodySize) =>
+            Mathf.Clamp(bodySize * 0.65f, 0.35f, 18f);
+
+        private static Vector3 FindFeetPosition(Component receiver)
+        {
+            if (receiver == null) return Vector3.zero;
+            FindFootBones(receiver, out Transform leftFoot, out Transform rightFoot);
+            Collider body = FindBodyCollider(receiver);
+            Vector3 fallback = receiver.transform.position;
+            Vector3 localFeet = Vector3.zero;
+            if (body != null)
+            {
+                Bounds bounds = body.bounds;
+                fallback = new Vector3(bounds.center.x, bounds.min.y, bounds.center.z);
+                localFeet = body.transform.InverseTransformPoint(fallback);
+            }
+            return GroundPointBetweenFeet(receiver, leftFoot, rightFoot,
+                body, localFeet, fallback, GetVisualBodySize(receiver, body));
+        }
+
+        private static void FindFootBones(Component receiver,
+            out Transform leftFoot, out Transform rightFoot)
+        {
+            leftFoot = null;
+            rightFoot = null;
+            if (receiver == null) return;
+
+            Animator animator = receiver.GetComponentInChildren<Animator>(true);
+            if (animator == null)
+                animator = receiver.GetComponentInParent<Animator>();
+            if (animator != null && animator.isHuman)
+            {
+                leftFoot = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
+                rightFoot = animator.GetBoneTransform(HumanBodyBones.RightFoot);
+            }
+            if (leftFoot != null && rightFoot != null) return;
+
+            // Support generic, non-humanoid enemy skeletons. Accept common
+            // naming patterns such as LeftFoot, mixamorig:RightFoot,
+            // Foot_L, L_Foot, Bip001 L Foot and matching ankle bones.
+            int bestLeft = -1, bestRight = -1;
+            foreach (Transform candidate in receiver.GetComponentsInChildren<Transform>(true))
+            {
+                string lower = candidate.name.ToLowerInvariant();
+                bool foot = lower.Contains("foot");
+                bool ankle = lower.Contains("ankle");
+                if (!foot && !ankle) continue;
+                int score = foot ? 2 : 1;
+                bool left = lower.Contains("left") || lower.EndsWith("_l") ||
+                    lower.StartsWith("l_") || lower.Contains(" l foot") ||
+                    lower.Contains(" l ankle");
+                bool right = lower.Contains("right") || lower.EndsWith("_r") ||
+                    lower.StartsWith("r_") || lower.Contains(" r foot") ||
+                    lower.Contains(" r ankle");
+                if (left && !right && (leftFoot == null || bestLeft >= 0) &&
+                    score > bestLeft)
+                {
+                    leftFoot = candidate;
+                    bestLeft = score;
+                }
+                if (right && !left && (rightFoot == null || bestRight >= 0) &&
+                    score > bestRight)
+                {
+                    rightFoot = candidate;
+                    bestRight = score;
+                }
+            }
+        }
+
+        private static Vector3 GroundPointBetweenFeet(
+            Component receiver, Transform leftFoot, Transform rightFoot,
+            Collider body, Vector3 colliderLocalFeet, Vector3 lastKnown,
+            float bodySize)
+        {
+            if (receiver == null || !receiver.gameObject.activeInHierarchy)
+                return lastKnown; // Dead/despawned: leave the visual on ground.
+
+            bool leftActive = leftFoot != null && leftFoot.gameObject.activeInHierarchy;
+            bool rightActive = rightFoot != null && rightFoot.gameObject.activeInHierarchy;
+            Vector3 feet;
+            if (leftActive && rightActive)
+            {
+                // Use the horizontal midpoint, with the lower foot as the
+                // reference Y so walking/running doesn't raise the effect.
+                feet = (leftFoot.position + rightFoot.position) * 0.5f;
+                feet.y = Mathf.Min(leftFoot.position.y, rightFoot.position.y);
+            }
+            else if (leftActive || rightActive)
+                feet = leftActive ? leftFoot.position : rightFoot.position;
+            else if (body != null && body.enabled && body.gameObject.activeInHierarchy)
+                feet = body.transform.TransformPoint(colliderLocalFeet);
+            else
+                return lastKnown;
+
+            // The anchor remains at floor level even when a death animation
+            // collapses the character or a leg rises during a step. Ignore
+            // actors and prefer the highest solid, walkable floor below feet.
+            float maxHeight = Mathf.Max(8f, bodySize + 6f);
+            Vector3 origin = feet + Vector3.up * Mathf.Max(1.5f, bodySize * 0.15f);
+            int count = Physics.RaycastNonAlloc(origin, Vector3.down,
+                FeetGroundHits, maxHeight,
+                ~((1 << 2) | (1 << 5)), QueryTriggerInteraction.Ignore);
+            float floorY = float.NegativeInfinity;
+            for (int i = 0; i < count; i++)
+            {
+                RaycastHit hit = FeetGroundHits[i];
+                if (hit.collider == null || hit.normal.y < 0.55f ||
+                    hit.point.y > feet.y + 0.65f ||
+                    hit.collider.GetComponentInParent<EnemyController>() != null ||
+                    hit.collider.GetComponentInParent<BrambleSpriteController>() != null ||
+                    hit.collider.GetComponentInParent<EnemyHealth>() != null)
+                    continue;
+                floorY = Mathf.Max(floorY, hit.point.y);
+            }
+            if (!float.IsNegativeInfinity(floorY))
+                feet.y = floorY;
+            return feet + Vector3.up * 0.06f; // Prevent ground Z-fighting.
+        }
+
+        private bool IsProtectedSecondaryTarget(Component receiver)
+        {
+            bool primary = receiver == damageEnemy ||
+                receiver == damageBramble || receiver == damageHealth;
+            if (primary) return false; // It already passed the approved barrier.
+
+            VocabularyBarrier barrier = receiver.GetComponentInChildren<VocabularyBarrier>();
+            return barrier != null && barrier.BarrierActive;
+        }
+
+        private bool IsInsideCircle(Component receiver)
+        {
+            // Use solid collider footprints, not the head (a giant boss can be
+            // taller than the whole circle). The damage area is a horizontal
+            // disc matching the visible imported magic-circle diameter.
+            float radiusSquared = areaRadius * areaRadius;
+            bool hadCollider = false;
+            foreach (Collider hitbox in receiver.GetComponentsInChildren<Collider>())
+            {
+                if (hitbox == null || !hitbox.enabled || hitbox.isTrigger ||
+                    !hitbox.gameObject.activeInHierarchy)
+                    continue;
+                hadCollider = true;
+                Bounds bounds = hitbox.bounds;
+                float dx = Mathf.Max(bounds.min.x - areaCenter.x, 0f,
+                    areaCenter.x - bounds.max.x);
+                float dz = Mathf.Max(bounds.min.z - areaCenter.z, 0f,
+                    areaCenter.z - bounds.max.z);
+                if (dx * dx + dz * dz <= radiusSquared)
+                    return true;
+            }
+            if (hadCollider)
+                return false;
+
+            Vector3 origin = receiver.transform.position;
+            float offsetX = origin.x - areaCenter.x;
+            float offsetZ = origin.z - areaCenter.z;
+            return offsetX * offsetX + offsetZ * offsetZ <= radiusSquared;
         }
 
         public bool Initialize(ArcaneSurgeZapLibrary loadedLibrary)
@@ -156,19 +536,13 @@ namespace Spellstrike.Vfx
 
         /// <summary>
         /// Capture the accepted enemy BEFORE the original hit can kill it.
-        /// Follow-up visuals re-sample a living enemy's head; if it dies, they
-        /// finish at the last known hit position without applying more damage.
+        /// The bolts stay at their three ground positions inside the circle;
+        /// only the eventual Lightning Aura follows a surviving enemy.
         /// </summary>
         public void SetImpactTarget(Transform acceptedTarget, Collider acceptedCollider)
         {
             movingTarget = acceptedTarget;
             movingCollider = acceptedCollider;
-            headBone = null;
-            if (movingTarget == null) return;
-
-            Animator animator = movingTarget.GetComponentInParent<Animator>();
-            if (animator != null && animator.isHuman)
-                headBone = animator.GetBoneTransform(HumanBodyBones.Head);
         }
 
         private LineRenderer CreateTracer(string label, float width, Color tint)
@@ -191,10 +565,10 @@ namespace Spellstrike.Vfx
             return line;
         }
 
-        public void SetDescent(Vector3 liveHead, float skyHeight, float time01)
+        public void SetDescent(Vector3 groundLanding, float skyHeight, float time01)
         {
             if (impacted || aborted) return;
-            head = liveHead;
+            groundPoint = groundLanding;
             height = skyHeight;
             descent01 = Mathf.Clamp01(time01);
         }
@@ -212,7 +586,7 @@ namespace Spellstrike.Vfx
                 return;
 
             releaseZap = Instantiate(library.Yellow,
-                head + Vector3.up * height, Quaternion.identity, transform);
+                groundPoint + Vector3.up * height, Quaternion.identity, transform);
             releaseZap.name = "ArcaneSurge_ReleaseLightning_Yellow";
             PrepareGiantZap(releaseZap, Variant.Yellow);
 
@@ -259,15 +633,19 @@ namespace Spellstrike.Vfx
 
         private void LateUpdate()
         {
+            RefreshGroundArea();
+            foreach (AffectedEnemy enemy in affectedEnemies)
+                enemy.FollowFeet();
+
             if (impacted || aborted || brightTracer == null || softTracer == null)
                 return;
 
-            // Both endpoints are relative to the MOVING enemy's current head.
-            // Only the tip descends from the sky to the enemy over exactly
+            // Both endpoints are a FIXED ground point within the cast circle.
+            // Only the tip descends from the sky to the ground over exactly
             // ArcaneSurgePresentation.DescentSeconds (0.20 seconds).
-            Vector3 top = head + Vector3.up * height;
+            Vector3 top = groundPoint + Vector3.up * height;
             float smooth = descent01 * descent01 * (3f - 2f * descent01);
-            Vector3 tip = Vector3.LerpUnclamped(top, head, smooth);
+            Vector3 tip = Vector3.LerpUnclamped(top, groundPoint, smooth);
             // Vefects uses local-space lightning particles, so the giant
             // release bolt follows the moving target's descending tip.
             if (releaseZap != null)
@@ -309,7 +687,7 @@ namespace Spellstrike.Vfx
             if (!impacted || aborted || nextImpactIndex != 1)
                 return;
             nextImpactIndex = 2;
-            RefreshContactPosition();
+            SelectGroundStrike(1);
             ApplyDamageStrike(1);
             EmitVisualImpact(Variant.DarkBlue, 0.55f, 0.85f, 0.20f);
         }
@@ -320,23 +698,81 @@ namespace Spellstrike.Vfx
             if (!impacted || aborted || nextImpactIndex != 2)
                 return;
             nextImpactIndex = 3;
-            RefreshContactPosition();
+            SelectGroundStrike(2);
             ApplyDamageStrike(2);
             EmitVisualImpact(Variant.CyanBlue, 0.70f, 1.15f, 0.26f);
         }
 
-        private void RefreshContactPosition()
+        private void SelectGroundStrike(int strikeIndex)
         {
-            if (movingTarget == null || !movingTarget.gameObject.activeInHierarchy
-                || movingCollider == null || !movingCollider.enabled
-                || !movingCollider.gameObject.activeInHierarchy)
-                return; // Dead/despawned enemy: retain last accepted location.
+            // Each strike uses the MOVING ground-circle center, not an
+            // abandoned cast position or the target's overhead head bone.
+            RefreshGroundArea();
+            if (!areaConfigured) return;
+            lastContact = areaStrikePoints[Mathf.Clamp(strikeIndex, 0, 2)];
+            lastGroundY = areaCenter.y;
+        }
 
-            Bounds bounds = movingCollider.bounds;
-            lastContact = headBone != null && headBone.gameObject.activeInHierarchy
-                ? headBone.position
-                : new Vector3(bounds.center.x, bounds.max.y - 0.08f, bounds.center.z);
-            lastGroundY = bounds.min.y;
+        /// <summary>
+        /// Invoked by OnStrongAftershock on the StrongAttack clip, after Cyan
+        /// and before animation finish. Both Hovl effects are visual-only.
+        /// </summary>
+        public void TriggerAftershock()
+        {
+            if (!impacted || aborted || nextImpactIndex != 3 ||
+                aftershockTriggered || library == null || !areaConfigured ||
+                !damageSequenceConfigured)
+                return;
+            aftershockTriggered = true;
+            // One Plexus AND one Lightning Aura for EACH enemy actually hit.
+            // A runtime Foot VFX Anchor is positioned between the enemy's
+            // feet at ground level and follows locomotion/death animation.
+            // When the enemy disappears, it stays at that last floor point.
+            foreach (AffectedEnemy enemy in affectedEnemies)
+            {
+                enemy.FollowFeet();
+                GameObject anchor = new GameObject(
+                    "OnStrongAftershock - Foot VFX Anchor - " +
+                    (enemy.Receiver != null ? enemy.Receiver.name : enemy.Id.ToString()));
+                anchor.transform.SetParent(transform, true);
+                anchor.transform.position = enemy.LastFeet;
+                enemy.AftershockRoot = anchor.transform;
+
+                if (library.PlexusAoe != null)
+                {
+                    GameObject plexus = Instantiate(library.PlexusAoe,
+                        enemy.LastFeet, Quaternion.identity, anchor.transform);
+                    plexus.name = "OnStrongAftershock - Imported Hovl Plexus AoE";
+                    plexus.transform.localScale *=
+                        PlexusScaleForEnemySize(enemy.BodySize);
+                    DisableRealTimeLights(plexus);
+                }
+
+                if (library.LightningAura != null)
+                {
+                    GameObject aura = Instantiate(library.LightningAura,
+                        enemy.LastFeet, Quaternion.identity, anchor.transform);
+                    aura.name = "OnStrongAftershock - Imported Hovl Lightning Aura";
+                    aura.transform.localScale *=
+                        AuraScaleForEnemySize(enemy.BodySize);
+                    DisableRealTimeLights(aura);
+                }
+            }
+        }
+
+        private static void DisableRealTimeLights(GameObject effect)
+        {
+            foreach (Light light in effect.GetComponentsInChildren<Light>(true))
+                light.enabled = false;
+            // Local-space particles keep the imported effect on the moving
+            // floor anchor; a killed enemy cannot leave a floating particle
+            // trail at the old chest position (vendor assets unchanged).
+            foreach (ParticleSystem particles in
+                effect.GetComponentsInChildren<ParticleSystem>(true))
+            {
+                ParticleSystem.MainModule main = particles.main;
+                main.simulationSpace = ParticleSystemSimulationSpace.Local;
+            }
         }
 
         private void EmitVisualImpact(

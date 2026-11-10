@@ -16,6 +16,15 @@ public class CursedJesterController : MonoBehaviour
     public float walkSpeed = 3.0f;
     [SerializeField, Min(0.05f)] private float accelerationTime = 0.5f;
     public float rotationSpeed = 360f;
+    [Tooltip("The Jester advances into closer combat instead of camping at the outer edge of its long-range Taunt/Confetti abilities.")]
+    [SerializeField, Range(0.25f, 0.9f)] private float rangedApproachFraction = 0.45f;
+
+    [Header("Disconnected NavMesh Recovery")]
+    [Tooltip("Normal NavMesh path retries. If the authored NavMesh is disconnected, the Jester walks over validated ground instead of freezing.")]
+    [SerializeField, Min(0.1f)] private float navigationRetrySeconds = 0.4f;
+    [SerializeField, Min(0.2f)] private float groundSteeringProbeRadius = 1.4f;
+    [SerializeField, Min(0.1f)] private float groundSteeringMaxStepUp = 1.5f;
+    [SerializeField, Min(0.1f)] private float groundSteeringMaxDrop = 2.5f;
 
     [Header("Basic Attack")]
     public float basicAttackRange = 2.5f;
@@ -40,6 +49,11 @@ public class CursedJesterController : MonoBehaviour
 
     [Header("Recovery")]
     public float recoverTime = 0.6f;
+
+    [Header("Attack State Recovery")]
+    [Tooltip("Recover if a late animation finish event is skipped by an Animator transition. Longer than the Jester's authored Taunt, Confetti and Basic Attack clips.")]
+    [SerializeField, Min(3f)] private float attackAnimationWatchdogSeconds = 4f;
+    [SerializeField, Min(2f)] private float hitAnimationWatchdogSeconds = 3f;
 
     [Header("Death Callback")]
     public MonoBehaviour deathReceiver;
@@ -74,9 +88,22 @@ public class CursedJesterController : MonoBehaviour
     private float tauntCooldownTimer = 0f;
 
     private Coroutine recoverCoroutine;
+    private float attackStartedAt;
+    private float hitReactionStartedAt;
+    private NavMeshPath chasePath;
+    private readonly RaycastHit[] steeringContacts = new RaycastHit[32];
+    private readonly RaycastHit[] groundContacts = new RaycastHit[32];
+    private bool groundSteeringActive;
+    private float nextNavigationRetry;
+    private float groundSteeringSpeed;
+    private int cachedAgentAreaMask = NavMesh.AllAreas;
+    private int cachedAgentType;
 
     private void Awake()
     {
+        // NavMeshPath is a native Unity object; never create it in a
+        // MonoBehaviour field initializer or constructor.
+        chasePath = new NavMeshPath();
         agent ??= GetComponent<NavMeshAgent>();
         animator ??= GetComponent<Animator>();
 
@@ -93,6 +120,8 @@ public class CursedJesterController : MonoBehaviour
         if (agent != null)
         {
             EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
+            cachedAgentAreaMask = agent.areaMask;
+            cachedAgentType = agent.agentTypeID;
             agent.updateRotation = false;
             agent.updatePosition = true;
             agent.stoppingDistance = 0f;
@@ -123,9 +152,15 @@ public class CursedJesterController : MonoBehaviour
         if (agent != null)
         {
             EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
-            agent.isStopped = false;
-            agent.ResetPath();
+            cachedAgentAreaMask = agent.areaMask;
+            cachedAgentType = agent.agentTypeID;
+            if (agent.enabled && agent.isOnNavMesh)
+            {
+                agent.isStopped = false;
+                agent.ResetPath();
+            }
         }
+        nextNavigationRetry = 0f;
 
         Debug.Log("[CursedJester] Battle started.");
     }
@@ -143,6 +178,28 @@ public class CursedJesterController : MonoBehaviour
 
         if (tauntCooldownTimer > 0f)
             tauntCooldownTimer -= Time.deltaTime;
+
+        // The authored attack events sit near each clip's last frames. If an
+        // Animator transition interrupts one, isAttacking / isBeingHit can
+        // otherwise stay true forever even though the Animator is back on
+        // its looping Walk state. Do not softlock the boss's movement.
+        if (battleStarted && isAttacking &&
+            Time.time - attackStartedAt >= attackAnimationWatchdogSeconds)
+        {
+            isAttacking = false;
+            animator?.ResetTrigger("BasicAttack");
+            animator?.ResetTrigger("ConfettiBlast");
+            animator?.ResetTrigger("Taunt");
+            Debug.LogWarning("[CursedJester] Missing attack-finished event; recovering AI movement.", this);
+            EnterRecover();
+        }
+        if (battleStarted && isBeingHit &&
+            Time.time - hitReactionStartedAt >= hitAnimationWatchdogSeconds)
+        {
+            isBeingHit = false;
+            Debug.LogWarning("[CursedJester] Missing BeingHit-finished event; recovering AI movement.", this);
+            EnterRecover();
+        }
 
         if (!battleStarted || player == null)
         {
@@ -170,6 +227,19 @@ public class CursedJesterController : MonoBehaviour
             return;
         }
 
+        // At the Stage 1 world scale the Jester's Taunt/Confetti ranges are
+        // ~44/42 units. If both are always prioritized at maximum range, the
+        // Jester spends most of the fight standing still casting repeatedly.
+        // Chase first until a meaningful midrange engagement distance.
+        float engageRange = Mathf.Max(
+            basicAttackRange * 1.4f,
+            Mathf.Min(tauntRange, confettiBlastRange) * rangedApproachFraction);
+        if (distance > engageRange)
+        {
+            ChasePlayer();
+            return;
+        }
+
         if (distance <= tauntRange && tauntCooldownTimer <= 0f)
         {
             TriggerTaunt();
@@ -187,13 +257,180 @@ public class CursedJesterController : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
+        if (player == null)
+            return;
+        // Recover existing live actors after an Editor script reload: their
+        // Awake may have failed in the previous revision's NavMeshPath field
+        // initializer, leaving the native path null.
+        if (chasePath == null)
+            chasePath = new NavMeshPath();
 
-        agent.isStopped = false;
-        agent.SetDestination(player.position);
+        // The Stage 1 Jester can stand on a small NavMesh island: the agent
+        // reports isOnNavMesh=true but CalculatePath to the player is PARTIAL.
+        // Repeating SetDestination every Update leaves it motionless forever.
+        // Verify a COMPLETE route only at a measured cadence.
+        if (Time.time >= nextNavigationRetry)
+        {
+            nextNavigationRetry = Time.time + navigationRetrySeconds;
+            if (groundSteeringActive)
+                TryRestoreNavMeshChase();
+            else if (agent != null && agent.enabled && agent.isOnNavMesh)
+            {
+                bool complete = agent.CalculatePath(player.position, chasePath) &&
+                                chasePath.status == NavMeshPathStatus.PathComplete;
+                if (complete)
+                {
+                    agent.isStopped = false;
+                    agent.SetPath(chasePath);
+                }
+                else
+                    BeginGroundSteering();
+            }
+            else
+                BeginGroundSteering();
+        }
+
+        if (groundSteeringActive)
+            StepGroundSteering();
+        else if (agent != null && agent.enabled && agent.isOnNavMesh)
+            SetAnimatorSpeed(agent.velocity.magnitude);
 
         FaceTarget(player.position);
-        SetAnimatorSpeed(agent.velocity.magnitude);
+    }
+
+    private void BeginGroundSteering()
+    {
+        if (groundSteeringActive)
+            return;
+
+        groundSteeringActive = true;
+        groundSteeringSpeed = 0f;
+        if (agent != null && agent.enabled)
+        {
+            cachedAgentAreaMask = agent.areaMask;
+            cachedAgentType = agent.agentTypeID;
+            if (agent.isOnNavMesh)
+            {
+                agent.isStopped = true;
+                agent.ResetPath();
+            }
+            // The agent would constrain Move to its disconnected NavMesh
+            // island. Disable only during the ground-validated fallback.
+            agent.enabled = false;
+        }
+        Debug.LogWarning(
+            "[CursedJester] No complete NavMesh route. " +
+            "Switching to grounded obstacle-aware pursuit until a route reconnects.", this);
+    }
+
+    private void TryRestoreNavMeshChase()
+    {
+        if (chasePath == null)
+            chasePath = new NavMeshPath();
+        NavMeshQueryFilter filter = new NavMeshQueryFilter
+        {
+            agentTypeID = cachedAgentType,
+            areaMask = cachedAgentAreaMask
+        };
+        if (!NavMesh.SamplePosition(transform.position, out NavMeshHit start, 1.5f, filter) ||
+            !NavMesh.SamplePosition(player.position, out NavMeshHit goal, 4f, filter) ||
+            !NavMesh.CalculatePath(start.position, goal.position, filter, chasePath) ||
+            chasePath.status != NavMeshPathStatus.PathComplete ||
+            agent == null)
+            return;
+
+        agent.enabled = true;
+        if (!agent.Warp(start.position))
+        {
+            agent.enabled = false;
+            return;
+        }
+
+        EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
+        agent.isStopped = false;
+        agent.SetPath(chasePath);
+        groundSteeringActive = false;
+        groundSteeringSpeed = 0f;
+        Debug.Log("[CursedJester] Complete NavMesh path recovered. Normal chase resumed.", this);
+    }
+
+    private void StepGroundSteering()
+    {
+        StepGroundSteering(Time.deltaTime);
+    }
+
+    // Explicit timestep also allows isolated movement tests while a stage
+    // completion/vocabulary overlay has intentionally paused global time.
+    private void StepGroundSteering(float deltaSeconds)
+    {
+        Vector3 toPlayer = player.position - transform.position;
+        toPlayer.y = 0f;
+        if (toPlayer.sqrMagnitude < 0.01f)
+        {
+            SetAnimatorSpeed(0f);
+            return;
+        }
+
+        float acceleration = Mathf.Max(0.1f, walkSpeed / accelerationTime);
+        groundSteeringSpeed = Mathf.MoveTowards(
+            groundSteeringSpeed, walkSpeed, acceleration * deltaSeconds);
+        Vector3 direction = toPlayer.normalized;
+        float stepDistance = Mathf.Min(
+            groundSteeringSpeed * deltaSeconds, toPlayer.magnitude);
+        if (stepDistance <= 0f)
+            return;
+
+        // The collider on this enemy is a trigger, so directly changing
+        // transform.position would otherwise ghost through scenery.
+        // Physically sweep ahead at body height, ignoring the floor, self,
+        // and the intended player target.
+        float probeRadius = groundSteeringProbeRadius;
+        Vector3 origin = transform.position +
+                         Vector3.up * Mathf.Max(2.5f, probeRadius + 1.5f);
+        int hitCount = Physics.SphereCastNonAlloc(
+            origin, probeRadius, direction, steeringContacts,
+            stepDistance + 0.2f, Physics.DefaultRaycastLayers,
+            QueryTriggerInteraction.Ignore);
+        for (int i = 0; i < hitCount; i++)
+        {
+            RaycastHit hit = steeringContacts[i];
+            if (hit.collider == null || hit.normal.y >= 0.55f ||
+                hit.collider.transform.IsChildOf(transform) ||
+                hit.collider.transform.IsChildOf(player))
+                continue;
+            stepDistance = Mathf.Min(stepDistance,
+                Mathf.Max(0f, hit.distance - 0.15f));
+        }
+
+        Vector3 next = transform.position + direction * stepDistance;
+        Vector3 rayOrigin = next + Vector3.up * (groundSteeringMaxStepUp + 3f);
+        int groundHitCount = Physics.RaycastNonAlloc(
+            rayOrigin, Vector3.down, groundContacts,
+            groundSteeringMaxStepUp + groundSteeringMaxDrop + 4f,
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        float floor = float.NegativeInfinity;
+        for (int i = 0; i < groundHitCount; i++)
+        {
+            RaycastHit hit = groundContacts[i];
+            if (hit.collider == null || hit.normal.y < 0.55f ||
+                hit.collider.transform.IsChildOf(transform) ||
+                hit.collider.transform.IsChildOf(player) ||
+                hit.point.y > transform.position.y + groundSteeringMaxStepUp ||
+                hit.point.y < transform.position.y - groundSteeringMaxDrop)
+                continue;
+            floor = Mathf.Max(floor, hit.point.y);
+        }
+
+        if (float.IsNegativeInfinity(floor) || stepDistance <= 0.001f)
+        {
+            groundSteeringSpeed = 0f;
+            SetAnimatorSpeed(0f);
+            return; // No safe floor or blocked by solid geometry.
+        }
+
+        next.y = floor;
+        transform.position = next;
+        SetAnimatorSpeed(groundSteeringSpeed);
     }
 
     private void TriggerBasicAttack()
@@ -201,6 +438,7 @@ public class CursedJesterController : MonoBehaviour
         if (isAttacking || isRecovering || isBeingHit || isDead) return;
 
         isAttacking = true;
+        attackStartedAt = Time.time;
 
         StopMovement();
         FaceTarget(player.position);
@@ -235,6 +473,7 @@ public class CursedJesterController : MonoBehaviour
 
     public void OnBasicAttackFinished()
     {
+        if (!isAttacking || isDead) return;
         isAttacking = false;
 
         float distance = Vector3.Distance(transform.position, player.position);
@@ -265,6 +504,7 @@ public class CursedJesterController : MonoBehaviour
         if (isAttacking || isRecovering || isBeingHit || isDead) return;
 
         isAttacking = true;
+        attackStartedAt = Time.time;
         confettiBlastCooldownTimer = confettiBlastCooldown;
 
         StopMovement();
@@ -291,6 +531,7 @@ public class CursedJesterController : MonoBehaviour
     // Animation Event
     public void OnConfettiBlastFinished()
     {
+        if (!isAttacking || isDead) return;
         Debug.Log("[CursedJester] ConfettiBlast finished event fired.");
         isAttacking = false;
         EnterRecover();
@@ -301,6 +542,7 @@ public class CursedJesterController : MonoBehaviour
         if (isAttacking || isRecovering || isBeingHit || isDead) return;
 
         isAttacking = true;
+        attackStartedAt = Time.time;
         tauntCooldownTimer = tauntCooldown;
 
         StopMovement();
@@ -333,6 +575,7 @@ public class CursedJesterController : MonoBehaviour
     // Animation Event
     public void OnTauntFinished()
     {
+        if (!isAttacking || isDead) return;
         Debug.Log("[CursedJester] Taunt finished.");
         isAttacking = false;
         EnterRecover();
@@ -436,6 +679,7 @@ public class CursedJesterController : MonoBehaviour
         Debug.Log("[CursedJester] BeingHit triggered.");
 
         isBeingHit = true;
+        hitReactionStartedAt = Time.time;
         isAttacking = false;
 
         if (recoverCoroutine != null)
@@ -460,6 +704,7 @@ public class CursedJesterController : MonoBehaviour
     // Animation Event
     public void OnBeingHitFinished()
     {
+        if (!isBeingHit || isDead) return;
         Debug.Log("[CursedJester] BeingHit finished.");
         isBeingHit = false;
         EnterRecover();
@@ -554,6 +799,7 @@ public class CursedJesterController : MonoBehaviour
 
     private void StopMovement()
     {
+        groundSteeringSpeed = 0f;
         if (agent != null && agent.enabled && agent.isOnNavMesh)
         {
             agent.isStopped = true;

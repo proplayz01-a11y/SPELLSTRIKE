@@ -76,6 +76,14 @@ public string deathMessage = "OnStoneSentinelDefeated";
     public GameObject heldBoulder;
     public float boulderArcAngle = 45f;
 
+    [Header("Heavy Boulder Throw - Runtime Physics")]
+    [SerializeField, Range(1f, 1.5f)] private float boulderSizeMultiplier = 1.2f;
+    [SerializeField, Range(1f, 2f)] private float boulderSpeedMultiplier = 1.25f;
+    [SerializeField, Range(1f, 15f)] private float boulderGravityMultiplier = 9f;
+    [SerializeField, Range(1f, 25f)] private float boulderTumbleSpeed = 17f;
+    private Vector3 originalHeldBoulderScale;
+    private bool heldBoulderScaleCached;
+
     [Header("Jump Attack")]
     public float jumpMoveDuration = 0.6f;
     public float jumpLandingOffset = 1.5f;
@@ -265,6 +273,7 @@ public string deathMessage = "OnStoneSentinelDefeated";
 
     public void OnBoulderPickup()
     {
+        if (vocabularyPaused || currentState == EnemyState.Dead) return;
         Debug.Log("[StoneSentinel] OnBoulderPickup fired.");
 
         if (heldBoulder == null)
@@ -273,13 +282,21 @@ public string deathMessage = "OnStoneSentinelDefeated";
             return;
         }
 
+        // Match the held rock to the enlarged thrown prefab; cache its authored
+        // scale once so repeated attack cycles NEVER keep enlarging the prop.
+        if (!heldBoulderScaleCached)
+        {
+            originalHeldBoulderScale = heldBoulder.transform.localScale;
+            heldBoulderScaleCached = true;
+        }
+        heldBoulder.transform.localScale = originalHeldBoulderScale * boulderSizeMultiplier;
         heldBoulder.SetActive(true);
         Debug.Log("[StoneSentinel] HeldBoulder activated.");
     }
 
     public void OnBoulderThrow()
     {
-        if (vocabularyPaused) return;
+        if (vocabularyPaused || currentState == EnemyState.Dead) return;
         Debug.Log("[StoneSentinel] OnBoulderThrow fired. Hiding HeldBoulder.");
 
         if (heldBoulder != null)
@@ -294,27 +311,52 @@ public string deathMessage = "OnStoneSentinelDefeated";
             Quaternion.identity
         );
 
-        Vector3 targetPosition = player.position + Vector3.up * 1.0f; 
-        Vector3 direction = (targetPosition - boulderSpawnPoint.position).normalized;
+        // A physical throw, not a gravity-disabled straight-line homing shot.
+        // Aim at the CENTER of the player's actual body collider: in Stage 1
+        // the models/rock are much larger than one world unit, and aiming
+        // only +1 above ground makes the large stone hit the floor too early.
+        // Sample only once at the animation event (no mid-flight homing).
+        CharacterController playerCharacter = player.GetComponentInChildren<CharacterController>();
+        Collider playerCollider = playerCharacter != null
+            ? (Collider)playerCharacter
+            : player.GetComponentInChildren<Collider>();
+        Vector3 targetPosition = playerCollider != null
+            ? playerCollider.bounds.center
+            : player.position + Vector3.up * 1.0f;
+        Vector3 launchVelocity = CalculateBoulderThrowVelocity(
+            boulderSpawnPoint.position, targetPosition);
+        boulder.transform.localScale *= boulderSizeMultiplier;
 
         BoulderProjectile projectile = boulder.GetComponent<BoulderProjectile>();
 
         if (projectile != null)
         {
-            projectile.Launch(direction * boulderSpeed, boulderDamage, boulderLifeTime);
+            projectile.Launch(
+                launchVelocity, boulderDamage, boulderLifeTime,
+                boulderGravityMultiplier, boulderTumbleSpeed,
+                GetComponentsInChildren<Collider>(true));
         }
         else
         {
             Rigidbody rb = boulder.GetComponent<Rigidbody>();
-
-            if (rb != null)
+            if (rb != null && boulder.GetComponentInChildren<Collider>() != null)
             {
-                rb.useGravity = false;
-                rb.linearVelocity = direction * boulderSpeed;
+                // Fallback still uses exactly the same single-hit
+                // BoulderProjectile authority, rather than silently making
+                // a gravity-only, non-damaging boulder.
+                projectile = boulder.AddComponent<BoulderProjectile>();
+                projectile.Launch(
+                    launchVelocity, boulderDamage, boulderLifeTime,
+                    boulderGravityMultiplier, boulderTumbleSpeed,
+                    GetComponentsInChildren<Collider>(true));
             }
+            else
+                Destroy(boulder);
         }
 
-        Debug.Log("[StoneSentinel] Boulder thrown in linear trajectory.");
+        Debug.Log(
+            $"[StoneSentinel] Heavy tumbling boulder thrown at " +
+            $"{launchVelocity.magnitude:0.0} units/s (gravity x{boulderGravityMultiplier:0.0}).");
     }
 
     public void OnBoulderThrowFinished()
@@ -325,35 +367,30 @@ public string deathMessage = "OnStoneSentinelDefeated";
         boulderCooldownTimer = boulderCooldown;
         EnterRecover();
     }
-    private Vector3 CalculateArcVelocity(Vector3 start, Vector3 target, float angleDegrees)
+    private Vector3 CalculateBoulderThrowVelocity(Vector3 start, Vector3 target)
     {
-        float gravity = Mathf.Abs(Physics.gravity.y);
+        Vector3 travel = target - start;
+        Vector3 horizontal = Vector3.ProjectOnPlane(travel, Vector3.up);
+        float distance = horizontal.magnitude;
 
-        float angle = angleDegrees * Mathf.Deg2Rad;
+        // The level already authors boulderSpeed (about 102 units/sec in
+        // Stage 1). Retain that world scale and make it ~25% faster instead
+        // of replacing the stage's speed with a much slower fixed value.
+        float horizontalSpeed = Mathf.Max(10f, boulderSpeed * boulderSpeedMultiplier);
+        // boulderArcAngle now meaningfully controls the minimum loft time:
+        // even at short range, the giant rock has a visible curved throw.
+        float minLoftSeconds = Mathf.Lerp(
+            0.42f, 0.78f, Mathf.InverseLerp(15f, 70f, boulderArcAngle));
+        float flightSeconds = Mathf.Max(distance / horizontalSpeed, minLoftSeconds);
+        float effectiveGravity = Mathf.Max(0.1f,
+            Mathf.Abs(Physics.gravity.y) * boulderGravityMultiplier);
 
-        Vector3 direction = target - start;
-        Vector3 horizontalDirection = new Vector3(direction.x, 0f, direction.z);
-
-        float distance = horizontalDirection.magnitude;
-        float heightDifference = direction.y;
-
-        float speedSquared = gravity * distance * distance /
-            (2f * Mathf.Cos(angle) * Mathf.Cos(angle) *
-            (distance * Mathf.Tan(angle) - heightDifference));
-
-        if (speedSquared <= 0f || float.IsNaN(speedSquared))
-        {
-            // fallback kung weird ang angle/distance
-            return horizontalDirection.normalized * boulderSpeed + Vector3.up * 6f;
-        }
-
-        float speed = Mathf.Sqrt(speedSquared);
-
-        Vector3 velocity =
-            horizontalDirection.normalized * speed * Mathf.Cos(angle) +
-            Vector3.up * speed * Mathf.Sin(angle);
-
-        return velocity;
+        // Solve the ballistic intercept under the SAME gravity used by the
+        // actual Rigidbody, including vertical difference to the player.
+        // No mid-flight homing or forced straight-line trajectory.
+        float initialY = (travel.y + 0.5f * effectiveGravity
+            * flightSeconds * flightSeconds) / flightSeconds;
+        return horizontal / flightSeconds + Vector3.up * initialY;
     }
 
     private void HandleJumpAttack()

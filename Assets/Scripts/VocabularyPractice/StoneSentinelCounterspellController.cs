@@ -67,6 +67,35 @@ public class StoneSentinelCounterspellController : MonoBehaviour
         || state == PhaseState.Challenge
         || state == PhaseState.Breaking;
 
+    /// <summary>
+    /// FRACTURE is a mandatory mid-fight phase, not an optional shield
+    /// animation. No single hit (or successive Strong Attack hit) can skip
+    /// the configured HP threshold. Once the threshold is reached, remaining
+    /// damage is nullified until vocabulary combat is fully resolved.
+    /// </summary>
+    public float LimitIncomingDamage(float requestedDamage, float health, float maximumHealth)
+    {
+        float incoming = Mathf.Max(0f, requestedDamage);
+        if (incoming <= 0f || maximumHealth <= 0f)
+            return 0f;
+
+        // Combat is lethal again ONLY after the FRACTURE encounter has ended.
+        // A Failed setup restores normal damage so a broken setup cannot
+        // permanently softlock the enemy in an invincible phase.
+        if (state == PhaseState.Completed || state == PhaseState.Failed)
+            return incoming;
+
+        // Third AoE hit (or any other damage source) during the shield phase
+        // must not touch HP, even if its word was approved before the shield.
+        if (IsCounterspellActive)
+            return 0f;
+
+        // The first threshold-crossing strike may reach 50% but never pass it;
+        // HealthChanged then starts the shield sequence before the next strike.
+        float thresholdHealth = maximumHealth * healthThreshold;
+        return Mathf.Min(incoming, Mathf.Max(0f, health - thresholdHealth));
+    }
+
     private void Awake()
     {
         ResolveReferences();

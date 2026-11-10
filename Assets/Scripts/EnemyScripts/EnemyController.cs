@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
     [Header("Stats")]
     public float maxHealth = 100f;
     protected float currentHealth;
+    public float CurrentHealth => currentHealth;
     public int attackDamage = 10;
     public int leapDamage = 20;
     public int comboDamage = 15;

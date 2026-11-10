@@ -76,13 +76,16 @@ public class HomingProjectile : MonoBehaviour
         return presentation != null && presentation.Activate(target);
     }
 
-    /// <summary>Strong-only overhead movement; this projectile keeps single-hit authority.</summary>
-    public bool EnableArcaneSurge()
+    /// <summary>
+    /// Strong-only ground AoE; the projectile retains single accepted-word and
+    /// barrier authority while the VFX applies its approved split to the area.
+    /// </summary>
+    public bool EnableArcaneSurge(Spellstrike.Vfx.ArcaneSurgeGroundField field)
     {
-        if (target == null || hasHit || wordLength < 10 || wordLength > 13)
+        if (target == null || field == null || hasHit || wordLength < 10 || wordLength > 13)
             return false;
         arcaneSurge = gameObject.AddComponent<Spellstrike.Vfx.ArcaneSurgePresentation>();
-        if (!arcaneSurge.Begin(target))
+        if (!arcaneSurge.Begin(target, field))
         {
             Destroy(arcaneSurge);
             arcaneSurge = null;

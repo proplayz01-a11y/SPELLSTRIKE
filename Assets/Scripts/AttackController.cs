@@ -33,6 +33,8 @@ public class AttackController : MonoBehaviour
     private Spellstrike.Vfx.ArcaneSurgeCastChargeVfx strongCastVfx;
     private Spellstrike.Vfx.ArcaneSurgePresentation activeStrongZapPresentation;
     private Spellstrike.Vfx.ArcaneSurgeZapVisual activeStrongZapVisual;
+    private Spellstrike.Vfx.ArcaneSurgeGroundField activeStrongGroundField;
+    private Transform strongCastTarget;
     private Coroutine attackCoroutine;
     private bool attackInputLocked;
     private Func<string, bool> wordSubmissionFilter;
@@ -358,7 +360,12 @@ public class AttackController : MonoBehaviour
             return;
         }
 
-        Transform target = GetCurrentAttackTarget();
+        // The Cast event locks a WORLD-SPACE AoE circle; the release must use
+        // the same target instead of selecting an unrelated enemy mid-cast.
+        Transform target = currentAttackTrigger == "StrongAttack"
+            && !targetChallengeCastInProgress && strongCastTarget != null
+            ? strongCastTarget
+            : GetCurrentAttackTarget();
         if (target == null)
         {
             Debug.Log("No enemy found.");
@@ -401,7 +408,7 @@ public class AttackController : MonoBehaviour
             if (currentAttackTrigger == "StrongAttack"
                 && !targetChallengeCastInProgress)
             {
-                if (!projectileScript.EnableArcaneSurge())
+                if (!projectileScript.EnableArcaneSurge(activeStrongGroundField))
                 {
                     Debug.LogWarning(
                         "[AttackController] Arcane Surge setup failed; falling back to the existing homing projectile.",
@@ -441,8 +448,9 @@ public class AttackController : MonoBehaviour
 
     /// <summary>
     /// Animation Event at 0.9667s of the active StrongAttack clip.
-    /// Starts presentation-only hand energy BEFORE the real release frame.
-    /// This never consumes a word, spawns a projectile or deals damage.
+    /// Starts hand energy AND the imported Magic Circle under the chosen
+    /// enemy. Its radius defines the later AoE damage and all strike positions.
+    /// This event does not deal damage or release the projectile.
     /// </summary>
     public void OnStrongAttackCast()
     {
@@ -455,10 +463,18 @@ public class AttackController : MonoBehaviour
 
         StopStrongCastVfx();
         strongCastVfx = Spellstrike.Vfx.ArcaneSurgeCastChargeVfx.Spawn(magicSpawnPoint);
+        strongCastTarget = GetCurrentAttackTarget();
+        Spellstrike.Vfx.ArcaneSurgeZapLibrary library =
+            Resources.Load<Spellstrike.Vfx.ArcaneSurgeZapLibrary>(
+                Spellstrike.Vfx.ArcaneSurgeZapLibrary.ResourcePath);
+        if (activeStrongGroundField != null)
+            activeStrongGroundField.Cancel();
+        activeStrongGroundField =
+            Spellstrike.Vfx.ArcaneSurgeGroundField.Spawn(strongCastTarget, library);
     }
 
     /// <summary>
-    /// Animation Event at 1.2667s: replaces the Strong clip's generic
+    /// Animation Event at 1.3333s: replaces the Strong clip's generic
     /// OnAttackRelease. Existing release method is preserved for all
     /// other tiers and for any intentional Strong Target Challenge cast.
     /// ShootMagicProjectile's existing guard prevents duplicate releases.
@@ -474,9 +490,9 @@ public class AttackController : MonoBehaviour
     }
 
     /// <summary>
-    /// Animation Event at 1.4667s (6 frames after release): authorize the
+    /// Animation Event at 1.9667s: authorize the
     /// first lightning contact. ArcaneSurgePresentation waits until its
-    /// full 0.20-second sky-to-head descent is visible before resolving hit.
+    /// full 0.20-second sky-to-ground descent is visible before resolving hit.
     /// </summary>
     public void OnStrongZapYellow()
     {
@@ -489,7 +505,7 @@ public class AttackController : MonoBehaviour
         activeStrongZapPresentation.RequestYellowImpact();
     }
 
-    /// <summary>Animation Event at 1.6667s: second HP share + dark blue Zap.</summary>
+    /// <summary>Animation Event at 2.1667s: second AoE HP share + dark blue Zap.</summary>
     public void OnStrongZapDarkBlue()
     {
         if (currentAttackTrigger != "StrongAttack"
@@ -501,7 +517,7 @@ public class AttackController : MonoBehaviour
         activeStrongZapVisual.TriggerDarkBlueImpact();
     }
 
-    /// <summary>Animation Event at 1.8667s: third HP share + cyan blue Zap.</summary>
+    /// <summary>Animation Event at 2.3667s: third AoE HP share + cyan blue Zap.</summary>
     public void OnStrongZapCyanBlue()
     {
         if (currentAttackTrigger != "StrongAttack"
@@ -513,8 +529,25 @@ public class AttackController : MonoBehaviour
         activeStrongZapVisual.TriggerCyanBlueImpact();
     }
 
+    /// <summary>
+    /// Animation Event at 2.9500s, after the third strike but before the
+    /// attack-finished event clears the current strong attack references.
+    /// Visual-only: Plexus AoE and Lightning Aura, with NO fourth damage call.
+    /// </summary>
+    public void OnStrongAftershock()
+    {
+        if (currentAttackTrigger != "StrongAttack" || targetChallengeCastInProgress
+            || !projectileReleasedForCurrentAttack || activeStrongZapVisual == null)
+            return;
+        activeStrongZapVisual.TriggerAftershock();
+    }
+
     private void ResetStrongZapEventHandles()
     {
+        if (activeStrongGroundField != null)
+            activeStrongGroundField.Cancel();
+        activeStrongGroundField = null;
+        strongCastTarget = null;
         activeStrongZapPresentation = null;
         activeStrongZapVisual = null;
     }
@@ -537,6 +570,11 @@ public class AttackController : MonoBehaviour
     public void OnAttackAnimationFinished()
     {
         StopStrongCastVfx();
+        if (activeStrongGroundField != null)
+        {
+            activeStrongGroundField.Release();
+            activeStrongGroundField = null;
+        }
         ResetStrongZapEventHandles();
         if (attackCoroutine != null)
         {

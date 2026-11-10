@@ -43,6 +43,7 @@ public class BrambleSpriteController : MonoBehaviour
     [Header("Stats")]
     public float maxHealth = 80f;
     private float currentHealth;
+    public float CurrentHealth => currentHealth;
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
