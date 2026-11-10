@@ -1,6 +1,6 @@
 # SPELLSTRIKE
 
-**SPELLSTRIKE: A 3D Arena-Based Word-Combat Game for Vocabulary Development Among Youth**
+**SPELLSTRIKE: A 3D Arena-Based Word-Combat Game for PC and Android**
 
 Unity **6.3 LTS (6000.3.10f1)** / URP game project for Windows PC and Android. Players form valid English words from letter tiles to attack enemies in a sequence of themed arenas.
 
