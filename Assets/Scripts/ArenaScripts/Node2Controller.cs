@@ -51,7 +51,7 @@ public class Node2Controller : MonoBehaviour
         }
 
         if (playerHealth != null)
-            playerHealth.RestoreFullHealth();
+            playerHealth.RestoreFullHealthAfterEnemyDefeat();
     }
 
     public void OnFragmentCollected()

@@ -116,6 +116,13 @@ public class GoalsPanelUI : MonoBehaviour
         SubscribeToStage2Tracker();
         HideLegacyPanelIfNeeded();
 
+        // The first Spirit Remnant conversation is a persistent story event,
+        // not a per-session pickup. Restore Goal 2 after replaying Stage 1.
+        if (SceneManager.GetActiveScene().name == "SampleScene" &&
+            GameDatabaseManager.Instance != null &&
+            GameDatabaseManager.Instance.HasMetSpiritRemnant())
+            goal2Completed = true;
+
         if (buildUIOnStart)
             BuildUI();
 

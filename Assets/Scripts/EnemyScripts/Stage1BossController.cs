@@ -58,7 +58,7 @@ public class Stage1BossController : MonoBehaviour
         }
 
         if (playerHealth != null)
-            playerHealth.RestoreFullHealth();
+            playerHealth.RestoreFullHealthAfterEnemyDefeat();
     }
 
     public void OnSwordRewardCollected()

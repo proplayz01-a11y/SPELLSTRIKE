@@ -133,10 +133,40 @@ public sealed class Stage3RiddleController : MonoBehaviour
         ResolveReferences();
         EnsureSubscriptions();
 
-        // The *same* animated Titan should stand visibly as a statue before
-        // Awakening. Only older staging configured for hidden spawn is hidden.
-        if (bossRoot != null && enableBossRootAfterRiddles && !showDormantBossDuringRiddles)
-            bossRoot.SetActive(false);
+        // Titan is an authored, visible statue for the entire Stage 3 approach
+        // and four-riddle trial. Never disable the actor to prevent combat:
+        // TitanEarthbreakerController's Dormant state already disables
+        // movement, attacks and damage until the verified awakening.
+        EnsureDormantBossVisible();
+    }
+
+    private void Start()
+    {
+        // All scene Awake calls have completed. Defend against an authored
+        // hidden default on the enclosing production rig or boss GameObject.
+        EnsureDormantBossVisible();
+    }
+
+    private void EnsureDormantBossVisible()
+    {
+        if (bossRoot == null || trialCompleted || awakeningTriggered)
+            return;
+
+        // Older scene/prefab variants can disable the wrapper as well as the
+        // child Titan. Enabling only the child cannot overcome an inactive rig.
+        Transform rig = bossRoot.transform.parent;
+        if (rig != null && rig.name == "S3N4_TitanV017_ProductionRig"
+            && !rig.gameObject.activeSelf)
+            rig.gameObject.SetActive(true);
+
+        if (!bossRoot.activeSelf)
+            bossRoot.SetActive(true);
+
+        if (!showDormantBossDuringRiddles || !enableBossRootAfterRiddles)
+            Debug.LogWarning(
+                "[Stage3RiddleController] Legacy hidden-boss settings ignored. "
+                + "Titan stays active and Dormant until four riddles and the "
+                + "final awakening laser are completed.", this);
     }
 
     private void OnEnable()
@@ -186,6 +216,12 @@ public sealed class Stage3RiddleController : MonoBehaviour
             return false;
         }
 
+        // A missing/disabled parchment used to be optional: the trial could
+        // silently consume the normal tile pool and begin with no question
+        // on screen. Fail BEFORE touching that pool so Node 4 stays retryable.
+        if (!EnsureRiddleHudReady())
+            return false;
+
         if (riddles == null || riddles.Length == 0)
         {
             Debug.LogError("[Stage3RiddleController] No riddles are configured.", this);
@@ -215,7 +251,7 @@ public sealed class Stage3RiddleController : MonoBehaviour
         // Node 4's BoxCollider/StageNodeTrigger is the authority that starts
         // this trial. Keep the whole riddle HUD root inactive everywhere else,
         // then wake it only after the encounter has genuinely begun.
-        if (hudView != null && !hudView.gameObject.activeSelf)
+        if (!hudView.gameObject.activeSelf)
             hudView.gameObject.SetActive(true);
 
         tileManager.SetPreserveNormalCombatSnapshotAfterTargetChallengeSuccess(true);
@@ -290,12 +326,20 @@ public sealed class Stage3RiddleController : MonoBehaviour
         // transitions, wait until the panel finishes fading back in.
         attackController.SetAttackInputLocked(transitioning);
 
-        if (hudView != null)
-            hudView.ShowRiddle(
-                currentRiddleIndex + 1,
-                riddles.Length,
-                entry.question,
-                immediate: currentRiddleIndex == 0);
+        hudView.ShowRiddle(
+            currentRiddleIndex + 1,
+            riddles.Length,
+            entry.question,
+            immediate: currentRiddleIndex == 0);
+
+        if (currentRiddleIndex == 0 &&
+            (!hudView.IsVisible || !hudView.gameObject.activeInHierarchy))
+        {
+            Debug.LogError(
+                "[Stage3RiddleController] Riddle 1 parchment failed to become visible. "
+                + "Aborting and restoring the normal tile pool.", this);
+            return false;
+        }
 
         Debug.Log(
             $"[Stage3RiddleController] Riddle {currentRiddleIndex + 1}/{riddles.Length} active. "
@@ -687,11 +731,77 @@ public sealed class Stage3RiddleController : MonoBehaviour
             ? TileManager.Instance
             : FindFirstObjectByType<TileManager>();
         attackController ??= FindFirstObjectByType<AttackController>();
-        hudView ??= FindFirstObjectByType<Stage3RiddleHUDView>(FindObjectsInactive.Include);
+        // In Stage 3, the scene-authored PersistentHUDRoot is a duplicate if
+        // the player arrived from an earlier level. It is destroyed in Awake,
+        // but our earlier scene lookup may have cached its RiddleChallengeRoot.
+        // Always rebind to the surviving DDOL HUD even if a stale Unity Object
+        // wrapper was already cached (??= does not replace destroyed wrappers).
+        if (PersistentHUDRoot.Instance != null)
+        {
+            Stage3RiddleHUDView canonicalView = PersistentHUDRoot.Instance
+                .GetComponentInChildren<Stage3RiddleHUDView>(true);
+            if (hudView != canonicalView)
+            {
+                hudView = canonicalView;
+                if (hudView != null)
+                    Debug.Log(
+                        "[Stage3RiddleController] Bound four-riddle parchment "
+                        + "to the surviving persistent HUD.", hudView);
+            }
+        }
+        else if (hudView == null)
+        {
+            // Direct Stage3Scene Play Mode without a pre-existing DDOL root.
+            hudView = FindFirstObjectByType<Stage3RiddleHUDView>(
+                FindObjectsInactive.Include);
+        }
         riddleBarrier ??= GetComponentInChildren<VocabularyBarrier>(true);
         worldTarget ??= GetComponentInChildren<VocabularyWorldTarget>(true);
         ResolvePlayerHealth();
         ResolveLaserOrigin();
+    }
+
+    private bool EnsureRiddleHudReady()
+    {
+        if (hudView == null)
+        {
+            Debug.LogError(
+                "[Stage3RiddleController] Cannot start Node 4: RiddleChallengeRoot / "
+                + "Stage3RiddleHUDView was not found in the persistent HUD.", this);
+            return false;
+        }
+
+        if (!hudView.HasRequiredPresentationBindings)
+        {
+            Debug.LogError(
+                "[Stage3RiddleController] Cannot start Node 4: parchment HUD "
+                + "is missing its CanvasGroup, title, progress, or riddle text binding.", this);
+            return false;
+        }
+
+        Canvas canvas = hudView.GetComponentInParent<Canvas>(true);
+        if (canvas == null || !canvas.gameObject.activeInHierarchy)
+        {
+            Debug.LogError(
+                "[Stage3RiddleController] Cannot start Node 4: parchment "
+                + "parent Canvas is missing or inactive.", this);
+            return false;
+        }
+
+        // The persistent HUD can be disabled during stage transitions. Wake
+        // just this already-authored Canvas, not every other HUD or a new UI.
+        if (!canvas.enabled)
+        {
+            canvas.enabled = true;
+            Debug.LogWarning(
+                "[Stage3RiddleController] Re-enabled the persistent parchment "
+                + "Canvas for the Node 4 encounter.", canvas);
+        }
+
+        Debug.Log(
+            $"[Stage3RiddleController] Parchment HUD ready: {hudView.name} "
+            + $"(Canvas={canvas.name}, active={canvas.isActiveAndEnabled}).", this);
+        return true;
     }
 
     private void ResolveLaserOrigin()

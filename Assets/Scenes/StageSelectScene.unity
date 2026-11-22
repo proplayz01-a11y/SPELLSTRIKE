@@ -398,7 +398,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 34
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3659,7 +3659,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3677,7 +3677,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 69
+  m_fontSize: 57.85
   m_fontSizeBase: 69
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9255,7 +9255,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4279178012
   m_fontColor: {r: 0.11, g: 0.075, b: 0.06, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -9392,7 +9392,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -9410,7 +9410,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47
+  m_fontSize: 42.25
   m_fontSizeBase: 47
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11239,7 +11239,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4279178012
   m_fontColor: {r: 0.11, g: 0.075, b: 0.06, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -13196,7 +13196,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4293325045
   m_fontColor: {r: 0.96, g: 0.94, b: 0.9, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -13214,7 +13214,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
+  m_fontSize: 31
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16688,7 +16688,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4279178012
   m_fontColor: {r: 0.11, g: 0.075, b: 0.06, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -18791,7 +18791,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -18809,7 +18809,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47
+  m_fontSize: 42.25
   m_fontSizeBase: 47
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19714,7 +19714,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -19732,7 +19732,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38
+  m_fontSize: 40
   m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -20575,7 +20575,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -20593,7 +20593,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47
+  m_fontSize: 42.25
   m_fontSizeBase: 47
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -22034,7 +22034,7 @@ MonoBehaviour:
   - Stage3Scene
   - Stage4Scene
   - Stage5_Final
-  itemSelectionSceneName: WizardsVault_ItemSelectionLive
+  itemSelectionSceneName: WizardsVault_ItemSelectionRevamp
   vocabularyReviewController: {fileID: 231178439}
   stage1VocabularyReviewProfile: {fileID: 11400000, guid: 94097f420e6d419d99dc7ef707943631, type: 2}
   stage2VocabularyReviewProfile: {fileID: 11400000, guid: cf652cce04765894c86c1f92e6544298, type: 2}
@@ -23448,7 +23448,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4279178012
   m_fontColor: {r: 0.11, g: 0.075, b: 0.06, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -24100,7 +24100,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -24118,7 +24118,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44
+  m_fontSize: 44.5
   m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -24598,7 +24598,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287417589
   m_fontColor: {r: 0.96, g: 0.8, b: 0.55, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -24616,7 +24616,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47
+  m_fontSize: 42.25
   m_fontSizeBase: 47
   m_fontWeight: 400
   m_enableAutoSizing: 1

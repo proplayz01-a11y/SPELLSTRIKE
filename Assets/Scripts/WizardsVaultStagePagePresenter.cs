@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// Displays the baked parchment artwork for the stage chosen in Stage Select.
 /// Only the StagePage background sprite and existing live title are updated;
 /// the potion UI, inventory, equipment and navigation remain untouched.
-/// StageRunSelection uses zero-based indexes: Stages 1/2/3 = 0/1/2.
+/// StageRunSelection uses zero-based indexes: Stages 1/2/3/4 = 0/1/2/3.
 /// </summary>
 [DisallowMultipleComponent]
 [DefaultExecutionOrder(200)]
@@ -15,6 +15,7 @@ public sealed class WizardsVaultStagePagePresenter : MonoBehaviour
     [SerializeField] private Sprite enchantedKingdomPage;
     [SerializeField] private Sprite sunkenSeasPage;
     [SerializeField] private Sprite mythicRuinsPage;
+    [SerializeField] private Sprite cursedGothicPage;
     [SerializeField] private Image stagePageImage;
     [SerializeField] private TMP_Text stageTitleText;
 
@@ -50,6 +51,7 @@ public sealed class WizardsVaultStagePagePresenter : MonoBehaviour
             case 0: selected = enchantedKingdomPage; break;
             case 1: selected = sunkenSeasPage; break;
             case 2: selected = mythicRuinsPage; break;
+            case 3: selected = cursedGothicPage; break;
         }
 
         if (stagePageImage != null && selected != null)

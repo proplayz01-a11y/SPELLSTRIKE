@@ -48,6 +48,9 @@ EditorBuildSettings:
     path: Assets/Scenes/WizardsVault_ItemSelectionLive.unity
     guid: 73c6cc816f28bef45984139db2b1d7da
   - enabled: 1
+    path: Assets/Scenes/WizardsVault_ItemSelectionRevamp.unity
+    guid: 95bcce989008b8840a744f016c4525e1
+  - enabled: 1
     path: Assets/Scenes/Stage4Scene/Stage4Scene.unity
     guid: b69985f54b0efbb40b3bb1ff68432600
   - enabled: 1

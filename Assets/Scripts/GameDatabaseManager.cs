@@ -36,6 +36,7 @@ public class GameData
     public int playerMaxHealth = 100;
     public bool tutorialCompleted = false;
     public bool stage2ObjectivesCompleted = false;
+    public bool stage1SpiritRemnantMet = false;
     public int desertArcherRuneArrowCount = 0;
     public List<WordHistoryEntry> wordHistory = new List<WordHistoryEntry>();
     public List<VocabularyAttemptRecord> vocabularyAttempts = new List<VocabularyAttemptRecord>();
@@ -202,6 +203,7 @@ public class GameDatabaseManager : MonoBehaviour
         Data.playerLevel = LoadPlayerInt("playerLevel", 1);
         Data.tutorialCompleted = LoadPlayerInt("tutorialCompleted", 0) == 1;
         Data.stage2ObjectivesCompleted = LoadPlayerInt("stage2ObjectivesCompleted", 0) == 1;
+        Data.stage1SpiritRemnantMet = LoadPlayerInt("stage1SpiritRemnantMet", 0) == 1;
         Data.desertArcherRuneArrowCount = LoadPlayerInt("desertArcherRuneArrowCount", 0);
         Data.potionInventory = LoadPotionInventory();
         if (Data.potionInventory == null || Data.potionInventory.Count == 0)
@@ -224,6 +226,7 @@ public class GameDatabaseManager : MonoBehaviour
         SavePlayerInt("playerLevel", Data.playerLevel);
         SavePlayerInt("tutorialCompleted", Data.tutorialCompleted ? 1 : 0);
         SavePlayerInt("stage2ObjectivesCompleted", Data.stage2ObjectivesCompleted ? 1 : 0);
+        SavePlayerInt("stage1SpiritRemnantMet", Data.stage1SpiritRemnantMet ? 1 : 0);
         SavePlayerInt("desertArcherRuneArrowCount", Mathf.Max(0, Data.desertArcherRuneArrowCount));
 
         sqliteDatabase.ExecuteNonQuery("DELETE FROM potion_inventory");
@@ -449,6 +452,21 @@ public class GameDatabaseManager : MonoBehaviour
     public bool HasCompletedStage2Objectives()
     {
         return Data != null && Data.stage2ObjectivesCompleted;
+    }
+
+    public bool HasMetSpiritRemnant()
+    {
+        return Data != null && Data.stage1SpiritRemnantMet;
+    }
+
+    public void MarkSpiritRemnantMet()
+    {
+        Data ??= new GameData();
+        if (Data.stage1SpiritRemnantMet)
+            return;
+
+        Data.stage1SpiritRemnantMet = true;
+        SaveDatabase();
     }
 
     public void MarkStage2ObjectivesCompleted()

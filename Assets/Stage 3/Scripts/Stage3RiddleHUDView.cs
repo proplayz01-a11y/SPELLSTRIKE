@@ -44,7 +44,14 @@ public sealed class Stage3RiddleHUDView : MonoBehaviour
     private static readonly float[] ProgressDotX = { -24.9f, -8.5f, 7.9f, 24.2f };
     private const float ProgressDotY = -7f;
 
-    public bool IsVisible => canvasGroup != null && canvasGroup.alpha > 0.001f;
+    public bool IsVisible => gameObject.activeInHierarchy
+        && canvasGroup != null && canvasGroup.alpha > 0.001f
+        && GetComponentInParent<Canvas>(true) is Canvas canvas
+        && canvas.isActiveAndEnabled;
+    // Required for showing an actual question. Node 4 must never silently
+    // start a playable riddle if its parchment references are missing.
+    public bool HasRequiredPresentationBindings => canvasGroup != null
+        && riddleText != null && progressText != null && titleText != null;
     public float FadeDuration => Mathf.Max(0f, fadeDuration);
     public float FeedbackHoldSeconds => Mathf.Max(0f, feedbackHoldSeconds);
 

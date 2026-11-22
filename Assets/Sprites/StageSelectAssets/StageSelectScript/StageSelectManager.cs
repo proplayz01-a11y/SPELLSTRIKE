@@ -388,10 +388,10 @@ public class StageSelectManager : MonoBehaviour
 
         StageRunSelection.SetSelectedStage(stageIndex, sceneName, stageTitle);
 
-        // Wizard's Vault art has been approved and implemented for Stage 1/2/3.
-        // Keep Stage 4+ on the existing Item Selection scene until their own
-        // baked StagePage images are ready, rather than showing Stage 1 art.
-        string selectionScene = stageIndex <= 2
+        // The approved production Item Selection revamp includes artwork for
+        // Stages 1-4. Keep the not-yet-playable Stage 5 placeholder on the
+        // legacy fallback until its own preview/scene is implemented.
+        string selectionScene = stageIndex <= 3
             ? itemSelectionSceneName
             : "ItemSelectionScene";
         Debug.Log(

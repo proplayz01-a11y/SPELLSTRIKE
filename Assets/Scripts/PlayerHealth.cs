@@ -85,6 +85,19 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         Debug.Log($"{name} healed {amount}. Current health: {currentHealth}/{maxHealth}");
     }
 
+    /// <summary>
+    /// Award full health when a stage enemy's defeat is confirmed.
+    /// Unlike RestoreFullHealth (used for respawns/resets), this never revives
+    /// Van or clears movement/animation locks during victory cinematics.
+    /// </summary>
+    public void RestoreFullHealthAfterEnemyDefeat()
+    {
+        if (isDead || currentHealth <= 0 || maxHealth <= 0)
+            return;
+
+        Heal(maxHealth - currentHealth);
+    }
+
     public void RestoreFullHealth()
     {
         bool wasDead = isDead;

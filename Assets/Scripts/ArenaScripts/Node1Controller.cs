@@ -245,7 +245,7 @@ public class Node1Controller : MonoBehaviour
         if (fragmentPickup != null)
             fragmentPickup.SetLocked(false);
         if (playerHealth != null)
-            playerHealth.RestoreFullHealth();
+            playerHealth.RestoreFullHealthAfterEnemyDefeat();
 
         Debug.Log("Bramble Sprite defeated. Fragment unlocked.");
     }

@@ -91,9 +91,16 @@ public class StageNodeController : MonoBehaviour
             fragmentPickup.SetLocked(false);
         }
 
-        if (playerHealth != null && restoreFullHealthOnEnemyDefeat)
+        // Stage 2/3/4 share this authoritative once-per-node defeat callback.
+        // All shipped stage scenes enable the reward, including Stage 3.
+        // Never revive a dead player or unlock a cinematic movement lock.
+        if (restoreFullHealthOnEnemyDefeat)
         {
-            playerHealth.RestoreFullHealth();
+            if (playerHealth == null)
+                playerHealth = PersistentPlayerRoot.Instance != null
+                    ? PersistentPlayerRoot.Instance.GetComponent<PlayerHealth>()
+                    : FindFirstObjectByType<PlayerHealth>();
+            playerHealth?.RestoreFullHealthAfterEnemyDefeat();
         }
 
         Log(enemyDefeatedMessage);
