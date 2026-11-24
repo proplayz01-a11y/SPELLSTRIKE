@@ -51,7 +51,7 @@ public sealed class TutorialHUDController : MonoBehaviour
         float duration = show ? guideSlideInSeconds : guideSlideOutSeconds;
         guideVisibility = Mathf.MoveTowards(guideVisibility, show ? 1f : 0f,
             Time.unscaledDeltaTime / duration);
-        float eased = guideVisibility * guideVisibility * (3f - 2f * guideVisibility);
+        float eased = ObjectiveGuideNotification.SmoothVisibility(guideVisibility);
         guideCanvas.alpha = eased;
         // Keep the responsive layout's right anchor and safe-area position intact.
         // Offset only the rendered child graphics so responsive layout refreshes

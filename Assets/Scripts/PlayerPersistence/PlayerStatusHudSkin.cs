@@ -29,6 +29,10 @@ public sealed class PlayerStatusHudSkin : MonoBehaviour
     private float lastMaximum = float.NaN;
     private bool hasExperienceBinding;
     private float experienceFraction;
+    private Text levelNumber;
+    private Text experienceNumber;
+    private int lastLevel = -1;
+    private int lastExperience = -1;
 
     private void Awake()
     {
@@ -265,7 +269,87 @@ public sealed class PlayerStatusHudSkin : MonoBehaviour
     private void LateUpdate()
     {
         if (skinRoot != null)
+        {
             RefreshHealth(force: false);
+            RefreshExperience();
+        }
+    }
+
+    private void RefreshExperience()
+    {
+        if (experienceFill == null) return;
+        if (levelNumber == null || experienceNumber == null)
+        {
+            var source = experienceFill.rectTransform;
+            var root = (RectTransform)skinRoot.transform;
+            bool hasLevelArrow = root.Find("MageHUD_StaticGoldAndBadges/GoldFrame_FixedFullCanvas") != null;
+            levelNumber = GetOrCreateExperienceLabel(root, "EXP_LevelValue");
+            experienceNumber = GetOrCreateExperienceLabel(root, "EXP_ActualValue");
+
+            // Labels are siblings of the masked artwork, not children of the
+            // EXP stencil. The level arrow sits just left of the XP fill.
+            Vector3 left = root.InverseTransformPoint(source.TransformPoint(
+                new Vector3(source.rect.xMin, source.rect.center.y, 0f)));
+            Vector3 right = root.InverseTransformPoint(source.TransformPoint(
+                new Vector3(source.rect.xMax, source.rect.center.y, 0f)));
+            float width = right.x - left.x;
+            float height = source.rect.height;
+            float levelWidth = hasLevelArrow ? width * 0.30f : width * 0.27f;
+            PlaceExperienceLabel(levelNumber, root,
+                left + Vector3.right * (hasLevelArrow ? -levelWidth * 0.55f : levelWidth * 0.5f),
+                levelWidth, height);
+            float valueLeft = hasLevelArrow ? left.x : left.x + levelWidth;
+            PlaceExperienceLabel(experienceNumber, root,
+                new Vector3((valueLeft + right.x) * 0.5f, left.y, left.z),
+                right.x - valueLeft, height);
+            lastLevel = lastExperience = -1;
+        }
+        if (lastLevel == PlayerProgression.Level && lastExperience == PlayerProgression.Experience)
+            return;
+        lastLevel = PlayerProgression.Level;
+        lastExperience = PlayerProgression.Experience;
+        SetExperienceFraction(PlayerProgression.Fraction);
+        levelNumber.text = $"LV {lastLevel}";
+        experienceNumber.text = lastLevel >= PlayerProgression.MaxLevel
+            ? "MAX" : $"{lastExperience}/{PlayerProgression.Required}";
+    }
+
+    private static Text GetOrCreateExperienceLabel(RectTransform root, string objectName)
+    {
+        Text label = null;
+        foreach (Text candidate in root.GetComponentsInChildren<Text>(true))
+            if (candidate.name == objectName) { label = candidate; break; }
+        if (label == null)
+        {
+            var go = new GameObject(objectName, typeof(RectTransform),
+                typeof(CanvasRenderer), typeof(Text), typeof(Outline));
+            label = go.GetComponent<Text>();
+        }
+        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        label.fontStyle = FontStyle.Bold;
+        label.fontSize = 12;
+        label.resizeTextForBestFit = true;
+        label.resizeTextMinSize = 8;
+        label.resizeTextMaxSize = 12;
+        label.alignment = TextAnchor.MiddleCenter;
+        label.color = new Color(1f, 0.97f, 0.86f, 1f);
+        label.raycastTarget = false;
+        label.maskable = false;
+        label.GetComponent<Outline>().effectColor = Color.black;
+        return label;
+    }
+
+    private static void PlaceExperienceLabel(Text label, RectTransform root,
+        Vector3 center, float width, float height)
+    {
+        RectTransform rect = label.rectTransform;
+        rect.SetParent(root, false);
+        rect.anchorMin = rect.anchorMax = root.pivot;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = new Vector2(width, height);
+        rect.localScale = Vector3.one;
+        rect.localPosition = center;
+        rect.SetAsLastSibling();
     }
 
     private void RefreshHealth(bool force)

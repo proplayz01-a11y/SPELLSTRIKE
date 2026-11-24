@@ -77,6 +77,8 @@ public class EnemyHealth : MonoBehaviour
     {
         // Enemies can be inactive until an encounter trigger enables them. Initialize
         // health before Start so the persistent HUD can bind on that same trigger frame.
+        // Apply the campaign profile once, before any health-dependent phase or UI.
+        maxHealth = StageEnemyDifficulty.Resolve(gameObject, maxHealth);
         currentHealth = maxHealth;
     }
 
@@ -180,6 +182,7 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
+        EnemyExperienceReward.Award(gameObject);
 
         Debug.Log($"{name} died.");
         SyncHealthSlider();

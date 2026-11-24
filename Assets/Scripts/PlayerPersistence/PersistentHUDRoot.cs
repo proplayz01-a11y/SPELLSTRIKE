@@ -25,6 +25,16 @@ public sealed class PersistentHUDRoot : MonoBehaviour
     private TutorialResponsiveLayout responsiveLayout;
     private MobileStageControls mobileStageControls;
     private EnemyHealth boundEnemyHealth;
+    private BossOverheadHealthBar overheadBossBar;
+    public bool GameplayHealthVisible
+    {
+        get
+        {
+            if (healthSlider == null || !healthSlider.gameObject.activeInHierarchy) return false;
+            var canvas = healthSlider.GetComponentInParent<Canvas>();
+            return canvas != null && canvas.isActiveAndEnabled;
+        }
+    }
     private PotionSidebarUI persistentPotionSidebar;
 
     public Slider HealthSlider => healthSlider;
@@ -303,7 +313,8 @@ public sealed class PersistentHUDRoot : MonoBehaviour
         if (enemyHealthSlider != null)
             enemyHealthSlider.gameObject.SetActive(
                 boundEnemyHealth != null && !boundEnemyHealth.IsDead
-                && CanDisplayEnemyHealth(boundEnemyHealth));
+                  && CanDisplayEnemyHealth(boundEnemyHealth)
+                  && (overheadBossBar == null || !overheadBossBar.HasPresentation));
 
         if (attackButton != null)
         {
@@ -328,14 +339,7 @@ public sealed class PersistentHUDRoot : MonoBehaviour
         if (!Application.isPlaying)
             return;
 
-        if (PotionInventory.Instance == null &&
-            FindFirstObjectByType<PotionInventory>(FindObjectsInactive.Include) == null)
-        {
-            // A direct Stage 3/4 launch has no ItemSelectionScene bootstrap.
-            // Reuse PotionInventory's existing JSON save owner and defaults.
-            new GameObject("PotionInventory_StageHUD_Fallback")
-                .AddComponent<PotionInventory>();
-        }
+        var inventory = PotionInventory.EnsureInstance();
 
         if (PotionSystem.Instance == null &&
             FindFirstObjectByType<PotionSystem>(FindObjectsInactive.Include) == null)
@@ -346,7 +350,11 @@ public sealed class PersistentHUDRoot : MonoBehaviour
         }
 
         if (persistentPotionSidebar != null)
+        {
+            persistentPotionSidebar.potionInventory = inventory;
+            persistentPotionSidebar.potionSystem = PotionSystem.Instance;
             return;
+        }
 
         // Parent under the same persistent combat Canvas, never a transient
         // stage-owned HUDCanvas. One bag follows the canonical combat HUD.
@@ -393,6 +401,25 @@ public sealed class PersistentHUDRoot : MonoBehaviour
 
         HideSceneOwnedEnemyHealthBars();
 
+        if (enemy.UsesBossHud)
+        {
+            if (overheadBossBar == null)
+                overheadBossBar = gameObject.AddComponent<BossOverheadHealthBar>();
+            if (overheadBossBar.Show(enemy, this))
+            {
+                if (boundEnemyHealth != null)
+                    boundEnemyHealth.Died -= HandleBoundEnemyDied;
+                boundEnemyHealth = enemy;
+                enemy.Died += HandleBoundEnemyDied;
+                if (enemyHealthSlider != null)
+                {
+                    if (enemy.healthSlider == enemyHealthSlider) enemy.BindHealthSlider(null);
+                    enemyHealthSlider.gameObject.SetActive(false);
+                }
+                return;
+            }
+        }
+
         if (enemyHealthSlider == null)
         {
             Debug.LogWarning("[PersistentHUDRoot] Cannot show enemy health because EnemyHealthBar is missing.", this);
@@ -427,6 +454,7 @@ public sealed class PersistentHUDRoot : MonoBehaviour
             boundEnemyHealth.Died -= HandleBoundEnemyDied;
 
         boundEnemyHealth = null;
+        overheadBossBar?.Hide();
 
         if (enemyHealthSlider == null)
             CacheReferences();

@@ -96,6 +96,25 @@ public class CombatCamera : MonoBehaviour
         cinemachineDriven = driven;
     }
 
+    // Every campaign scene uses Stage 1's input tuning. Scene-local
+    // targets are still owned by the scene, not the persistent camera.
+    public void BindSharedGameplayCamera(Transform actor, bool resetForSpawn)
+    {
+        player = actor;
+        orbitSpeed = 5f;
+        mobileOrbitSensitivity = .12f;
+        mobileLookRegionStart = .5f;
+        mobileMinOrbitY = -5f;
+        mobileMaxOrbitY = 45f;
+        SetMobileTouchOrbitEnabled(MobileStageControls.IsMobilePresentation);
+        if (!resetForSpawn) return;
+        lockOnEnemy = false;
+        orbitX = orbitY = cinemachineAxisX = cinemachineAxisY = 0f;
+        mobileLookFingerId = int.MinValue;
+        mobileRejectedFingerIds.Clear();
+        currentLookTarget = actor.position;
+    }
+
     public float GetCinemachineAxisValue(int axis)
     {
         return axis == 0 ? cinemachineAxisX : axis == 1 ? cinemachineAxisY : 0f;

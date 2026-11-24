@@ -15,9 +15,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private static readonly int IsDeadTrigger = Animator.StringToHash("isDead");
     private static readonly int SpeedParameter = Animator.StringToHash("Speed");
     private bool isDead;
+    private int baseMaximumHealth;
 
     void Start()
     {
+        baseMaximumHealth = maxHealth;
+        maxHealth = baseMaximumHealth + PlayerProgression.BonusHealth;
         currentHealth = maxHealth;
         playerAnimator ??= GetComponent<Animator>();
         movementController ??= GetComponent<MovementofPlayer>();
@@ -51,9 +54,26 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void Update()
     {
+        RefreshProgressionHealth();
         if (Input.GetKeyDown(KeyCode.H))
         {
             TakeDamage(10);
+        }
+    }
+
+    private void RefreshProgressionHealth()
+    {
+        if (baseMaximumHealth <= 0) return;
+        int nextMaximum = baseMaximumHealth + PlayerProgression.BonusHealth;
+        if (nextMaximum == maxHealth) return;
+        int increase = nextMaximum - maxHealth;
+        maxHealth = nextMaximum;
+        // Preserve missing HP; never revive a defeated player via leveling.
+        currentHealth = isDead ? 0 : Mathf.Clamp(currentHealth + increase, 1, maxHealth);
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = currentHealth;
         }
     }
 

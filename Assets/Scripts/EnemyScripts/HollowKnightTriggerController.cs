@@ -25,6 +25,10 @@ public class HollowKnightTriggerEncounter : MonoBehaviour
         "the original immediate StartBattle() behavior (Nodes without a gate).")]
     public VocabularyEncounterFlowController vocabularyEncounterFlow;
 
+    [Header("Pre-boss story (only AFTER LIBERATE succeeds)")]
+    [Tooltip("Van confronts Hollow Knight before combat. Optional for older scenes.")]
+    [SerializeField] private Stage1HollowKnightConfrontation preBossConfrontation;
+
     private bool encounterStarted = false;
     private bool bossCombatStarted = false;
     private bool subscribedToVocabularyFlow = false;
@@ -163,7 +167,15 @@ public class HollowKnightTriggerEncounter : MonoBehaviour
 
         Debug.Log(
             "[HollowKnightTriggerEncounter] LIBERATE encounter completed. " +
-            "Starting Hollow Knight combat.");
+            "Presenting Van's Hollow Knight confrontation before combat.");
+        UnsubscribeFromVocabularyFlow();
+        if (preBossConfrontation != null &&
+            preBossConfrontation.Begin(hollowKnight, StartBossCombat))
+            return;
+
+        Debug.LogWarning(
+            "[HollowKnightTriggerEncounter] Confrontation couldn't start; " +
+            "falling back to the original boss combat transition.");
         StartBossCombat();
     }
 

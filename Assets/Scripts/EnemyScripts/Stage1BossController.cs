@@ -36,6 +36,7 @@ public class Stage1BossController : MonoBehaviour
         if (bossDefeated) return;
 
         bossDefeated = true;
+        ObjectiveManager.ReportEnemyDefeated(gameObject.scene, 4);
 
         Debug.Log("[Stage1BossController] Hollow Knight defeated.");
 
@@ -80,8 +81,7 @@ public class Stage1BossController : MonoBehaviour
         fragmentCollected = true;
         if (progressionManager != null)
             progressionManager.MarkBossComplete();
-        if (goalsPanelUI != null)
-            goalsPanelUI.IncrementFragmentCount();
+        ObjectiveManager.ReportFragmentCollected(gameObject.scene, 4);
 
         Debug.Log("[Stage1BossController] Stage 1 boss fragment collected.");
 

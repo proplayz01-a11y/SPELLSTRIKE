@@ -20,6 +20,31 @@ public class PotionInventory : MonoBehaviour
     public KeyCode addPowerUpKey = KeyCode.Alpha9;
     public KeyCode logCountsKey = KeyCode.Alpha0;
 
+    public static PotionInventory EnsureInstance()
+    {
+        if (Instance != null && Instance.isActiveAndEnabled) return Instance;
+        if (!Application.isPlaying) return null;
+        foreach (var existing in FindObjectsByType<PotionInventory>(FindObjectsSortMode.None))
+        {
+            if (!existing.isActiveAndEnabled) continue;
+            Instance = existing;
+            existing.PersistOwner();
+            return existing;
+        }
+        Instance = null;
+        return new GameObject("PotionInventory_Runtime").AddComponent<PotionInventory>();
+    }
+
+    private void PersistOwner()
+    {
+        // Stage 1's authored inventory is nested under the map's managers.
+        // DontDestroyOnLoad only works on root objects; never let map cleanup
+        // remove the inventory used by world pickups and the persistent HUD.
+        if (transform.parent != null)
+            transform.SetParent(null, true);
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,14 +53,29 @@ public class PotionInventory : MonoBehaviour
                 $"[PotionInventory] Duplicate component removed from '{gameObject.name}' " +
                 "without destroying its shared host GameObject.",
                 this);
+            enabled = false;
             Destroy(this);
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        PersistOwner();
         GameDatabaseManager.EnsureInstance();
         EnsurePotionEntries();
+    }
+
+    private void OnEnable()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            PersistOwner();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     private void Start()

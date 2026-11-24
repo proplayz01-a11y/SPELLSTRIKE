@@ -46,6 +46,23 @@ public class TileSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>Read-only forecast input. Do not collect, replace, or reassign
+    /// already spawned letters. The same reservation set owns the spawn cap.</summary>
+    public void AppendPendingReplacementLetters(List<char> destination)
+    {
+        if (destination == null) return;
+        pendingReplacementTiles.RemoveWhere(tile => tile == null);
+        foreach (WorldTile tile in pendingReplacementTiles)
+        {
+            if (tile.gameObject.activeInHierarchy &&
+                tile.gameObject.scene == UnityEngine.SceneManagement.SceneManager.GetActiveScene())
+                destination.Add(char.ToUpperInvariant(tile.letter));
+        }
+    }
+
+    public int AvailableReplacementSlots(int ownedCount) =>
+        Mathf.Max(0, maximumNormalCombatTileBudget - ownedCount - PendingReplacementTileCount);
+
     private void Awake()
     {
         Instance = this;
@@ -53,6 +70,15 @@ public class TileSpawner : MonoBehaviour
 
     private void Start()
     {
+        // A direct stage launch can place this child beneath the persistent
+        // PotionInventory/PotionSystem host. Keep arena spawners scene-owned.
+        var activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        if (gameObject.scene.name == "DontDestroyOnLoad" &&
+            TileManager.IsPersistentCombatScene(activeScene.name))
+        {
+            transform.SetParent(null, true);
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(gameObject, activeScene);
+        }
         if (!spawnInitialTilesInPool)
             return;
 

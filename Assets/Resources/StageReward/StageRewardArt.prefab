@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1507589289574458043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7848791814174210437}
+  - component: {fileID: 829649480350296895}
+  - component: {fileID: 877367600747761150}
+  m_Layer: 0
+  m_Name: StageRewardArt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7848791814174210437
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507589289574458043}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &829649480350296895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507589289574458043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd36f61eedd448787ded775e1160f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialCompletionVisualAssets
+  panelShadow: {fileID: 21300000, guid: e4cfcb9b017c4da2bc8e4c874dae4e80, type: 3}
+  parchmentFill: {fileID: 21300000, guid: ab826bc0bfbb47e3bd61fa0ecdd985ae, type: 3}
+  panelFrame: {fileID: 21300000, guid: 3a4c52e6e41b4158b428343c03d8b012, type: 3}
+  headerDivider: {fileID: 21300000, guid: cb4bf326def643699f9eb81c002769f8, type: 3}
+  groundShadow: {fileID: 21300000, guid: 0325cbf8d2f94100a5113c1f4f32dbae, type: 3}
+  castShadow: {fileID: 0}
+  halo: {fileID: 21300000, guid: fd9849ec0d7b4984b1efb7adfafdf324, type: 3}
+  orbitBack: {fileID: 0}
+  spellbook: {fileID: 0}
+  runeGlow: {fileID: 0}
+  orbitFront: {fileID: 0}
+  sparkles: {fileID: 0}
+  continueShadow: {fileID: 21300000, guid: 455f6fe219af49998e24f75effd12db7, type: 3}
+  mainMenuShadow: {fileID: 21300000, guid: 98ce6454615d4857a2580ed59399692a, type: 3}
+  continueWordMaster: {fileID: 21300000, guid: b4d136245d8c400393019e97d1f79013, type: 3}
+  continueWordMasterHover: {fileID: 21300000, guid: 4e00f00df31542f29270d77309ac6ce1, type: 3}
+  mainMenuOriginal: {fileID: 21300000, guid: 7b1e9999c25d4cfa948a53788472ecb4, type: 3}
+  cinzelFont: {fileID: 11400000, guid: adeeb017d50cbd84496bd418356e4745, type: 2}
+  alegreyaItalicFont: {fileID: 11400000, guid: 99fadd5aadd56294283ca126f3af36b6, type: 2}
+--- !u!114 &877367600747761150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507589289574458043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec085de146409143a5a3b6dded77682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageRewardPresentation
+  art: {fileID: 829649480350296895}
+  voiceFragment: {fileID: 21300000, guid: e9097205c7a1b50418aa60aaf90d007f, type: 3}
+  memoriesFragment: {fileID: 21300000, guid: e888248ed9d56f24eb541c72103b55b5, type: 3}
+  emotionsFragment: {fileID: 21300000, guid: 3d79fb9f920c7414a94a23dcf4dba4f8, type: 3}
+  genericFragment: {fileID: 21300000, guid: 14374f87af50efa4da4173bc688263de, type: 3}
+  swordReward: {fileID: 21300000, guid: db19632221f23bf4a955ab3ff7d4f588, type: 3}
+  pearlReward: {fileID: 21300000, guid: 7718ba57679b5a048b5ee2ee9d50918a, type: 3}

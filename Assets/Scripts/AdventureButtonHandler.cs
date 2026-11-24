@@ -32,6 +32,7 @@ public class AdventureButtonHandler : MonoBehaviour
         if ((replayPrologue || (!tutorialCompleted && !prologueCompleted)) &&
             Resources.Load<TextAsset>("ComicMode/manifest") != null)
         {
+            PlayerProgression.BeginCampaign();
             Spellstrike.ComicMode.ComicModeAdventureRouter.Open();
             return;
         }
@@ -54,6 +55,7 @@ public class AdventureButtonHandler : MonoBehaviour
         }
 
         Time.timeScale = 1f;
+        PlayerProgression.BeginCampaign();
         Debug.Log(
             $"[MainMenu] Adventure route -> {destination} | " +
             $"Prologue complete: {prologueCompleted} | Tutorial complete: {tutorialCompleted}",

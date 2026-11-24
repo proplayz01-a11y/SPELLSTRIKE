@@ -91,6 +91,13 @@ public class BrambleSpriteController : MonoBehaviour
     public bool BattleStarted => battleStarted;
     public bool IsDormant => dormant;
 
+    // Stage 1 feeding uses a frozen full-body base pose with the separate
+    // 28–42 Magic Heal upper-body layer looping above it. Without this,
+    // the original Animator defaults to Approach/Walk and Bramble appears
+    // to walk in place even while his NavMesh velocity is zero.
+    private static readonly int FeedingIdleState =
+        Animator.StringToHash("Base Layer.Soul Feeding Idle");
+
 
     // ─────────────────────────────────────────────
     //  AWAKE / START
@@ -99,6 +106,9 @@ public class BrambleSpriteController : MonoBehaviour
     {
         agent ??= GetComponent<NavMeshAgent>();
         animator ??= GetComponent<Animator>();
+        // Bramble owns its own damage path; use the same absolute HP target as
+        // EnemyHealth, independent of which component's Awake runs first.
+        maxHealth = StageEnemyDifficulty.Resolve(gameObject, maxHealth);
         currentHealth = maxHealth;
 
         if (player == null)
@@ -366,7 +376,11 @@ public class BrambleSpriteController : MonoBehaviour
         StopAgent();
 
         if (animator != null)
+        {
             animator.SetFloat("Speed", 0f);
+            if (animator.HasState(0, FeedingIdleState))
+                animator.CrossFadeInFixedTime(FeedingIdleState, 0.1f, 0, 0f);
+        }
     }
 
     public void StartBattle()
@@ -378,6 +392,12 @@ public class BrambleSpriteController : MonoBehaviour
         currentState = EnemyState.Approach;
         potionDropResolved = false;
         ResumeAgent();
+        // Release the frozen feeding base pose before the AI begins its
+        // original Approach/attack transitions. The Magic Heal upper-body
+        // layer is independently disabled by SoulFragmentFeeding.
+        if (animator != null && animator.HasState(0,
+                Animator.StringToHash("Base Layer.Approach")))
+            animator.CrossFadeInFixedTime("Base Layer.Approach", 0.12f, 0, 0f);
         timeOutsideSlashRange = 0f;
         timeOutsideNormalThornRange = 0f;
         antiKiteThornReady = false;
@@ -468,6 +488,7 @@ public class BrambleSpriteController : MonoBehaviour
         if (currentState == EnemyState.Dead) return;
 
         currentState = EnemyState.Dead;
+        EnemyExperienceReward.Award(gameObject);
 
         if (recoverCoroutine != null)
         {
@@ -515,6 +536,7 @@ public class BrambleSpriteController : MonoBehaviour
         potionDropResolved = true;
 
         PotionDropper.TryDropRandomPotion(
+            transform,
             potionDropLogSource,
             potionDropChance,
             potionDropMinCount,

@@ -622,8 +622,7 @@ public sealed class TitanEarthbreakerController : MonoBehaviour
         {
             nextHealthBarCheck = Time.time + 0.5f;
             var hud = PersistentHUDRoot.Instance;
-            if (hud != null && (hud.BoundEnemyHealth != health
-                || (hud.EnemyHealthSlider != null && !hud.EnemyHealthSlider.gameObject.activeSelf)))
+            if (hud != null && hud.BoundEnemyHealth != health)
                 EnemyEncounterHUD.ShowFor(health);
         }
         if (state == TitanState.Dormant) return;

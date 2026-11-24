@@ -150,7 +150,7 @@ private void OnDestroy()
 
     public void OpenPauseMenu()
     {
-        if (isPaused || isLeavingGameplay)
+        if (isPaused || isLeavingGameplay || GoalsPanelUI.IsJournalOpen)
             return;
 
         if (pausePanel == null)

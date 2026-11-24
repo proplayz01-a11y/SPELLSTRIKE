@@ -6,7 +6,8 @@ using UnityEngine.UI;
 /// <summary>
 /// Stage 1's story-first NPC. E on PC; reuses MobileStageControls on Android.
 /// Gameplay-owned progression is awarded ONLY after the complete first dialogue.
-/// Final spirit mesh, voice acting, and camera Timeline can be plugged in later.
+/// The approved Spirit conversation remains intact; the Echo Rune Core gift
+/// is a separate chapter using the existing speaker-driven cinematic camera.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class SpiritRemnantEncounter : MonoBehaviour
@@ -22,9 +23,12 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
     [Header("Interaction")]
     [SerializeField, Min(1f)] private float interactionRadius = 11f;
     [SerializeField] private Transform interactionCenter;
+    public Transform GuidanceTarget => interactionCenter != null ? interactionCenter : transform;
+    public float GuidanceArrivalRadius => interactionRadius;
     [SerializeField] private SpiritRemnantAmbientMotion ambientMotion;
     [SerializeField] private GoalsPanelUI goalsPanelUI;
     [SerializeField] private SpiritRemnantCinematic cinematic;
+    [SerializeField] private EchoRuneCorePresentation echoCorePresentation;
     [SerializeField, Range(15f, 110f)] private float dialogueRevealCharactersPerSecond = 51f;
 
     [Header("Story (editable in Inspector)")]
@@ -51,7 +55,38 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
     [SerializeField] private DialogueLine[] repeatMeeting =
     {
         new DialogueLine("VAN AERT", "Remind me. Where did you say the Hollow Knight took her?"),
-        new DialogueLine("SPIRIT REMNANT", "The Royal Castle, beyond the ruins. I know nothing of the other fragments. Please, be careful.")
+        new DialogueLine("SPIRIT REMNANT", "The Royal Castle, beyond the ruins. I know nothing of the other fragments. Please, be careful."),
+        new DialogueLine("SPIRIT REMNANT", "Remember: the creatures draw strength from the fragments. Follow the golden trail toward the arena. Break their hold before they consume more of her light.")
+    };
+
+    // Separate revelation, so the 16 Inspector-authored first-meeting lines
+    // and their approved Cinemachine shot indices remain untouched.
+    private static readonly DialogueLine[] FragmentFeedingRevelation =
+    {
+        new DialogueLine("SPIRIT REMNANT", "One more truth, Van Aert. The creatures guarding these fragments do not merely possess them."),
+        new DialogueLine("VAN AERT", "What do you mean? What are they doing to my daughter?"),
+        new DialogueLine("SPIRIT REMNANT", "They draw their strength from the pieces of her shattered soul. They feed on the light imprisoned inside each fragment."),
+        new DialogueLine("VAN AERT", "You mean every moment they stand there... they're stealing her power?"),
+        new DialogueLine("SPIRIT REMNANT", "Yes. Undisturbed, they will keep feeding. Break their hold, defeat them, and reclaim what belongs to Nevali."),
+        new DialogueLine("VAN AERT", "Then they won't have another moment of peace. I'm bringing every piece of her home."),
+        new DialogueLine("SPIRIT REMNANT", "I sense the first of her fragments near the heart of the arena beyond these ruins. Follow the golden trail. You will see what has taken hold of it."),
+        new DialogueLine("VAN AERT", "The arena... I will find it. And whatever is feeding on her, I will stop it.")
+    };
+
+    // Intentionally not part of the Inspector-authored 16-line firstMeeting.
+    // Existing scene serialization preserves all original dialogue and camera
+    // indices. This new ending is played ONLY while the core is not yet owned.
+    private static readonly DialogueLine[] CoreGiftLines =
+    {
+        new DialogueLine("SPIRIT REMNANT", "Van Aert... before you leave, there is something I must give you."),
+        new DialogueLine("VAN AERT", "What is it?"),
+        new DialogueLine("SPIRIT REMNANT", "A fragment of my essence. What remains of the light this kingdom could not extinguish."),
+        new DialogueLine("VAN AERT", "You're giving me a part of yourself?"),
+        new DialogueLine("SPIRIT REMNANT", "Through this core, your voice may reach me, even across the darkness."),
+        new DialogueLine("VAN AERT", "Then when I find the castle... I'll call upon you."),
+        new DialogueLine("SPIRIT REMNANT", "And I shall answer, if my strength allows."),
+        new DialogueLine("SPIRIT REMNANT", "Go now, father. Follow the golden trail toward the arena; I sense the first fragment there. Beyond these broken walls... your daughter is waiting."),
+        new DialogueLine("VAN AERT", "Hold on, Nevali. I'm coming.")
     };
 
     private Transform player;
@@ -60,7 +95,11 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
     private bool nearby;
     private bool talking;
     private bool firstConversation;
+    private bool giftOnlyConversation;
     private bool metBefore;
+    private DialogueLine[] currentLines;
+    private int giftStartIndex = -1;
+    private int revelationStartIndex = -1;
     private int lineIndex;
     private GameObject canvasObject;
     private GameObject panelObject;
@@ -81,6 +120,7 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
         interactionCenter ??= transform;
         ambientMotion ??= GetComponent<SpiritRemnantAmbientMotion>();
         cinematic ??= GetComponent<SpiritRemnantCinematic>();
+        echoCorePresentation ??= GetComponent<EchoRuneCorePresentation>();
         goalsPanelUI ??= FindFirstObjectByType<GoalsPanelUI>();
         var db = GameDatabaseManager.Instance;
         metBefore = db != null && db.HasMetSpiritRemnant();
@@ -147,7 +187,28 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
     private void BeginConversation()
     {
         if (talking || !nearby) return;
+        var db = GameDatabaseManager.EnsureInstance();
+        metBefore = db != null && db.HasMetSpiritRemnant();
+        bool hasCore = db != null && db.HasEchoRuneCore();
         firstConversation = !metBefore;
+        giftOnlyConversation = metBefore && !hasCore;
+        revelationStartIndex = firstConversation ? firstMeeting.Length : -1;
+        giftStartIndex = firstConversation ? firstMeeting.Length + FragmentFeedingRevelation.Length :
+            giftOnlyConversation ? 0 : -1;
+        if (firstConversation)
+        {
+            currentLines = new DialogueLine[firstMeeting.Length + FragmentFeedingRevelation.Length +
+                                            CoreGiftLines.Length];
+            Array.Copy(firstMeeting, currentLines, firstMeeting.Length);
+            Array.Copy(FragmentFeedingRevelation, 0, currentLines, revelationStartIndex,
+                FragmentFeedingRevelation.Length);
+            Array.Copy(CoreGiftLines, 0, currentLines, giftStartIndex, CoreGiftLines.Length);
+        }
+        else
+            currentLines = giftOnlyConversation ? CoreGiftLines : repeatMeeting;
+
+        if (giftStartIndex >= 0)
+            echoCorePresentation?.BeginGift(player, ambientMotion);
         lineIndex = 0;
         talking = true;
         canvasObject.SetActive(true);
@@ -170,9 +231,8 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
             return;
         }
 
-        DialogueLine[] lines = firstConversation ? firstMeeting : repeatMeeting;
         lineIndex++;
-        if (lineIndex < lines.Length)
+        if (lineIndex < currentLines.Length)
         {
             ShowLine();
             return;
@@ -193,13 +253,17 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
         if (canvasObject != null)
             canvasObject.SetActive(false);
 
-        if (reachedEnd && firstConversation)
+        bool giftAcquired = reachedEnd && giftStartIndex >= 0;
+        echoCorePresentation?.FinishGift(giftAcquired);
+        if (giftAcquired)
         {
             metBefore = true;
-            GameDatabaseManager.EnsureInstance()?.MarkSpiritRemnantMet();
-            goalsPanelUI ??= FindFirstObjectByType<GoalsPanelUI>();
-            goalsPanelUI?.CompleteGoal2();
-            Debug.Log("[SpiritRemnant] First conversation completed. Stage 1 spirit objective recorded.");
+            GameDatabaseManager.EnsureInstance()?.MarkEchoRuneCoreAcquired();
+            // Also refresh the route when an older save has met the Spirit
+            // but only receives the Echo Rune Core on this visit.
+            ObjectiveManager.ReportSpiritMet(gameObject.scene);
+            Debug.Log("[SpiritRemnant] Echo Rune Core acquired. " +
+                (PlayerProgression.IsCampaign ? "Campaign story progress saved." : "Temporary test-session story progress."));
         }
 
         MobileStageControls.ClearInteraction(this);
@@ -208,7 +272,7 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
 
     private void ShowLine()
     {
-        DialogueLine line = (firstConversation ? firstMeeting : repeatMeeting)[lineIndex];
+        DialogueLine line = currentLines[lineIndex];
         speakerLabel.text = line.speaker;
         dialogueLabel.text = line.words;
         dialogueLabel.maxVisibleCharacters = 0;
@@ -218,10 +282,31 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
         revealAccumulator = 0f;
         bool spiritSpeaking = string.Equals(line.speaker, "SPIRIT REMNANT", StringComparison.Ordinal);
         ambientMotion?.SetSpeaking(spiritSpeaking);
-        cinematic?.ShowBeat(lineIndex, firstConversation, spiritSpeaking);
+        bool giftBeat = giftStartIndex >= 0 && lineIndex >= giftStartIndex;
+        bool feedingBeat = revelationStartIndex >= 0 &&
+                           lineIndex >= revelationStartIndex &&
+                           lineIndex < giftStartIndex;
+        if (giftBeat)
+        {
+            int giftIndex = lineIndex - giftStartIndex;
+            echoCorePresentation?.ShowBeat(giftIndex);
+            cinematic?.ShowGiftBeat(giftIndex, spiritSpeaking,
+                echoCorePresentation != null ? echoCorePresentation.CoreTransform : null);
+        }
+        else if (feedingBeat)
+        {
+            // Preserve the original sixteen camera beats. The existing
+            // Spirit/reaction angles can frame the new explanation safely.
+            int beat = (lineIndex - revelationStartIndex) % 2 == 0 ? 12 : 13;
+            cinematic?.ShowBeat(beat, true, spiritSpeaking);
+        }
+        else
+            cinematic?.ShowBeat(lineIndex, firstConversation, spiritSpeaking);
         if (chapterLabel != null)
         {
-            chapterLabel.text = !firstConversation ? "A VOICE IN THE RUINS" :
+            chapterLabel.text = giftBeat ? "THE GIFT OF THE ECHO RUNE CORE" :
+                feedingBeat ? "THE SOUL THEY ARE STEALING" :
+                !firstConversation ? "A VOICE IN THE RUINS" :
                 lineIndex >= 14 ? "THE ROAD TO THE ROYAL CASTLE" :
                 lineIndex >= 6 ? "THE SHATTERED EXISTENCE" :
                 lineIndex >= 3 ? "THE MISSING CHILD" :
@@ -234,7 +319,7 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
     {
         if (nextLabel == null) return;
         nextLabel.text = revealedCharacters < totalCharacters ? "REVEAL  >" :
-            lineIndex == (firstConversation ? firstMeeting.Length : repeatMeeting.Length) - 1
+            lineIndex == currentLines.Length - 1
                 ? "FINISH  >" : "CONTINUE  >";
     }
 
@@ -365,6 +450,7 @@ public sealed class SpiritRemnantEncounter : MonoBehaviour
         MobileStageControls.ClearInteraction(this);
         ambientMotion?.SetSpeaking(false);
         cinematic?.End();
+        echoCorePresentation?.FinishGift(false);
         if (panelObject != null) panelObject.SetActive(false);
         if (canvasObject != null) canvasObject.SetActive(false);
     }

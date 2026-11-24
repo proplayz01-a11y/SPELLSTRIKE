@@ -31,12 +31,16 @@ public class PotionInventoryEntry
 public class GameData
 {
     public int playerLevel = 1;
+    public int playerExperience = 0;
     public int highestStageUnlocked = 0;
     public int playerHealth = 100;
     public int playerMaxHealth = 100;
     public bool tutorialCompleted = false;
     public bool stage2ObjectivesCompleted = false;
     public bool stage1SpiritRemnantMet = false;
+    public bool stage1EchoRuneCoreAcquired = false;
+    public bool stage1FirstFragmentRevealed = false;
+    public bool stage1JesterEchoCallCompleted = false;
     public int desertArcherRuneArrowCount = 0;
     public List<WordHistoryEntry> wordHistory = new List<WordHistoryEntry>();
     public List<VocabularyAttemptRecord> vocabularyAttempts = new List<VocabularyAttemptRecord>();
@@ -58,6 +62,14 @@ public class GameDatabaseManager : MonoBehaviour
     private string sqliteDbPath;
     private SqliteDatabase sqliteDatabase;
     private bool isDirty = false;
+    // Direct-scene story progress is deliberately outside GameData so even
+    // unrelated inventory/vocabulary saves cannot persist test dialogue flags.
+    private static bool testSpiritMet, testCoreAcquired, testFirstReveal, testJesterCall;
+
+    internal static void ResetTemporaryStage1Story()
+    {
+        testSpiritMet = testCoreAcquired = testFirstReveal = testJesterCall = false;
+    }
 
     public static GameDatabaseManager EnsureInstance()
     {
@@ -201,9 +213,13 @@ public class GameDatabaseManager : MonoBehaviour
         Data.playerHealth = LoadPlayerInt("playerHealth", 100);
         Data.playerMaxHealth = LoadPlayerInt("playerMaxHealth", 100);
         Data.playerLevel = LoadPlayerInt("playerLevel", 1);
+        Data.playerExperience = LoadPlayerInt("playerExperience", 0);
         Data.tutorialCompleted = LoadPlayerInt("tutorialCompleted", 0) == 1;
         Data.stage2ObjectivesCompleted = LoadPlayerInt("stage2ObjectivesCompleted", 0) == 1;
         Data.stage1SpiritRemnantMet = LoadPlayerInt("stage1SpiritRemnantMet", 0) == 1;
+        Data.stage1EchoRuneCoreAcquired = LoadPlayerInt("stage1EchoRuneCoreAcquired", 0) == 1;
+        Data.stage1FirstFragmentRevealed = LoadPlayerInt("stage1FirstFragmentRevealed", 0) == 1;
+        Data.stage1JesterEchoCallCompleted = LoadPlayerInt("stage1JesterEchoCallCompleted", 0) == 1;
         Data.desertArcherRuneArrowCount = LoadPlayerInt("desertArcherRuneArrowCount", 0);
         Data.potionInventory = LoadPotionInventory();
         if (Data.potionInventory == null || Data.potionInventory.Count == 0)
@@ -224,9 +240,13 @@ public class GameDatabaseManager : MonoBehaviour
         SavePlayerInt("playerHealth", Data.playerHealth);
         SavePlayerInt("playerMaxHealth", Data.playerMaxHealth);
         SavePlayerInt("playerLevel", Data.playerLevel);
+        SavePlayerInt("playerExperience", Data.playerExperience);
         SavePlayerInt("tutorialCompleted", Data.tutorialCompleted ? 1 : 0);
         SavePlayerInt("stage2ObjectivesCompleted", Data.stage2ObjectivesCompleted ? 1 : 0);
         SavePlayerInt("stage1SpiritRemnantMet", Data.stage1SpiritRemnantMet ? 1 : 0);
+        SavePlayerInt("stage1EchoRuneCoreAcquired", Data.stage1EchoRuneCoreAcquired ? 1 : 0);
+        SavePlayerInt("stage1FirstFragmentRevealed", Data.stage1FirstFragmentRevealed ? 1 : 0);
+        SavePlayerInt("stage1JesterEchoCallCompleted", Data.stage1JesterEchoCallCompleted ? 1 : 0);
         SavePlayerInt("desertArcherRuneArrowCount", Mathf.Max(0, Data.desertArcherRuneArrowCount));
 
         sqliteDatabase.ExecuteNonQuery("DELETE FROM potion_inventory");
@@ -456,11 +476,64 @@ public class GameDatabaseManager : MonoBehaviour
 
     public bool HasMetSpiritRemnant()
     {
-        return Data != null && Data.stage1SpiritRemnantMet;
+        return PlayerProgression.IsCampaign ? Data != null && Data.stage1SpiritRemnantMet : testSpiritMet;
+    }
+
+    /// <summary>
+    /// Story communication medium, NOT a fragment of Nevali or a consumable.
+    /// Both JSON and the existing SQLite player-key table persist this flag.
+    /// </summary>
+    public bool HasEchoRuneCore()
+    {
+        return PlayerProgression.IsCampaign ? Data != null && Data.stage1EchoRuneCoreAcquired : testCoreAcquired;
+    }
+
+    public bool HasSeenFirstFragmentReveal()
+    {
+        return PlayerProgression.IsCampaign ? Data != null && Data.stage1FirstFragmentRevealed : testFirstReveal;
+    }
+
+    public bool HasCompletedJesterEchoCall()
+    {
+        return PlayerProgression.IsCampaign ? Data != null && Data.stage1JesterEchoCallCompleted : testJesterCall;
+    }
+
+    public void MarkJesterEchoCallCompleted()
+    {
+        if (!PlayerProgression.IsCampaign) { testJesterCall = true; return; }
+        Data ??= new GameData();
+        if (Data.stage1JesterEchoCallCompleted)
+            return;
+        Data.stage1JesterEchoCallCompleted = true;
+        SaveDatabase();
+    }
+
+    public void MarkFirstFragmentRevealed()
+    {
+        if (!PlayerProgression.IsCampaign) { testFirstReveal = true; return; }
+        Data ??= new GameData();
+        if (Data.stage1FirstFragmentRevealed)
+            return;
+        Data.stage1FirstFragmentRevealed = true;
+        SaveDatabase();
+    }
+
+    public void MarkEchoRuneCoreAcquired()
+    {
+        if (!PlayerProgression.IsCampaign) { testSpiritMet = testCoreAcquired = true; return; }
+        Data ??= new GameData();
+        if (Data.stage1EchoRuneCoreAcquired && Data.stage1SpiritRemnantMet)
+            return;
+        // Acquiring the core completes the actual first meeting, including
+        // older saves that already completed the encounter before this addition.
+        Data.stage1SpiritRemnantMet = true;
+        Data.stage1EchoRuneCoreAcquired = true;
+        SaveDatabase();
     }
 
     public void MarkSpiritRemnantMet()
     {
+        if (!PlayerProgression.IsCampaign) { testSpiritMet = true; return; }
         Data ??= new GameData();
         if (Data.stage1SpiritRemnantMet)
             return;
@@ -628,9 +701,22 @@ public class GameDatabaseManager : MonoBehaviour
         isDirty = true;
     }
 
+    public void SavePlayerProgression(int level, int experience)
+    {
+        // Test sessions never mutate these fields, even if another system saves.
+        if (!PlayerProgression.IsCampaign || Data == null)
+            return;
+        Data.playerLevel = level;
+        Data.playerExperience = experience;
+        isDirty = true;
+        FlushSave();
+    }
+
     public void ResetDatabase()
     {
         Data = new GameData();
+        ResetTemporaryStage1Story();
+        PlayerProgression.ResetCampaignAfterDatabaseReset();
         InitializeDefaultInventory();
         SaveDatabase();
         isDirty = false;

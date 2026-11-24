@@ -85,6 +85,7 @@ public class StageNodeController : MonoBehaviour
         if (enemyDefeated) return;
 
         enemyDefeated = true;
+        ObjectiveManager.ReportEnemyDefeated(gameObject.scene, nodeIndex);
 
         if (fragmentPickup != null && unlockFragmentOnEnemyDefeat)
         {
@@ -117,7 +118,7 @@ public class StageNodeController : MonoBehaviour
         if (stage2ObjectiveTracker == null)
             stage2ObjectiveTracker = FindFirstObjectByType<Stage2ObjectiveTracker>();
 
-        stage2ObjectiveTracker?.RegisterFragmentCollected(nodeIndex);
+        ObjectiveManager.ReportFragmentCollected(gameObject.scene, nodeIndex);
         CompleteNode();
     }
 
@@ -132,9 +133,9 @@ public class StageNodeController : MonoBehaviour
             progressionManager.MarkNodeComplete(nodeIndex);
         }
 
-        if (goalsPanelUI != null && fragmentGoalIncrement > 0)
+        if (gameObject.scene.name == "SampleScene" && fragmentGoalIncrement > 0)
         {
-            goalsPanelUI.IncrementFragmentCount(fragmentGoalIncrement);
+            ObjectiveManager.ReportFragmentCollected(gameObject.scene, nodeIndex);
         }
 
         if (fragmentVisual != null && hideFragmentVisualOnComplete)

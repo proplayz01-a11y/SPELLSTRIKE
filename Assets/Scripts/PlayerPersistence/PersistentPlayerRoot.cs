@@ -134,7 +134,7 @@ public sealed class PersistentPlayerRoot : MonoBehaviour
             ? Vector3.one * 10f
             : spawnPoint.PlayerScale;
         TeleportTo(spawnPoint.SpawnPose, targetScale);
-        persistentThirdPersonCamera?.BindSceneCamera(scene);
+        persistentThirdPersonCamera?.BindSceneCamera(scene, resetForSpawn: true);
         RebindSceneDependencies(scene, hud);
     }
 

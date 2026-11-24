@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Node3Controller : MonoBehaviour
 {
+    [Header("Story — after collecting Cursed Jester's fragment")]
+    [SerializeField] private Stage1PostJesterEchoCall postJesterEchoCall;
     [Header("Progression")]
     public Stage1ProgressionManager progressionManager;
     public GoalsPanelUI goalsPanelUI;
@@ -28,6 +30,7 @@ public class Node3Controller : MonoBehaviour
     {
         if (cursedJesterDefeated) return;
         cursedJesterDefeated = true;
+        ObjectiveManager.ReportEnemyDefeated(gameObject.scene, 3);
 
         Debug.Log("[Node3Controller] Cursed Jester defeated. Fragment is now unlocked.");
 
@@ -59,8 +62,7 @@ public class Node3Controller : MonoBehaviour
         nodeCompleted = true;
         if (progressionManager != null)
             progressionManager.MarkNode3Complete();
-        if (goalsPanelUI != null)
-            goalsPanelUI.IncrementFragmentCount();
+        ObjectiveManager.ReportFragmentCollected(gameObject.scene, 3);
 
         Debug.Log("[Node3Controller] Node 3 fragment collected. Node 3 completed.");
 
@@ -75,6 +77,12 @@ public class Node3Controller : MonoBehaviour
             arenaBoundary.SetActive(false);
             Debug.Log("[Node3Controller] Arena boundary disabled.");
         }
+
+        // The pickup calls this BEFORE deactivating the crystal. The new
+        // cinematic waits until end-of-frame so the collected fragment is
+        // gone first. Van initiates the rune call; the Spirit does not.
+        if (postJesterEchoCall != null)
+            postJesterEchoCall.RequestAfterPickup();
 
         // Later: save progress / database update here.
     }

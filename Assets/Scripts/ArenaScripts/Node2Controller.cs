@@ -28,6 +28,7 @@ public class Node2Controller : MonoBehaviour
     {
         if (stoneSentinelDefeated) return;
         stoneSentinelDefeated = true;
+        ObjectiveManager.ReportEnemyDefeated(gameObject.scene, 2);
 
         Debug.Log("[Node2Controller] Stone Sentinel defeated. Fragment is now unlocked.");
 
@@ -60,8 +61,7 @@ public class Node2Controller : MonoBehaviour
         nodeCompleted = true;
         if (progressionManager != null)
             progressionManager.MarkNode2Complete();
-        if (goalsPanelUI != null)
-            goalsPanelUI.IncrementFragmentCount();
+        ObjectiveManager.ReportFragmentCollected(gameObject.scene, 2);
 
         Debug.Log("[Node2Controller] Node 2 fragment collected. Node 2 completed.");
 

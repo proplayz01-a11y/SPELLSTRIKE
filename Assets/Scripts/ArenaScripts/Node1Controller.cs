@@ -241,6 +241,7 @@ public class Node1Controller : MonoBehaviour
         if (enemyDefeated) return;
 
         enemyDefeated = true;
+        ObjectiveManager.ReportEnemyDefeated(gameObject.scene, 1);
 
         if (fragmentPickup != null)
             fragmentPickup.SetLocked(false);
@@ -257,8 +258,7 @@ public class Node1Controller : MonoBehaviour
         nodeCompleted = true;
         if (progressionManager != null)
             progressionManager.MarkNode1Complete();
-        if (goalsPanelUI != null)
-            goalsPanelUI.IncrementFragmentCount();
+        ObjectiveManager.ReportFragmentCollected(gameObject.scene, 1);
 
         if (fragmentVisual != null)
             fragmentVisual.SetActive(false);

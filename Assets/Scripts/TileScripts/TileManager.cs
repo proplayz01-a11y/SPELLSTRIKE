@@ -496,6 +496,7 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
 
     public void ToggleTilePanel(Tile tile)
     {
+        if (GoalsPanelUI.IsJournalOpen) return;
         if (tile == null || !tile.IsSelectable())
             return;
 
@@ -1051,6 +1052,64 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
         if (budget <= 0)
             return refillLetters;
 
+        // Actual normal-combat attacks only. Startup diagnostics, Tutorial,
+        // temporary target pools and authored Stage 3 riddle batches keep
+        // their existing generation/snapshot behavior.
+        if (!string.IsNullOrWhiteSpace(consumedWord)
+            && IsPersistentCombatScene(SceneManager.GetActiveScene().name)
+            && currentMode == TilePoolMode.NormalCombat && !hasNormalCombatPoolSnapshot
+            && !AreNormalCombatWorldPickupsSuspended
+            && !(currentStage == 3 && HasStage3RiddleWords)
+            && tilePoolPanel != null && DictionaryManager.Instance != null)
+        {
+            var retained = new List<char>(16);
+            foreach (Transform child in tilePoolPanel)
+            {
+                Tile tile = child.GetComponent<Tile>();
+                // Locked/broken tiles occupy capacity, but cannot support a
+                // playable word until the existing debuff mechanics allow it.
+                if (tile != null && tile.gameObject.activeInHierarchy && tile.IsSelectable())
+                    retained.Add(char.ToUpperInvariant(tile.letter));
+            }
+            foreach (Tile tile in wordBarTiles)
+                if (tile != null && tile.gameObject.activeInHierarchy && tile.IsSelectable())
+                    retained.Add(char.ToUpperInvariant(tile.letter));
+            int owned = GetNormalCombatOwnedTileCount();
+            var spawner = TileSpawner.Instance;
+            if (spawner != null) spawner.AppendPendingReplacementLetters(retained);
+            int availableSlots = spawner != null ? spawner.AvailableReplacementSlots(owned) : Mathf.Max(0, 16 - owned);
+            int actualBudget = Mathf.Min(budget, availableSlots);
+            if (actualBudget <= 0) return refillLetters;
+            int requiredLength = 0;
+            var requiredWords = new List<string>();
+            if (currentStage == 2)
+            {
+                var tracker = FindFirstObjectByType<Stage2ObjectiveTracker>();
+                if (tracker == null || tracker.TenLetterWordsCast < tracker.TenLetterWordTarget)
+                    requiredLength = tracker != null ? tracker.RequiredLongWordLength : 10;
+                if (tracker == null || tracker.UniqueMaritimeWordsCast < tracker.MaritimeWordTarget)
+                    foreach (string word in tracker != null ? tracker.MaritimeWords : Stage2ObjectiveVocabulary.CreateMaritimeWordCopy())
+                        if (tracker == null || !tracker.HasCastMaritimeWord(word)) requiredWords.Add(word);
+            }
+            var plan = DictionaryManager.Instance.RefillPlanner.Build(retained, actualBudget,
+                consumedWord.Trim().ToUpperInvariant(), requiredLength, requiredWords,
+                Random.Range(1, int.MaxValue));
+            if (plan != null)
+            {
+                // The two labels now describe the actual projected partition;
+                // they are no longer frozen to an old 10+6 length distribution.
+                SetDebugWordPair(plan.MainWord, plan.RemainderWord);
+                Debug.Log($"[IntelligentRefill] Retained/pending: {string.Join("", retained)} | " +
+                    $"New: {string.Join("", plan.NewLetters)} ({actualBudget}/{budget}) | " +
+                    $"Projected: {plan.MainWord} + {plan.RemainderWord} | " +
+                    $"Reused: {plan.ReusedLetters}/{retained.Count} | Priority: {plan.ObjectiveMask}");
+                return plan.NewLetters;
+            }
+            // Legacy exact-budget fallback if the curated planner has no
+            // feasible word (e.g. all remaining letters locked).
+            budget = actualBudget;
+        }
+
         string word1 = "";
         string word2 = "";
 
@@ -1098,10 +1157,11 @@ public class TileManager : MonoBehaviour, ITilePoolModeProvider
                 }
             }
 
-            if (refillLetters.Count == 0 && !string.IsNullOrEmpty(word1))
+            bool addPartition = refillLetters.Count == 0;
+            if (addPartition && !string.IsNullOrEmpty(word1))
                 AddWordLetters(refillLetters, word1, budget);
 
-            if (refillLetters.Count == 0 && !string.IsNullOrEmpty(word2))
+            if (addPartition && !string.IsNullOrEmpty(word2))
                 AddWordLetters(refillLetters, word2, budget);
 
             // Preserve the old "longest playable word" behavior as a partial

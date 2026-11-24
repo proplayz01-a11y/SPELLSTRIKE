@@ -14,6 +14,10 @@ public class HollowKnightController : MonoBehaviour
     public float runSpeed = 27.04f;
     [SerializeField, Min(0.05f)] private float accelerationTime = 0.5f;
 
+    [Header("Movement safety - readable at scene scale")]
+    [SerializeField, Min(1f)] private float maximumWalkSpeed = 24f;
+    [SerializeField, Min(1f)] private float maximumRunSpeed = 42f;
+
     [Header("Ranges")]
     public float runRange = 80f;
     public float stoppingDistance = 25f;
@@ -38,8 +42,35 @@ public class HollowKnightController : MonoBehaviour
     public float chargeMinRange = 30f;
     public float chargeMaxRange = 75f;
     public float chargeSpeed = 55f;
-    public float chargeDuration = 0.7f;
+    public float chargeDuration = 1.10f;
     public float chargeCooldown = 4f;
+    [SerializeField, Min(0f)] private float chargeWindup = 0.23f;
+    [SerializeField, Min(0.02f)] private float chargeAccelerationWindow = 0.16f;
+    [SerializeField, Min(0.02f)] private float chargeBrakingWindow = 0.22f;
+    [SerializeField, Min(0f)] private float chargeStopDistance = 24f;
+    [Header("Relentless Knight - sprint combo")]
+    [SerializeField, Min(0f)] private float dashExecutionStopDistance = 20f;
+    private const float SprintComboOpeningDuration = 17f / 30f;
+    private const float SprintComboBurstStart = 29f / 30f;
+    private const float SprintComboBurstEnd = 33f / 30f;
+    [Header("Revamped Dash Execution")]
+    [SerializeField, Min(0f)] private float heavyExecutionFirstLungeMax = 8f;
+    [SerializeField, Min(0f)] private float heavyExecutionFinalLungeMax = 10f;
+    private const float HeavyOpeningDuration = 21f / 30f;
+    private const float HeavyFirstLungeStart = 44f / 30f;
+    private const float HeavyFirstLungeEnd = 49f / 30f;
+    private const float HeavyFinalLungeStart = 64f / 30f;
+    private const float HeavyFinalLungeEnd = 73f / 30f;
+    private bool isHeavyExecution;
+    private float heavyFinalLungeDistance;
+    private float heavyFinalLungeProgress;
+    [SerializeField, Min(0f)] private float sprintComboBurstMaxDistance = 12f;
+    private float sprintComboBurstDistance;
+    private float sprintComboBurstProgress;
+    private bool dashExecutionEntered;
+    private float dashExecutionDistance;
+    private float dashExecutionProgress;
+    private float dashExecutionWait;
 
     [Header("Hit Reaction")]
     public float hitRecoverTime = 0.5f;
@@ -62,6 +93,15 @@ private bool isCharging = false;
 private bool isDead = false;
 private float chargeCooldownTimer = 0f;
 private Vector3 chargeTargetPosition;
+private Vector3 chargeDirection;
+private float chargeElapsed;
+private float chargeTravelled;
+private float chargeLastFrameSpeed;
+
+public bool IsCharging => isCharging;
+public bool IsDashExecution => isCharging && isHeavyExecution;
+public float ChargeLastFrameSpeed => chargeLastFrameSpeed;
+public float ChargeTravelled => chargeTravelled;
 
     private bool isAttacking = false;
     private bool isRecovering = false;
@@ -133,7 +173,8 @@ private Vector3 chargeTargetPosition;
 
    if (isCharging)
 {
-    HandleChargeMovement();
+    // Both mocap charges are synchronized to their visible opening
+    // frames in LateUpdate, after Animator evaluation.
     return;
 }
 
@@ -154,7 +195,8 @@ if (isAttacking || isRecovering || isBeingHit)
             return;
         }
 
-        EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
+        EnemyNavMovement.ApplySpeed(agent,
+            Mathf.Min(walkSpeed, maximumWalkSpeed), accelerationTime);
         agent.stoppingDistance = stoppingDistance;
         agent.isStopped = true;
     }
@@ -250,20 +292,27 @@ if (!decidedToCloseIn &&
 
     if (chargeRoll <= 0.6f)
 {
-    float variantRoll = Random.value;
-
-    if (variantRoll <= 0.5f)
-    {
-        TriggerChargeAttack();
-        Debug.Log("[HollowKnight] Charge variant: SlideAttack.");
-    }
-    else
+    // The full sprint combo has an opening sprint and a second burst.
+    // Select only an attack whose bounded approach can reach the target.
+    float sprintReach = dashExecutionStopDistance +
+        Mathf.Min(chargeSpeed, 55f) * SprintComboOpeningDuration / 1.5f +
+        sprintComboBurstMaxDistance;
+    float heavyReach = dashExecutionStopDistance +
+        Mathf.Min(chargeSpeed, 55f) * HeavyOpeningDuration / 1.5f +
+        heavyExecutionFirstLungeMax + heavyExecutionFinalLungeMax;
+    bool canSprint = distanceToPlayer <= sprintReach + 5f;
+    bool canHeavy = distanceToPlayer <= heavyReach + 5f;
+    if (canHeavy && (!canSprint || Random.value < 0.5f))
     {
         TriggerChargeAttack2();
-        Debug.Log("[HollowKnight] Charge variant: ChargeAttack2.");
+        return;
     }
-
-    return;
+    if (canSprint)
+    {
+        TriggerChargeAttack();
+        Debug.Log("[HollowKnight] Charge variant: SprintCombo.");
+        return;
+    }
 }
 }
 
@@ -286,11 +335,13 @@ ChasePlayer(distanceToPlayer);
 
         if (distanceToPlayer > runRange)
         {
-            EnemyNavMovement.ApplySpeed(agent, walkSpeed, accelerationTime);
+            EnemyNavMovement.ApplySpeed(agent,
+                Mathf.Min(walkSpeed, maximumWalkSpeed), accelerationTime);
         }
         else
         {
-            EnemyNavMovement.ApplySpeed(agent, runSpeed, accelerationTime);
+            EnemyNavMovement.ApplySpeed(agent,
+                Mathf.Min(runSpeed, maximumRunSpeed), accelerationTime);
         }
 
         agent.isStopped = false;
@@ -342,63 +393,73 @@ ChasePlayer(distanceToPlayer);
     }
 
     private void TriggerChargeAttack()
+    {
+        BeginAnimatedCharge(false);
+    }
+
+    private void TriggerChargeAttack2()
+    {
+        BeginAnimatedCharge(true);
+    }
+
+    private void BeginAnimatedCharge(bool heavy)
 {
     if (isAttacking || isRecovering || isCharging) return;
     if (player == null) return;
 
     isCharging = true;
     isAttacking = true;
+    isHeavyExecution = heavy;
+    dashExecutionEntered = false;
+    dashExecutionProgress = 0f;
+    dashExecutionWait = 0f;
     chargeCooldownTimer = chargeCooldown;
 
     chargeTargetPosition = player.position;
     chargeTargetPosition.y = transform.position.y;
+    chargeDirection = chargeTargetPosition - transform.position;
+    chargeDirection.y = 0f;
+    chargeDirection = chargeDirection.sqrMagnitude > 0.001f
+        ? chargeDirection.normalized : transform.forward;
+    chargeElapsed = 0f;
+    chargeTravelled = 0f;
+    chargeLastFrameSpeed = 0f;
 
     StopMovement();
-    FacePlayer();
+    // Reserve some of the approach for the actual frame 29-33 lunge.
+    // Otherwise the opening sprint consumes all available distance and
+    // the second dash cannot move at typical engagement ranges.
+    float approachRoom = Mathf.Max(0f,
+        Vector3.Distance(chargeTargetPosition, transform.position) - dashExecutionStopDistance);
+    float burstCap = heavy ? heavyExecutionFirstLungeMax + heavyExecutionFinalLungeMax : sprintComboBurstMaxDistance;
+    float openingDuration = heavy ? HeavyOpeningDuration : SprintComboOpeningDuration;
+    float reservedBurst = Mathf.Min(burstCap, approachRoom * 0.4f);
+    dashExecutionDistance = Mathf.Clamp(approachRoom - reservedBurst,
+        0f, Mathf.Min(chargeSpeed, 55f) * openingDuration / 1.5f);
+    float remainingBudget = Mathf.Min(burstCap, Mathf.Max(0f, approachRoom - dashExecutionDistance));
+    sprintComboBurstDistance = heavy && burstCap > 0f ?
+        remainingBudget * heavyExecutionFirstLungeMax / burstCap : remainingBudget;
+    heavyFinalLungeDistance = heavy ? remainingBudget - sprintComboBurstDistance : 0f;
+    heavyFinalLungeProgress = 0f;
+    sprintComboBurstProgress = 0f;
+    if (chargeDirection.sqrMagnitude > 0.001f)
+        transform.rotation = Quaternion.LookRotation(chargeDirection, Vector3.up);
 
     if (swordDamage != null)
         swordDamage.DisableDamage();
 
     if (animator != null)
     {
-        animator.SetTrigger("ChargeAttack");
-        Debug.Log("[HollowKnight] ChargeAttack triggered.");
+        animator.SetTrigger(heavy ? "CloseAttack2" : "ChargeAttack");
+        Debug.Log(heavy ? "[HollowKnight] Revamped Dash Execution triggered." : "[HollowKnight] ChargeAttack triggered.");
     }
     else
     {
         Debug.LogWarning("[HollowKnight] Animator missing. Cannot trigger ChargeAttack.");
         isCharging = false;
+        isHeavyExecution = false;
         isAttacking = false;
     }
-}
-
-private void HandleChargeMovement()
-{
-    if (agent == null || !agent.enabled || !agent.isOnNavMesh)
-        return;
-
-    Vector3 direction = chargeTargetPosition - transform.position;
-    direction.y = 0f;
-
-    if (direction.sqrMagnitude <= 0.5f)
-    {
-        return;
-    }
-
-    Vector3 moveDirection = direction.normalized;
-    agent.Move(moveDirection * chargeSpeed * Time.deltaTime);
-
-    if (moveDirection.sqrMagnitude > 0.001f)
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime
-        );
-    }
-
-    SetAnimatorSpeed(0f);
 }
 
 public void OnChargeAttackFinished()
@@ -406,7 +467,9 @@ public void OnChargeAttackFinished()
     Debug.Log("[HollowKnight] ChargeAttack finished. Entering recover.");
 
     isCharging = false;
+    isHeavyExecution = false;
     isAttacking = false;
+    chargeLastFrameSpeed = 0f;
 
     if (swordDamage != null)
         swordDamage.DisableDamage();
@@ -417,43 +480,102 @@ public void OnChargeAttackFinished()
     recoverCoroutine = StartCoroutine(RecoverRoutine());
 }
 
-private void TriggerChargeAttack2()
+private void LateUpdate()
 {
-    if (isAttacking || isRecovering || isCharging) return;
-    if (player == null) return;
+    if (battleStarted && !isDead && isCharging)
+        HandleSprintComboMovement();
+}
 
-    isCharging = true;
-    isAttacking = true;
-    chargeCooldownTimer = chargeCooldown;
+private void HandleSprintComboMovement()
+{
+    chargeLastFrameSpeed = 0f;
+    SetAnimatorSpeed(0f);
+    if (animator == null || agent == null || !agent.enabled || !agent.isOnNavMesh)
+    {
+        FinishAnimatedCharge();
+        return;
+    }
 
-    chargeTargetPosition = player.position;
-    chargeTargetPosition.y = transform.position.y;
+    string chargeState = isHeavyExecution ? "CloseAttack2" : "ChargeAttack";
+    float openingDuration = isHeavyExecution ? HeavyOpeningDuration : SprintComboOpeningDuration;
+    AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+    bool active = state.IsName(chargeState);
+    if (animator.IsInTransition(0))
+    {
+        AnimatorStateInfo next = animator.GetNextAnimatorStateInfo(0);
+        if (next.IsName(chargeState))
+        {
+            state = next;
+            active = true;
+        }
+    }
 
-    StopMovement();
-    FacePlayer();
+    if (!active)
+    {
+        dashExecutionWait += Time.deltaTime;
+        // Prevent a missing/interrupted animation from leaving the AI locked.
+        if (dashExecutionEntered || dashExecutionWait > 1.5f)
+            FinishAnimatedCharge();
+        return;
+    }
 
-    if (swordDamage != null)
-        swordDamage.DisableDamage();
+    dashExecutionEntered = true;
+    // Opening sprint, then one explosive lunge on authored frames 29-33.
+    // Progress is monotonic and evaluated from animation time, not FPS.
+    float clipTime = state.normalizedTime * state.length;
+    float t = Mathf.Clamp01(clipTime / openingDuration);
+    float progress = Mathf.SmoothStep(0f, 1f, t);
+    float delta = Mathf.Max(0f, progress - dashExecutionProgress);
+    dashExecutionProgress = Mathf.Max(dashExecutionProgress, progress);
+    float requestedStep = dashExecutionDistance * delta;
+    float burstT = Mathf.InverseLerp(
+        isHeavyExecution ? HeavyFirstLungeStart : SprintComboBurstStart,
+        isHeavyExecution ? HeavyFirstLungeEnd : SprintComboBurstEnd, clipTime);
+    float burstProgress = Mathf.SmoothStep(0f, 1f, burstT);
+    float burstDelta = Mathf.Max(0f, burstProgress - sprintComboBurstProgress);
+    sprintComboBurstProgress = Mathf.Max(sprintComboBurstProgress, burstProgress);
+    requestedStep += sprintComboBurstDistance * burstDelta;
+    if (isHeavyExecution)
+    {
+        float finalProgress = Mathf.SmoothStep(0f, 1f,
+            Mathf.InverseLerp(HeavyFinalLungeStart, HeavyFinalLungeEnd, clipTime));
+        requestedStep += heavyFinalLungeDistance * Mathf.Max(0f, finalProgress - heavyFinalLungeProgress);
+        heavyFinalLungeProgress = Mathf.Max(heavyFinalLungeProgress, finalProgress);
+    }
+    if (requestedStep <= 0f) return;
 
-    Debug.Log("[HollowKnight] ChargeAttack2 triggered. (Animation call placeholder)");
+    Vector3 remaining = chargeTargetPosition - transform.position;
+    remaining.y = 0f;
+    float room = Mathf.Max(0f, Vector3.Dot(remaining, chargeDirection) - dashExecutionStopDistance);
+    float step = Mathf.Min(room, requestedStep);
+    if (step <= 0.001f) return;
 
-    animator.SetTrigger("CloseAttack2"); 
+    // NavMesh movement, not Warp or animation root motion. Never cross a
+    // NavMesh edge, wall or the locked target's stopping margin.
+    Vector3 before = transform.position;
+    if (agent.Raycast(before + chargeDirection * step, out NavMeshHit obstruction))
+        step = Mathf.Min(step, Mathf.Max(0f, Vector3.Dot(obstruction.position - before, chargeDirection) - 0.5f));
+    if (step > 0.001f)
+    {
+        // Synchronize the agent and visible transform immediately after the
+        // Animator has evaluated. Raycast above bounds this to the NavMesh;
+        // nextPosition also keeps the agent's own simulation authoritative.
+        agent.nextPosition = before + chargeDirection * step;
+        transform.position = agent.nextPosition;
+        float moved = Vector3.Distance(before, transform.position);
+        chargeTravelled += moved;
+        chargeLastFrameSpeed = moved / Mathf.Max(Time.deltaTime, 0.001f);
+    }
+}
+
+private void FinishAnimatedCharge()
+{
+    OnChargeAttackFinished();
 }
 
 public void OnChargeAttack2Finished()
 {
-    Debug.Log("[HollowKnight] ChargeAttack2 finished. Entering recover.");
-
-    isCharging = false;
-    isAttacking = false;
-
-    if (swordDamage != null)
-        swordDamage.DisableDamage();
-
-    if (recoverCoroutine != null)
-        StopCoroutine(recoverCoroutine);
-
-    recoverCoroutine = StartCoroutine(RecoverRoutine());
+    if (IsDashExecution) OnChargeAttackFinished();
 }
 
     public void TriggerBeingHit()
@@ -466,6 +588,8 @@ public void OnChargeAttack2Finished()
     isBeingHit = true;
     isAttacking = false;
     isCharging = false;
+    isHeavyExecution = false;
+    chargeLastFrameSpeed = 0f;
 
     StopMovement();
 
@@ -482,6 +606,7 @@ public void OnChargeAttack2Finished()
     {
         animator.ResetTrigger("SwordSlash");
         animator.ResetTrigger("ChargeAttack");
+        animator.ResetTrigger("CloseAttack2");
         animator.SetTrigger("BeingHit");
     }
 }
@@ -509,6 +634,8 @@ public void OnBeingHitFinished()
 
     isAttacking = false;
     isCharging = false;
+    isHeavyExecution = false;
+    chargeLastFrameSpeed = 0f;
     isRecovering = false;
     isBeingHit = false;
 
@@ -548,6 +675,7 @@ public void OnBeingHitFinished()
     {
         animator.ResetTrigger("SwordSlash");
         animator.ResetTrigger("ChargeAttack");
+        animator.ResetTrigger("CloseAttack2");
         animator.ResetTrigger("BeingHit");
         animator.SetTrigger("Dead");
     }

@@ -690,6 +690,7 @@ public class EnemyController : MonoBehaviour
 
         if (currentHealth <= 0f)
         {
+            EnemyExperienceReward.Award(gameObject);
             EnterState(EnemyState.Dead);
             return;
         }

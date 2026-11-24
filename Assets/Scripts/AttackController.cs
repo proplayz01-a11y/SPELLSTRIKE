@@ -101,7 +101,8 @@ public class AttackController : MonoBehaviour
             ? 1f + Mathf.Max(0f, stage3RiddleDamageBonusFraction)
             : 1f;
         int finalDamage = Mathf.RoundToInt(
-            baseDamage * multiplier * potionMultiplier * passiveMultiplier * riddleMultiplier);
+            baseDamage * multiplier * potionMultiplier * passiveMultiplier * riddleMultiplier *
+            (applyCombatModifiers ? PlayerProgression.DamageMultiplier : 1f));
 
         if (applyCombatModifiers && PotionSystem.Instance != null && potionMultiplier > 1f)
             PotionSystem.Instance.ConsumePowerUpAttackCharge();
@@ -220,6 +221,7 @@ public class AttackController : MonoBehaviour
     public void ExecuteAttack()
 
     {
+        if (GoalsPanelUI.IsJournalOpen) return;
         
         if (tileManager == null)
             return;
@@ -270,10 +272,7 @@ public class AttackController : MonoBehaviour
         int wordLength = word.Length;
         int destroyedCount = tileManager.GetWordTileCount();
 
-        if (wordLength >= 6 && goalsPanelUI != null)
-        {
-            goalsPanelUI.IncrementWordCount();
-        }
+        ObjectiveManager.ReportWordCast(word);
 
         int finalDamage = CalculateDamage(word);
         pendingDamage = finalDamage;
@@ -323,8 +322,7 @@ public class AttackController : MonoBehaviour
         currentAttackTrigger = GetAttackTrigger(wordLength);
         projectileReleasedForCurrentAttack = false;
 
-        if (wordLength >= 6 && goalsPanelUI != null)
-            goalsPanelUI.IncrementWordCount();
+        ObjectiveManager.ReportWordCast(word);
 
         if (movementController != null)
             movementController.BeginAttack();
@@ -678,7 +676,10 @@ public class AttackController : MonoBehaviour
             : submittedWord.Trim().ToUpperInvariant();
 
         if (!string.IsNullOrEmpty(normalizedWord))
+        {
+            ObjectiveManager.ReportNormalWordLanded(normalizedWord);
             SuccessfulNormalCombatWordLanded?.Invoke(normalizedWord);
+        }
 
         if (!reduceTileDebuffsOnSuccessfulAttack)
             return;

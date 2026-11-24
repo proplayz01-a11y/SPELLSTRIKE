@@ -786,6 +786,7 @@ public class CursedJesterController : MonoBehaviour
         potionDropResolved = true;
 
         PotionDropper.TryDropRandomPotion(
+            transform,
             potionDropLogSource,
             potionDropChance,
             potionDropMinCount,

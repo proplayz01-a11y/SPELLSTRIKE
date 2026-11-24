@@ -121,7 +121,7 @@ public class PotionSidebarUI : MonoBehaviour
     public void Refresh()
     {
         if (potionInventory == null)
-            potionInventory = PotionInventory.Instance != null ? PotionInventory.Instance : FindFirstObjectByType<PotionInventory>();
+            potionInventory = PotionInventory.EnsureInstance();
 
         if (potionSystem == null)
             potionSystem = PotionSystem.Instance != null ? PotionSystem.Instance : FindFirstObjectByType<PotionSystem>();
@@ -171,7 +171,7 @@ public class PotionSidebarUI : MonoBehaviour
             targetCanvas = CreateOverlayCanvas();
 
         if (potionInventory == null)
-            potionInventory = PotionInventory.Instance != null ? PotionInventory.Instance : FindFirstObjectByType<PotionInventory>();
+            potionInventory = PotionInventory.EnsureInstance();
 
         if (passiveItemInventory == null)
             passiveItemInventory = PassiveItemInventory.Instance != null ? PassiveItemInventory.Instance : FindFirstObjectByType<PassiveItemInventory>();

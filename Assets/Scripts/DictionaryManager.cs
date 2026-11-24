@@ -21,6 +21,12 @@ public class DictionaryManager : MonoBehaviour
     private readonly List<string> shortWords = new List<string>();   // 3-5
     private readonly List<string> mediumWords = new List<string>();  // 6-9
     private readonly List<string> longWords = new List<string>();    // 10+
+    private IntelligentLetterPoolPlanner refillPlanner;
+
+    // Only the curated dictionary supplies generated opportunities. The much
+    // larger fallback list remains valid for player-discovered words.
+    public IntelligentLetterPoolPlanner RefillPlanner =>
+        refillPlanner ??= new IntelligentLetterPoolPlanner(words.Keys);
 
     public static DictionaryManager EnsureInstance()
     {
@@ -92,6 +98,9 @@ public class DictionaryManager : MonoBehaviour
         try
         {
             words = ParseGameplayDictionary(json);
+            // Build the compact index during dictionary loading, not on
+            // the player's first attack.
+            refillPlanner = new IntelligentLetterPoolPlanner(words.Keys);
             LoadFallbackWordList();
 
             foreach (KeyValuePair<string, GameplayWordData> pair in words)

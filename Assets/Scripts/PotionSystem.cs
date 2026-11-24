@@ -33,7 +33,11 @@ public class PotionSystem : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            // Later stages put the potion components and scene-owned tile
+            // spawner under the same manager host. Destroying that host also
+            // destroys the arena's replacement-letter pipeline.
+            enabled = false;
+            Destroy(this);
             return;
         }
 
@@ -172,7 +176,7 @@ public class PotionSystem : MonoBehaviour
     private bool TryConsumePotion(PotionType type)
     {
         if (potionInventory == null)
-            potionInventory = PotionInventory.Instance != null ? PotionInventory.Instance : FindAnyObjectOfType<PotionInventory>();
+            potionInventory = PotionInventory.EnsureInstance();
 
         if (potionInventory != null)
         {
@@ -188,7 +192,7 @@ public class PotionSystem : MonoBehaviour
     private void ResolveReferences()
     {
         if (potionInventory == null)
-            potionInventory = PotionInventory.Instance != null ? PotionInventory.Instance : FindAnyObjectOfType<PotionInventory>();
+            potionInventory = PotionInventory.EnsureInstance();
 
         if (playerHealth == null)
             playerHealth = FindAnyObjectOfType<PlayerHealth>();

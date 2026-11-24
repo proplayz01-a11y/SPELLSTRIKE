@@ -22,6 +22,7 @@ public class StageCompleteUI : MonoBehaviour
 
     private bool vocabularyReviewCompleted;
     private bool completionRecorded;
+    private StageRewardPresentation rewardPresentation;
 
     private void Start()
     {
@@ -69,7 +70,17 @@ public class StageCompleteUI : MonoBehaviour
             Debug.LogWarning("[StageCompleteUI] Vocabulary review is required but no review controller is assigned. Falling back to the existing Stage Complete panel.");
         }
 
-        if (stageCompletePanel != null)
+        // New reusable tutorial-themed card. Keep the legacy panel as a
+        // safe fallback only when its shared art prefab is missing.
+        if (rewardPresentation != null)
+            return;
+        rewardPresentation = OpenRewardPresentation(OnContinuePressed, OnMainMenuPressed);
+        if (rewardPresentation != null)
+        {
+            if (stageCompletePanel != null) stageCompletePanel.SetActive(false);
+            if (dimOverlay != null) dimOverlay.SetActive(false);
+        }
+        else if (stageCompletePanel != null)
             stageCompletePanel.SetActive(true);
 
         Debug.Log("[StageCompleteUI] Stage complete panel shown. Game paused.");
@@ -90,6 +101,16 @@ public class StageCompleteUI : MonoBehaviour
 
     public void OnContinuePressed()
     {
+        NavigateAfterCompletion("StageSelectScene");
+    }
+
+    public void OnMainMenuPressed()
+    {
+        NavigateAfterCompletion("Main Menu Scene");
+    }
+
+    private void NavigateAfterCompletion(string destination)
+    {
         ResolveStageNumberFromScene();
         EnsureStageSelectReviewPending();
         RecordStageCompletion();
@@ -101,10 +122,54 @@ public class StageCompleteUI : MonoBehaviour
             VocabularyPracticeSession.Instance?.EnsureCrossScenePersistence();
         }
 
+        // Release our modal's input locks and restore canvas state BEFORE
+        // scene transition, so persistent HUD ownership in the destination
+        // is not overwritten by a delayed OnDisable from this screen.
+        if (rewardPresentation != null)
+        {
+            rewardPresentation.gameObject.SetActive(false);
+            Destroy(rewardPresentation.gameObject);
+            rewardPresentation = null;
+        }
         Time.timeScale = 1f;
-        Debug.Log("[StageCompleteUI] Continuing to Stage Select.");
-        SceneManager.LoadScene("StageSelectScene");
+        Debug.Log("[StageCompleteUI] Continuing to " + destination);
+        SceneManager.LoadScene(destination);
     }
+
+    private StageRewardPresentation OpenRewardPresentation(System.Action onContinue, System.Action onMainMenu)
+    {
+        string title = titleText != null ? titleText.text : $"STAGE {completedStageNumber} CLEARED!";
+        string boss = bossNameText != null ? bossNameText.text : "";
+        string rewards = rewardsText != null ? rewardsText.text : "";
+        return StageRewardPresentation.Open(completedStageNumber, title, boss, rewards,
+            onContinue, onMainMenu);
+    }
+
+#if UNITY_EDITOR
+    // Non-persistent visual QA; never records completion or changes review state.
+    public bool PreviewRewardPresentation()
+    {
+        if (!Application.isPlaying || rewardPresentation != null) return false;
+        ResolveStageNumberFromScene();
+        ResolveContentReferences();
+        ApplyStageContent();
+        float previousScale = Time.timeScale;
+        Time.timeScale = 0f;
+        System.Action close = () =>
+        {
+            if (rewardPresentation != null)
+            {
+                rewardPresentation.gameObject.SetActive(false);
+                Destroy(rewardPresentation.gameObject);
+                rewardPresentation = null;
+            }
+            Time.timeScale = previousScale;
+        };
+        rewardPresentation = OpenRewardPresentation(close, close);
+        if (rewardPresentation == null) Time.timeScale = previousScale;
+        return rewardPresentation != null;
+    }
+#endif
 
     private void EnsureStageSelectReviewPending()
     {
@@ -160,6 +225,8 @@ public class StageCompleteUI : MonoBehaviour
             completedStageNumber = 2;
         else if (sceneName == "Stage3Scene")
             completedStageNumber = 3;
+        else if (sceneName == "Stage4Scene")
+            completedStageNumber = 4;
     }
 
     private void ApplyStageContent()
@@ -177,6 +244,13 @@ public class StageCompleteUI : MonoBehaviour
                 bossNameText.text = "Titan Earthbreaker";
             if (rewardsText != null)
                 rewardsText.text = "REWARDS\n\nTitan Earthbreaker Fragment";
+            return;
+        }
+        // Stage 4 can reuse this skin when its actual reward content is
+        // authored; never accidentally display Stage 1's rewards.
+        if (completedStageNumber >= 4)
+        {
+            if (titleText != null) titleText.text = $"STAGE {completedStageNumber} CLEARED!";
             return;
         }
 

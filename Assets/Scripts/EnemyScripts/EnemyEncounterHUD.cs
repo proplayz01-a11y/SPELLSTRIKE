@@ -40,6 +40,7 @@ public static class EnemyEncounterHUD
             return;
         }
 
+        ObjectiveManager.ReportEncounterStarted(health);
         if (health.UsesBossHud)
         {
             PersistentHUDRoot.Instance?.ShowEnemyHealth(health);

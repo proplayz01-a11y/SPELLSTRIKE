@@ -811,6 +811,7 @@ public class BarnacleHuskController : MonoBehaviour
         potionDropResolved = true;
 
         PotionDropper.TryDropRandomPotion(
+            transform,
             potionDropLogSource,
             potionDropChance,
             potionDropMinCount,

@@ -186,7 +186,7 @@ public sealed class PersistentThirdPersonCamera : MonoBehaviour
 
     // The persistent player passes the newly loaded scene explicitly, because
     // SceneManager.sceneLoaded can fire before Camera.main changes ownership.
-    public void BindSceneCamera(Scene scene)
+    public void BindSceneCamera(Scene scene, bool resetForSpawn = false)
     {
         if (!initialized)
         {
@@ -211,18 +211,27 @@ public sealed class PersistentThirdPersonCamera : MonoBehaviour
 
         brain.UpdateMethod = CinemachineBrain.UpdateMethods.LateUpdate;
 
+        bool campaign = TileManager.IsPersistentCombatScene(scene.name);
+        bool newOutput = boundSceneHandle != scene.handle || boundOutputCamera != outputCamera;
         combatCamera = outputCamera.GetComponent<CombatCamera>();
-        if (combatCamera == null)
-            combatCamera = FindFirstObjectByType<CombatCamera>();
+        if (combatCamera == null && campaign)
+            combatCamera = outputCamera.gameObject.AddComponent<CombatCamera>();
 
         if (combatCamera != null)
+        {
             combatCamera.SetCinemachineDriven(true);
+            if (campaign)
+                combatCamera.BindSharedGameplayCamera(transform, resetForSpawn || newOutput);
+        }
 
         inputBridge?.SetSource(combatCamera);
         freeLook.Follow = followTarget;
         freeLook.LookAt = lookTarget;
         ApplyScaleDependentOrbits();
         DisableAutomaticObstacleAvoidance();
+
+        if (campaign && (resetForSpawn || newOutput))
+            ResetGameplayFraming(outputCamera);
 
         // This object is already a DontDestroyOnLoad FreeLook rig. Keep ONE
         // collision guard on the rig across all stages; only its physical
@@ -245,6 +254,32 @@ public sealed class PersistentThirdPersonCamera : MonoBehaviour
         boundSceneHandle = scene.handle;
 
         Debug.Log($"[PersistentThirdPersonCamera] Cinemachine Brain bound to '{outputCamera.name}' for scene '{outputCamera.gameObject.scene.name}'.", outputCamera);
+    }
+
+    private void ResetGameplayFraming(Camera outputCamera)
+    {
+        // LazyFollow remembers its last world-space heading. On a stage
+        // teleport that heading can put the rig in front of the new spawn.
+        // Re-seed once behind Van, using Stage 1's authored upper orbit.
+        followTarget.localPosition = cameraTargetLocalOffset;
+        lookTarget.localPosition = cameraTargetLocalOffset;
+        Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        if (forward.sqrMagnitude < .001f) forward = Vector3.forward;
+        var upper = freeLook.m_Orbits[0];
+        Vector3 pose = followTarget.position - forward * upper.m_Radius + Vector3.up * upper.m_Height;
+        Quaternion rotation = Quaternion.LookRotation(followTarget.position - pose, Vector3.up);
+        freeLook.m_XAxis.Value = 0f;
+        freeLook.m_YAxis.Value = .990081f;
+        freeLook.m_XAxis.m_InvertInput = false;
+        freeLook.m_YAxis.m_InvertInput = true;
+        var lens = freeLook.m_Lens;
+        lens.FieldOfView = 65.4f;
+        lens.Dutch = 0f;
+        freeLook.m_Lens = lens;
+        outputCamera.transform.SetPositionAndRotation(pose, rotation);
+        freeLook.ForceCameraPosition(pose, rotation);
+        freeLook.m_YAxis.Value = .990081f;
+        outputCamera.fieldOfView = 65.4f;
     }
 
     private void LateUpdate()
@@ -440,7 +475,10 @@ internal sealed class SpellstrikeCameraObstacleGuard : MonoBehaviour
         // The Spirit Remnant's temporary high-priority Cinemachine shot uses
         // the same physical camera. This gameplay-only obstacle guard must not
         // pull cinematic framing back toward Van's orbit pivot.
-        if (SpiritRemnantCinematic.IsCinematicActive)
+        if (SpiritRemnantCinematic.IsCinematicActive ||
+            Stage1FirstFragmentReveal.IsCinematicActive ||
+            Stage1PostJesterEchoCall.IsCinematicActive ||
+            Stage1HollowKnightConfrontation.IsCinematicActive)
             return;
 
         if (!Application.isPlaying || outputCamera == null

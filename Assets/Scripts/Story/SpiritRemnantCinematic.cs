@@ -23,7 +23,9 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
         SpiritClose,
         VanReaction,
         VanClose,
-        Farewell
+        Farewell,
+        GiftReveal,
+        GiftTransfer
     }
 
     [Header("Camera")]
@@ -32,7 +34,13 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
     [SerializeField, Range(0f, 2.5f)] private float subtleDollyAmount = 0.9f;
     [SerializeField] private Transform spiritHead;
 
+    [Header("Encounter Blocking")]
+    [Tooltip("Authored Stage 1 mark: Van stands here for every first/repeat Spirit interaction, regardless of approach direction.")]
+    [SerializeField] private Transform vanCinematicStagingMark;
+    [SerializeField, Min(12f)] private float minimumHorizontalSeparation = 16f;
+
     private Transform player;
+    private Transform giftCoreFocus;
     private Camera outputCamera;
     private CinemachineBrain brain;
     private CinemachineBlendDefinition previousBlend;
@@ -71,6 +79,7 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
     public bool IsRunning => running;
     public string CurrentShot => currentShot.ToString();
     public CinemachineCamera VirtualCamera => virtualCamera;
+    public Transform VanStagingMark => vanCinematicStagingMark;
 
     public bool Begin(Transform actor, Canvas dialogueCanvas)
     {
@@ -103,6 +112,7 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
                     playerAttack.SetAttackInputLocked(true);
             }
 
+            PlaceVanAtCinematicMark();
             FaceTheCharacters();
             CacheNearbyVisibilityMeshes();
             HideGameplayCanvases(dialogueCanvas);
@@ -137,6 +147,56 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
         }
     }
 
+    private void PlaceVanAtCinematicMark()
+    {
+        if (player == null)
+            return;
+
+        Transform head = FindHead();
+        if (vanCinematicStagingMark == null || head == null)
+        {
+            Debug.LogWarning("[SpiritRemnantCinematic] No authored staging mark or Spirit head. Preserving current Van position.", this);
+            return;
+        }
+
+        Vector3 mark = vanCinematicStagingMark.position;
+        Vector3 separation = mark - head.position;
+        separation.y = 0f;
+        if (separation.magnitude < minimumHorizontalSeparation)
+        {
+            Debug.LogWarning("[SpiritRemnantCinematic] Staging mark is too close to the Spirit; cannot safely block this encounter.", this);
+            return;
+        }
+
+        Vector3 alreadyThere = player.position - mark;
+        alreadyThere.y = 0f;
+        if (alreadyThere.sqrMagnitude < 0.35f * 0.35f)
+        {
+            // On repeats Van may already be standing on the mark. Don't
+            // reset his grounded Y to the editor-authored height again.
+            player.rotation = vanCinematicStagingMark.rotation;
+            return;
+        }
+
+        // Van's CharacterController is scaled with his large Stage 1 rig.
+        // Disabling the controller during the short story-only reposition
+        // prevents swept-physics collisions with the Spirit/terrain.
+        CharacterController controller = player.GetComponent<CharacterController>();
+        bool controllerWasEnabled = controller != null && controller.enabled;
+        if (controllerWasEnabled)
+            controller.enabled = false;
+        try
+        {
+            player.position = mark;
+            player.rotation = vanCinematicStagingMark.rotation;
+        }
+        finally
+        {
+            if (controllerWasEnabled && controller != null)
+                controller.enabled = true;
+        }
+    }
+
     private void FaceTheCharacters()
     {
         SpiritRemnantAmbientMotion motion = GetComponent<SpiritRemnantAmbientMotion>();
@@ -168,6 +228,34 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
             return;
 
         Shot next = DetermineShot(lineIndex, firstConversation, spiritSpeaking);
+        currentShot = next;
+        shotStartPosition = cameraObject.transform.position;
+        shotStartRotation = cameraObject.transform.rotation;
+        shotStartFov = virtualCamera.Lens.FieldOfView;
+        shotTime = Time.unscaledTime;
+        ResolveShot(next, out targetPosition, out targetRotation, out targetFov);
+    }
+
+    /// <summary>
+    /// Extra chapter appended after the approved 16 story beats. The same
+    /// Cinemachine camera, input locks, and HUD ownership are reused.
+    /// </summary>
+    public void ShowGiftBeat(int giftLine, bool spiritSpeaking, Transform core)
+    {
+        giftCoreFocus = core;
+        if (!running || player == null || virtualCamera == null)
+            return;
+        Shot next;
+        if (giftLine < 2)
+            next = spiritSpeaking ? Shot.SpiritMedium : Shot.VanReaction;
+        else if (giftLine <= 3)
+            next = Shot.GiftReveal;
+        else if (giftLine <= 6)
+            next = Shot.GiftTransfer;
+        else if (giftLine == 7)
+            next = Shot.Farewell;
+        else
+            next = Shot.VanClose;
         currentShot = next;
         shotStartPosition = cameraObject.transform.position;
         shotStartRotation = cameraObject.transform.rotation;
@@ -228,6 +316,33 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
         // not the legacy T-pose prefab pivot (which is offset from the mesh).
         switch (shot)
         {
+            case Shot.GiftReveal:
+                focus = giftCoreFocus != null ? giftCoreFocus.position :
+                    spiritFace + Vector3.down * 2.6f;
+                // Frame the gift from the Spirit's side, rather than through
+                // Van's large foreground model or his staff.
+                cameraPosition = focus - towardVan * 17f + side * 21f + Vector3.up * 5.5f;
+                fov = 41f;
+                break;
+            case Shot.GiftTransfer:
+                focus = giftCoreFocus != null ? giftCoreFocus.position :
+                    Vector3.Lerp(spiritFace, vanFace, 0.62f);
+                // The protagonist's collider and staff block a straight
+                // reverse shot of the core. Approach from the OUTSIDE of the
+                // actual receiving hand so the orb remains readable in
+                // Van's palm regardless of his current facing direction.
+                EchoRuneCorePresentation gift = GetComponent<EchoRuneCorePresentation>();
+                Transform receivingHand = gift != null ? gift.ReceivingHand : null;
+                Vector3 handOutside = receivingHand != null
+                    ? receivingHand.position - vanFace : side;
+                handOutside.y = 0f;
+                if (handOutside.sqrMagnitude < 0.01f)
+                    handOutside = side;
+                handOutside.Normalize();
+                cameraPosition = focus + handOutside * 14f +
+                    towardVan * 7f + Vector3.up * 5f;
+                fov = 45f;
+                break;
             case Shot.SpiritMedium:
                 focus = spiritFace + Vector3.down * 2.6f;
                 // Side-biased shots keep Van's large silhouette out of the
@@ -521,8 +636,22 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
         // the player reads; movement is independent of timeScale.
         float dolly = Mathf.Clamp(elapsed - shotTransitionSeconds, 0f, 5f) / 5f;
         position += targetRotation * Vector3.forward * (dolly * subtleDollyAmount);
-        cameraObject.transform.SetPositionAndRotation(position,
-            Quaternion.Slerp(shotStartRotation, targetRotation, blend));
+        Quaternion rotation = Quaternion.Slerp(shotStartRotation, targetRotation, blend);
+        if (currentShot == Shot.GiftTransfer && giftCoreFocus != null)
+        {
+            // The core is animated between dialogue beats and eventually
+            // parented to Van's live left-hand bone. Follow its moving center,
+            // instead of continuing to look at its position at the previous
+            // beat; no per-frame expensive scene-occlusion search is needed.
+            Vector3 aim = giftCoreFocus.position - position;
+            if (aim.sqrMagnitude > 0.01f)
+            {
+                Quaternion movingAim = Quaternion.LookRotation(aim.normalized, Vector3.up);
+                float follow = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / 0.5f));
+                rotation = Quaternion.Slerp(rotation, movingAim, follow);
+            }
+        }
+        cameraObject.transform.SetPositionAndRotation(position, rotation);
         virtualCamera.Lens.FieldOfView = Mathf.Lerp(shotStartFov, targetFov, blend);
     }
 
@@ -578,6 +707,7 @@ public sealed class SpiritRemnantCinematic : MonoBehaviour
         running = false;
         IsCinematicActive = false;
         player = null;
+        giftCoreFocus = null;
     }
 
     private void OnDisable() => End();

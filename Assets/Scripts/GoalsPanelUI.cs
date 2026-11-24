@@ -65,14 +65,43 @@ public class GoalsPanelUI : MonoBehaviour
     private TextMeshProUGUI wordSummaryText;
     private bool isOpen;
 
-    private int currentFragments = 0;
-    private int currentLongWords = 0;
-
-    private bool goal1Completed = false;
-    private bool goal2Completed = false;
-    private bool goal3Completed = false;
-    private bool allGoalsRewardQueued = false;
-    private bool stage2Subscribed;
+    private int currentFragments => objectiveManager != null ? objectiveManager.Fragments : 0;
+    private int currentLongWords => objectiveManager != null ? objectiveManager.Words : 0;
+    private bool goal1Completed => currentFragments >= Goal1Target;
+    private bool goal2Completed => objectiveManager != null && objectiveManager.Secondary >= 1;
+    private bool goal3Completed => currentLongWords >= Goal3Target;
+    private TextMeshProUGUI currentObjectiveText;
+    private RectTransform drawerRect;
+    private RectTransform drawerViewport;
+    private RectTransform edgeTabRect;
+    private TextMeshProUGUI edgeTabLabel;
+    private float drawerProgress;
+    private float drawerWidth;
+    private float drawerTop;
+    private float tabLeft;
+    private float drawerLeft;
+    private RectTransform bagButtonRect;
+    private float nextBagLookup;
+    private Vector2 lastRootSize;
+    private Rect lastSafeArea;
+    private ObjectiveGuideNotification notification;
+    private readonly int[] lastNoticeCounts = new int[3];
+    private bool noticeBaselineReady;
+    private GameObject journalCanvasObject;
+    private RectTransform journalSafeRoot;
+    private CanvasGroup journalGroup;
+    private Image journalScrim;
+    private TextMeshProUGUI journalRewardText;
+    private readonly RectTransform[] journalFills = new RectTransform[3];
+    private readonly TextMeshProUGUI[] journalDescriptions = new TextMeshProUGUI[3];
+    private readonly float[] journalTargets = new float[3];
+    private readonly float[] journalValues = new float[3];
+    private MovementofPlayer journalMovement;
+    private float previousJournalTimeScale;
+    private static GoalsPanelUI journalOwner;
+    public static bool IsJournalOpen => journalOwner != null;
+    private const float JournalWidth = 760f;
+    private const float JournalHeight = 680f;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void RegisterSceneHook()
@@ -113,27 +142,29 @@ public class GoalsPanelUI : MonoBehaviour
     {
         ResolveReferences();
         ResolveStage2Tracker();
-        SubscribeToStage2Tracker();
         HideLegacyPanelIfNeeded();
-
-        // The first Spirit Remnant conversation is a persistent story event,
-        // not a per-session pickup. Restore Goal 2 after replaying Stage 1.
-        if (SceneManager.GetActiveScene().name == "SampleScene" &&
-            GameDatabaseManager.Instance != null &&
-            GameDatabaseManager.Instance.HasMetSpiritRemnant())
-            goal2Completed = true;
 
         if (buildUIOnStart)
             BuildUI();
 
         SetFlyoutOpen(startOpen);
         RefreshGoalTexts();
-        EvaluateAllGoalsCompleted();
+        if (objectiveManager != null) objectiveManager.ProgressChanged += RefreshGoalTexts;
     }
 
     private void OnDestroy()
     {
-        UnsubscribeFromStage2Tracker();
+        if (objectiveManager != null) objectiveManager.ProgressChanged -= RefreshGoalTexts;
+        ReleaseJournalLock();
+        if (journalCanvasObject != null) Destroy(journalCanvasObject);
+    }
+
+    private void OnDisable()
+    {
+        isOpen = false;
+        drawerProgress = 0f;
+        if (journalCanvasObject != null) journalCanvasObject.SetActive(false);
+        ReleaseJournalLock();
     }
 
     public void ToggleGoalsPanel()
@@ -155,12 +186,7 @@ public class GoalsPanelUI : MonoBehaviour
 
     public void UpdateFragmentCount(int current)
     {
-        currentFragments = Mathf.Clamp(current, 0, Goal1Target);
-        goal1Completed = currentFragments >= Goal1Target;
-
-        RefreshGoalTexts();
-        Debug.Log($"[GoalsPanelUI] Goal 1 updated: {currentFragments}/4");
-        EvaluateAllGoalsCompleted();
+        ObjectiveManager.Resolve(gameObject.scene)?.SetLegacyStage1Count(0, current);
     }
 
     public void IncrementFragmentCount(int amount = 1)
@@ -170,21 +196,12 @@ public class GoalsPanelUI : MonoBehaviour
 
     public void CompleteGoal2()
     {
-        goal2Completed = true;
-
-        RefreshGoalTexts();
-        Debug.Log("[GoalsPanelUI] Goal 2 completed.");
-        EvaluateAllGoalsCompleted();
+        ObjectiveManager.ReportSpiritMet(gameObject.scene);
     }
 
     public void UpdateWordCount(int current)
     {
-        currentLongWords = Mathf.Clamp(current, 0, Goal3Target);
-        goal3Completed = currentLongWords >= Goal3Target;
-
-        RefreshGoalTexts();
-        Debug.Log($"[GoalsPanelUI] Goal 3 updated: {currentLongWords}/3");
-        EvaluateAllGoalsCompleted();
+        ObjectiveManager.Resolve(gameObject.scene)?.SetLegacyStage1Count(2, current);
     }
 
     public void IncrementWordCount(int amount = 1)
@@ -206,8 +223,7 @@ public class GoalsPanelUI : MonoBehaviour
         if (targetCanvas == null)
             targetCanvas = CreateOverlayCanvas();
 
-        if (objectiveManager == null)
-            objectiveManager = FindFirstObjectByType<ObjectiveManager>();
+        objectiveManager = ObjectiveManager.Resolve(gameObject.scene);
     }
 
     private bool UsesStage2Profile()
@@ -229,26 +245,6 @@ public class GoalsPanelUI : MonoBehaviour
         stage2ObjectiveTracker = FindFirstObjectByType<Stage2ObjectiveTracker>();
         if (stage2ObjectiveTracker == null)
             stage2ObjectiveTracker = gameObject.AddComponent<Stage2ObjectiveTracker>();
-    }
-
-    private void SubscribeToStage2Tracker()
-    {
-        if (!UsesStage2Profile() || stage2ObjectiveTracker == null || stage2Subscribed)
-            return;
-
-        stage2ObjectiveTracker.ProgressChanged += RefreshGoalTexts;
-        stage2ObjectiveTracker.AllObjectivesCompleted += RefreshGoalTexts;
-        stage2Subscribed = true;
-    }
-
-    private void UnsubscribeFromStage2Tracker()
-    {
-        if (!stage2Subscribed || stage2ObjectiveTracker == null)
-            return;
-
-        stage2ObjectiveTracker.ProgressChanged -= RefreshGoalTexts;
-        stage2ObjectiveTracker.AllObjectivesCompleted -= RefreshGoalTexts;
-        stage2Subscribed = false;
     }
 
     private void HideLegacyPanelIfNeeded()
@@ -307,48 +303,306 @@ public class GoalsPanelUI : MonoBehaviour
         uiRoot.offsetMax = Vector2.zero;
         uiRoot.SetAsLastSibling();
 
-        toggleButton = CreateButton(uiRoot, "GoalsButton", "Goals", headerColor, toggleButtonSize);
+        // Keep one edge affordance instead of separate on-screen Goals/Exit buttons.
+        uiRoot.gameObject.AddComponent<RectMask2D>();
+        toggleButton = CreateButton(uiRoot, "GoalsButton", ">", headerColor, new Vector2(48f, 72f));
         RectTransform toggleRect = toggleButton.GetComponent<RectTransform>();
         toggleRect.anchorMin = new Vector2(0f, 1f);
         toggleRect.anchorMax = new Vector2(0f, 1f);
         toggleRect.pivot = new Vector2(0f, 1f);
-        toggleRect.anchoredPosition = toggleButtonAnchoredPosition;
+        edgeTabRect = toggleRect;
+        edgeTabLabel = toggleButton.GetComponentInChildren<TextMeshProUGUI>();
+        edgeTabLabel.richText = false;
+        edgeTabLabel.fontSize = 30f;
+        edgeTabLabel.color = new Color(.95f,.79f,.47f);
         toggleButton.onClick.AddListener(ToggleGoalsPanel);
 
-        // Stage gameplay currently has no authored route back to Stage Select.
-        // Keep the navigation control beside the existing Goals HUD so Stage 1 and
-        // Stage 2 receive the same exit path without editing either scene hierarchy.
-        exitButton = CreateButton(uiRoot, "ExitButton", "Exit", headerColor, toggleButtonSize);
-        RectTransform exitRect = exitButton.GetComponent<RectTransform>();
-        exitRect.anchorMin = new Vector2(0f, 1f);
-        exitRect.anchorMax = new Vector2(0f, 1f);
-        exitRect.pivot = new Vector2(0f, 1f);
-        exitRect.anchoredPosition = toggleButtonAnchoredPosition + new Vector2(0f, -(toggleButtonSize.y + 8f));
-        exitButton.onClick.AddListener(ExitToStageSelect);
+        // Dedicated modal canvas stays above the persistent combat HUD.
+        // The original small trigger remains above the Bag.
+        journalCanvasObject = new GameObject("QuestJournalModalCanvas", typeof(RectTransform),
+            typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(CanvasGroup));
+        SceneManager.MoveGameObjectToScene(journalCanvasObject, gameObject.scene);
+        var modalCanvas = journalCanvasObject.GetComponent<Canvas>();
+        modalCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        modalCanvas.sortingOrder = 90;
+        var modalScaler = journalCanvasObject.GetComponent<CanvasScaler>();
+        modalScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        modalScaler.referenceResolution = new Vector2(1920f, 1080f);
+        modalScaler.matchWidthOrHeight = 1f;
+        journalGroup = journalCanvasObject.GetComponent<CanvasGroup>();
+        var scrimRect = CreatePanel(journalCanvasObject.transform, "JournalOutsideDismiss",
+            new Color(.015f, .025f, .045f, .56f), Vector2.zero);
+        scrimRect.anchorMin = Vector2.zero;
+        scrimRect.anchorMax = Vector2.one;
+        scrimRect.offsetMin = scrimRect.offsetMax = Vector2.zero;
+        journalScrim = scrimRect.GetComponent<Image>();
+        var dismiss = scrimRect.gameObject.AddComponent<Button>();
+        dismiss.transition = Selectable.Transition.None;
+        dismiss.targetGraphic = journalScrim;
+        dismiss.onClick.AddListener(CloseGoalsPanel);
+        journalSafeRoot = CreateRect("JournalSafeArea", journalCanvasObject.transform);
+        journalSafeRoot.offsetMin = journalSafeRoot.offsetMax = Vector2.zero;
 
-        flyoutPanel = CreatePanel(uiRoot, "GoalsFlyout", panelColor, panelSize).gameObject;
+        drawerViewport = CreateRect("GoalsDrawerViewport", journalSafeRoot);
+        drawerViewport.anchorMin = drawerViewport.anchorMax = new Vector2(0f, 1f);
+        drawerViewport.pivot = new Vector2(0f, 1f);
+        drawerViewport.gameObject.AddComponent<RectMask2D>();
+        flyoutPanel = CreatePanel(drawerViewport, "GoalsFlyout",
+            new Color(.045f,.075f,.12f,.99f), new Vector2(JournalWidth, JournalHeight)).gameObject;
         RectTransform flyoutRect = flyoutPanel.GetComponent<RectTransform>();
         flyoutRect.anchorMin = new Vector2(0f, 1f);
         flyoutRect.anchorMax = new Vector2(0f, 1f);
         flyoutRect.pivot = new Vector2(0f, 1f);
-        flyoutRect.anchoredPosition = panelAnchoredPosition;
+        drawerRect = flyoutRect;
 
         VerticalLayoutGroup panelLayout = flyoutPanel.AddComponent<VerticalLayoutGroup>();
-        panelLayout.padding = new RectOffset(10, 10, 8, 8);
-        panelLayout.spacing = 6f;
+        panelLayout.padding = new RectOffset(24, 24, 20, 20);
+        panelLayout.spacing = 12f;
         panelLayout.childControlWidth = true;
         panelLayout.childControlHeight = true;
         panelLayout.childForceExpandWidth = true;
         panelLayout.childForceExpandHeight = false;
 
-        CreateSummaryRow(flyoutPanel.transform);
-        CreateGoalDetailRows(flyoutPanel.transform);
+        var title = CreateText(flyoutPanel.transform, "ObjectivesHeading",
+            UsesStage2Profile() ? "QUEST JOURNAL  |  STAGE II" : "QUEST JOURNAL  |  STAGE I", 28f,
+            FontStyles.Bold, new Color(.95f,.79f,.47f));
+        title.gameObject.AddComponent<LayoutElement>().preferredHeight = 48f;
+        title.raycastTarget = false;
+        currentObjectiveText = CreateText(flyoutPanel.transform, "CurrentObjective", "", 23f,
+            FontStyles.Bold, new Color(.95f,.79f,.47f));
+        currentObjectiveText.enableAutoSizing = true;
+        currentObjectiveText.fontSizeMin = 18f;
+        currentObjectiveText.fontSizeMax = 23f;
+        currentObjectiveText.textWrappingMode = TextWrappingModes.Normal;
+        currentObjectiveText.raycastTarget = false;
+        currentObjectiveText.gameObject.AddComponent<LayoutElement>().preferredHeight = 42f;
+        // Preserve the existing goal text references and event-driven updates.
+        var scroll = CreateRect("QuestScroll", flyoutPanel.transform);
+        var scrollLayout = scroll.gameObject.AddComponent<LayoutElement>();
+        scrollLayout.preferredHeight = 350f;
+        scrollLayout.flexibleHeight = 1f;
+        var scrollRect = scroll.gameObject.AddComponent<ScrollRect>();
+        scrollRect.horizontal = false;
+        scrollRect.movementType = ScrollRect.MovementType.Clamped;
+        var viewport = CreateRect("QuestViewport", scroll);
+        viewport.anchorMin = Vector2.zero;
+        viewport.anchorMax = Vector2.one;
+        viewport.offsetMin = viewport.offsetMax = Vector2.zero;
+        viewport.gameObject.AddComponent<RectMask2D>();
+        var touchSurface = viewport.gameObject.AddComponent<Image>();
+        touchSurface.color = Color.clear;
+        var content = CreateRect("QuestRows", viewport);
+        content.anchorMin = new Vector2(0f, 1f);
+        content.anchorMax = Vector2.one;
+        content.pivot = new Vector2(.5f, 1f);
+        content.sizeDelta = new Vector2(0f, 0f);
+        content.anchoredPosition = Vector2.zero;
+        var rows = content.gameObject.AddComponent<VerticalLayoutGroup>();
+        rows.spacing = 10f;
+        rows.childControlWidth = rows.childControlHeight = true;
+        rows.childForceExpandWidth = true;
+        rows.childForceExpandHeight = false;
+        content.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        scrollRect.viewport = viewport;
+        scrollRect.content = content;
+        // Narrative order for Stage 1: Spirit, fragments, word mastery.
+        if (UsesStage2Profile())
+        {
+            goal1Text = CreateJournalGoal(content, "Goal1Text", 0);
+            goal2Text = CreateJournalGoal(content, "Goal2Text", 1);
+        }
+        else
+        {
+            goal2Text = CreateJournalGoal(content, "Goal2Text", 1);
+            goal1Text = CreateJournalGoal(content, "Goal1Text", 0);
+        }
+        goal3Text = CreateJournalGoal(content, "Goal3Text", 2);
+        journalRewardText = CreateText(flyoutPanel.transform, "CompletionReward", "", 23f,
+            FontStyles.Normal, new Color(.95f,.79f,.47f));
+        journalRewardText.textWrappingMode = TextWrappingModes.Normal;
+        journalRewardText.enableAutoSizing = true;
+        journalRewardText.fontSizeMin = 18f;
+        journalRewardText.fontSizeMax = 23f;
+        journalRewardText.raycastTarget = false;
+        journalRewardText.gameObject.AddComponent<LayoutElement>().preferredHeight = 100f;
+        exitButton = CreateButton(flyoutPanel.transform, "ExitButton", "Exit to Stage Select",
+            headerColor, new Vector2(240f, 42f));
+        exitButton.gameObject.AddComponent<LayoutElement>().preferredHeight = 48f;
+        exitButton.onClick.AddListener(ExitToStageSelect);
+        toggleRect.SetAsLastSibling();
 
         objectivesCanvas = flyoutPanel;
+        notification = uiRoot.gameObject.AddComponent<ObjectiveGuideNotification>();
+        notification.Initialize(uiRoot);
+        UpdateDrawerLayout(true);
+        journalCanvasObject.SetActive(false);
+    }
+
+    private TextMeshProUGUI CreateJournalGoal(Transform parent, string name, int index)
+    {
+        var row = CreatePanel(parent, name + "Panel", new Color(.09f,.13f,.19f,.96f), Vector2.zero);
+        row.GetComponent<Image>().raycastTarget = false;
+        row.gameObject.AddComponent<LayoutElement>().preferredHeight = 114f;
+        var title = CreateText(row, name, "", 24f, FontStyles.Bold, textColor);
+        title.enableAutoSizing = true;
+        title.fontSizeMin = 18f;
+        title.fontSizeMax = 24f;
+        title.raycastTarget = false;
+        PlaceJournalChild(title.rectTransform, .64f, .98f, 14f);
+        var description = CreateText(row, "Description", "", 20f, FontStyles.Normal, mutedTextColor);
+        description.textWrappingMode = TextWrappingModes.Normal;
+        description.enableAutoSizing = true;
+        description.fontSizeMin = 16f;
+        description.fontSizeMax = 20f;
+        description.raycastTarget = false;
+        PlaceJournalChild(description.rectTransform, .22f, .64f, 14f);
+        journalDescriptions[index] = description;
+        var track = CreatePanel(row, "ProgressTrack", new Color(.18f,.24f,.33f), Vector2.zero);
+        track.GetComponent<Image>().raycastTarget = false;
+        PlaceJournalChild(track, .08f, .14f, 14f);
+        var fill = CreatePanel(track, "ProgressFill", new Color(.88f,.68f,.30f), Vector2.zero);
+        fill.anchorMin = Vector2.zero;
+        fill.anchorMax = new Vector2(0f, 1f);
+        fill.offsetMin = fill.offsetMax = Vector2.zero;
+        fill.GetComponent<Image>().raycastTarget = false;
+        journalFills[index] = fill;
+        return title;
+    }
+
+    private static void PlaceJournalChild(RectTransform rect, float bottom, float top, float margin)
+    {
+        rect.anchorMin = new Vector2(0f, bottom);
+        rect.anchorMax = new Vector2(1f, top);
+        rect.offsetMin = new Vector2(margin, 0f);
+        rect.offsetMax = new Vector2(-margin, 0f);
+    }
+
+    private TextMeshProUGUI CreateDrawerGoal(Transform parent, string objectName)
+    {
+        var slot = CreatePanel(parent, objectName + "Panel", slotColor, new Vector2(320f, 62f));
+        slot.GetComponent<Image>().raycastTarget = false;
+        var layout = slot.gameObject.AddComponent<LayoutElement>();
+        layout.preferredHeight = 62f;
+        layout.minHeight = 40f;
+        var text = CreateText(slot, objectName, string.Empty, 18f, FontStyles.Bold, textColor);
+        text.enableAutoSizing = true;
+        text.fontSizeMin = 12f;
+        text.fontSizeMax = 18f;
+        text.textWrappingMode = TextWrappingModes.Normal;
+        text.raycastTarget = false;
+        var rect = text.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = new Vector2(12f, 5f);
+        rect.offsetMax = new Vector2(-10f, -5f);
+        return text;
+    }
+
+    private void LateUpdate()
+    {
+        if (drawerRect == null || uiRoot == null) return;
+        UpdateDrawerLayout(false);
+        if (isOpen && !CanKeepJournalOpen()) CloseGoalsPanel();
+        float target = isOpen ? 1f : 0f;
+        drawerProgress = Mathf.MoveTowards(drawerProgress, target, Time.unscaledDeltaTime / .20f);
+        for (int i = 0; i < journalFills.Length; i++)
+        {
+            if (journalFills[i] == null) continue;
+            journalValues[i] = Mathf.MoveTowards(journalValues[i], journalTargets[i], Time.unscaledDeltaTime * 2f);
+            journalFills[i].anchorMax = new Vector2(journalValues[i], 1f);
+        }
+        ApplyDrawerPosition();
+        if (!isOpen && drawerProgress <= 0f)
+        {
+            if (flyoutPanel.activeSelf) flyoutPanel.SetActive(false);
+            if (journalCanvasObject != null && journalCanvasObject.activeSelf) journalCanvasObject.SetActive(false);
+            ReleaseJournalLock();
+        }
+    }
+
+    private void UpdateDrawerLayout(bool force)
+    {
+        Rect safe = Screen.safeArea;
+        if (force || safe != lastSafeArea)
+        {
+            lastSafeArea = safe;
+            uiRoot.anchorMin = new Vector2(safe.xMin / Mathf.Max(1, Screen.width),
+                safe.yMin / Mathf.Max(1, Screen.height));
+            uiRoot.anchorMax = new Vector2(safe.xMax / Mathf.Max(1, Screen.width),
+                safe.yMax / Mathf.Max(1, Screen.height));
+            uiRoot.offsetMin = uiRoot.offsetMax = Vector2.zero;
+        }
+        Vector2 size = uiRoot.rect.size;
+        if (force || size != lastRootSize)
+        {
+            lastRootSize = size;
+            drawerWidth = JournalWidth;
+            drawerRect.sizeDelta = new Vector2(JournalWidth, JournalHeight);
+            drawerViewport.sizeDelta = drawerRect.sizeDelta;
+            edgeTabRect.sizeDelta = new Vector2(Mathf.Clamp(size.x * .025f, 42f, 56f), 48f);
+        }
+        // The persistent Bag lives on a different Canvas (and can have a
+        // different scale factor). Convert its screen corners into this
+        // safe-area root's local coordinates rather than copying anchors.
+        if (bagButtonRect == null || !bagButtonRect.gameObject.activeInHierarchy)
+        {
+            if (Time.unscaledTime >= nextBagLookup || force)
+            {
+                nextBagLookup = Time.unscaledTime + .25f;
+                var bag = GameObject.Find("PotionBagButton");
+                bagButtonRect = bag != null ? bag.transform as RectTransform : null;
+            }
+        }
+        tabLeft = 24f;
+        drawerTop = -size.y * .33f;
+        drawerLeft = tabLeft + edgeTabRect.sizeDelta.x + 10f;
+        if (bagButtonRect != null && bagButtonRect.gameObject.activeInHierarchy)
+        {
+            var bagCanvas = bagButtonRect.GetComponentInParent<Canvas>();
+            var bagCamera = bagCanvas != null && bagCanvas.renderMode != RenderMode.ScreenSpaceOverlay
+                ? bagCanvas.worldCamera : null;
+            var goalCamera = targetCanvas.renderMode != RenderMode.ScreenSpaceOverlay
+                ? targetCanvas.worldCamera : null;
+            var bagTopLeft = bagButtonRect.TransformPoint(new Vector3(bagButtonRect.rect.xMin, bagButtonRect.rect.yMax, 0f));
+            var bagTopRight = bagButtonRect.TransformPoint(new Vector3(bagButtonRect.rect.xMax, bagButtonRect.rect.yMax, 0f));
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(uiRoot,
+                RectTransformUtility.WorldToScreenPoint(bagCamera, bagTopLeft), goalCamera, out var left)
+                && RectTransformUtility.ScreenPointToLocalPointInRectangle(uiRoot,
+                RectTransformUtility.WorldToScreenPoint(bagCamera, bagTopRight), goalCamera, out var right))
+            {
+                tabLeft = Mathf.Max(0f, left.x - uiRoot.rect.xMin);
+                drawerTop = left.y - uiRoot.rect.yMax + 10f + edgeTabRect.sizeDelta.y;
+                drawerLeft = Mathf.Max(tabLeft + edgeTabRect.sizeDelta.x, right.x - uiRoot.rect.xMin) + 10f;
+            }
+        }
+        drawerTop = Mathf.Clamp(drawerTop, -Mathf.Max(0f, size.y - 302f), 0f);
+        ApplyDrawerPosition();
+    }
+
+    private void ApplyDrawerPosition()
+    {
+        if (drawerRect == null) return;
+        if (journalSafeRoot != null)
+        {
+            Rect safe = Screen.safeArea;
+            journalSafeRoot.anchorMin = new Vector2(safe.xMin / Mathf.Max(1, Screen.width), safe.yMin / Mathf.Max(1, Screen.height));
+            journalSafeRoot.anchorMax = new Vector2(safe.xMax / Mathf.Max(1, Screen.width), safe.yMax / Mathf.Max(1, Screen.height));
+            journalSafeRoot.offsetMin = journalSafeRoot.offsetMax = Vector2.zero;
+            Vector2 available = journalSafeRoot.rect.size;
+            float scale = Mathf.Max(.01f, Mathf.Min(available.x * .48f / JournalWidth, available.y * .82f / JournalHeight));
+            drawerViewport.localScale = Vector3.one * scale;
+            drawerViewport.anchoredPosition = new Vector2(available.x * .055f, -(available.y - JournalHeight * scale) * .5f);
+            float eased = ObjectiveGuideNotification.SmoothVisibility(drawerProgress);
+            drawerRect.anchoredPosition = new Vector2(JournalWidth * (eased - 1f), 0f);
+            journalGroup.alpha = eased;
+        }
+        edgeTabRect.anchoredPosition = new Vector2(tabLeft, drawerTop);
+        edgeTabLabel.text = isOpen ? "<" : ">";
     }
 
     private void ExitToStageSelect()
     {
+        ReleaseJournalLock();
         Time.timeScale = 1f;
         SceneManager.LoadScene("StageSelectScene");
     }
@@ -497,11 +751,33 @@ public class GoalsPanelUI : MonoBehaviour
 
     private void SetFlyoutOpen(bool open)
     {
+        if (open && journalCanvasObject != null)
+        {
+            if (!CanKeepJournalOpen() || (journalOwner != null && journalOwner != this)
+                || (journalOwner != this && Time.timeScale <= 0f)) return;
+            if (journalOwner != this)
+            {
+                journalOwner = this;
+                previousJournalTimeScale = Time.timeScale;
+                journalMovement = PersistentPlayerRoot.Instance != null ? PersistentPlayerRoot.Instance.Movement : null;
+                if (journalMovement != null) journalMovement.AcquireExternalMovementLock();
+                Time.timeScale = 0f;
+            }
+            RefreshJournalReward();
+            journalCanvasObject.SetActive(true);
+        }
         isOpen = open;
 
         if (flyoutPanel != null)
         {
-            flyoutPanel.SetActive(isOpen);
+            if (drawerRect != null)
+            {
+                if (isOpen) flyoutPanel.SetActive(true);
+                // Closing finishes in LateUpdate; no invisible full-screen input blocker.
+                ApplyDrawerPosition();
+            }
+            else
+                flyoutPanel.SetActive(isOpen);
             return;
         }
 
@@ -509,11 +785,63 @@ public class GoalsPanelUI : MonoBehaviour
             objectivesCanvas.SetActive(isOpen);
     }
 
+    private bool CanKeepJournalOpen()
+    {
+        var hud = PersistentHUDRoot.Instance;
+        var player = PersistentPlayerRoot.Instance;
+        return (hud == null || hud.GameplayHealthVisible)
+            && player != null && player.Health != null && player.Health.currentHealth > 0
+            && !SpiritRemnantCinematic.IsCinematicActive
+            && !Stage1FirstFragmentReveal.IsCinematicActive
+            && !Stage1PostJesterEchoCall.IsCinematicActive
+            && !Stage1HollowKnightConfrontation.IsCinematicActive;
+    }
+
+    private void ReleaseJournalLock()
+    {
+        if (journalOwner != this) return;
+        if (journalMovement != null) journalMovement.ReleaseExternalMovementLock();
+        journalMovement = null;
+        journalOwner = null;
+        if (Time.timeScale == 0f) Time.timeScale = previousJournalTimeScale;
+    }
+
+    private void RefreshJournalReward()
+    {
+        if (journalRewardText == null) return;
+        var item = UsesStage2Profile() ? PassiveItemId.PurifyingPearl : PassiveItemId.GreatAttractor;
+        var inventory = PassiveItemInventory.Instance;
+        bool owned = inventory != null && inventory.HasOwnedPassive(item);
+        bool pending = inventory != null && inventory.HasPendingPassive(item);
+        journalRewardText.text = "COMPLETION REWARD\n" + PassiveItemCatalog.GetDisplayName(item)
+            + (owned ? "  |  Acquired" : pending ? "  |  Earned — pending" : "  |  Locked")
+            + "\n" + PassiveItemCatalog.GetEffectSummary(item);
+    }
+
+    private void UpdateJournalGoal(int index, int count, int target, string title, string description)
+    {
+        var label = index == 0 ? goal1Text : index == 1 ? goal2Text : goal3Text;
+        if (journalFills[index] == null || label == null) return;
+        bool done = count >= target;
+        label.text = (done ? "COMPLETE  |  " : "") + title + $"  {count}/{target}";
+        label.color = done ? new Color(.55f,.85f,.62f) : new Color(.95f,.87f,.72f);
+        journalDescriptions[index].text = description;
+        journalTargets[index] = Mathf.Clamp01((float)count / Mathf.Max(1, target));
+        journalFills[index].GetComponent<Image>().color = done ? new Color(.55f,.85f,.62f) : new Color(.88f,.68f,.30f);
+    }
+
     private void RefreshGoalTexts()
     {
+        if (currentObjectiveText != null && objectiveManager != null)
+            currentObjectiveText.text = "NEXT: " + objectiveManager.CurrentObjective;
         if (UsesStage2Profile())
         {
             RefreshStage2GoalTexts();
+            if (stage2ObjectiveTracker != null)
+                RefreshNotifications(
+                    stage2ObjectiveTracker.FragmentsCollected, stage2ObjectiveTracker.FragmentTarget, "Recover fragments",
+                    stage2ObjectiveTracker.TenLetterWordsCast, stage2ObjectiveTracker.TenLetterWordTarget, $"Cast {stage2ObjectiveTracker.RequiredLongWordLength}-letter words",
+                    stage2ObjectiveTracker.UniqueMaritimeWordsCast, stage2ObjectiveTracker.MaritimeWordTarget, "Cast sea words");
             return;
         }
 
@@ -562,6 +890,36 @@ public class GoalsPanelUI : MonoBehaviour
             wordSummaryText.text = $"Words {currentLongWords}/{Goal3Target}";
             wordSummaryText.color = goal3Completed ? completedGoalColor : textColor;
         }
+        RefreshNotifications(currentFragments, Goal1Target, "Recover fragments",
+            goal2Completed ? 1 : 0, 1, "Find Spirit Remnant",
+            currentLongWords, Goal3Target, "Cast 6+ letter words");
+        UpdateJournalGoal(0, currentFragments, Goal1Target, "Recover Nevali's fragments",
+            "Defeat corrupted guardians and recover their soul fragments.");
+        UpdateJournalGoal(1, goal2Completed ? 1 : 0, 1, "Find the Spirit Remnant",
+            "Discover the truth behind Nevali's disappearance.");
+        UpdateJournalGoal(2, currentLongWords, Goal3Target, "Master the power of words",
+            "Cast three words containing 6 or more letters.");
+        RefreshJournalReward();
+    }
+
+    private void RefreshNotifications(int a, int aTarget, string aName,
+        int b, int bTarget, string bName, int c, int cTarget, string cName)
+    {
+        NotifyProgress(0, a, aTarget, aName);
+        NotifyProgress(1, b, bTarget, bName);
+        NotifyProgress(2, c, cTarget, cName);
+        // Initial or restored progress is a baseline, not a new achievement.
+        noticeBaselineReady = true;
+    }
+
+    private void NotifyProgress(int index, int count, int target, string name)
+    {
+        int before = lastNoticeCounts[index];
+        lastNoticeCounts[index] = count;
+        if (!noticeBaselineReady || notification == null || count <= before) return;
+        notification.Enqueue(index, count >= target
+            ? $"Objective completed!\n{name}"
+            : $"{name}\n{count}/{target}");
     }
 
     private void RefreshStage2GoalTexts()
@@ -588,6 +946,10 @@ public class GoalsPanelUI : MonoBehaviour
         SetSummaryText(fragmentSummaryText, fragmentsDone, $"Fragments {fragments}/{fragmentTarget}");
         SetSummaryText(spiritSummaryText, longWordDone, $"{requiredLongWordLength}-Letter {longWords}/{longWordTarget}");
         SetSummaryText(wordSummaryText, wordsDone, $"Sea Words {words}/{wordTarget}");
+        UpdateJournalGoal(0, fragments, fragmentTarget, "Recover lost fragments", "Recover the fragments hidden in the Sunken Seas.");
+        UpdateJournalGoal(1, longWords, longWordTarget, "Master longer words", $"Land {longWordTarget} spell(s) of exactly {requiredLongWordLength} letters.");
+        UpdateJournalGoal(2, words, wordTarget, "Speak the language of the sea", $"Land {wordTarget} unique maritime words.");
+        RefreshJournalReward();
     }
 
     private void SetGoalText(TextMeshProUGUI target, bool complete, string body)
@@ -608,39 +970,4 @@ public class GoalsPanelUI : MonoBehaviour
         target.color = complete ? completedGoalColor : textColor;
     }
 
-    private void EvaluateAllGoalsCompleted()
-    {
-        if (UsesStage2Profile())
-        {
-            if (objectiveManager != null && stage2ObjectiveTracker != null)
-                objectiveManager.allGoalsCompleted = stage2ObjectiveTracker.AllObjectivesComplete;
-
-            return;
-        }
-
-        bool allDone = goal1Completed && goal2Completed && goal3Completed;
-
-        if (objectiveManager != null)
-        {
-            objectiveManager.allGoalsCompleted = allDone;
-            if (allDone)
-            {
-                Debug.Log("[GoalsPanelUI] All goals completed. ObjectiveManager flag set to true.");
-                QueueAllGoalsReward();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("[GoalsPanelUI] ObjectiveManager reference missing. Cannot set allGoalsCompleted.");
-        }
-    }
-
-    private void QueueAllGoalsReward()
-    {
-        if (!grantGreatAttractorOnAllGoalsComplete || allGoalsRewardQueued)
-            return;
-
-        allGoalsRewardQueued = true;
-        PassiveRewardManager.GrantObjectiveCompletionReward("Objective completion");
-    }
 }
